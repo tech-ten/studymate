@@ -370,6 +370,66 @@ export class ApiStack extends cdk.Stack {
       integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumMasteryIntegration', curriculumHandler),
     });
 
+    // === ANALYTICS ROUTES ===
+    // Comprehensive analytics for parent reports and adaptive learning
+    const analyticsHandler = createLambda('AnalyticsHandler', 'handlers/analytics.handler');
+
+    // Record detailed attempt with concept tagging
+    this.api.addRoutes({
+      path: '/analytics/attempt',
+      methods: [apigatewayv2.HttpMethod.POST],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsAttemptIntegration', analyticsHandler),
+    });
+
+    // Get child's concept mastery breakdown
+    this.api.addRoutes({
+      path: '/analytics/child/{childId}/concepts',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsConceptsIntegration', analyticsHandler),
+    });
+
+    // Get child's specific weaknesses and gaps
+    this.api.addRoutes({
+      path: '/analytics/child/{childId}/weaknesses',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsWeaknessesIntegration', analyticsHandler),
+    });
+
+    // Get child's error patterns
+    this.api.addRoutes({
+      path: '/analytics/child/{childId}/patterns',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsPatternsIntegration', analyticsHandler),
+    });
+
+    // Get full parent report
+    this.api.addRoutes({
+      path: '/analytics/child/{childId}/report',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsReportIntegration', analyticsHandler),
+    });
+
+    // Get daily stats for child
+    this.api.addRoutes({
+      path: '/analytics/child/{childId}/daily',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsDailyIntegration', analyticsHandler),
+    });
+
+    // Get child's history for specific question
+    this.api.addRoutes({
+      path: '/analytics/child/{childId}/question/{questionId}',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsQuestionHistoryIntegration', analyticsHandler),
+    });
+
+    // Get global question analytics
+    this.api.addRoutes({
+      path: '/analytics/question/{questionId}',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AnalyticsQuestionIntegration', analyticsHandler),
+    });
+
     // Outputs
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: this.api.apiEndpoint,

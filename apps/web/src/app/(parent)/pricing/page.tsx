@@ -22,7 +22,7 @@ const plans = [
       '2 child profiles',
       '20 questions per day',
       '10 AI explanations per day',
-      'Progress tracking',
+      'Basic progress tracking',
     ],
   },
   {
@@ -36,7 +36,10 @@ const plans = [
       'Unlimited questions',
       'Unlimited AI explanations',
       'All subjects',
-      'Ad-free experience',
+      'Learning Analytics Dashboard',
+      'Concept mastery tracking',
+      'Error pattern detection',
+      'Personalised recommendations',
     ],
   },
   {

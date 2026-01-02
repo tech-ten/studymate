@@ -142,33 +142,22 @@ async function seedCurriculum(curriculum: YearCurriculum) {
   console.log(`\n✅ Seeding complete for Year ${curriculum.yearLevel}!`);
 }
 
-// Example usage - uncomment and modify when running
-/*
-import { year5Maths } from '../../apps/web/src/app/(student)/curriculum/year5-data';
-seedCurriculum(year5Maths).catch(console.error);
-*/
-
 // Export for programmatic use
 export { seedCurriculum, seedSection };
 
-// Main execution
-if (require.main === module) {
+// Main execution - import and run
+async function main() {
   console.log(`
 ====================================
   Curriculum Seeding Script
 ====================================
-
-To seed the curriculum:
-
-1. Export year5Maths from year5-data.ts
-2. Import it here
-3. Run: npx ts-node src/scripts/seed-curriculum.ts
-
-The script will populate DynamoDB with:
-- Section content (for each VCMNA/VCMMG/VCMSP code)
-- Questions with metadata
-- Analytics tracking fields (initially zero)
-
-Tables used: ${TABLE_NAME}
+Table: ${TABLE_NAME}
   `);
+
+  // Dynamic import the year5-data
+  const { year5Maths } = await import('../../../../apps/web/src/app/(student)/curriculum/year5-data');
+
+  await seedCurriculum(year5Maths as YearCurriculum);
 }
+
+main().catch(console.error);

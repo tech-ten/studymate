@@ -307,6 +307,11 @@ export default function DashboardPage() {
                         Detailed Progress
                       </Button>
                     </Link>
+                    <Link href={`/analytics?child=${selectedChild}`}>
+                      <Button variant="outline" className="rounded-full border-purple-300 text-purple-700 hover:bg-purple-50">
+                        Learning Analytics
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </>

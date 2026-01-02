@@ -625,3 +625,381 @@ export async function getSubscriptionStatus(): Promise<SubscriptionStatus> {
 export async function getCustomerPortalUrl(): Promise<{ url: string }> {
   return apiFetch('/payments/portal');
 }
+
+// ============ CURRICULUM API ============
+
+export interface CurriculumSectionSummary {
+  id: string;
+  code: string;
+  strandId: string;
+  chapterId: string;
+  title: string;
+  description: string;
+  questionCount: number;
+}
+
+export interface CurriculumSectionFull extends CurriculumSectionSummary {
+  content: string;
+  keyPoints: string[];
+  examples: Array<{
+    problem: string;
+    solution: string;
+    explanation: string;
+  }>;
+}
+
+export interface CurriculumQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  difficulty: 1 | 2 | 3;
+  topic?: string;
+}
+
+export interface ChildMastery {
+  sectionId: string;
+  questionsAttempted: number;
+  questionsCorrect: number;
+  currentLevel: 1 | 2 | 3;
+  masteryScore: number;
+  lastAttemptAt?: string;
+}
+
+export interface AdaptiveQuestionResponse {
+  question?: CurriculumQuestion;
+  selectedDifficulty: number;
+  reason: 'mastery_based' | 'default' | 'random';
+  exhausted?: boolean;
+  message?: string;
+  totalQuestions?: number;
+}
+
+// Get all sections for a year level
+export async function getCurriculumSections(
+  yearLevel: number
+): Promise<{ yearLevel: number; sections: CurriculumSectionSummary[] }> {
+  const response = await fetch(`${API_BASE}/curriculum/${yearLevel}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load curriculum');
+  }
+
+  return response.json();
+}
+
+// Get section content (full details including content, keyPoints, examples)
+export async function getCurriculumSection(
+  yearLevel: number,
+  sectionId: string
+): Promise<{ section: CurriculumSectionFull }> {
+  const response = await fetch(`${API_BASE}/curriculum/${yearLevel}/${sectionId}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load section');
+  }
+
+  return response.json();
+}
+
+// Get questions for a section
+export async function getCurriculumQuestions(
+  yearLevel: number,
+  sectionId: string,
+  childId?: string
+): Promise<{ sectionId: string; questions: CurriculumQuestion[]; mastery: ChildMastery | null }> {
+  const url = childId
+    ? `${API_BASE}/curriculum/${yearLevel}/${sectionId}/questions?childId=${childId}`
+    : `${API_BASE}/curriculum/${yearLevel}/${sectionId}/questions`;
+
+  const response = await fetch(url, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load questions');
+  }
+
+  return response.json();
+}
+
+// Get adaptive question based on child's ability
+export async function getAdaptiveQuestion(
+  yearLevel: number,
+  sectionId: string,
+  childId: string,
+  excludeIds: string[] = []
+): Promise<AdaptiveQuestionResponse> {
+  const excludeParam = excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : '';
+  const response = await fetch(
+    `${API_BASE}/curriculum/${yearLevel}/${sectionId}/adaptive?childId=${childId}${excludeParam}`,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to get question');
+  }
+
+  return response.json();
+}
+
+// Record question attempt
+export async function recordCurriculumAttempt(data: {
+  childId: string;
+  questionId: string;
+  sectionId: string;
+  selectedAnswer: number;
+  correctAnswer: number;
+  timeSpentSeconds: number;
+  difficulty: number;
+}): Promise<{ recorded: boolean; isCorrect: boolean }> {
+  const response = await fetch(`${API_BASE}/curriculum/attempt`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to record attempt');
+  }
+
+  return response.json();
+}
+
+// Get child's mastery across all sections
+export async function getChildMastery(
+  childId: string
+): Promise<{ childId: string; mastery: ChildMastery[] }> {
+  const response = await fetch(`${API_BASE}/curriculum/mastery/${childId}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load mastery data');
+  }
+
+  return response.json();
+}
+
+// ============ ANALYTICS API ============
+
+export interface DetailedAttemptData {
+  childId: string;
+  questionId: string;
+  sectionId: string;
+  selectedAnswer: number;
+  correctAnswer: number;
+  timeSpentSeconds: number;
+  difficulty: number;
+  questionText: string;
+  options: string[];
+  explanation: string;
+  sessionType?: 'quiz' | 'practice' | 'exam' | 'adaptive';
+  aiExplanationRequested?: boolean;
+}
+
+export interface DetailedAttemptResponse {
+  recorded: boolean;
+  isCorrect: boolean;
+  concepts: string[];
+  errorPattern: string | null;
+  attemptNumber: number;
+}
+
+export async function recordDetailedAttempt(
+  data: DetailedAttemptData
+): Promise<DetailedAttemptResponse> {
+  const response = await fetch(`${API_BASE}/analytics/attempt`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to record attempt');
+  }
+
+  return response.json();
+}
+
+export interface ConceptMasteryItem {
+  concept: string;
+  totalAttempts: number;
+  correctAttempts: number;
+  masteryScore: number;
+  trend: 'improving' | 'stable' | 'declining';
+  avgTimeSeconds: number;
+  lastAttemptAt: string;
+}
+
+export async function getConceptMastery(
+  childId: string
+): Promise<{ childId: string; concepts: ConceptMasteryItem[] }> {
+  const response = await fetch(`${API_BASE}/analytics/child/${childId}/concepts`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load concept mastery');
+  }
+
+  return response.json();
+}
+
+export interface WeaknessItem {
+  concept: string;
+  masteryScore: number;
+  totalAttempts: number;
+  trend: string;
+  severity: 'critical' | 'moderate';
+}
+
+export interface ErrorPatternItem {
+  pattern: string;
+  description: string;
+  occurrences: number;
+  suggestedFocus: string;
+  examples?: Array<{
+    questionId: string;
+    questionText: string;
+    wrongAnswer: string;
+    correctAnswer: string;
+    timestamp: string;
+  }>;
+}
+
+export interface WeaknessesResponse {
+  childId: string;
+  weakConcepts: WeaknessItem[];
+  errorPatterns: ErrorPatternItem[];
+  insights: string[];
+  summary: string;
+}
+
+export async function getChildWeaknesses(childId: string): Promise<WeaknessesResponse> {
+  const response = await fetch(`${API_BASE}/analytics/child/${childId}/weaknesses`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load weaknesses');
+  }
+
+  return response.json();
+}
+
+export async function getChildErrorPatterns(
+  childId: string
+): Promise<{ childId: string; patterns: ErrorPatternItem[] }> {
+  const response = await fetch(`${API_BASE}/analytics/child/${childId}/patterns`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load error patterns');
+  }
+
+  return response.json();
+}
+
+export interface DailyStatItem {
+  date: string;
+  questionsAttempted: number;
+  questionsCorrect: number;
+  accuracy: number;
+  timeSpentMinutes: number;
+  longestStreak: number;
+  sectionBreakdown?: Record<string, { attempted: number; correct: number }>;
+  conceptBreakdown?: Record<string, { attempted: number; correct: number }>;
+}
+
+export interface DailyStatsResponse {
+  childId: string;
+  period: string;
+  stats: DailyStatItem[];
+  totals: {
+    totalQuestions: number;
+    totalCorrect: number;
+    totalMinutes: number;
+    daysActive: number;
+    overallAccuracy: number;
+  };
+}
+
+export async function getDailyStats(
+  childId: string,
+  days: number = 7
+): Promise<DailyStatsResponse> {
+  const response = await fetch(`${API_BASE}/analytics/child/${childId}/daily?days=${days}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load daily stats');
+  }
+
+  return response.json();
+}
+
+export interface ConceptAnalysis {
+  concept: string;
+  conceptName: string;
+  status: 'mastered' | 'progressing' | 'needs-practice' | 'struggling';
+  accuracy: number;
+  trend: string;
+  suggestedActivities?: string[];
+}
+
+export interface ParentReportResponse {
+  childId: string;
+  childName: string;
+  reportPeriod: {
+    start: string;
+    end: string;
+  };
+  summary: {
+    overallProgress: 'excellent' | 'good' | 'needs-attention' | 'struggling';
+    headline: string;
+    keyInsights: string[];
+  };
+  conceptAnalysis: ConceptAnalysis[];
+  learningPatterns: {
+    averageSessionLength: number;
+    preferredDifficulty: number;
+    respondsWellToAI: boolean;
+  };
+  recommendations: Array<{
+    priority: 'high' | 'medium' | 'low';
+    area: string;
+    issue: string;
+    suggestion: string;
+    estimatedTimeMinutes: number;
+  }>;
+  achievements: Array<{
+    title: string;
+    description: string;
+    date: string;
+  }>;
+}
+
+export async function getParentReport(
+  childId: string,
+  period: 'week' | 'month' = 'week'
+): Promise<ParentReportResponse> {
+  const response = await fetch(`${API_BASE}/analytics/child/${childId}/report?period=${period}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load parent report');
+  }
+
+  return response.json();
+}

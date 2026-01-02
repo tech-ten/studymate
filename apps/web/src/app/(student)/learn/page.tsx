@@ -1,15 +1,114 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getSelectedChild, isAuthenticatedSync, getChildProfile } from '@/lib/auth'
-import { getProgress, submitAnswer, getAIExplanation, saveSectionQuiz, getSectionQuizzes, chatWithAI, type SubjectProgress, type AnswerResponse, type SectionQuizResult, type QuizAnswer as ApiQuizAnswer } from '@/lib/api'
+import {
+  getProgress,
+  submitAnswer,
+  getAIExplanation,
+  saveSectionQuiz,
+  getSectionQuizzes,
+  chatWithAI,
+  getCurriculumSections,
+  getCurriculumSection,
+  getCurriculumQuestions,
+  recordCurriculumAttempt,
+  recordDetailedAttempt,
+  type SubjectProgress,
+  type AnswerResponse,
+  type SectionQuizResult,
+  type QuizAnswer as ApiQuizAnswer,
+  type CurriculumSectionSummary,
+  type CurriculumSectionFull,
+  type CurriculumQuestion,
+} from '@/lib/api'
 import ReactMarkdown from 'react-markdown'
 
-// Import curriculum data
-import { getCurriculum, getAvailableYearLevels, type YearLevelCurriculum, type CurriculumSection, type CurriculumChapter, type CurriculumStrand } from '../curriculum/curriculum-data'
+// Types for reconstructed curriculum hierarchy
+interface CurriculumSection extends CurriculumSectionSummary {
+  content?: string;
+  keyPoints?: string[];
+  examples?: Array<{ problem: string; solution: string; explanation: string }>;
+  questions?: CurriculumQuestion[];
+}
+
+interface CurriculumChapter {
+  id: string;
+  title: string;
+  description: string;
+  sections: CurriculumSection[];
+}
+
+interface CurriculumStrand {
+  id: string;
+  name: string;
+  chapters: CurriculumChapter[];
+}
+
+interface YearLevelCurriculum {
+  yearLevel: number;
+  subject: string;
+  strands: CurriculumStrand[];
+}
+
+// Mapping for strand names based on ID
+const STRAND_NAMES: Record<string, string> = {
+  'number-algebra': 'Number and Algebra',
+  'measurement-geometry': 'Measurement and Geometry',
+  'statistics-probability': 'Statistics and Probability',
+};
+
+// Mapping for chapter titles based on ID
+const CHAPTER_TITLES: Record<string, { title: string; description: string }> = {
+  'place-value': { title: 'Place Value and Large Numbers', description: 'Understanding numbers and their values' },
+  'multiplication-division': { title: 'Multiplication and Division', description: 'Strategies for multiplying and dividing' },
+  'fractions-decimals': { title: 'Fractions and Decimals', description: 'Working with fractions and decimal numbers' },
+  'using-units': { title: 'Using Units of Measurement', description: 'Measuring length, area, volume and capacity' },
+  'geometric-reasoning': { title: 'Geometric Reasoning', description: 'Understanding shapes, angles and spatial relationships' },
+  'chance': { title: 'Chance and Probability', description: 'Understanding probability and chance events' },
+};
+
+// Helper function to reconstruct curriculum hierarchy from flat sections
+function buildCurriculumHierarchy(sections: CurriculumSectionSummary[], yearLevel: number): YearLevelCurriculum {
+  const strandsMap: Record<string, Record<string, CurriculumSection[]>> = {};
+
+  for (const section of sections) {
+    if (!strandsMap[section.strandId]) {
+      strandsMap[section.strandId] = {};
+    }
+    if (!strandsMap[section.strandId][section.chapterId]) {
+      strandsMap[section.strandId][section.chapterId] = [];
+    }
+    strandsMap[section.strandId][section.chapterId].push(section);
+  }
+
+  const strands: CurriculumStrand[] = Object.entries(strandsMap).map(([strandId, chaptersObj]) => {
+    const chapters: CurriculumChapter[] = Object.entries(chaptersObj).map(([chapterId, sectionsList]) => {
+      const chapterInfo = CHAPTER_TITLES[chapterId] || { title: chapterId, description: '' };
+      return {
+        id: chapterId,
+        title: chapterInfo.title,
+        description: chapterInfo.description,
+        sections: sectionsList,
+      };
+    });
+
+    return {
+      id: strandId,
+      name: STRAND_NAMES[strandId] || strandId,
+      chapters,
+    };
+  });
+
+  return {
+    yearLevel,
+    subject: 'maths',
+    strands,
+  };
+}
 
 interface ChildProfile {
   id: string
@@ -66,6 +165,26 @@ export default function LearnPage() {
   const [chatInput, setChatInput] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
 
+  // Time tracking for analytics
+  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
+  const [aiExplanationRequested, setAiExplanationRequested] = useState(false)
+
+  // Load curriculum from API
+  const loadCurriculum = async (yearLevel: number) => {
+    try {
+      const response = await getCurriculumSections(yearLevel)
+      const curriculumData = buildCurriculumHierarchy(response.sections, yearLevel)
+      setCurriculum(curriculumData)
+      // Auto-select first strand
+      if (curriculumData.strands.length > 0) {
+        setSelectedStrand(curriculumData.strands[0])
+      }
+    } catch (err) {
+      console.error('Failed to load curriculum:', err)
+      setError('Failed to load curriculum. Please try again.')
+    }
+  }
+
   useEffect(() => {
     // Check for child profile first (child login flow)
     const profile = getChildProfile()
@@ -73,17 +192,9 @@ export default function LearnPage() {
       setChildProfile(profile)
       setChildId(profile.id)
 
-      // Load curriculum based on year level
+      // Load curriculum based on year level from API
       const yearLevel = profile.yearLevel || 5
-      const curriculumData = getCurriculum(yearLevel)
-      if (curriculumData) {
-        setCurriculum(curriculumData)
-        // Auto-select first strand
-        if (curriculumData.strands.length > 0) {
-          setSelectedStrand(curriculumData.strands[0])
-        }
-      }
-
+      loadCurriculum(yearLevel)
       loadProgress(profile.id)
       loadSectionQuizzes(profile.id)
       return
@@ -104,14 +215,7 @@ export default function LearnPage() {
     setChildId(id)
 
     // Default curriculum for Year 5 if no profile
-    const curriculumData = getCurriculum(5)
-    if (curriculumData) {
-      setCurriculum(curriculumData)
-      if (curriculumData.strands.length > 0) {
-        setSelectedStrand(curriculumData.strands[0])
-      }
-    }
-
+    loadCurriculum(5)
     loadProgress(id)
     loadSectionQuizzes(id)
   }, [router])
@@ -141,10 +245,12 @@ export default function LearnPage() {
     }
   }
 
-  const handleSelectSection = (strand: CurriculumStrand, chapter: CurriculumChapter, section: CurriculumSection) => {
+  // State for loading section content
+  const [loadingSection, setLoadingSection] = useState(false)
+
+  const handleSelectSection = async (strand: CurriculumStrand, chapter: CurriculumChapter, section: CurriculumSection) => {
     setSelectedStrand(strand)
     setSelectedChapter(chapter)
-    setSelectedSection(section)
     setShowQuiz(false)
     setQuizComplete(false)
     setCurrentQuestionIndex(0)
@@ -155,6 +261,32 @@ export default function LearnPage() {
     setShowAiChat(false)
     setChatMessages([])
     setChatInput('')
+
+    // Load full section content from API
+    setLoadingSection(true)
+    try {
+      const yearLevel = childProfile?.yearLevel || 5
+      const [sectionResponse, questionsResponse] = await Promise.all([
+        getCurriculumSection(yearLevel, section.id),
+        getCurriculumQuestions(yearLevel, section.id, childId || undefined),
+      ])
+
+      // Combine section content with questions
+      const fullSection: CurriculumSection = {
+        ...section,
+        content: sectionResponse.section.content,
+        keyPoints: sectionResponse.section.keyPoints,
+        examples: sectionResponse.section.examples,
+        questions: questionsResponse.questions,
+      }
+      setSelectedSection(fullSection)
+    } catch (err) {
+      console.error('Failed to load section:', err)
+      // Fallback to section without full content
+      setSelectedSection(section)
+    } finally {
+      setLoadingSection(false)
+    }
   }
 
   const handleStartQuiz = () => {
@@ -167,13 +299,16 @@ export default function LearnPage() {
     setAiExplanation(null)
     setQuizAnswers([])
     setShowDetailedResults(false)
+    setQuestionStartTime(Date.now())
+    setAiExplanationRequested(false)
   }
 
   const handleSubmitAnswer = async () => {
-    if (selectedAnswer === null || !selectedSection) return
+    if (selectedAnswer === null || !selectedSection || !selectedSection.questions) return
 
     const question = selectedSection.questions[currentQuestionIndex]
     const isCorrect = selectedAnswer === question.correctAnswer
+    const timeSpentSeconds = Math.round((Date.now() - questionStartTime) / 1000)
 
     if (isCorrect) {
       setQuizScore(prev => prev + 1)
@@ -193,32 +328,47 @@ export default function LearnPage() {
 
     setShowResult(true)
 
-    // Try to submit to API
+    // Record attempt to both APIs (curriculum for mastery, analytics for detailed tracking)
     if (childId) {
+      // Record to curriculum API (for mastery tracking)
       try {
-        await submitAnswer(question.id, {
+        await recordCurriculumAttempt({
           childId,
-          subject: 'maths',
-          answer: selectedAnswer,
-          timeTaken: 30,
-          questionData: {
-            question: question.question,
-            options: question.options,
-            correctAnswer: question.correctAnswer,
-            explanation: question.explanation,
-            topic: selectedSection.title,
-            curriculumArea: selectedChapter?.title,
-            difficulty: question.difficulty,
-          },
+          questionId: question.id,
+          sectionId: selectedSection.id,
+          selectedAnswer,
+          correctAnswer: question.correctAnswer,
+          timeSpentSeconds,
+          difficulty: question.difficulty || 1,
         })
       } catch (err) {
-        console.error('Failed to submit answer:', err)
+        console.error('Failed to record curriculum attempt:', err)
+      }
+
+      // Record to detailed analytics API (for comprehensive tracking)
+      try {
+        await recordDetailedAttempt({
+          childId,
+          questionId: question.id,
+          sectionId: selectedSection.id,
+          selectedAnswer,
+          correctAnswer: question.correctAnswer,
+          timeSpentSeconds,
+          difficulty: question.difficulty || 1,
+          questionText: question.question,
+          options: question.options,
+          explanation: question.explanation,
+          sessionType: 'quiz',
+          aiExplanationRequested: false, // Will be updated when AI is requested
+        })
+      } catch (err) {
+        console.error('Failed to record detailed analytics:', err)
       }
     }
   }
 
   const handleNextQuestion = async () => {
-    if (!selectedSection || !childId) return
+    if (!selectedSection || !childId || !selectedSection.questions) return
 
     if (currentQuestionIndex + 1 >= selectedSection.questions.length) {
       setQuizComplete(true)
@@ -254,14 +404,17 @@ export default function LearnPage() {
       setSelectedAnswer(null)
       setShowResult(false)
       setAiExplanation(null)
+      setQuestionStartTime(Date.now())
+      setAiExplanationRequested(false)
     }
   }
 
   const handleExplainMore = async () => {
-    if (!selectedSection || !childId) return
+    if (!selectedSection || !childId || !selectedSection.questions) return
 
     const question = selectedSection.questions[currentQuestionIndex]
     setLoadingExplanation(true)
+    setAiExplanationRequested(true)
 
     try {
       const response = await getAIExplanation({
@@ -303,7 +456,7 @@ export default function LearnPage() {
         message,
         subject: 'maths',
         yearLevel: childProfile?.yearLevel || 5,
-        context: `The student is reading about "${selectedSection.title}" which covers: ${selectedSection.description}. Key points: ${selectedSection.keyPoints.join(', ')}. The content discusses: ${selectedSection.content.substring(0, 500)}...`,
+        context: `The student is reading about "${selectedSection.title}" which covers: ${selectedSection.description}. Key points: ${(selectedSection.keyPoints || []).join(', ')}. The content discusses: ${(selectedSection.content || '').substring(0, 500)}...`,
       })
       setChatMessages(prev => [...prev, { role: 'assistant', content: response.response }])
     } catch (err) {
@@ -436,7 +589,7 @@ export default function LearnPage() {
                             )}
                           </div>
                           <div className={`text-xs flex items-center gap-2 ${selectedSection?.id === section.id ? 'text-neutral-300' : 'text-neutral-500'}`}>
-                            <span>{section.questions.length} questions</span>
+                            <span>{section.questionCount} questions</span>
                             {progress?.completed && (
                               <span className={`${
                                 selectedSection?.id === section.id ? 'text-green-300' : 'text-green-600'
@@ -468,7 +621,11 @@ export default function LearnPage() {
             </button>
           )}
 
-          {selectedSection ? (
+          {loadingSection ? (
+            <div className="flex items-center justify-center min-h-[calc(100vh-56px)]">
+              <div className="text-neutral-400">Loading section...</div>
+            </div>
+          ) : selectedSection ? (
             <div className="max-w-3xl mx-auto px-6 py-8">
               {/* Back button */}
               <button
@@ -524,25 +681,29 @@ export default function LearnPage() {
                   )}
 
                   {/* Notes/Content */}
-                  <div className="prose prose-neutral max-w-none mb-8">
-                    <ReactMarkdown>{selectedSection.content}</ReactMarkdown>
-                  </div>
+                  {selectedSection.content && (
+                    <div className="prose prose-neutral max-w-none mb-8">
+                      <ReactMarkdown>{selectedSection.content}</ReactMarkdown>
+                    </div>
+                  )}
 
                   {/* Key Points */}
-                  <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mb-8">
-                    <h3 className="font-semibold text-blue-800 mb-3">Key Points to Remember</h3>
-                    <ul className="space-y-2">
-                      {selectedSection.keyPoints.map((point, index) => (
-                        <li key={index} className="flex gap-2 text-sm text-blue-700">
-                          <span className="text-blue-400">•</span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {selectedSection.keyPoints && selectedSection.keyPoints.length > 0 && (
+                    <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mb-8">
+                      <h3 className="font-semibold text-blue-800 mb-3">Key Points to Remember</h3>
+                      <ul className="space-y-2">
+                        {selectedSection.keyPoints.map((point, index) => (
+                          <li key={index} className="flex gap-2 text-sm text-blue-700">
+                            <span className="text-blue-400">•</span>
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   {/* Examples */}
-                  {selectedSection.examples.length > 0 && (
+                  {selectedSection.examples && selectedSection.examples.length > 0 && (
                     <div className="mb-8">
                       <h3 className="font-semibold text-lg mb-4">Worked Examples</h3>
                       <div className="space-y-4">
@@ -558,17 +719,19 @@ export default function LearnPage() {
                   )}
 
                   {/* Start Quiz Button */}
-                  <div className="text-center py-8 border-t border-neutral-200">
-                    <h3 className="text-xl font-semibold mb-2">Ready to practice?</h3>
-                    <p className="text-neutral-500 mb-6">
-                      Test your understanding with {selectedSection.questions.length} practice questions
-                    </p>
-                    <Button onClick={handleStartQuiz} className="rounded-full px-8">
-                      {sectionProgress[selectedSection.id]?.completed ? 'Retake Quiz' : 'Start Practice Quiz'}
-                    </Button>
-                  </div>
+                  {selectedSection.questions && selectedSection.questions.length > 0 && (
+                    <div className="text-center py-8 border-t border-neutral-200">
+                      <h3 className="text-xl font-semibold mb-2">Ready to practice?</h3>
+                      <p className="text-neutral-500 mb-6">
+                        Test your understanding with {selectedSection.questions.length} practice questions
+                      </p>
+                      <Button onClick={handleStartQuiz} className="rounded-full px-8">
+                        {sectionProgress[selectedSection.id]?.completed ? 'Retake Quiz' : 'Start Practice Quiz'}
+                      </Button>
+                    </div>
+                  )}
                 </>
-              ) : quizComplete ? (
+              ) : quizComplete && selectedSection.questions ? (
                 /* Quiz Complete */
                 showDetailedResults ? (
                   /* Detailed Results View */
@@ -666,37 +829,41 @@ export default function LearnPage() {
                     </div>
                   </div>
                 )
-              ) : (
+              ) : selectedSection.questions && selectedSection.questions.length > 0 ? (
                 /* Quiz Question */
+                (() => {
+                  const questions = selectedSection.questions!;
+                  const currentQuestion = questions[currentQuestionIndex];
+                  return (
                 <div className="space-y-6">
                   {/* Progress */}
                   <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-                    <span>Question {currentQuestionIndex + 1} of {selectedSection.questions.length}</span>
+                    <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
                     <span>Score: {quizScore}/{currentQuestionIndex + (showResult ? 1 : 0)}</span>
                   </div>
 
                   <div className="w-full bg-neutral-100 rounded-full h-2 mb-6">
                     <div
                       className="bg-black h-2 rounded-full transition-all"
-                      style={{ width: `${((currentQuestionIndex + (showResult ? 1 : 0)) / selectedSection.questions.length) * 100}%` }}
+                      style={{ width: `${((currentQuestionIndex + (showResult ? 1 : 0)) / questions.length) * 100}%` }}
                     />
                   </div>
 
                   {/* Question */}
                   <h2 className="text-xl font-semibold">
-                    {selectedSection.questions[currentQuestionIndex].question}
+                    {currentQuestion.question}
                   </h2>
 
                   {/* Options */}
                   <div className="space-y-3">
-                    {selectedSection.questions[currentQuestionIndex].options.map((option, index) => (
+                    {currentQuestion.options.map((option, index) => (
                       <button
                         key={index}
                         onClick={() => !showResult && setSelectedAnswer(index)}
                         disabled={showResult}
                         className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                           showResult
-                            ? index === selectedSection.questions[currentQuestionIndex].correctAnswer
+                            ? index === currentQuestion.correctAnswer
                               ? 'border-green-500 bg-green-50'
                               : index === selectedAnswer
                               ? 'border-red-500 bg-red-50'
@@ -719,31 +886,31 @@ export default function LearnPage() {
                     <div className="space-y-4">
                       <div
                         className={`p-6 rounded-xl ${
-                          selectedAnswer === selectedSection.questions[currentQuestionIndex].correctAnswer
+                          selectedAnswer === currentQuestion.correctAnswer
                             ? 'bg-green-50 border border-green-100'
                             : 'bg-red-50 border border-red-100'
                         }`}
                       >
                         <div className={`font-semibold mb-2 ${
-                          selectedAnswer === selectedSection.questions[currentQuestionIndex].correctAnswer
+                          selectedAnswer === currentQuestion.correctAnswer
                             ? 'text-green-700'
                             : 'text-red-700'
                         }`}>
-                          {selectedAnswer === selectedSection.questions[currentQuestionIndex].correctAnswer
+                          {selectedAnswer === currentQuestion.correctAnswer
                             ? 'Correct! 🎉'
                             : 'Not quite right'}
                         </div>
                         <div className={`text-sm ${
-                          selectedAnswer === selectedSection.questions[currentQuestionIndex].correctAnswer
+                          selectedAnswer === currentQuestion.correctAnswer
                             ? 'text-green-600'
                             : 'text-red-600'
                         }`}>
-                          {selectedSection.questions[currentQuestionIndex].explanation}
+                          {currentQuestion.explanation}
                         </div>
                       </div>
 
                       {/* AI Explanation for wrong answers */}
-                      {selectedAnswer !== selectedSection.questions[currentQuestionIndex].correctAnswer && (
+                      {selectedAnswer !== currentQuestion.correctAnswer && (
                         <div className="space-y-3">
                           {aiExplanation ? (
                             <div className="p-6 rounded-xl bg-blue-50 border border-blue-100">
@@ -764,7 +931,7 @@ export default function LearnPage() {
                       )}
 
                       <Button onClick={handleNextQuestion} className="w-full h-12 rounded-xl">
-                        {currentQuestionIndex + 1 >= selectedSection.questions.length ? 'Finish Quiz' : 'Next Question'}
+                        {currentQuestionIndex + 1 >= questions.length ? 'Finish Quiz' : 'Next Question'}
                       </Button>
                     </div>
                   )}
@@ -779,6 +946,13 @@ export default function LearnPage() {
                       Submit Answer
                     </Button>
                   )}
+                </div>
+                  );
+                })()
+              ) : (
+                /* No questions available */
+                <div className="text-center py-12">
+                  <p className="text-neutral-500">Loading questions...</p>
                 </div>
               )}
             </div>
