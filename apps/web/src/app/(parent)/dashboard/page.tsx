@@ -88,7 +88,7 @@ export default function DashboardPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-semibold">
-            AgentsForm
+            StudyMate
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/children/add">

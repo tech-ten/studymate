@@ -18,7 +18,7 @@ async function publishMetric(
 ): Promise<void> {
   try {
     await cloudwatch.send(new PutMetricDataCommand({
-      Namespace: 'AgentsForm/AI',
+      Namespace: 'StudyMate/AI',
       MetricData: [{
         MetricName: metricName,
         Value: value,

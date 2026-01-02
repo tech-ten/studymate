@@ -89,7 +89,7 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-6 h-14 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-lg font-semibold">
-              AgentsForm
+              StudyMate
             </Link>
             <span className="text-sm text-neutral-400">Admin</span>
           </div>

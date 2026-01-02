@@ -8,7 +8,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-semibold">
-            AgentsForm
+            StudyMate
           </Link>
           <nav className="flex items-center gap-6">
             <Link href="#features" className="text-sm text-neutral-600 hover:text-black transition-colors">
@@ -275,7 +275,7 @@ export default function Home() {
             Ready to transform how your child learns?
           </h2>
           <p className="text-lg text-neutral-400 mb-8">
-            Join thousands of Australian families already using AgentsForm.
+            Join thousands of Australian families already using StudyMate.
           </p>
           <Link href="/register">
             <Button size="lg" variant="secondary" className="rounded-full px-8 h-12 text-base">
@@ -289,7 +289,7 @@ export default function Home() {
       <footer className="py-12 px-6 border-t border-neutral-100">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-sm text-neutral-500">
-            © 2024 AgentsForm. Built in Australia.
+            © 2025 StudyMate. Built in Australia.
           </div>
           <div className="flex gap-6 text-sm text-neutral-500">
             <Link href="#" className="hover:text-black transition-colors">Privacy</Link>
