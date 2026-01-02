@@ -121,6 +121,13 @@ export interface AnswerResponse {
   levelChanged: boolean;
 }
 
+/** Knowledge token data for granular analytics */
+export interface QuestionKnowledge {
+  questionTokens: string[];
+  correctToken: string;
+  incorrectTokens: (string | null)[];
+}
+
 export async function submitAnswer(
   questionId: string,
   data: {
@@ -137,6 +144,8 @@ export async function submitAnswer(
       curriculumArea?: string;
       difficulty?: number;
     };
+    /** Knowledge token data for misconception tracking */
+    knowledge?: QuestionKnowledge;
   }
 ): Promise<AnswerResponse> {
   return apiFetch(`/questions/${questionId}/answer`, {
@@ -656,6 +665,8 @@ export interface CurriculumQuestion {
   explanation: string;
   difficulty: 1 | 2 | 3;
   topic?: string;
+  /** Knowledge token data for misconception tracking */
+  knowledge?: QuestionKnowledge;
 }
 
 export interface ChildMastery {
@@ -803,6 +814,8 @@ export interface DetailedAttemptData {
   explanation: string;
   sessionType?: 'quiz' | 'practice' | 'exam' | 'adaptive';
   aiExplanationRequested?: boolean;
+  /** Knowledge token data for misconception tracking */
+  knowledge?: QuestionKnowledge;
 }
 
 export interface DetailedAttemptResponse {

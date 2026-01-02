@@ -14,13 +14,19 @@ import {
   type WeeklySummary,
   type ParentReport,
 } from '../lib/analytics-schema';
-import Groq from 'groq-sdk';
 
-// Lazy initialize Groq client (only when needed for hybrid AI insights)
-let groqClient: Groq | null = null;
-function getGroqClient(): Groq {
+// Dynamic import of Groq SDK to avoid breaking Lambda if module not bundled
+// The client is only used when AI insights are requested (premium feature)
+let groqClient: any = null;
+async function getGroqClient(): Promise<any> {
   if (!groqClient) {
-    groqClient = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    try {
+      const { default: Groq } = await import('groq-sdk');
+      groqClient = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    } catch (e) {
+      console.warn('Groq SDK not available, falling back to rule-based insights');
+      return null;
+    }
   }
   return groqClient;
 }
@@ -1639,7 +1645,11 @@ OUTPUT: JSON array with 2-4 insights:
 Provide insights based ONLY on this data. Return JSON array.`;
 
   try {
-    const groq = getGroqClient();
+    const groq = await getGroqClient();
+    if (!groq) {
+      // Groq SDK not available - use fallback
+      return generateFallbackInsights(attempts, tokens);
+    }
     const completion = await groq.chat.completions.create({
       messages: [
         { role: 'system', content: systemPrompt },

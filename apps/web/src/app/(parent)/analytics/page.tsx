@@ -269,24 +269,52 @@ function AnalyticsContent() {
             </div>
           </div>
 
-          {/* Minimal bar chart */}
-          <div className="flex items-end gap-0.5 h-16">
-            {dailyStats.stats.map((day, idx) => {
-              const maxQuestions = Math.max(...dailyStats.stats.map(d => d.questionsAttempted), 1)
-              const height = day.questionsAttempted > 0
-                ? Math.max((day.questionsAttempted / maxQuestions) * 100, 4)
-                : 1
-              return (
-                <div
-                  key={idx}
-                  className={`flex-1 transition-all ${
-                    day.questionsAttempted === 0 ? 'bg-neutral-100' : 'bg-black'
-                  }`}
-                  style={{ height: `${height}%` }}
-                  title={`${day.date}: ${day.questionsAttempted} questions`}
-                />
-              )
-            })}
+          {/* Bar chart with correct/total ratios */}
+          <div className="relative">
+            {/* Y-axis label */}
+            <div className="absolute -left-2 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] text-neutral-300 whitespace-nowrap">
+              questions
+            </div>
+
+            {/* Chart area */}
+            <div className="ml-4">
+              <div className="flex items-end gap-0.5 h-20">
+                {dailyStats.stats.map((day, idx) => {
+                  const maxQuestions = Math.max(...dailyStats.stats.map(d => d.questionsAttempted), 1)
+                  const height = day.questionsAttempted > 0
+                    ? Math.max((day.questionsAttempted / maxQuestions) * 100, 8)
+                    : 2
+                  const hasActivity = day.questionsAttempted > 0
+                  return (
+                    <div key={idx} className="flex-1 flex flex-col items-center">
+                      {/* Ratio label above bar */}
+                      {hasActivity && (
+                        <div className="text-[9px] text-neutral-400 mb-0.5 whitespace-nowrap">
+                          {day.questionsCorrect}/{day.questionsAttempted}
+                        </div>
+                      )}
+                      {/* Bar */}
+                      <div
+                        className={`w-full transition-all rounded-t-sm ${
+                          !hasActivity ? 'bg-neutral-100' :
+                          day.accuracy >= 80 ? 'bg-black' :
+                          day.accuracy >= 50 ? 'bg-neutral-600' : 'bg-neutral-400'
+                        }`}
+                        style={{ height: `${height}%`, minHeight: hasActivity ? '8px' : '2px' }}
+                        title={`${day.date}: ${day.questionsCorrect}/${day.questionsAttempted} correct (${day.accuracy}%)`}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* X-axis: date labels for first, middle, last */}
+              <div className="flex justify-between mt-1 text-[10px] text-neutral-300">
+                <span>{dailyStats.stats[0]?.date?.slice(5) || ''}</span>
+                <span className="text-center">days</span>
+                <span>{dailyStats.stats[dailyStats.stats.length - 1]?.date?.slice(5) || ''}</span>
+              </div>
+            </div>
           </div>
         </section>
       )}

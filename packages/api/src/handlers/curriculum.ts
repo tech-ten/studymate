@@ -178,6 +178,8 @@ async function getSectionQuestions(sectionId: string, childId?: string): Promise
     explanation: item.explanation,
     difficulty: item.difficulty,
     topic: item.topic,
+    // Include knowledge token data for misconception tracking
+    knowledge: item.knowledge,
   }));
 
   // If childId provided, also return mastery info

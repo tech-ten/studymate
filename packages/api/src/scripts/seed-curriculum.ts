@@ -19,6 +19,12 @@ const TABLE_NAME = process.env.TABLE_NAME || 'agentsform-main';
 // Import static data (you'll need to export it from year5-data.ts)
 // For now, this is a sample structure - adapt to match your actual data
 
+interface QuestionKnowledge {
+  questionTokens: string[];
+  correctToken: string;
+  incorrectTokens: (string | null)[];
+}
+
 interface Question {
   id: string;
   question: string;
@@ -27,6 +33,7 @@ interface Question {
   explanation: string;
   difficulty: number;
   topic?: string;
+  knowledge?: QuestionKnowledge;
 }
 
 interface Section {
@@ -101,6 +108,8 @@ async function seedSection(yearLevel: number, strandId: string, chapterId: strin
         explanation: q.explanation,
         difficulty: q.difficulty,
         topic: q.topic || null,
+        // Include knowledge token data for misconception tracking
+        knowledge: q.knowledge || null,
         isAiGenerated: false,
         totalAttempts: 0,
         correctAttempts: 0,
@@ -154,8 +163,8 @@ async function main() {
 Table: ${TABLE_NAME}
   `);
 
-  // Dynamic import the year5-data
-  const { year5Maths } = await import('../../../../apps/web/src/app/(student)/curriculum/year5-data');
+  // Dynamic import the curriculum data (with knowledge tokens)
+  const { year5Maths } = await import('../../../curriculum/src/maths/year5');
 
   await seedCurriculum(year5Maths as YearCurriculum);
 }

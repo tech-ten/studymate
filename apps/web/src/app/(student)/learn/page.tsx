@@ -360,6 +360,8 @@ export default function LearnPage() {
           explanation: question.explanation,
           sessionType: 'quiz',
           aiExplanationRequested: false, // Will be updated when AI is requested
+          // Pass knowledge token data for misconception tracking
+          knowledge: question.knowledge,
         })
       } catch (err) {
         console.error('Failed to record detailed analytics:', err)
