@@ -1,8 +1,13 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
-import { QueryCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
+import { QueryCommand, ScanCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
+import { CognitoIdentityProviderClient, ListUsersCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { db, TABLE_NAME } from '../lib/db';
 import { success, badRequest, forbidden, serverError } from '../lib/response';
 import Stripe from 'stripe';
+
+// Cognito client for user pool queries
+const cognitoClient = new CognitoIdentityProviderClient({ region: 'ap-southeast-2' });
+const USER_POOL_ID = process.env.USER_POOL_ID || '';
 
 // Lazy initialization of Stripe to avoid errors when key is not set
 let stripe: Stripe | null = null;
@@ -39,16 +44,18 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
     if (path === '/admin/stats') {
       const today = new Date().toISOString().split('T')[0];
 
-      // Count users
-      const usersResult = await db.send(new ScanCommand({
-        TableName: TABLE_NAME,
-        FilterExpression: 'begins_with(PK, :pk) AND SK = :sk',
-        ExpressionAttributeValues: {
-          ':pk': 'USER#',
-          ':sk': 'PROFILE',
-        },
-        Select: 'COUNT',
-      }));
+      // Count users from Cognito (more accurate than DynamoDB PROFILE records)
+      let totalUsers = 0;
+      let paginationToken: string | undefined;
+      do {
+        const listUsersResponse = await cognitoClient.send(new ListUsersCommand({
+          UserPoolId: USER_POOL_ID,
+          Limit: 60,
+          PaginationToken: paginationToken,
+        }));
+        totalUsers += listUsersResponse.Users?.length || 0;
+        paginationToken = listUsersResponse.PaginationToken;
+      } while (paginationToken);
 
       // Count children
       const childrenResult = await db.send(new ScanCommand({
@@ -93,7 +100,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       }));
 
       return success({
-        totalUsers: usersResult.Count || 0,
+        totalUsers,
         totalChildren: childrenResult.Count || 0,
         aiCallsToday: aiLogsResult.Count || 0,
         totalAiCalls: totalAiLogsResult.Count || 0,
@@ -102,26 +109,60 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       });
     }
 
-    // GET /admin/users - List all users with usage
+    // GET /admin/users - List all users from Cognito with DynamoDB profile data
     if (path === '/admin/users') {
       const today = new Date().toISOString().split('T')[0];
       const dailyKey = `aiCalls_${today}`;
 
-      const usersResult = await db.send(new ScanCommand({
-        TableName: TABLE_NAME,
-        FilterExpression: 'begins_with(PK, :pk) AND SK = :sk',
-        ExpressionAttributeValues: {
-          ':pk': 'USER#',
-          ':sk': 'PROFILE',
-        },
-      }));
+      // Fetch users from Cognito to get emails
+      const cognitoUsers: Array<{
+        id: string;
+        email: string;
+        createdAt: string;
+        emailVerified: boolean;
+      }> = [];
 
-      const users = (usersResult.Items || []).map(item => ({
-        id: item.PK.replace('USER#', ''),
-        email: item.email,
-        tier: item.tier || 'free',
-        aiCallsToday: item[dailyKey] || 0,
-        createdAt: item.createdAt,
+      let paginationToken: string | undefined;
+      do {
+        const listUsersResponse = await cognitoClient.send(new ListUsersCommand({
+          UserPoolId: USER_POOL_ID,
+          Limit: 60,
+          PaginationToken: paginationToken,
+        }));
+
+        for (const user of listUsersResponse.Users || []) {
+          const email = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email')?.Value || '';
+          const emailVerified = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email_verified')?.Value === 'true';
+
+          cognitoUsers.push({
+            id: user.Username || '',
+            email,
+            createdAt: user.UserCreateDate?.toISOString() || '',
+            emailVerified,
+          });
+        }
+
+        paginationToken = listUsersResponse.PaginationToken;
+      } while (paginationToken);
+
+      // Fetch DynamoDB profile data for each user (tier, AI calls)
+      const users = await Promise.all(cognitoUsers.map(async (cognitoUser) => {
+        const profileResult = await db.send(new GetCommand({
+          TableName: TABLE_NAME,
+          Key: { PK: `USER#${cognitoUser.id}`, SK: 'PROFILE' },
+        }));
+
+        const profile = profileResult.Item;
+
+        return {
+          id: cognitoUser.id,
+          email: cognitoUser.email,
+          emailVerified: cognitoUser.emailVerified,
+          tier: profile?.tier || 'free',
+          aiCallsToday: profile?.[dailyKey] || 0,
+          createdAt: cognitoUser.createdAt,
+          hasSubscription: !!profile?.stripeSubscriptionId,
+        };
       }));
 
       return success({ users });

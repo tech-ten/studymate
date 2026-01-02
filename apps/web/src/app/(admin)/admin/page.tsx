@@ -327,6 +327,7 @@ export default function AdminDashboard() {
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Email</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Tier</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">AI Today</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Joined</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -338,16 +339,19 @@ export default function AdminDashboard() {
                         <td className="px-4 py-3 text-sm">{user.email || '-'}</td>
                         <td className="px-4 py-3">
                           <span className={`px-2 py-0.5 text-xs rounded-full ${
-                            user.tier === 'premium'
+                            user.tier === 'achiever'
                               ? 'bg-purple-100 text-purple-700'
-                              : user.tier === 'essential'
+                              : user.tier === 'scholar'
                               ? 'bg-blue-100 text-blue-700'
                               : 'bg-neutral-100 text-neutral-600'
                           }`}>
-                            {user.tier}
+                            {user.tier || 'free'}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-sm">{user.aiCallsToday}</td>
+                        <td className="px-4 py-3 text-sm text-neutral-400">
+                          {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: '2-digit' }) : '-'}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

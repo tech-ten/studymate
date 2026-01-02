@@ -34,11 +34,11 @@ const plans = [
     features: [
       '5 child profiles',
       'Unlimited questions',
-      'Unlimited AI explanations',
+      'Unlimited AI tutor help',
       'All subjects',
-      'Learning Analytics Dashboard',
+      'Weekly progress reports',
       'Concept mastery tracking',
-      'Error pattern detection',
+      'Growth opportunity alerts',
       'Personalised recommendations',
     ],
   },
@@ -50,8 +50,8 @@ const plans = [
     features: [
       '10 child profiles',
       'Everything in Scholar',
-      'Term reports (PDF)',
-      'Curriculum mapping',
+      'Detailed PDF reports',
+      'Curriculum alignment insights',
       'Priority support',
     ],
   },
@@ -156,6 +156,34 @@ function PricingContent() {
           <p className="text-lg text-neutral-500">
             Upgrade anytime. Cancel anytime. No lock-in contracts.
           </p>
+        </div>
+
+        {/* Weekly Reports Value Proposition */}
+        <div className="mb-12 p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-xl font-semibold mb-3">
+              Stay connected to your child's learning journey every week
+            </h2>
+            <p className="text-neutral-600 mb-4">
+              Why wait until the end of term to see how your child is progressing?
+              Our <strong>weekly progress reports</strong> keep you informed of every milestone,
+              so you can celebrate wins and support growth as it happens.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span>Celebrate achievements in real time</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span>Support learning at the right moment</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span>Track progress week by week</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {message && (
@@ -308,6 +336,20 @@ function PricingContent() {
                   <h3 className="font-semibold mb-2">What payment methods do you accept?</h3>
                   <p className="text-sm text-neutral-600">
                     We accept all major credit and debit cards including Visa, Mastercard, and American Express.
+                  </p>
+                </div>
+                <div className="p-6 bg-neutral-50 rounded-xl">
+                  <h3 className="font-semibold mb-2">How do weekly reports help my child?</h3>
+                  <p className="text-sm text-neutral-600">
+                    Weekly reports show exactly which concepts your child is mastering and where they can grow next —
+                    keeping you in the loop every step of the way so you can celebrate progress together.
+                  </p>
+                </div>
+                <div className="p-6 bg-neutral-50 rounded-xl">
+                  <h3 className="font-semibold mb-2">Is there a free trial?</h3>
+                  <p className="text-sm text-neutral-600">
+                    Yes! All paid plans come with a 14-day free trial. You won't be charged until the trial ends,
+                    and you can cancel anytime.
                   </p>
                 </div>
               </div>

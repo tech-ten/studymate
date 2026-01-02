@@ -1,0 +1,113 @@
+{
+    "Items": [
+        {
+            "createdAt": {
+                "S": "2026-01-01T09:01:23.833Z"
+            },
+            "SK": {
+                "S": "PROFILE"
+            },
+            "PK": {
+                "S": "USER#295ed418-10a1-70f6-8b5d-b39bd8da4e1e"
+            },
+            "email": {
+                "S": "bug@gmail.com"
+            },
+            "updatedAt": {
+                "S": "2026-01-02T16:48:21.232Z"
+            },
+            "tier": {
+                "S": "free"
+            }
+        },
+        {
+            "createdAt": {
+                "S": "2026-01-02T10:58:56.683Z"
+            },
+            "SK": {
+                "S": "PROFILE"
+            },
+            "PK": {
+                "S": "USER#39be34d8-d0f1-701e-c1be-a5c07cd33a75"
+            },
+            "email": {
+                "S": "kapilsaluja.ne@gmail.com"
+            },
+            "updatedAt": {
+                "S": "2026-01-02T16:48:20.983Z"
+            },
+            "tier": {
+                "S": "free"
+            }
+        },
+        {
+            "createdAt": {
+                "S": "2026-01-02T12:38:30.301Z"
+            },
+            "SK": {
+                "S": "PROFILE"
+            },
+            "PK": {
+                "S": "USER#d90ee428-8031-70ae-c577-95ae02b4df11"
+            },
+            "email": {
+                "S": "csibanda@yahoo.com"
+            },
+            "updatedAt": {
+                "S": "2026-01-02T16:48:21.064Z"
+            },
+            "tier": {
+                "S": "free"
+            }
+        },
+        {
+            "stripeCustomerId": {
+                "S": "cus_TiUtc8bVezPOBF"
+            },
+            "stripeSubscriptionId": {
+                "S": "sub_1Sl3tLFqL65Zilf9Tr3cKl2v"
+            },
+            "updatedAt": {
+                "S": "2026-01-02T08:39:29.412Z"
+            },
+            "tier": {
+                "S": "scholar"
+            },
+            "aiCalls_2026-01-02": {
+                "N": "30"
+            },
+            "SK": {
+                "S": "PROFILE"
+            },
+            "PK": {
+                "S": "USER#198e94a8-4021-7046-dc39-0f89f839d1ac"
+            },
+            "email": {
+                "S": "tmudavanhu@gmail.com"
+            }
+        },
+        {
+            "createdAt": {
+                "S": "2026-01-02T13:36:23.144Z"
+            },
+            "SK": {
+                "S": "PROFILE"
+            },
+            "PK": {
+                "S": "USER#b95ec4d8-c0a1-7070-6dab-cf78d8a9e7ba"
+            },
+            "email": {
+                "S": "katharina.attana@googlemail.com"
+            },
+            "updatedAt": {
+                "S": "2026-01-02T16:48:21.134Z"
+            },
+            "tier": {
+                "S": "free"
+            }
+        }
+    ],
+    "Count": 5,
+    "ScannedCount": 577,
+    "ConsumedCapacity": null
+}

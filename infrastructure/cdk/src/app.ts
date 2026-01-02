@@ -15,8 +15,11 @@ const env = {
 // Database stack (DynamoDB)
 const databaseStack = new DatabaseStack(app, 'AgentsFormDatabase', { env });
 
-// Auth stack (Cognito)
-const authStack = new AuthStack(app, 'AgentsFormAuth', { env });
+// Auth stack (Cognito) - depends on database for post-confirmation trigger
+const authStack = new AuthStack(app, 'AgentsFormAuth', {
+  env,
+  table: databaseStack.table,
+});
 
 // API stack (API Gateway + Lambda)
 const apiStack = new ApiStack(app, 'AgentsFormApi', {
@@ -27,5 +30,6 @@ const apiStack = new ApiStack(app, 'AgentsFormApi', {
 });
 
 // Add dependencies
+authStack.addDependency(databaseStack);
 apiStack.addDependency(databaseStack);
 apiStack.addDependency(authStack);

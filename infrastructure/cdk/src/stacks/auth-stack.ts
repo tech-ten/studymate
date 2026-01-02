@@ -1,13 +1,38 @@
 import * as cdk from 'aws-cdk-lib';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
+
+interface AuthStackProps extends cdk.StackProps {
+  table: dynamodb.Table;
+}
 
 export class AuthStack extends cdk.Stack {
   public readonly userPool: cognito.UserPool;
   public readonly userPoolClient: cognito.UserPoolClient;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id, props);
+
+    const { table } = props;
+
+    // Post-confirmation Lambda trigger to create user profile in DynamoDB
+    const postConfirmationTrigger = new lambda.Function(this, 'PostConfirmationTrigger', {
+      functionName: 'agentsform-post-confirmation',
+      runtime: lambda.Runtime.NODEJS_20_X,
+      architecture: lambda.Architecture.ARM_64,
+      handler: 'handlers/cognito-trigger.handler',
+      code: lambda.Code.fromAsset('../../packages/api/dist'),
+      memorySize: 128,
+      timeout: cdk.Duration.seconds(10),
+      environment: {
+        TABLE_NAME: table.tableName,
+      },
+    });
+
+    // Grant DynamoDB write access to the trigger
+    table.grantWriteData(postConfirmationTrigger);
 
     // User pool for parent accounts
     this.userPool = new cognito.UserPool(this, 'AgentsFormUserPool', {
@@ -42,6 +67,10 @@ export class AuthStack extends cdk.Stack {
       },
       accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
+      // Add post-confirmation trigger
+      lambdaTriggers: {
+        postConfirmation: postConfirmationTrigger,
+      },
     });
 
     // App client for Next.js

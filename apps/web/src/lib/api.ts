@@ -464,9 +464,11 @@ export interface AdminStats {
 export interface AdminUser {
   id: string;
   email?: string;
+  emailVerified?: boolean;
   tier: string;
   aiCallsToday: number;
   createdAt?: string;
+  hasSubscription?: boolean;
 }
 
 export interface AdminChild {

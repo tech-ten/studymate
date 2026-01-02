@@ -150,6 +150,27 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const newChildId = randomUUID();
       const now = new Date().toISOString();
 
+      // Ensure parent user PROFILE exists in DynamoDB (creates if not exists)
+      // This handles users who signed up via Cognito but never had a profile created
+      try {
+        await db.send(new PutCommand({
+          TableName: TABLE_NAME,
+          Item: {
+            ...keys.user(userId),
+            tier: 'free',
+            createdAt: now,
+            updatedAt: now,
+          },
+          ConditionExpression: 'attribute_not_exists(PK)', // Only create if doesn't exist
+        }));
+        console.log(`Created new user profile for ${userId}`);
+      } catch (err: unknown) {
+        // Ignore ConditionalCheckFailedException - means profile already exists
+        if ((err as { name?: string }).name !== 'ConditionalCheckFailedException') {
+          throw err;
+        }
+      }
+
       // Create child record under user
       await db.send(new PutCommand({
         TableName: TABLE_NAME,

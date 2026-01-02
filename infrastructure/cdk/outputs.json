@@ -1,0 +1,19 @@
+{
+  "AgentsFormDatabase": {
+    "TableName": "agentsform-main",
+    "ExportsOutputFnGetAttAgentsFormTable4EAC8FA1Arn05E01E43": "arn:aws:dynamodb:ap-southeast-2:308045886682:table/agentsform-main",
+    "TableArn": "arn:aws:dynamodb:ap-southeast-2:308045886682:table/agentsform-main",
+    "ExportsOutputRefAgentsFormTable4EAC8FA18F72C553": "agentsform-main"
+  },
+  "AgentsFormAuth": {
+    "UserPoolClientId": "6sehatih95apslqtikic4sf39o",
+    "UserPoolId": "ap-southeast-2_KQjSkcKvP",
+    "ExportsOutputFnGetAttAgentsFormUserPool53210F76ArnB57C0B39": "arn:aws:cognito-idp:ap-southeast-2:308045886682:userpool/ap-southeast-2_KQjSkcKvP",
+    "ExportsOutputRefAgentsFormUserPoolAgentsFormWebClient70CB55C99B9697DC": "6sehatih95apslqtikic4sf39o",
+    "ExportsOutputRefAgentsFormUserPool53210F76F939BE35": "ap-southeast-2_KQjSkcKvP",
+    "UserPoolArn": "arn:aws:cognito-idp:ap-southeast-2:308045886682:userpool/ap-southeast-2_KQjSkcKvP"
+  },
+  "AgentsFormApi": {
+    "ApiUrl": "https://yhn9tli08d.execute-api.ap-southeast-2.amazonaws.com"
+  }
+}

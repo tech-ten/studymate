@@ -240,6 +240,8 @@ export class ApiStack extends cdk.Stack {
       environment: commonEnv,
     });
     table.grantReadWriteData(adminHandler);
+    // Grant Cognito ListUsers permission for admin dashboard
+    userPool.grant(adminHandler, 'cognito-idp:ListUsers');
 
     // Admin routes use API key auth (X-Admin-Key header), not Cognito
     // This decouples admin from parent accounts

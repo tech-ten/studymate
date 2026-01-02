@@ -233,12 +233,16 @@ async function updateUserTier(
   subscriptionId: string | null,
   customerId: string | null
 ): Promise<void> {
-  // Build update expression dynamically to only update customerId if provided
-  let updateExpr = 'SET tier = :tier, stripeSubscriptionId = :subId, updatedAt = :now';
+  const now = new Date().toISOString();
+
+  // Build update expression dynamically
+  // Use if_not_exists for createdAt to preserve it if profile already exists
+  // This gracefully handles both new and existing profiles
+  let updateExpr = 'SET tier = :tier, stripeSubscriptionId = :subId, updatedAt = :now, createdAt = if_not_exists(createdAt, :now)';
   const exprValues: Record<string, unknown> = {
     ':tier': tier,
     ':subId': subscriptionId,
-    ':now': new Date().toISOString(),
+    ':now': now,
   };
 
   // Only update customerId if provided (don't overwrite with null on subscription delete)
