@@ -440,3 +440,67 @@ export async function childLogin(data: ChildLoginRequest): Promise<ChildLoginRes
 
   return response.json();
 }
+
+// ============ ADMIN API ============
+
+export interface AdminStats {
+  totalUsers: number;
+  totalChildren: number;
+  aiCallsToday: number;
+  totalAiCalls: number;
+  quizzesCompleted: number;
+  timestamp: string;
+}
+
+export interface AdminUser {
+  id: string;
+  email?: string;
+  tier: string;
+  aiCallsToday: number;
+  createdAt?: string;
+}
+
+export interface AdminChild {
+  id: string;
+  name: string;
+  username?: string;
+  yearLevel: number;
+  parentId: string;
+  createdAt?: string;
+}
+
+export interface AILog {
+  id: string;
+  childId: string;
+  requestType: string;
+  requestTimestamp: string;
+  latencyMs: number;
+  tokensUsed?: number;
+  subject?: string;
+  yearLevel?: number;
+}
+
+export interface UsageByDay {
+  date: string;
+  count: number;
+}
+
+export async function getAdminStats(): Promise<AdminStats> {
+  return apiFetch('/admin/stats');
+}
+
+export async function getAdminUsers(): Promise<{ users: AdminUser[] }> {
+  return apiFetch('/admin/users');
+}
+
+export async function getAdminChildren(): Promise<{ children: AdminChild[] }> {
+  return apiFetch('/admin/children');
+}
+
+export async function getAdminAILogs(limit = 50): Promise<{ logs: AILog[] }> {
+  return apiFetch(`/admin/ai-logs?limit=${limit}`);
+}
+
+export async function getAdminUsageByDay(): Promise<{ days: UsageByDay[] }> {
+  return apiFetch('/admin/usage-by-day');
+}

@@ -1,10 +1,36 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { GetCommand, PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { CloudWatchClient, PutMetricDataCommand } from '@aws-sdk/client-cloudwatch';
 import { db, TABLE_NAME, keys, getUserIdFromEvent, verifyChildOwnership } from '../lib/db';
 import { success, badRequest, forbidden, serverError } from '../lib/response';
 import Groq from 'groq-sdk';
 import { createHash } from 'crypto';
 import { v4 as uuid } from 'uuid';
+
+const cloudwatch = new CloudWatchClient({ region: 'ap-southeast-2' });
+
+// CloudWatch metrics helper
+async function publishMetric(
+  metricName: string,
+  value: number,
+  unit: 'Count' | 'Milliseconds' | 'None' = 'Count',
+  dimensions: { Name: string; Value: string }[] = []
+): Promise<void> {
+  try {
+    await cloudwatch.send(new PutMetricDataCommand({
+      Namespace: 'AgentsForm/AI',
+      MetricData: [{
+        MetricName: metricName,
+        Value: value,
+        Unit: unit,
+        Dimensions: dimensions,
+        Timestamp: new Date(),
+      }],
+    }));
+  } catch (err) {
+    console.error('Failed to publish metric:', err);
+  }
+}
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -111,6 +137,8 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
     const currentCalls = userResult.Item?.[dailyKey] || 0;
 
     if (currentCalls >= RATE_LIMITS[tier]) {
+      // Track rate limit hits
+      await publishMetric('RateLimitHits', 1, 'Count', [{ Name: 'Tier', Value: tier }]);
       return {
         statusCode: 429,
         headers: { 'Content-Type': 'application/json' },
@@ -236,6 +264,13 @@ Keep it to 2-3 short paragraphs. Be encouraging!`;
       // Increment usage counter using parentId for rate limiting
       await incrementAiUsage(parentId, dailyKey);
 
+      // Publish CloudWatch metrics
+      await Promise.all([
+        publishMetric('AIRequests', 1, 'Count', [{ Name: 'Type', Value: 'explain' }]),
+        publishMetric('AILatency', latencyMs, 'Milliseconds', [{ Name: 'Type', Value: 'explain' }]),
+        publishMetric('TokensUsed', tokensUsed || 0, 'Count', [{ Name: 'Type', Value: 'explain' }]),
+      ]);
+
       return success({
         explanation,
         logId: aiLog.id,
@@ -307,6 +342,13 @@ ${topic ? `Current topic: ${topic}` : ''}`;
       // Increment usage counter using parentId for rate limiting
       await incrementAiUsage(parentId, dailyKey);
 
+      // Publish CloudWatch metrics
+      await Promise.all([
+        publishMetric('AIRequests', 1, 'Count', [{ Name: 'Type', Value: 'chat' }]),
+        publishMetric('AILatency', latencyMs, 'Milliseconds', [{ Name: 'Type', Value: 'chat' }]),
+        publishMetric('TokensUsed', tokensUsed || 0, 'Count', [{ Name: 'Type', Value: 'chat' }]),
+      ]);
+
       return success({
         response,
         logId: aiLog.id,
@@ -316,6 +358,8 @@ ${topic ? `Current topic: ${topic}` : ''}`;
     return badRequest('Invalid request');
   } catch (error) {
     console.error('AI handler error:', error);
+    // Publish error metric
+    await publishMetric('AIErrors', 1, 'Count');
     return serverError();
   }
 }

@@ -219,6 +219,44 @@ export class ApiStack extends cdk.Stack {
       authorizer,
     });
 
+    // === ADMIN ROUTES ===
+    const adminHandler = createLambda('AdminHandler', 'handlers/admin.handler');
+
+    this.api.addRoutes({
+      path: '/admin/stats',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AdminStatsIntegration', adminHandler),
+      authorizer,
+    });
+
+    this.api.addRoutes({
+      path: '/admin/users',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AdminUsersIntegration', adminHandler),
+      authorizer,
+    });
+
+    this.api.addRoutes({
+      path: '/admin/children',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AdminChildrenIntegration', adminHandler),
+      authorizer,
+    });
+
+    this.api.addRoutes({
+      path: '/admin/ai-logs',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AdminAILogsIntegration', adminHandler),
+      authorizer,
+    });
+
+    this.api.addRoutes({
+      path: '/admin/usage-by-day',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AdminUsageIntegration', adminHandler),
+      authorizer,
+    });
+
     // Outputs
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: this.api.apiEndpoint,
