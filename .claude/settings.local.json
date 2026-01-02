@@ -1,0 +1,112 @@
+{
+  "project": {
+    "name": "StudyMate",
+    "description": "AI-powered tutoring platform for Australian primary school students (Years 3-6)",
+    "type": "fullstack",
+    "liveUrl": "https://tutor.agentsform.ai"
+  },
+  "aws": {
+    "region": "ap-southeast-2",
+    "accountId": "308045886682",
+    "cloudfront": {
+      "distributionId": "E1WZZKB5A9CWD6",
+      "domain": "tutor.agentsform.ai"
+    },
+    "s3": {
+      "bucket": "onceoffresourcesstack-techxbucket00f18e48-h7seokhaha6q"
+    },
+    "apiGateway": {
+      "url": "https://yhn9tli08d.execute-api.ap-southeast-2.amazonaws.com"
+    },
+    "cognito": {
+      "userPoolId": "ap-southeast-2_KQjSkcKvP",
+      "clientId": "6sehatih95apslqtikic4sf39o"
+    },
+    "dynamodb": {
+      "tableName": "agentsform-main"
+    }
+  },
+  "secrets": {
+    "envFile": ".env",
+    "required": [
+      "GROQ_API_KEY",
+      "STRIPE_SECRET_KEY",
+      "STRIPE_WEBHOOK_SECRET",
+      "STRIPE_PRICE_SCHOLAR",
+      "STRIPE_PRICE_ACHIEVER",
+      "ADMIN_API_KEY"
+    ]
+  },
+  "deployment": {
+    "preDeployCheck": "source .env && echo $GROQ_API_KEY | head -c 10",
+    "cdkDeploy": "cd infrastructure/cdk && npx cdk deploy --all",
+    "frontendBuild": "pnpm --filter @studymate/web build",
+    "frontendDeploy": "aws s3 sync apps/web/out s3://onceoffresourcesstack-techxbucket00f18e48-h7seokhaha6q --delete",
+    "cacheInvalidate": "aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths '/*'"
+  },
+  "pitfalls": [
+    {
+      "issue": "API keys lost on deploy",
+      "cause": "CDK reads from process.env which is empty",
+      "solution": "ALWAYS run 'source .env' before 'npx cdk deploy'"
+    },
+    {
+      "issue": "Child endpoints fail with 401",
+      "cause": "Using apiFetch() which adds auth header",
+      "solution": "Child endpoints must use direct fetch() without auth"
+    },
+    {
+      "issue": "Frontend changes not visible",
+      "cause": "CloudFront cache",
+      "solution": "Always invalidate cache after S3 sync"
+    },
+    {
+      "issue": "Stripe billing portal fails",
+      "cause": "stripeCustomerId not saved on checkout",
+      "solution": "Fixed in payment.ts - extracts session.customer"
+    }
+  ],
+  "integrations": {
+    "groq": {
+      "model": "llama-3.3-70b-versatile",
+      "rateLimit": "30 req/min (free tier)",
+      "purpose": "AI Tutor"
+    },
+    "stripe": {
+      "mode": "live",
+      "webhookEvents": [
+        "checkout.session.completed",
+        "customer.subscription.updated",
+        "customer.subscription.deleted"
+      ],
+      "trialDays": 14
+    }
+  },
+  "documentation": {
+    "primary": "CLAUDE.md",
+    "technical": [
+      "PHASE2_PLAN.md",
+      "docs/DEVELOPER_GUIDE.md"
+    ],
+    "business": [
+      "BUSINESS_PLAN.md",
+      "docs/INVESTOR_DECK.md",
+      "PRODUCT.md"
+    ],
+    "user": [
+      "docs/PARENT_GUIDE.md",
+      "docs/STUDENT_GUIDE.md"
+    ],
+    "legal": [
+      "docs/LEGAL_COMPLIANCE.md"
+    ]
+  },
+  "keyFiles": {
+    "infrastructure": "infrastructure/cdk/src/stacks/api-stack.ts",
+    "payments": "packages/api/src/handlers/payment.ts",
+    "ai": "packages/api/src/handlers/ai.ts",
+    "apiClient": "apps/web/src/lib/api.ts",
+    "auth": "apps/web/src/lib/auth.ts",
+    "curriculum": "apps/web/src/app/(student)/curriculum/"
+  }
+}
