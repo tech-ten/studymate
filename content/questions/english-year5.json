@@ -1,0 +1,142 @@
+{
+  "subject": "english",
+  "yearLevel": 5,
+  "curriculum": "Australian Curriculum",
+  "questions": [
+    {
+      "id": "e5-gram-001",
+      "topic": "grammar",
+      "difficulty": 5,
+      "question": "Choose the correct sentence:",
+      "options": ["Their going to the park.", "They're going to the park.", "There going to the park.", "Theyre going to the park."],
+      "correctAnswer": 1,
+      "explanation": "'They're' is short for 'they are'. 'Their' shows ownership. 'There' is a place."
+    },
+    {
+      "id": "e5-gram-002",
+      "topic": "grammar",
+      "difficulty": 5,
+      "question": "Which sentence uses 'your' correctly?",
+      "options": ["Your the best!", "Is this you're book?", "Your dog is cute.", "Your welcome."],
+      "correctAnswer": 2,
+      "explanation": "'Your' shows ownership (your dog). 'You're' means 'you are'."
+    },
+    {
+      "id": "e5-gram-003",
+      "topic": "grammar",
+      "difficulty": 5,
+      "question": "What is the past tense of 'run'?",
+      "options": ["runned", "ran", "runed", "running"],
+      "correctAnswer": 1,
+      "explanation": "'Run' is an irregular verb. Its past tense is 'ran', not 'runned'."
+    },
+    {
+      "id": "e5-punct-001",
+      "topic": "punctuation",
+      "difficulty": 5,
+      "question": "Which sentence uses a comma correctly?",
+      "options": ["I like apples, oranges and bananas.", "I like, apples oranges and bananas.", "I, like apples oranges and bananas.", "I like apples oranges, and bananas."],
+      "correctAnswer": 0,
+      "explanation": "Use commas to separate items in a list: apples, oranges and bananas."
+    },
+    {
+      "id": "e5-punct-002",
+      "topic": "punctuation",
+      "difficulty": 5,
+      "question": "Which word needs an apostrophe?",
+      "options": ["The dogs are playing.", "The dogs toy is lost.", "Many dogs love walks.", "Dogs are loyal pets."],
+      "correctAnswer": 1,
+      "explanation": "'The dog's toy' needs an apostrophe to show the toy belongs to the dog."
+    },
+    {
+      "id": "e5-spell-001",
+      "topic": "spelling",
+      "difficulty": 5,
+      "question": "Which word is spelled correctly?",
+      "options": ["recieve", "receive", "receeve", "receve"],
+      "correctAnswer": 1,
+      "explanation": "'Receive' is correct. Remember: 'i before e, except after c'!"
+    },
+    {
+      "id": "e5-spell-002",
+      "topic": "spelling",
+      "difficulty": 5,
+      "question": "Which is the correct spelling?",
+      "options": ["definately", "definatly", "definitely", "definitly"],
+      "correctAnswer": 2,
+      "explanation": "'Definitely' - think of 'finite' in the middle: de-FINITE-ly"
+    },
+    {
+      "id": "e5-vocab-001",
+      "topic": "vocabulary",
+      "difficulty": 5,
+      "question": "What is a synonym for 'happy'?",
+      "options": ["sad", "joyful", "angry", "tired"],
+      "correctAnswer": 1,
+      "explanation": "A synonym is a word with similar meaning. 'Joyful' means happy!"
+    },
+    {
+      "id": "e5-vocab-002",
+      "topic": "vocabulary",
+      "difficulty": 5,
+      "question": "What is an antonym for 'hot'?",
+      "options": ["warm", "cold", "burning", "sunny"],
+      "correctAnswer": 1,
+      "explanation": "An antonym is a word with opposite meaning. 'Cold' is the opposite of 'hot'."
+    },
+    {
+      "id": "e5-adj-001",
+      "topic": "adjectives",
+      "difficulty": 5,
+      "question": "Which word is an adjective in: 'The fluffy cat slept'?",
+      "options": ["The", "fluffy", "cat", "slept"],
+      "correctAnswer": 1,
+      "explanation": "'Fluffy' is an adjective - it describes the cat. Adjectives describe nouns."
+    },
+    {
+      "id": "e5-adv-001",
+      "topic": "adverbs",
+      "difficulty": 5,
+      "question": "Which word is an adverb in: 'She ran quickly'?",
+      "options": ["She", "ran", "quickly", "none"],
+      "correctAnswer": 2,
+      "explanation": "'Quickly' is an adverb - it describes HOW she ran. Many adverbs end in '-ly'."
+    },
+    {
+      "id": "e5-pron-001",
+      "topic": "pronouns",
+      "difficulty": 5,
+      "question": "Which pronoun replaces 'The children' in: 'The children played in the park'?",
+      "options": ["He", "She", "They", "It"],
+      "correctAnswer": 2,
+      "explanation": "'They' replaces plural nouns like 'the children' or 'the dogs'."
+    },
+    {
+      "id": "e5-comp-001",
+      "topic": "comprehension",
+      "difficulty": 5,
+      "question": "What does 'brief' mean in: 'He gave a brief speech'?",
+      "options": ["Long", "Short", "Loud", "Boring"],
+      "correctAnswer": 1,
+      "explanation": "'Brief' means short. A brief speech doesn't take long."
+    },
+    {
+      "id": "e5-prefix-001",
+      "topic": "prefixes",
+      "difficulty": 5,
+      "question": "What does the prefix 'un-' mean in 'unhappy'?",
+      "options": ["Very", "Not", "More", "Less"],
+      "correctAnswer": 1,
+      "explanation": "The prefix 'un-' means 'not'. Unhappy = not happy."
+    },
+    {
+      "id": "e5-suffix-001",
+      "topic": "suffixes",
+      "difficulty": 5,
+      "question": "Adding '-ful' to 'care' makes it mean:",
+      "options": ["Without care", "Full of care", "More care", "Less care"],
+      "correctAnswer": 1,
+      "explanation": "The suffix '-ful' means 'full of'. Careful = full of care."
+    }
+  ]
+}

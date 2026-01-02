@@ -1,0 +1,142 @@
+{
+  "subject": "english",
+  "yearLevel": 8,
+  "curriculum": "Australian Curriculum",
+  "questions": [
+    {
+      "id": "e8-lit-001",
+      "topic": "literary devices",
+      "difficulty": 8,
+      "question": "Identify the literary device: 'The wind whispered secrets through the trees'",
+      "options": ["Simile", "Personification", "Metaphor", "Alliteration"],
+      "correctAnswer": 1,
+      "explanation": "Personification gives human qualities to non-human things. Wind can't actually whisper!"
+    },
+    {
+      "id": "e8-lit-002",
+      "topic": "literary devices",
+      "difficulty": 8,
+      "question": "Which sentence contains a simile?",
+      "options": ["He is a lion in battle.", "He fought like a lion.", "The lion roared.", "His courage was lion-like."],
+      "correctAnswer": 1,
+      "explanation": "A simile uses 'like' or 'as' to compare. 'Fought like a lion' is a simile."
+    },
+    {
+      "id": "e8-lit-003",
+      "topic": "literary devices",
+      "difficulty": 8,
+      "question": "What is a metaphor?",
+      "options": ["A comparison using 'like'", "A direct comparison without 'like' or 'as'", "An exaggeration", "Words that sound like their meaning"],
+      "correctAnswer": 1,
+      "explanation": "A metaphor directly compares two things: 'Life is a journey' (not 'like a journey')."
+    },
+    {
+      "id": "e8-lit-004",
+      "topic": "literary devices",
+      "difficulty": 8,
+      "question": "'Peter Piper picked a peck of pickled peppers' is an example of:",
+      "options": ["Personification", "Metaphor", "Alliteration", "Onomatopoeia"],
+      "correctAnswer": 2,
+      "explanation": "Alliteration is the repetition of the same sound at the start of words: P, P, P, P, P!"
+    },
+    {
+      "id": "e8-gram-001",
+      "topic": "grammar",
+      "difficulty": 8,
+      "question": "Which sentence is grammatically correct?",
+      "options": ["Me and him went to the shops.", "Him and I went to the shops.", "He and I went to the shops.", "Me and he went to the shops."],
+      "correctAnswer": 2,
+      "explanation": "'He and I' is correct as the subject. Test: remove 'he' - 'I went to the shops' works!"
+    },
+    {
+      "id": "e8-gram-002",
+      "topic": "grammar",
+      "difficulty": 8,
+      "question": "Which sentence uses the subjunctive mood correctly?",
+      "options": ["If I was rich, I would travel.", "If I were rich, I would travel.", "If I am rich, I would travel.", "If I be rich, I would travel."],
+      "correctAnswer": 1,
+      "explanation": "The subjunctive 'were' is used for hypothetical situations: 'If I were...'"
+    },
+    {
+      "id": "e8-gram-003",
+      "topic": "grammar",
+      "difficulty": 8,
+      "question": "Identify the passive voice:",
+      "options": ["The chef cooked the meal.", "The meal was cooked by the chef.", "The chef is cooking.", "The chef will cook."],
+      "correctAnswer": 1,
+      "explanation": "Passive voice: the subject receives the action. 'The meal was cooked' (meal receives cooking)."
+    },
+    {
+      "id": "e8-vocab-001",
+      "topic": "vocabulary",
+      "difficulty": 8,
+      "question": "What does 'ubiquitous' mean?",
+      "options": ["Rare", "Found everywhere", "Unique", "Ancient"],
+      "correctAnswer": 1,
+      "explanation": "'Ubiquitous' means found everywhere, omnipresent. Smartphones are ubiquitous today."
+    },
+    {
+      "id": "e8-vocab-002",
+      "topic": "vocabulary",
+      "difficulty": 8,
+      "question": "What does 'ambiguous' mean?",
+      "options": ["Clear", "Having multiple meanings", "Ambitious", "Ancient"],
+      "correctAnswer": 1,
+      "explanation": "'Ambiguous' means unclear or having more than one possible meaning."
+    },
+    {
+      "id": "e8-text-001",
+      "topic": "text analysis",
+      "difficulty": 8,
+      "question": "What is the main purpose of persuasive writing?",
+      "options": ["To entertain the reader", "To inform the reader", "To convince the reader of a viewpoint", "To describe a scene"],
+      "correctAnswer": 2,
+      "explanation": "Persuasive writing aims to convince readers to agree with a particular viewpoint."
+    },
+    {
+      "id": "e8-text-002",
+      "topic": "text analysis",
+      "difficulty": 8,
+      "question": "What is 'tone' in writing?",
+      "options": ["The topic of the text", "The writer's attitude toward the subject", "The length of sentences", "The vocabulary used"],
+      "correctAnswer": 1,
+      "explanation": "Tone is the writer's attitude - it could be serious, humorous, critical, sympathetic, etc."
+    },
+    {
+      "id": "e8-struct-001",
+      "topic": "text structure",
+      "difficulty": 8,
+      "question": "What is a thesis statement?",
+      "options": ["The conclusion of an essay", "The main argument or claim of an essay", "A quote from a famous person", "The title of an essay"],
+      "correctAnswer": 1,
+      "explanation": "A thesis statement presents the main argument or claim that the essay will prove."
+    },
+    {
+      "id": "e8-punct-001",
+      "topic": "punctuation",
+      "difficulty": 8,
+      "question": "When should you use a semicolon?",
+      "options": ["Before a list", "To join two related independent clauses", "After a greeting", "Before a quote"],
+      "correctAnswer": 1,
+      "explanation": "A semicolon joins two related complete sentences: 'I love reading; it expands my mind.'"
+    },
+    {
+      "id": "e8-spell-001",
+      "topic": "spelling",
+      "difficulty": 8,
+      "question": "Which word is spelled correctly?",
+      "options": ["accomodate", "accommodate", "acommodate", "accomadate"],
+      "correctAnswer": 1,
+      "explanation": "'Accommodate' has double 'c' and double 'm'. Think: it's big enough to accommodate!"
+    },
+    {
+      "id": "e8-context-001",
+      "topic": "context",
+      "difficulty": 8,
+      "question": "What does 'context' refer to in literature?",
+      "options": ["The font style", "The historical and social circumstances of a text", "The number of pages", "The author's name"],
+      "correctAnswer": 1,
+      "explanation": "Context includes when, where, and why a text was written - its historical and social background."
+    }
+  ]
+}

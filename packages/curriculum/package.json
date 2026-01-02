@@ -1,0 +1,14 @@
+{
+  "name": "@agentsform/curriculum",
+  "version": "1.0.0",
+  "description": "Victorian Curriculum content for AgentsForm",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

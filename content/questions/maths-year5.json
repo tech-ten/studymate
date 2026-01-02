@@ -1,0 +1,142 @@
+{
+  "subject": "maths",
+  "yearLevel": 5,
+  "curriculum": "Australian Curriculum",
+  "questions": [
+    {
+      "id": "m5-mult-001",
+      "topic": "multiplication",
+      "difficulty": 5,
+      "question": "What is 7 × 8?",
+      "options": ["54", "56", "58", "64"],
+      "correctAnswer": 1,
+      "explanation": "7 × 8 = 56. A good trick: 7 × 8 = 56 (5, 6, 7, 8 in order!)"
+    },
+    {
+      "id": "m5-mult-002",
+      "topic": "multiplication",
+      "difficulty": 5,
+      "question": "What is 12 × 6?",
+      "options": ["62", "72", "82", "68"],
+      "correctAnswer": 1,
+      "explanation": "12 × 6 = 72. Break it down: 10×6=60, 2×6=12, then 60+12=72"
+    },
+    {
+      "id": "m5-mult-003",
+      "topic": "multiplication",
+      "difficulty": 5,
+      "question": "What is 9 × 9?",
+      "options": ["72", "81", "90", "99"],
+      "correctAnswer": 1,
+      "explanation": "9 × 9 = 81. The nines trick: hold up 9 fingers, put down finger 9. Left: 8, Right: 1 = 81!"
+    },
+    {
+      "id": "m5-div-001",
+      "topic": "division",
+      "difficulty": 5,
+      "question": "What is 48 ÷ 6?",
+      "options": ["6", "7", "8", "9"],
+      "correctAnswer": 2,
+      "explanation": "48 ÷ 6 = 8. Think: what times 6 equals 48? 6 × 8 = 48"
+    },
+    {
+      "id": "m5-div-002",
+      "topic": "division",
+      "difficulty": 5,
+      "question": "What is 72 ÷ 9?",
+      "options": ["6", "7", "8", "9"],
+      "correctAnswer": 2,
+      "explanation": "72 ÷ 9 = 8. Division is the opposite of multiplication: 9 × 8 = 72"
+    },
+    {
+      "id": "m5-frac-001",
+      "topic": "fractions",
+      "difficulty": 5,
+      "question": "What is ½ + ¼?",
+      "options": ["½", "¾", "⅔", "1"],
+      "correctAnswer": 1,
+      "explanation": "½ + ¼ = ¾. First, change ½ to ²⁄₄, then ²⁄₄ + ¼ = ¾"
+    },
+    {
+      "id": "m5-frac-002",
+      "topic": "fractions",
+      "difficulty": 5,
+      "question": "Which fraction is bigger: ⅓ or ¼?",
+      "options": ["⅓", "¼", "They are equal", "Cannot compare"],
+      "correctAnswer": 0,
+      "explanation": "⅓ is bigger than ¼. When the top number is the same, smaller bottom = bigger fraction!"
+    },
+    {
+      "id": "m5-dec-001",
+      "topic": "decimals",
+      "difficulty": 5,
+      "question": "What is 0.5 + 0.3?",
+      "options": ["0.7", "0.8", "0.53", "8"],
+      "correctAnswer": 1,
+      "explanation": "0.5 + 0.3 = 0.8. Line up the decimal points and add: 5 tenths + 3 tenths = 8 tenths"
+    },
+    {
+      "id": "m5-dec-002",
+      "topic": "decimals",
+      "difficulty": 5,
+      "question": "Which is bigger: 0.45 or 0.5?",
+      "options": ["0.45", "0.5", "They are equal", "Cannot tell"],
+      "correctAnswer": 1,
+      "explanation": "0.5 is bigger. Think of it as 0.50 vs 0.45. 50 hundredths > 45 hundredths"
+    },
+    {
+      "id": "m5-perc-001",
+      "topic": "percentages",
+      "difficulty": 5,
+      "question": "What is 50% of 80?",
+      "options": ["30", "40", "50", "60"],
+      "correctAnswer": 1,
+      "explanation": "50% of 80 = 40. 50% means half, and half of 80 is 40"
+    },
+    {
+      "id": "m5-perc-002",
+      "topic": "percentages",
+      "difficulty": 5,
+      "question": "What is 25% of 100?",
+      "options": ["20", "25", "30", "50"],
+      "correctAnswer": 1,
+      "explanation": "25% of 100 = 25. 25% is one quarter, and one quarter of 100 is 25"
+    },
+    {
+      "id": "m5-area-001",
+      "topic": "area",
+      "difficulty": 5,
+      "question": "What is the area of a rectangle with length 8cm and width 5cm?",
+      "options": ["13 cm²", "26 cm²", "40 cm²", "80 cm²"],
+      "correctAnswer": 2,
+      "explanation": "Area = length × width = 8 × 5 = 40 cm². Always multiply length by width for rectangles!"
+    },
+    {
+      "id": "m5-perim-001",
+      "topic": "perimeter",
+      "difficulty": 5,
+      "question": "What is the perimeter of a square with sides of 6cm?",
+      "options": ["12 cm", "18 cm", "24 cm", "36 cm"],
+      "correctAnswer": 2,
+      "explanation": "Perimeter = 4 × side = 4 × 6 = 24 cm. Add all four sides together!"
+    },
+    {
+      "id": "m5-order-001",
+      "topic": "order of operations",
+      "difficulty": 5,
+      "question": "What is 3 + 4 × 2?",
+      "options": ["11", "14", "10", "9"],
+      "correctAnswer": 0,
+      "explanation": "3 + 4 × 2 = 3 + 8 = 11. Remember BODMAS: multiplication comes before addition!"
+    },
+    {
+      "id": "m5-order-002",
+      "topic": "order of operations",
+      "difficulty": 5,
+      "question": "What is (6 + 2) × 3?",
+      "options": ["12", "18", "24", "20"],
+      "correctAnswer": 2,
+      "explanation": "(6 + 2) × 3 = 8 × 3 = 24. Brackets first! Then multiply."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "agentsform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered tutoring platform for Australian students",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "deploy": "turbo deploy"
+  },
+  "keywords": [
+    "education",
+    "tutoring",
+    "ai",
+    "australia"
+  ],
+  "author": "Tendai Mudavanhu",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.27.0",
+  "devDependencies": {
+    "esbuild": "^0.27.2",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.2"
+  }
+}

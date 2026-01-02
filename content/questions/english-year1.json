@@ -1,0 +1,142 @@
+{
+  "subject": "english",
+  "yearLevel": 1,
+  "curriculum": "Australian Curriculum",
+  "questions": [
+    {
+      "id": "e1-phon-001",
+      "topic": "phonics",
+      "difficulty": 1,
+      "question": "Which word rhymes with 'cat'?",
+      "options": ["dog", "hat", "cup", "bed"],
+      "correctAnswer": 1,
+      "explanation": "'Hat' rhymes with 'cat' because they both end with the same sound: -at"
+    },
+    {
+      "id": "e1-phon-002",
+      "topic": "phonics",
+      "difficulty": 1,
+      "question": "Which word rhymes with 'dog'?",
+      "options": ["cat", "log", "run", "big"],
+      "correctAnswer": 1,
+      "explanation": "'Log' rhymes with 'dog' - they both end with the -og sound!"
+    },
+    {
+      "id": "e1-phon-003",
+      "topic": "phonics",
+      "difficulty": 1,
+      "question": "Which word starts with the same sound as 'sun'?",
+      "options": ["moon", "star", "sad", "fun"],
+      "correctAnswer": 2,
+      "explanation": "'Sad' starts with the same 's' sound as 'sun'"
+    },
+    {
+      "id": "e1-phon-004",
+      "topic": "phonics",
+      "difficulty": 1,
+      "question": "What sound does the letter 'B' make?",
+      "options": ["buh", "duh", "puh", "guh"],
+      "correctAnswer": 0,
+      "explanation": "B makes the 'buh' sound, like in 'ball', 'bat', and 'book'"
+    },
+    {
+      "id": "e1-sight-001",
+      "topic": "sight words",
+      "difficulty": 1,
+      "question": "Which word is 'the'?",
+      "options": ["teh", "the", "hte", "eth"],
+      "correctAnswer": 1,
+      "explanation": "'The' is spelled t-h-e. It's one of the most common words in English!"
+    },
+    {
+      "id": "e1-sight-002",
+      "topic": "sight words",
+      "difficulty": 1,
+      "question": "Which is the correct spelling of 'and'?",
+      "options": ["adn", "nad", "and", "dan"],
+      "correctAnswer": 2,
+      "explanation": "'And' is spelled a-n-d. We use it to join things together!"
+    },
+    {
+      "id": "e1-sent-001",
+      "topic": "sentences",
+      "difficulty": 1,
+      "question": "What goes at the end of a sentence?",
+      "options": ["A comma", "A full stop", "A question mark", "Nothing"],
+      "correctAnswer": 1,
+      "explanation": "A full stop (.) goes at the end of a sentence to show it has finished"
+    },
+    {
+      "id": "e1-sent-002",
+      "topic": "sentences",
+      "difficulty": 1,
+      "question": "Which sentence is correct?",
+      "options": ["The cat is big", "the cat is big", "The cat is big.", "the Cat Is Big"],
+      "correctAnswer": 2,
+      "explanation": "A sentence starts with a capital letter and ends with a full stop: 'The cat is big.'"
+    },
+    {
+      "id": "e1-alpha-001",
+      "topic": "alphabet",
+      "difficulty": 1,
+      "question": "Which letter comes after 'D'?",
+      "options": ["C", "E", "F", "B"],
+      "correctAnswer": 1,
+      "explanation": "The alphabet goes A, B, C, D, E, F... so E comes after D"
+    },
+    {
+      "id": "e1-alpha-002",
+      "topic": "alphabet",
+      "difficulty": 1,
+      "question": "Which letter comes before 'M'?",
+      "options": ["N", "L", "K", "O"],
+      "correctAnswer": 1,
+      "explanation": "J, K, L, M, N... L comes right before M"
+    },
+    {
+      "id": "e1-vowel-001",
+      "topic": "vowels",
+      "difficulty": 1,
+      "question": "Which of these is a vowel?",
+      "options": ["B", "C", "A", "D"],
+      "correctAnswer": 2,
+      "explanation": "A is a vowel. The vowels are A, E, I, O, U!"
+    },
+    {
+      "id": "e1-vowel-002",
+      "topic": "vowels",
+      "difficulty": 1,
+      "question": "How many vowels are in the word 'cake'?",
+      "options": ["1", "2", "3", "0"],
+      "correctAnswer": 1,
+      "explanation": "'Cake' has 2 vowels: 'a' and 'e'. C-A-K-E"
+    },
+    {
+      "id": "e1-plural-001",
+      "topic": "plurals",
+      "difficulty": 1,
+      "question": "What is the plural of 'cat'?",
+      "options": ["cat", "cats", "cates", "catz"],
+      "correctAnswer": 1,
+      "explanation": "To make 'cat' plural (more than one), we add 's' to get 'cats'"
+    },
+    {
+      "id": "e1-noun-001",
+      "topic": "nouns",
+      "difficulty": 1,
+      "question": "Which word is a noun (a thing)?",
+      "options": ["run", "happy", "dog", "fast"],
+      "correctAnswer": 2,
+      "explanation": "A noun is a person, place, or thing. 'Dog' is a thing, so it's a noun!"
+    },
+    {
+      "id": "e1-verb-001",
+      "topic": "verbs",
+      "difficulty": 1,
+      "question": "Which word is an action word (verb)?",
+      "options": ["cat", "jump", "big", "red"],
+      "correctAnswer": 1,
+      "explanation": "'Jump' is a verb - it's something you can do! Run, jump, skip are all verbs."
+    }
+  ]
+}

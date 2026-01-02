@@ -1,0 +1,142 @@
+{
+  "subject": "maths",
+  "yearLevel": 8,
+  "curriculum": "Australian Curriculum",
+  "questions": [
+    {
+      "id": "m8-alg-001",
+      "topic": "algebra",
+      "difficulty": 8,
+      "question": "Solve for x: 3x + 7 = 22",
+      "options": ["x = 3", "x = 5", "x = 7", "x = 15"],
+      "correctAnswer": 1,
+      "explanation": "3x + 7 = 22 → 3x = 22 - 7 → 3x = 15 → x = 15 ÷ 3 = 5"
+    },
+    {
+      "id": "m8-alg-002",
+      "topic": "algebra",
+      "difficulty": 8,
+      "question": "Solve for y: 2y - 5 = 11",
+      "options": ["y = 3", "y = 6", "y = 8", "y = 16"],
+      "correctAnswer": 2,
+      "explanation": "2y - 5 = 11 → 2y = 11 + 5 → 2y = 16 → y = 16 ÷ 2 = 8"
+    },
+    {
+      "id": "m8-alg-003",
+      "topic": "algebra",
+      "difficulty": 8,
+      "question": "Simplify: 4x + 3x - 2x",
+      "options": ["5x", "9x", "x", "6x"],
+      "correctAnswer": 0,
+      "explanation": "4x + 3x - 2x = (4 + 3 - 2)x = 5x. Combine like terms!"
+    },
+    {
+      "id": "m8-alg-004",
+      "topic": "algebra",
+      "difficulty": 8,
+      "question": "Expand: 3(2x + 4)",
+      "options": ["6x + 4", "6x + 12", "5x + 7", "6x + 7"],
+      "correctAnswer": 1,
+      "explanation": "3(2x + 4) = 3 × 2x + 3 × 4 = 6x + 12. Multiply each term inside by 3."
+    },
+    {
+      "id": "m8-lin-001",
+      "topic": "linear equations",
+      "difficulty": 8,
+      "question": "What is the gradient of the line y = 2x + 3?",
+      "options": ["2", "3", "5", "1"],
+      "correctAnswer": 0,
+      "explanation": "In y = mx + c, m is the gradient. Here m = 2, so the gradient is 2."
+    },
+    {
+      "id": "m8-lin-002",
+      "topic": "linear equations",
+      "difficulty": 8,
+      "question": "What is the y-intercept of y = 4x - 5?",
+      "options": ["4", "-5", "5", "-4"],
+      "correctAnswer": 1,
+      "explanation": "In y = mx + c, c is the y-intercept. Here c = -5."
+    },
+    {
+      "id": "m8-ratio-001",
+      "topic": "ratios",
+      "difficulty": 8,
+      "question": "Simplify the ratio 15:25",
+      "options": ["3:5", "5:3", "1:2", "2:3"],
+      "correctAnswer": 0,
+      "explanation": "15:25 → divide both by 5 → 3:5. Find the highest common factor!"
+    },
+    {
+      "id": "m8-ratio-002",
+      "topic": "ratios",
+      "difficulty": 8,
+      "question": "Share $60 in the ratio 2:3. How much is the larger share?",
+      "options": ["$24", "$30", "$36", "$40"],
+      "correctAnswer": 2,
+      "explanation": "2 + 3 = 5 parts. Each part = $60 ÷ 5 = $12. Larger share = 3 × $12 = $36"
+    },
+    {
+      "id": "m8-pyth-001",
+      "topic": "pythagoras",
+      "difficulty": 8,
+      "question": "In a right triangle with legs 3cm and 4cm, what is the hypotenuse?",
+      "options": ["5 cm", "6 cm", "7 cm", "12 cm"],
+      "correctAnswer": 0,
+      "explanation": "a² + b² = c² → 3² + 4² = c² → 9 + 16 = 25 → c = √25 = 5 cm"
+    },
+    {
+      "id": "m8-pyth-002",
+      "topic": "pythagoras",
+      "difficulty": 8,
+      "question": "A right triangle has hypotenuse 13cm and one leg 5cm. Find the other leg.",
+      "options": ["8 cm", "10 cm", "12 cm", "14 cm"],
+      "correctAnswer": 2,
+      "explanation": "a² + 5² = 13² → a² + 25 = 169 → a² = 144 → a = 12 cm"
+    },
+    {
+      "id": "m8-index-001",
+      "topic": "indices",
+      "difficulty": 8,
+      "question": "What is 2³ × 2⁴?",
+      "options": ["2⁷", "2¹²", "4⁷", "4¹²"],
+      "correctAnswer": 0,
+      "explanation": "When multiplying with same base, add the powers: 2³ × 2⁴ = 2³⁺⁴ = 2⁷"
+    },
+    {
+      "id": "m8-index-002",
+      "topic": "indices",
+      "difficulty": 8,
+      "question": "Simplify: 5⁶ ÷ 5²",
+      "options": ["5³", "5⁴", "5⁸", "25⁴"],
+      "correctAnswer": 1,
+      "explanation": "When dividing with same base, subtract the powers: 5⁶ ÷ 5² = 5⁶⁻² = 5⁴"
+    },
+    {
+      "id": "m8-prob-001",
+      "topic": "probability",
+      "difficulty": 8,
+      "question": "A bag has 3 red and 5 blue balls. What is the probability of picking a red ball?",
+      "options": ["3/8", "5/8", "3/5", "1/3"],
+      "correctAnswer": 0,
+      "explanation": "Probability = favourable/total = 3/(3+5) = 3/8"
+    },
+    {
+      "id": "m8-prob-002",
+      "topic": "probability",
+      "difficulty": 8,
+      "question": "A coin is flipped twice. What is the probability of getting 2 heads?",
+      "options": ["1/2", "1/3", "1/4", "2/4"],
+      "correctAnswer": 2,
+      "explanation": "P(HH) = 1/2 × 1/2 = 1/4. Multiply probabilities for independent events."
+    },
+    {
+      "id": "m8-stat-001",
+      "topic": "statistics",
+      "difficulty": 8,
+      "question": "Find the median of: 3, 7, 9, 12, 15",
+      "options": ["7", "9", "10", "12"],
+      "correctAnswer": 1,
+      "explanation": "Median is the middle value when ordered. 3, 7, [9], 12, 15 → median = 9"
+    }
+  ]
+}
