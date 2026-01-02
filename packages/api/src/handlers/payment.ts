@@ -4,7 +4,18 @@ import { db, TABLE_NAME, getUserIdFromEvent } from '../lib/db';
 import { success, badRequest, forbidden, serverError } from '../lib/response';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+// Lazy initialization to avoid crash when STRIPE_SECRET_KEY is not set
+let stripe: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!stripe) {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) {
+      throw new Error('STRIPE_SECRET_KEY environment variable is not configured');
+    }
+    stripe = new Stripe(secretKey);
+  }
+  return stripe;
+}
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
 
@@ -61,7 +72,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const userEmail = userResult.Item?.email;
 
       // Create Stripe Checkout session with 1-month free trial
-      const session = await stripe.checkout.sessions.create({
+      const session = await getStripe().checkout.sessions.create({
         mode: 'subscription',
         payment_method_types: ['card'],
         customer_email: userEmail,
@@ -100,7 +111,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       let stripeEvent: Stripe.Event;
 
       try {
-        stripeEvent = stripe.webhooks.constructEvent(
+        stripeEvent = getStripe().webhooks.constructEvent(
           event.body || '',
           sig,
           STRIPE_WEBHOOK_SECRET
@@ -180,7 +191,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         return badRequest('No subscription found. Please subscribe first.');
       }
 
-      const session = await stripe.billingPortal.sessions.create({
+      const session = await getStripe().billingPortal.sessions.create({
         customer: customerId,
         return_url: `${process.env.FRONTEND_URL || 'https://tutor.agentsform.ai'}/dashboard`,
       });

@@ -20,6 +20,53 @@ import {
 } from '@/lib/api'
 import { isAuthenticatedSync } from '@/lib/auth'
 
+// Format concept names from curriculum codes to human-readable names
+function formatConceptName(concept: string): string {
+  const names: Record<string, string> = {
+    // Detected concepts from question analysis
+    'place-value-identification': 'Place Value Identification',
+    'place-value-naming': 'Place Value Position Names',
+    'number-reading': 'Reading Large Numbers',
+    'number-writing': 'Writing Numbers',
+    'number-ordering': 'Ordering Numbers',
+    'number-comparing': 'Comparing Numbers',
+    'rounding': 'Rounding Numbers',
+    'adding-subtracting-place-value': 'Adding/Subtracting by Place Value',
+    'times-tables-recall': 'Times Tables',
+    'division-facts': 'Division Facts',
+    'multiplication-strategies': 'Multiplication Strategies',
+    'division-with-remainders': 'Division with Remainders',
+    'factors-multiples': 'Factors and Multiples',
+    'fraction-identification': 'Identifying Fractions',
+    'equivalent-fractions': 'Equivalent Fractions',
+    'comparing-fractions': 'Comparing Fractions',
+    'decimal-place-value': 'Decimal Place Value',
+    'decimal-ordering': 'Ordering Decimals',
+    // Victorian Curriculum section codes (Year 5)
+    'vcmna186': 'Reading and Writing Large Numbers',
+    'vcmna181': 'Factors and Multiples',
+    'vcmna182': 'Estimation and Rounding',
+    'vcmna183': 'Multiplying Large Numbers',
+    'vcmna184': 'Division with Remainders',
+    'vcmna187': 'Comparing and Ordering Fractions',
+    'vcmna190': 'Comparing and Ordering Decimals',
+    'vcmmg195': 'Choosing Appropriate Units',
+    'vcmmg196': 'Calculating Perimeter and Area',
+    'vcmmg198': 'Converting Between Units',
+    'vcmmg200': 'Shape Properties',
+    'vcmmg202': 'Angles',
+    'vcmsp205': 'Data Representation',
+    'vcmsp206': 'Probability',
+    // Geometry concepts
+    'angle-types': 'Types of Angles',
+    'angle-measurement': 'Measuring Angles',
+    'shape-properties': 'Shape Properties',
+  }
+
+  const lowerConcept = concept.toLowerCase()
+  return names[lowerConcept] || names[concept] || concept.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+}
+
 function AnalyticsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -40,7 +87,6 @@ function AnalyticsContent() {
       router.push('/login')
       return
     }
-    loadSubscription()
     if (childId) {
       loadData()
     } else {
@@ -48,15 +94,6 @@ function AnalyticsContent() {
       setLoading(false)
     }
   }, [router, childId])
-
-  const loadSubscription = async () => {
-    try {
-      const status = await getSubscriptionStatus()
-      setSubscription(status)
-    } catch (err) {
-      console.error('Failed to load subscription:', err)
-    }
-  }
 
   useEffect(() => {
     if (childId && !loading) {
@@ -67,13 +104,22 @@ function AnalyticsContent() {
   const loadData = async () => {
     if (!childId) return
     try {
-      const [childrenRes, reportRes, weaknessesRes, dailyRes, conceptsRes] = await Promise.all([
+      const [childrenRes, subscriptionRes, reportRes, weaknessesRes, dailyRes, conceptsRes] = await Promise.all([
         getChildren(),
+        getSubscriptionStatus().catch((err) => {
+          console.error('Subscription status error:', err)
+          return null
+        }),
         getParentReport(childId, period).catch(() => null),
         getChildWeaknesses(childId).catch(() => null),
         getDailyStats(childId, period === 'month' ? 30 : 7).catch(() => null),
         getConceptMastery(childId).catch(() => null),
       ])
+
+      console.log('Subscription response:', subscriptionRes)
+
+      // Set subscription first so premium check works
+      if (subscriptionRes) setSubscription(subscriptionRes)
 
       const found = childrenRes.children.find(c => c.id === childId)
       if (found) {
@@ -118,7 +164,11 @@ function AnalyticsContent() {
   if (!hasPremium) {
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-6xl mb-6">📊</div>
+        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
+          <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+        </div>
         <h1 className="text-3xl font-semibold mb-4">Learning Analytics</h1>
         <p className="text-lg text-neutral-600 mb-8">
           Unlock detailed insights into your child's learning journey with our Premium Analytics Dashboard.
@@ -339,7 +389,7 @@ function AnalyticsContent() {
                     <div className="flex justify-between items-center">
                       <div>
                         <span className="font-medium">
-                          {concept.concept.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          {formatConceptName(concept.concept)}
                         </span>
                         <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
                           concept.severity === 'critical'
@@ -418,7 +468,7 @@ function AnalyticsContent() {
               <div key={idx} className="p-4 rounded-lg border border-neutral-200">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium text-sm">
-                    {concept.concept.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    {formatConceptName(concept.concept)}
                   </span>
                   <div className="flex items-center gap-2">
                     <span className={`font-semibold ${

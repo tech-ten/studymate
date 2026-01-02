@@ -784,6 +784,7 @@ async function generateParentReport(childId: string, period: string): Promise<AP
 
 function formatConceptName(concept: string): string {
   const names: Record<string, string> = {
+    // Detected concepts from question analysis
     'place-value-identification': 'Place Value Identification',
     'place-value-naming': 'Place Value Position Names',
     'number-reading': 'Reading Large Numbers',
@@ -802,8 +803,50 @@ function formatConceptName(concept: string): string {
     'comparing-fractions': 'Comparing Fractions',
     'decimal-place-value': 'Decimal Place Value',
     'decimal-ordering': 'Ordering Decimals',
+    // Victorian Curriculum section codes (Year 5)
+    'vcmna186': 'Reading and Writing Large Numbers',
+    'vcmna181': 'Factors and Multiples',
+    'vcmna182': 'Estimation and Rounding',
+    'vcmna183': 'Multiplying Large Numbers',
+    'vcmna184': 'Division with Remainders',
+    'vcmna187': 'Comparing and Ordering Fractions',
+    'vcmna190': 'Comparing and Ordering Decimals',
+    'vcmmg195': 'Choosing Appropriate Units',
+    'vcmmg196': 'Calculating Perimeter and Area',
+    'vcmmg198': 'Converting Between Units',
+    'vcmmg200': 'Shape Properties',
+    'vcmmg202': 'Angles',
+    'vcmsp205': 'Data Representation',
+    'vcmsp206': 'Probability',
+    // Year 4 codes
+    'vcmna153': 'Place Value to Ten Thousands',
+    'vcmna155': 'Addition and Subtraction Strategies',
+    'vcmna156': 'Multiplication Facts',
+    // Year 6 codes
+    'vcmna209': 'Integers and the Number Line',
+    'vcmna210': 'Prime and Composite Numbers',
+    // Geometry concepts
+    'angle-types': 'Types of Angles',
+    'angle-measurement': 'Measuring Angles',
+    'shape-properties': 'Shape Properties',
+    'symmetry': 'Symmetry',
+    '2d-shapes': '2D Shapes',
+    '3d-shapes': '3D Shapes',
   };
-  return names[concept] || concept.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+  // Try lowercase match first (for case-insensitive lookup)
+  const lowerConcept = concept.toLowerCase();
+  if (names[lowerConcept]) {
+    return names[lowerConcept];
+  }
+
+  // Then try exact match
+  if (names[concept]) {
+    return names[concept];
+  }
+
+  // Fallback: convert kebab-case or code to title case
+  return concept.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 function generateWeaknessSummary(weakConcepts: any[], errorPatterns: any[]): string {
