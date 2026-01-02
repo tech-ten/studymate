@@ -20,10 +20,8 @@ import {
 } from '@/lib/api'
 import { isAuthenticatedSync } from '@/lib/auth'
 
-// Format concept names from curriculum codes to human-readable names
 function formatConceptName(concept: string): string {
   const names: Record<string, string> = {
-    // Detected concepts from question analysis
     'place-value-identification': 'Place Value Identification',
     'place-value-naming': 'Place Value Position Names',
     'number-reading': 'Reading Large Numbers',
@@ -42,7 +40,6 @@ function formatConceptName(concept: string): string {
     'comparing-fractions': 'Comparing Fractions',
     'decimal-place-value': 'Decimal Place Value',
     'decimal-ordering': 'Ordering Decimals',
-    // Victorian Curriculum section codes (Year 5)
     'vcmna186': 'Reading and Writing Large Numbers',
     'vcmna181': 'Factors and Multiples',
     'vcmna182': 'Estimation and Rounding',
@@ -57,7 +54,6 @@ function formatConceptName(concept: string): string {
     'vcmmg202': 'Angles',
     'vcmsp205': 'Data Representation',
     'vcmsp206': 'Probability',
-    // Geometry concepts
     'angle-types': 'Types of Angles',
     'angle-measurement': 'Measuring Angles',
     'shape-properties': 'Shape Properties',
@@ -116,9 +112,6 @@ function AnalyticsContent() {
         getConceptMastery(childId).catch(() => null),
       ])
 
-      console.log('Subscription response:', subscriptionRes)
-
-      // Set subscription first so premium check works
       if (subscriptionRes) setSubscription(subscriptionRes)
 
       const found = childrenRes.children.find(c => c.id === childId)
@@ -155,67 +148,48 @@ function AnalyticsContent() {
   }
 
   if (loading) {
-    return <div className="text-center py-12 text-neutral-400">Loading analytics...</div>
+    return <div className="text-center py-12 text-neutral-400">Loading...</div>
   }
 
-  // Check if user has premium subscription (Scholar or Achiever)
   const hasPremium = subscription && (subscription.tier === 'scholar' || subscription.tier === 'achiever')
 
+  // Premium gate - clean minimalist design
   if (!hasPremium) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
-          <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-          </svg>
-        </div>
-        <h1 className="text-3xl font-semibold mb-4">Learning Analytics</h1>
-        <p className="text-lg text-neutral-600 mb-8">
-          Unlock detailed insights into your child's learning journey with our Premium Analytics Dashboard.
+      <div className="max-w-md mx-auto text-center py-20">
+        <h1 className="text-2xl font-medium mb-2">Learning Analytics</h1>
+        <p className="text-neutral-500 mb-10">
+          Detailed insights into your child&apos;s learning journey.
         </p>
 
-        <div className="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-2xl p-8 mb-8">
-          <h2 className="text-xl font-semibold mb-6 text-purple-900">Premium Analytics Features</h2>
-          <div className="grid md:grid-cols-2 gap-4 text-left">
-            <div className="flex items-start gap-3">
-              <span className="text-purple-600 text-lg">✓</span>
-              <div>
-                <div className="font-medium">Concept Mastery Tracking</div>
-                <div className="text-sm text-neutral-600">See exactly which concepts your child has mastered vs needs work</div>
-              </div>
+        <div className="text-left mb-10">
+          <p className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Premium Features</p>
+          <div className="space-y-3 text-sm">
+            <div className="flex gap-3">
+              <span className="text-neutral-400">+</span>
+              <span>Concept mastery tracking</span>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-purple-600 text-lg">✓</span>
-              <div>
-                <div className="font-medium">Error Pattern Detection</div>
-                <div className="text-sm text-neutral-600">Identify recurring mistakes like "always rounds down when should round up"</div>
-              </div>
+            <div className="flex gap-3">
+              <span className="text-neutral-400">+</span>
+              <span>Error pattern detection</span>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-purple-600 text-lg">✓</span>
-              <div>
-                <div className="font-medium">Daily Activity Charts</div>
-                <div className="text-sm text-neutral-600">Track study habits, time spent, and accuracy trends</div>
-              </div>
+            <div className="flex gap-3">
+              <span className="text-neutral-400">+</span>
+              <span>AI-powered insights</span>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-purple-600 text-lg">✓</span>
-              <div>
-                <div className="font-medium">Personalised Recommendations</div>
-                <div className="text-sm text-neutral-600">Get specific suggestions for what to focus on next</div>
-              </div>
+            <div className="flex gap-3">
+              <span className="text-neutral-400">+</span>
+              <span>Daily activity tracking</span>
             </div>
           </div>
         </div>
 
         <Link href="/pricing">
-          <Button size="lg" className="rounded-full px-8">
-            Upgrade to Scholar - $5/month
+          <Button className="bg-black text-white hover:bg-neutral-800 rounded-full px-8">
+            Upgrade to Scholar
           </Button>
         </Link>
-        <p className="text-sm text-neutral-500 mt-4">
-          Includes unlimited questions, AI explanations, and full analytics access
-        </p>
+        <p className="text-xs text-neutral-400 mt-3">$5/month</p>
       </div>
     )
   }
@@ -223,351 +197,205 @@ function AnalyticsContent() {
   if (!child) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-600 mb-6">{error || 'Child not found'}</p>
+        <p className="text-neutral-500 mb-6">{error || 'Child not found'}</p>
         <Link href="/dashboard">
-          <Button className="rounded-full px-6">Back to Dashboard</Button>
+          <Button variant="outline" className="rounded-full px-6">Back to Dashboard</Button>
         </Link>
       </div>
     )
   }
 
-  // Status colors
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'excellent':
-      case 'mastered':
-        return 'text-green-600 bg-green-50 border-green-200'
-      case 'good':
-      case 'progressing':
-        return 'text-blue-600 bg-blue-50 border-blue-200'
-      case 'needs-attention':
-      case 'needs-practice':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200'
-      case 'struggling':
-        return 'text-red-600 bg-red-50 border-red-200'
-      default:
-        return 'text-neutral-600 bg-neutral-50 border-neutral-200'
-    }
-  }
-
-  const getTrendIcon = (trend: string) => {
-    switch (trend) {
-      case 'improving':
-        return <span className="text-green-500">↑</span>
-      case 'declining':
-        return <span className="text-red-500">↓</span>
-      default:
-        return <span className="text-neutral-400">→</span>
-    }
-  }
-
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-3xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <span className="text-5xl">{child.avatar}</span>
-          <div>
-            <h1 className="text-2xl font-semibold">{child.name}'s Learning Analytics</h1>
-            <p className="text-neutral-500">Year {child.yearLevel} - Detailed Insights</p>
-          </div>
+      <div className="flex items-center justify-between mb-12 pb-6 border-b border-neutral-200">
+        <div>
+          <h1 className="text-xl font-medium">{child.name}</h1>
+          <p className="text-sm text-neutral-400">Year {child.yearLevel}</p>
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant={period === 'week' ? 'default' : 'outline'}
-            size="sm"
-            className="rounded-full"
+        <div className="flex gap-1 text-sm">
+          <button
+            className={`px-4 py-1.5 rounded-full transition-colors ${
+              period === 'week' ? 'bg-black text-white' : 'text-neutral-400 hover:text-black'
+            }`}
             onClick={() => setPeriod('week')}
           >
-            This Week
-          </Button>
-          <Button
-            variant={period === 'month' ? 'default' : 'outline'}
-            size="sm"
-            className="rounded-full"
+            Week
+          </button>
+          <button
+            className={`px-4 py-1.5 rounded-full transition-colors ${
+              period === 'month' ? 'bg-black text-white' : 'text-neutral-400 hover:text-black'
+            }`}
             onClick={() => setPeriod('month')}
           >
-            This Month
-          </Button>
+            Month
+          </button>
         </div>
       </div>
 
-      {/* Summary Banner */}
+      {/* Summary */}
       {report && (
-        <div className={`rounded-xl p-6 mb-8 border ${getStatusColor(report.summary.overallProgress)}`}>
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-3xl">
-              {report.summary.overallProgress === 'excellent' ? '🌟' :
-               report.summary.overallProgress === 'good' ? '👍' :
-               report.summary.overallProgress === 'needs-attention' ? '📚' : '💪'}
-            </span>
-            <div>
-              <h2 className="text-lg font-semibold">{report.summary.headline}</h2>
-              <p className="text-sm opacity-80">
-                Overall Status: {report.summary.overallProgress.replace('-', ' ')}
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-4">
-            {report.summary.keyInsights.map((insight, idx) => (
-              <span key={idx} className="text-xs px-3 py-1 rounded-full bg-white/50">
-                {insight}
+        <section className="mb-12">
+          <p className="text-lg mb-4">{report.summary.headline}</p>
+          <div className="flex flex-wrap gap-2">
+            {report.summary.keyInsights.slice(0, 4).map((insight, idx) => (
+              <span key={idx} className="text-sm text-neutral-500">
+                {insight}{idx < Math.min(report.summary.keyInsights.length, 4) - 1 ? ' · ' : ''}
               </span>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
-      {/* Daily Activity Chart */}
-      {dailyStats && dailyStats.stats.length > 0 && (
-        <div className="border border-neutral-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-semibold mb-4">Daily Activity</h2>
-          <div className="flex items-end gap-2 h-32 mb-4">
+      {/* Stats Grid */}
+      {dailyStats && (
+        <section className="mb-12">
+          <div className="grid grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="text-3xl font-light">{dailyStats.totals.totalQuestions}</div>
+              <div className="text-xs text-neutral-400 mt-1">Questions</div>
+            </div>
+            <div>
+              <div className="text-3xl font-light">{dailyStats.totals.overallAccuracy}%</div>
+              <div className="text-xs text-neutral-400 mt-1">Accuracy</div>
+            </div>
+            <div>
+              <div className="text-3xl font-light">{dailyStats.totals.totalMinutes}</div>
+              <div className="text-xs text-neutral-400 mt-1">Minutes</div>
+            </div>
+            <div>
+              <div className="text-3xl font-light">{dailyStats.totals.daysActive}/{period === 'week' ? 7 : 30}</div>
+              <div className="text-xs text-neutral-400 mt-1">Active Days</div>
+            </div>
+          </div>
+
+          {/* Minimal bar chart */}
+          <div className="flex items-end gap-0.5 h-16">
             {dailyStats.stats.map((day, idx) => {
               const maxQuestions = Math.max(...dailyStats.stats.map(d => d.questionsAttempted), 1)
               const height = day.questionsAttempted > 0
-                ? Math.max((day.questionsAttempted / maxQuestions) * 100, 10)
-                : 4
+                ? Math.max((day.questionsAttempted / maxQuestions) * 100, 4)
+                : 1
               return (
-                <div key={idx} className="flex-1 flex flex-col items-center gap-1">
-                  <div
-                    className={`w-full rounded-t-lg transition-all ${
-                      day.questionsAttempted > 0
-                        ? day.accuracy >= 70 ? 'bg-green-500' : day.accuracy >= 50 ? 'bg-yellow-500' : 'bg-red-400'
-                        : 'bg-neutral-200'
-                    }`}
-                    style={{ height: `${height}%` }}
-                    title={`${day.questionsAttempted} questions, ${day.accuracy}% accuracy`}
-                  />
-                  <span className="text-xs text-neutral-400">
-                    {new Date(day.date).toLocaleDateString('en-AU', { weekday: 'short' }).slice(0, 2)}
-                  </span>
-                </div>
+                <div
+                  key={idx}
+                  className={`flex-1 transition-all ${
+                    day.questionsAttempted === 0 ? 'bg-neutral-100' : 'bg-black'
+                  }`}
+                  style={{ height: `${height}%` }}
+                  title={`${day.date}: ${day.questionsAttempted} questions`}
+                />
               )
             })}
           </div>
-          <div className="grid grid-cols-4 gap-4 pt-4 border-t border-neutral-100">
-            <div>
-              <div className="text-2xl font-semibold">{dailyStats.totals.totalQuestions}</div>
-              <div className="text-sm text-neutral-500">Questions</div>
-            </div>
-            <div>
-              <div className="text-2xl font-semibold">{dailyStats.totals.overallAccuracy}%</div>
-              <div className="text-sm text-neutral-500">Accuracy</div>
-            </div>
-            <div>
-              <div className="text-2xl font-semibold">{dailyStats.totals.totalMinutes}</div>
-              <div className="text-sm text-neutral-500">Minutes</div>
-            </div>
-            <div>
-              <div className="text-2xl font-semibold">{dailyStats.totals.daysActive}</div>
-              <div className="text-sm text-neutral-500">Days Active</div>
-            </div>
-          </div>
-        </div>
+        </section>
       )}
 
-      {/* Weaknesses & Error Patterns */}
-      {weaknesses && (weaknesses.weakConcepts.length > 0 || weaknesses.errorPatterns.length > 0) && (
-        <div className="border border-neutral-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-semibold mb-4">Areas Needing Attention</h2>
-
-          {/* Weak Concepts */}
-          {weaknesses.weakConcepts.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-neutral-500 mb-3">Struggling Concepts</h3>
-              <div className="space-y-3">
-                {weaknesses.weakConcepts.map((concept, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-4 rounded-lg border ${
-                      concept.severity === 'critical'
-                        ? 'bg-red-50 border-red-200'
-                        : 'bg-yellow-50 border-yellow-200'
-                    }`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="font-medium">
-                          {formatConceptName(concept.concept)}
-                        </span>
-                        <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                          concept.severity === 'critical'
-                            ? 'bg-red-200 text-red-700'
-                            : 'bg-yellow-200 text-yellow-700'
-                        }`}>
-                          {concept.severity}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className={`font-semibold ${
-                          concept.masteryScore < 40 ? 'text-red-600' : 'text-yellow-600'
-                        }`}>
-                          {concept.masteryScore}%
-                        </span>
-                        {getTrendIcon(concept.trend)}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Error Patterns */}
-          {weaknesses.errorPatterns.length > 0 && (
-            <div>
-              <h3 className="text-sm font-medium text-neutral-500 mb-3">Recurring Mistakes</h3>
-              <div className="space-y-3">
-                {weaknesses.errorPatterns.map((pattern, idx) => (
-                  <div key={idx} className="p-4 rounded-lg bg-orange-50 border border-orange-200">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="font-medium text-orange-800">{pattern.description}</span>
-                      <span className="text-sm text-orange-600">{pattern.occurrences}x</span>
-                    </div>
-                    <p className="text-sm text-orange-700 mb-2">
-                      <strong>Suggested focus:</strong> {pattern.suggestedFocus}
-                    </p>
-                    {pattern.examples && pattern.examples.length > 0 && (
-                      <details className="text-xs text-orange-600">
-                        <summary className="cursor-pointer hover:text-orange-800">
-                          View example mistakes
-                        </summary>
-                        <div className="mt-2 space-y-2">
-                          {pattern.examples.slice(0, 2).map((ex, i) => (
-                            <div key={i} className="bg-white/50 p-2 rounded">
-                              <div className="font-medium">{ex.questionText}</div>
-                              <div className="text-red-600">Answered: {ex.wrongAnswer}</div>
-                              <div className="text-green-600">Correct: {ex.correctAnswer}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Summary */}
-          {weaknesses.summary && (
-            <div className="mt-4 p-3 bg-neutral-100 rounded-lg text-sm text-neutral-600">
-              {weaknesses.summary}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Concept Mastery Grid */}
-      {concepts.length > 0 && (
-        <div className="border border-neutral-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-semibold mb-4">Concept Mastery Breakdown</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {concepts.map((concept, idx) => (
-              <div key={idx} className="p-4 rounded-lg border border-neutral-200">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium text-sm">
-                    {formatConceptName(concept.concept)}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <span className={`font-semibold ${
-                      concept.masteryScore >= 80 ? 'text-green-600' :
-                      concept.masteryScore >= 60 ? 'text-blue-600' :
-                      concept.masteryScore >= 40 ? 'text-yellow-600' : 'text-red-600'
-                    }`}>
-                      {concept.masteryScore}%
-                    </span>
-                    {getTrendIcon(concept.trend)}
-                  </div>
-                </div>
-                <div className="w-full bg-neutral-100 rounded-full h-2">
-                  <div
-                    className={`h-2 rounded-full transition-all ${
-                      concept.masteryScore >= 80 ? 'bg-green-500' :
-                      concept.masteryScore >= 60 ? 'bg-blue-500' :
-                      concept.masteryScore >= 40 ? 'bg-yellow-500' : 'bg-red-500'
-                    }`}
-                    style={{ width: `${concept.masteryScore}%` }}
-                  />
-                </div>
-                <div className="flex justify-between mt-2 text-xs text-neutral-500">
-                  <span>{concept.totalAttempts} questions attempted</span>
-                  <span>Avg {concept.avgTimeSeconds}s</span>
-                </div>
+      {/* AI Insights */}
+      {weaknesses?.aiInsights && weaknesses.aiInsights.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Insights</h2>
+          <div className="space-y-4">
+            {weaknesses.aiInsights.map((insight: any, idx: number) => (
+              <div key={idx} className="border-l-2 border-neutral-200 pl-4">
+                <p className="text-sm">{insight.insight}</p>
+                {insight.suggestedAction && (
+                  <p className="text-xs text-neutral-400 mt-1">{insight.suggestedAction}</p>
+                )}
               </div>
             ))}
           </div>
-        </div>
+        </section>
+      )}
+
+      {/* Concept Mastery */}
+      {concepts.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Concept Mastery</h2>
+          <div className="space-y-3">
+            {concepts.map((concept, idx) => (
+              <div key={idx} className="flex items-center">
+                <span className="text-sm flex-1">{formatConceptName(concept.concept)}</span>
+                <div className="w-24 h-1 bg-neutral-100 mx-4">
+                  <div
+                    className="h-full bg-black"
+                    style={{ width: `${concept.masteryScore}%` }}
+                  />
+                </div>
+                <span className="text-sm text-neutral-400 w-12 text-right">{concept.masteryScore}%</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Areas to Focus */}
+      {weaknesses && weaknesses.weakConcepts.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Areas to Focus</h2>
+          <div className="space-y-2">
+            {weaknesses.weakConcepts.map((concept, idx) => (
+              <div key={idx} className="flex items-center justify-between py-2 border-b border-neutral-100 last:border-0">
+                <span className="text-sm">{formatConceptName(concept.concept)}</span>
+                <span className="text-sm text-neutral-400">{concept.masteryScore}%</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Error Patterns */}
+      {weaknesses && weaknesses.errorPatterns.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Recurring Patterns</h2>
+          <div className="space-y-2">
+            {weaknesses.errorPatterns.map((pattern, idx) => (
+              <div key={idx} className="flex items-center justify-between py-2 border-b border-neutral-100 last:border-0">
+                <span className="text-sm text-neutral-600">{pattern.description}</span>
+                <span className="text-xs text-neutral-400">{pattern.occurrences}x</span>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Recommendations */}
       {report && report.recommendations.length > 0 && (
-        <div className="border border-neutral-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-semibold mb-4">Recommendations for Parents</h2>
-          <div className="space-y-4">
+        <section className="mb-12">
+          <h2 className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Recommendations</h2>
+          <div className="space-y-3">
             {report.recommendations.map((rec, idx) => (
-              <div
-                key={idx}
-                className={`p-4 rounded-lg border-l-4 ${
-                  rec.priority === 'high'
-                    ? 'border-l-red-500 bg-red-50'
-                    : rec.priority === 'medium'
-                    ? 'border-l-yellow-500 bg-yellow-50'
-                    : 'border-l-blue-500 bg-blue-50'
-                }`}
-              >
-                <div className="flex justify-between items-start mb-2">
-                  <span className="font-medium">{rec.area}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${
-                    rec.priority === 'high'
-                      ? 'bg-red-200 text-red-700'
-                      : rec.priority === 'medium'
-                      ? 'bg-yellow-200 text-yellow-700'
-                      : 'bg-blue-200 text-blue-700'
-                  }`}>
-                    {rec.priority} priority
-                  </span>
-                </div>
-                <p className="text-sm text-neutral-600 mb-1">{rec.issue}</p>
-                <p className="text-sm font-medium">{rec.suggestion}</p>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Estimated time: {rec.estimatedTimeMinutes} minutes
-                </p>
+              <div key={idx} className="border-l-2 border-neutral-200 pl-4 py-1">
+                <p className="text-sm font-medium">{rec.area}</p>
+                <p className="text-sm text-neutral-500">{rec.suggestion}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
       {/* Achievements */}
       {report && report.achievements.length > 0 && (
-        <div className="border border-neutral-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-semibold mb-4">Recent Achievements</h2>
-          <div className="grid md:grid-cols-2 gap-4">
+        <section className="mb-12">
+          <h2 className="text-xs uppercase tracking-wide text-neutral-400 mb-4">Achievements</h2>
+          <div className="flex flex-wrap gap-2">
             {report.achievements.map((achievement, idx) => (
-              <div key={idx} className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <span className="text-3xl">🏆</span>
-                <div>
-                  <div className="font-semibold text-green-800">{achievement.title}</div>
-                  <div className="text-sm text-green-600">{achievement.description}</div>
-                </div>
-              </div>
+              <span key={idx} className="text-sm px-3 py-1 border border-neutral-200 rounded-full">
+                {achievement.title}
+              </span>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
-      {/* No data message */}
+      {/* No data */}
       {!report && !weaknesses && concepts.length === 0 && (
-        <div className="border border-neutral-200 rounded-xl p-10 text-center">
-          <h2 className="text-xl font-semibold mb-2">No analytics data yet</h2>
-          <p className="text-neutral-500 mb-6">
-            {child.name} needs to complete some practice questions to generate analytics.
-            Start with the Learn page to build up data for detailed insights.
+        <div className="text-center py-20">
+          <p className="text-neutral-400 mb-6">
+            No analytics data yet.
           </p>
           <Link href="/learn">
-            <Button className="rounded-full px-6">Start Learning</Button>
+            <Button variant="outline" className="rounded-full px-6">Start Learning</Button>
           </Link>
         </div>
       )}
@@ -578,19 +406,19 @@ function AnalyticsContent() {
 export default function AnalyticsPage() {
   return (
     <main className="min-h-screen bg-white">
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
-        <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
-          <Link href="/" className="text-lg font-semibold">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-neutral-100">
+        <div className="max-w-3xl mx-auto px-6 h-14 flex justify-between items-center">
+          <Link href="/" className="text-lg font-medium tracking-tight">
             StudyMate
           </Link>
-          <Link href="/dashboard" className="text-sm text-neutral-500 hover:text-black transition-colors">
-            Back to Dashboard
+          <Link href="/dashboard" className="text-sm text-neutral-400 hover:text-black transition-colors">
+            Dashboard
           </Link>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <Suspense fallback={<div className="text-center text-neutral-400">Loading...</div>}>
+      <div className="max-w-3xl mx-auto px-6 py-12">
+        <Suspense fallback={<div className="text-center text-neutral-300">Loading...</div>}>
           <AnalyticsContent />
         </Suspense>
       </div>

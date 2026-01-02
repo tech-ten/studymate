@@ -14,6 +14,16 @@ import {
   type WeeklySummary,
   type ParentReport,
 } from '../lib/analytics-schema';
+import Groq from 'groq-sdk';
+
+// Lazy initialize Groq client (only when needed for hybrid AI insights)
+let groqClient: Groq | null = null;
+function getGroqClient(): Groq {
+  if (!groqClient) {
+    groqClient = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  }
+  return groqClient;
+}
 
 // ============ HANDLER ============
 
@@ -629,8 +639,8 @@ async function getConceptMastery(childId: string): Promise<APIGatewayProxyResult
 }
 
 async function getWeaknesses(childId: string): Promise<APIGatewayProxyResultV2> {
-  // Get concept mastery, error patterns, knowledge tokens, and recent attempts in parallel
-  const [conceptResult, errorResult, tokenResult, attemptResult] = await Promise.all([
+  // Get concept mastery, error patterns, knowledge tokens, recent attempts, and child profile in parallel
+  const [conceptResult, errorResult, tokenResult, attemptResult, childResult] = await Promise.all([
     db.send(new QueryCommand({
       TableName: TABLE_NAME,
       KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
@@ -665,11 +675,17 @@ async function getWeaknesses(childId: string): Promise<APIGatewayProxyResultV2> 
       ScanIndexForward: false,
       Limit: 50,
     })),
+    // Get child profile for name
+    db.send(new GetCommand({
+      TableName: TABLE_NAME,
+      Key: { PK: `CHILD#${childId}`, SK: 'PROFILE' },
+    })),
   ]);
 
   const tokens = tokenResult.Items || [];
   const errors = errorResult.Items || [];
   const attempts = attemptResult.Items || [];
+  const childName = childResult.Item?.name;
 
   // Identify weak concepts (below 60% mastery)
   const weakConcepts = (conceptResult.Items || [])
@@ -700,8 +716,8 @@ async function getWeaknesses(childId: string): Promise<APIGatewayProxyResultV2> 
   const tokenInsights = processKnowledgeTokens(tokens);
   const strugglingTokens = tokenInsights.filter(t => t.status === 'struggling' || t.status === 'needs-practice');
 
-  // Generate AI insights
-  const aiInsights = generateAIInsights(attempts, tokens, errors);
+  // Generate AI-powered insights using Groq
+  const aiInsights = await generateAIInsightsAsync(attempts, tokens, errors, childName);
 
   // Generate actionable insights (combine traditional + AI)
   const insights: string[] = [];
@@ -904,11 +920,11 @@ async function getKnowledgeTokenMastery(childId: string): Promise<APIGatewayProx
 
 /**
  * Get AI-generated insights for a child
- * Analyzes all available data to produce actionable insights
+ * Uses Groq LLM for intelligent analysis with rule-based prompt engineering
  */
 async function getAIInsights(childId: string): Promise<APIGatewayProxyResultV2> {
   // Get all relevant data for analysis
-  const [tokenResult, errorResult, attemptResult] = await Promise.all([
+  const [tokenResult, errorResult, attemptResult, childResult] = await Promise.all([
     db.send(new QueryCommand({
       TableName: TABLE_NAME,
       KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
@@ -935,19 +951,26 @@ async function getAIInsights(childId: string): Promise<APIGatewayProxyResultV2> 
       ScanIndexForward: false,
       Limit: 100, // More attempts for better analysis
     })),
+    // Get child profile for name
+    db.send(new GetCommand({
+      TableName: TABLE_NAME,
+      Key: { PK: `CHILD#${childId}`, SK: 'PROFILE' },
+    })),
   ]);
 
   const tokens = tokenResult.Items || [];
   const errors = errorResult.Items || [];
   const attempts = attemptResult.Items || [];
+  const childName = childResult.Item?.name;
 
-  // Generate comprehensive AI insights
-  const insights = generateAIInsights(attempts, tokens, errors);
+  // Generate AI-powered insights using Groq
+  const insights = await generateAIInsightsAsync(attempts, tokens, errors, childName);
 
   // Categorise insights
   const misconceptions = insights.filter(i => i.type === 'misconception');
   const strengths = insights.filter(i => i.type === 'strength');
   const patterns = insights.filter(i => i.type === 'pattern');
+  const recommendations = insights.filter(i => i.type === 'recommendation');
 
   return success({
     childId,
@@ -956,6 +979,7 @@ async function getAIInsights(childId: string): Promise<APIGatewayProxyResultV2> 
       misconceptions,
       strengths,
       patterns,
+      recommendations,
     },
     summary: {
       totalInsights: insights.length,
@@ -966,8 +990,8 @@ async function getAIInsights(childId: string): Promise<APIGatewayProxyResultV2> 
 }
 
 async function generateParentReport(childId: string, period: string): Promise<APIGatewayProxyResultV2> {
-  // Get all relevant data including knowledge token mastery
-  const [conceptResult, errorResult, dailyResult, tokenResult, attemptResult] = await Promise.all([
+  // Get all relevant data including knowledge token mastery and child profile
+  const [conceptResult, errorResult, dailyResult, tokenResult, attemptResult, childResult] = await Promise.all([
     db.send(new QueryCommand({
       TableName: TABLE_NAME,
       KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
@@ -993,18 +1017,24 @@ async function generateParentReport(childId: string, period: string): Promise<AP
       ScanIndexForward: false, // Most recent first
       Limit: 50,
     })),
+    // Get child profile for name
+    db.send(new GetCommand({
+      TableName: TABLE_NAME,
+      Key: { PK: `CHILD#${childId}`, SK: 'PROFILE' },
+    })),
   ]);
 
   const concepts = conceptResult.Items || [];
   const errors = errorResult.Items || [];
   const tokens = tokenResult.Items || [];
   const recentAttempts = attemptResult.Items || [];
+  const childName = childResult.Item?.name;
 
   // Process knowledge token data for granular insights
   const tokenInsights = processKnowledgeTokens(tokens);
 
-  // Generate AI insights from recent attempts
-  const aiInsights = generateAIInsights(recentAttempts, tokens, errors);
+  // Generate AI-powered insights using Groq with rule-based prompt engineering
+  const aiInsights = await generateAIInsightsAsync(recentAttempts, tokens, errors, childName);
 
   // Calculate overall metrics
   const totalAttempts = concepts.reduce((sum, c) => sum + (c.totalAttempts || 0), 0);
@@ -1090,7 +1120,7 @@ async function generateParentReport(childId: string, period: string): Promise<AP
   // Build report
   const report = {
     childId,
-    childName: '', // Would be populated from child profile
+    childName: childName || '', // From child profile
     reportPeriod: {
       start: new Date(Date.now() - (period === 'month' ? 30 : 7) * 24 * 60 * 60 * 1000).toISOString(),
       end: new Date().toISOString(),
@@ -1419,109 +1449,288 @@ interface AIInsight {
 }
 
 /**
- * Generate AI-powered insights from learning data
- * This analyzes patterns in attempts and knowledge tokens to produce actionable insights
+ * SMART Context Builder for AI Analytics
+ *
+ * This pulls data FROM DynamoDB (where it's already stored per attempt) and
+ * builds an EFFICIENT prompt that:
+ * 1. Summarises key patterns (not dumps raw data)
+ * 2. Includes actual wrong answer examples (the evidence)
+ * 3. Extracts confusion pattern aggregates (what misconceptions are recurring)
+ * 4. Calculates time patterns (rushing vs genuine confusion)
+ *
+ * The AI then generates insights based on ACTUAL DATA, not hardcoded definitions.
  */
-function generateAIInsights(attempts: any[], tokens: any[], errors: any[]): AIInsight[] {
-  const insights: AIInsight[] = [];
+function buildSmartAnalyticsContext(
+  attempts: any[],
+  tokens: any[],
+  _errors: any[], // Error patterns from ERROR# records (available for future use)
+  childName?: string
+): string {
+  const lines: string[] = [];
 
-  // 1. Analyze confusion patterns from knowledge tokens
-  const confusionCounts: Record<string, number> = {};
+  lines.push(`STUDENT: ${childName || 'Child'}`);
+  lines.push('');
+
+  // === SECTION 1: Skill Performance Summary ===
+  // Extract key metrics from TOKEN# records (already aggregated in DynamoDB)
+  if (tokens.length > 0) {
+    lines.push('=== SKILL PERFORMANCE ===');
+
+    // Sort by mastery score to highlight struggles first
+    const sortedTokens = [...tokens].sort((a, b) => a.masteryScore - b.masteryScore);
+
+    for (const token of sortedTokens) {
+      const status = token.masteryScore >= 70 ? '✓' : token.masteryScore >= 50 ? '~' : '✗';
+      lines.push(`${status} ${formatTokenName(token.tokenId)}: ${token.masteryScore}% (${token.correctAttempts}/${token.totalAttempts})`);
+
+      // Include confusion patterns if this skill has problems
+      if (token.confusionPatterns && Object.keys(token.confusionPatterns).length > 0) {
+        const confusions = Object.entries(token.confusionPatterns)
+          .sort((a, b) => (b[1] as number) - (a[1] as number))
+          .slice(0, 3); // Top 3 confusions
+
+        for (const [pattern, count] of confusions) {
+          lines.push(`    → ${formatConfusionPattern(pattern)} (${count}x)`);
+        }
+      }
+    }
+    lines.push('');
+  }
+
+  // === SECTION 2: Key Wrong Answers (Evidence) ===
+  // Pull from ATTEMPT# records - this shows WHAT the child actually did
+  const recentAttempts = attempts.slice(0, 50);
+  const wrongAttempts = recentAttempts.filter(a => !a.isCorrect);
+
+  if (wrongAttempts.length > 0) {
+    lines.push('=== WRONG ANSWER EXAMPLES ===');
+
+    // Group wrong answers by confusion pattern to show patterns
+    const confusionExamples: Record<string, { question: string; chose: string; correct: string; }[]> = {};
+
+    for (const attempt of wrongAttempts.slice(0, 20)) {
+      const pattern = attempt.confusionToken || 'unknown';
+      if (!confusionExamples[pattern]) {
+        confusionExamples[pattern] = [];
+      }
+      if (confusionExamples[pattern].length < 2) { // Max 2 examples per pattern
+        confusionExamples[pattern].push({
+          question: attempt.questionText?.substring(0, 60) || attempt.questionId,
+          chose: attempt.options?.[attempt.selectedAnswer] || `Option ${attempt.selectedAnswer}`,
+          correct: attempt.options?.[attempt.correctAnswer] || `Option ${attempt.correctAnswer}`,
+        });
+      }
+    }
+
+    // Output examples by pattern
+    for (const [pattern, examples] of Object.entries(confusionExamples)) {
+      if (pattern === 'unknown' || !pattern) continue;
+
+      lines.push(`Pattern: ${formatConfusionPattern(pattern)}`);
+      for (const ex of examples) {
+        lines.push(`  Q: "${ex.question}..."`);
+        lines.push(`  Chose: "${ex.chose}" | Correct: "${ex.correct}"`);
+      }
+    }
+    lines.push('');
+  }
+
+  // === SECTION 3: Time Analysis ===
+  // Calculate behavioural patterns from attempt data
+  const correctAttempts = recentAttempts.filter(a => a.isCorrect);
+  const avgTimeWrong = wrongAttempts.length > 0
+    ? Math.round(wrongAttempts.reduce((sum, a) => sum + (a.timeSpentSeconds || 0), 0) / wrongAttempts.length)
+    : 0;
+  const avgTimeCorrect = correctAttempts.length > 0
+    ? Math.round(correctAttempts.reduce((sum, a) => sum + (a.timeSpentSeconds || 0), 0) / correctAttempts.length)
+    : 0;
+
+  if (avgTimeWrong > 0 && avgTimeCorrect > 0) {
+    lines.push('=== TIME PATTERNS ===');
+    lines.push(`Avg time on correct: ${avgTimeCorrect}s`);
+    lines.push(`Avg time on wrong: ${avgTimeWrong}s`);
+
+    if (avgTimeWrong < avgTimeCorrect * 0.6) {
+      lines.push(`BEHAVIOUR: Rushes on difficult questions (answers faster when wrong)`);
+    } else if (avgTimeWrong > avgTimeCorrect * 1.5) {
+      lines.push(`BEHAVIOUR: Struggles genuinely (spends more time on questions they get wrong)`);
+    }
+    lines.push('');
+  }
+
+  // === SECTION 4: Overall Stats ===
+  const totalAttempts = recentAttempts.length;
+  const accuracy = totalAttempts > 0 ? Math.round((correctAttempts.length / totalAttempts) * 100) : 0;
+
+  lines.push('=== SUMMARY ===');
+  lines.push(`Recent accuracy: ${accuracy}% (${correctAttempts.length}/${totalAttempts})`);
+
+  // Aggregate confusion counts
+  const allConfusions: Record<string, number> = {};
   for (const token of tokens) {
     if (token.confusionPatterns) {
       for (const [pattern, count] of Object.entries(token.confusionPatterns)) {
-        confusionCounts[pattern] = (confusionCounts[pattern] || 0) + (count as number);
+        allConfusions[pattern] = (allConfusions[pattern] || 0) + (count as number);
       }
     }
   }
 
-  // Generate insights for significant confusion patterns
-  const sortedConfusions = Object.entries(confusionCounts)
-    .sort((a, b) => b[1] - a[1]);
+  const topConfusions = Object.entries(allConfusions)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
 
-  for (const [pattern, count] of sortedConfusions.slice(0, 3)) {
-    if (count >= 2) {
-      insights.push({
-        type: 'misconception',
-        insight: generateMisconceptionInsight(pattern, count),
-        confidence: count >= 5 ? 'high' : count >= 3 ? 'medium' : 'low',
-        relatedTokens: [pattern],
-        suggestedAction: generateMisconceptionAction(pattern),
-      });
+  if (topConfusions.length > 0) {
+    lines.push(`Top misconceptions: ${topConfusions.map(([p, c]) => `${formatConfusionPattern(p)} (${c}x)`).join(', ')}`);
+  }
+
+  return lines.join('\n');
+}
+
+/**
+ * Generate AI-powered insights using Groq LLM with SMART context
+ *
+ * The prompt is designed to be:
+ * 1. TOKEN-EFFICIENT - summarised data, not raw dumps
+ * 2. EVIDENCE-BASED - includes actual wrong answers as proof
+ * 3. GROUNDED - only uses data from the stored records
+ */
+async function generateAIInsightsWithGroq(
+  attempts: any[],
+  tokens: any[],
+  errors: any[],
+  childName?: string
+): Promise<AIInsight[]> {
+  const insights: AIInsight[] = [];
+
+  // If no data, return empty
+  if (attempts.length === 0 && tokens.length === 0) {
+    return insights;
+  }
+
+  // Build SMART context (efficient, not heavy)
+  const context = buildSmartAnalyticsContext(attempts, tokens, errors, childName);
+
+  // System prompt - concise but effective
+  const systemPrompt = `You are a learning analytics expert for Australian primary school students (Years 3-6).
+
+RULES:
+1. Only state facts from the data below - never invent
+2. Reference specific evidence (skill %, confusion counts, examples)
+3. Use Australian English (colour, maths, practise)
+4. Be direct and actionable - no fluff
+
+The data shows:
+- Skill mastery scores with confusion patterns
+- Actual wrong answer examples (what they chose vs correct)
+- Time patterns (rushing vs struggling)
+
+OUTPUT: JSON array with 2-4 insights:
+[
+  {
+    "type": "misconception" | "strength" | "pattern" | "recommendation",
+    "insight": "Specific insight (1-2 sentences)",
+    "confidence": "high" | "medium" | "low",
+    "suggestedAction": "What parent can do"
+  }
+]`;
+
+  const userPrompt = `${context}
+
+Provide insights based ONLY on this data. Return JSON array.`;
+
+  try {
+    const groq = getGroqClient();
+    const completion = await groq.chat.completions.create({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      model: 'llama-3.3-70b-versatile',
+      temperature: 0.2, // Very low for factual output
+      max_tokens: 600, // Reduced since we want concise output
+    });
+
+    const responseText = completion.choices[0]?.message?.content || '';
+
+    // Parse the JSON array response
+    const jsonMatch = responseText.match(/\[[\s\S]*\]/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]) as AIInsight[];
+      for (const insight of parsed) {
+        if (insight.type && insight.insight && insight.confidence) {
+          insights.push({
+            type: insight.type,
+            insight: insight.insight,
+            confidence: insight.confidence,
+            suggestedAction: insight.suggestedAction,
+            relatedTokens: insight.relatedTokens,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error generating AI insights:', error);
+    return generateFallbackInsights(attempts, tokens);
+  }
+
+  if (insights.length === 0) {
+    return generateFallbackInsights(attempts, tokens);
+  }
+
+  return insights;
+}
+
+/**
+ * Fallback insights when AI is unavailable
+ * Uses the data already stored in DynamoDB - no hardcoded definitions needed
+ */
+function generateFallbackInsights(_attempts: any[], tokens: any[]): AIInsight[] {
+  const insights: AIInsight[] = [];
+
+  // Find the most common confusion pattern across all tokens
+  const allConfusions: Record<string, number> = {};
+  for (const token of tokens) {
+    if (token.confusionPatterns) {
+      for (const [pattern, count] of Object.entries(token.confusionPatterns)) {
+        allConfusions[pattern] = (allConfusions[pattern] || 0) + (count as number);
+      }
     }
   }
 
-  // 2. Identify struggling tokens
-  const strugglingTokens = tokens.filter(t => t.masteryScore < 50 && t.totalAttempts >= 3);
-  for (const token of strugglingTokens.slice(0, 2)) {
+  // Get the top confusion and generate insight from stored data
+  const sortedConfusions = Object.entries(allConfusions).sort((a, b) => b[1] - a[1]);
+  if (sortedConfusions.length > 0 && sortedConfusions[0][1] >= 2) {
+    const [topPattern, count] = sortedConfusions[0];
+    // Use the formatConfusionPattern function which creates human-readable descriptions
+    const patternDescription = formatConfusionPattern(topPattern);
     insights.push({
-      type: 'pattern',
-      insight: `Consistently struggling with ${formatTokenName(token.tokenId)} (${token.masteryScore}% accuracy after ${token.totalAttempts} attempts)`,
-      confidence: 'high',
-      relatedTokens: [token.tokenId],
-      suggestedAction: `Focus practice specifically on ${formatTokenName(token.tokenId).toLowerCase()} questions`,
+      type: 'misconception',
+      insight: `${patternDescription} - this happened ${count} times`,
+      confidence: count >= 4 ? 'high' : 'medium',
+      suggestedAction: `Review this concept with your child using hands-on examples`,
     });
   }
 
-  // 3. Identify mastered areas (strengths)
-  const masteredTokens = tokens.filter(t => t.masteryScore >= 85 && t.totalAttempts >= 3);
-  if (masteredTokens.length > 0) {
-    const masteredNames = masteredTokens.slice(0, 3).map(t => formatTokenName(t.tokenId));
+  // Find strengths (high mastery tokens)
+  const strengths = tokens.filter(t => t.masteryScore >= 70 && t.totalAttempts >= 3);
+  if (strengths.length > 0) {
+    const strengthNames = strengths.slice(0, 2).map(t => formatTokenName(t.tokenId));
     insights.push({
       type: 'strength',
-      insight: `Shows strong understanding of ${masteredNames.join(', ')}`,
+      insight: `Showing strong understanding of ${strengthNames.join(' and ')} (${strengths[0].masteryScore}%+ accuracy)`,
       confidence: 'high',
-      relatedTokens: masteredTokens.slice(0, 3).map(t => t.tokenId),
     });
   }
 
-  // 4. Analyze recent attempt patterns
-  const recentWrong = attempts.filter(a => !a.isCorrect).slice(0, 20);
-  if (recentWrong.length >= 5) {
-    // Look for time-based patterns
-    const avgTimeWrong = recentWrong.reduce((sum, a) => sum + (a.timeSpentSeconds || 0), 0) / recentWrong.length;
-    const recentCorrect = attempts.filter(a => a.isCorrect).slice(0, 20);
-    const avgTimeCorrect = recentCorrect.length > 0
-      ? recentCorrect.reduce((sum, a) => sum + (a.timeSpentSeconds || 0), 0) / recentCorrect.length
-      : avgTimeWrong;
-
-    if (avgTimeWrong < avgTimeCorrect * 0.5) {
-      insights.push({
-        type: 'pattern',
-        insight: 'Tends to answer too quickly on questions they get wrong - encourage taking more time to read carefully',
-        confidence: 'medium',
-        suggestedAction: 'Remind them to read the question twice before answering',
-      });
-    } else if (avgTimeWrong > avgTimeCorrect * 2) {
-      insights.push({
-        type: 'pattern',
-        insight: 'Spends a long time on questions they get wrong - may indicate confusion rather than carelessness',
-        confidence: 'medium',
-        suggestedAction: 'Focus on building foundational understanding rather than more practice',
-      });
-    }
-  }
-
-  // 5. Check for improving trends
-  const improvingTokens = tokens.filter(t => t.trend === 'improving');
-  if (improvingTokens.length > 0) {
+  // Find weaknesses
+  const weaknesses = tokens.filter(t => t.masteryScore < 50 && t.totalAttempts >= 3);
+  if (weaknesses.length > 0) {
+    const weakestToken = weaknesses[0];
     insights.push({
-      type: 'strength',
-      insight: `Showing improvement in ${improvingTokens.length} area(s) including ${formatTokenName(improvingTokens[0].tokenId)}`,
+      type: 'recommendation',
+      insight: `Focus practice on ${formatTokenName(weakestToken.tokenId)} (currently ${weakestToken.masteryScore}% accuracy)`,
       confidence: 'high',
-      relatedTokens: improvingTokens.slice(0, 3).map(t => t.tokenId),
-    });
-  }
-
-  // 6. Check for declining trends
-  const decliningTokens = tokens.filter(t => t.trend === 'declining');
-  if (decliningTokens.length > 0) {
-    insights.push({
-      type: 'pattern',
-      insight: `Performance declining in ${formatTokenName(decliningTokens[0].tokenId)} - may need revision`,
-      confidence: 'medium',
-      relatedTokens: decliningTokens.slice(0, 2).map(t => t.tokenId),
-      suggestedAction: 'Review the basics of this concept before attempting more questions',
+      suggestedAction: 'Review the learning content and work through examples together',
     });
   }
 
@@ -1529,33 +1738,23 @@ function generateAIInsights(attempts: any[], tokens: any[], errors: any[]): AIIn
 }
 
 /**
- * Generate a parent-friendly insight about a specific misconception
+ * Main function to generate insights - uses AI with rich context
  */
-function generateMisconceptionInsight(pattern: string, count: number): string {
-  const insights: Record<string, string> = {
-    'acute-right-confusion': `Your child often confuses acute angles with right angles. They may think any "small" angle is 90°. This happened ${count} times.`,
-    'acute-obtuse-confusion': `Your child sometimes mixes up acute and obtuse angles. They're not yet confident with the 90° boundary. This happened ${count} times.`,
-    'obtuse-reflex-confusion': `Your child confuses obtuse angles (90-180°) with reflex angles (over 180°). They may need help visualising angles over 180°.`,
-    'reflex-misunderstanding': `Your child struggles to recognise reflex angles - the ones that go the "long way round" (over 180°).`,
-    'rounding-direction-error': `Your child often rounds in the wrong direction. They may need to practise the "5 or more, round up" rule.`,
-    'place-value-magnitude-confusion': `Your child confuses which digit is worth more in large numbers. A place value chart would help.`,
-  };
-
-  return insights[pattern] || `Recurring difficulty with ${formatConfusionPattern(pattern).toLowerCase()} (${count} occurrences)`;
+async function generateAIInsightsAsync(
+  attempts: any[],
+  tokens: any[],
+  errors: any[],
+  childName?: string
+): Promise<AIInsight[]> {
+  if (process.env.GROQ_API_KEY) {
+    return generateAIInsightsWithGroq(attempts, tokens, errors, childName);
+  }
+  return generateFallbackInsights(attempts, tokens);
 }
 
 /**
- * Generate actionable advice for addressing a specific misconception
+ * Synchronous wrapper for backward compatibility
  */
-function generateMisconceptionAction(pattern: string): string {
-  const actions: Record<string, string> = {
-    'acute-right-confusion': 'Use a set square to show exactly 90°, then compare smaller angles to it',
-    'acute-obtuse-confusion': 'Draw a right angle as the "dividing line" - acute is smaller, obtuse is bigger',
-    'obtuse-reflex-confusion': 'Practise with a full turn (360°) and show how reflex angles are "more than halfway round"',
-    'reflex-misunderstanding': 'Use a clock face to show angles - reflex angles go past 6 o\'clock',
-    'rounding-direction-error': 'Create a number line and practise finding "which ten is closer?"',
-    'place-value-magnitude-confusion': 'Use base-10 blocks or draw place value columns to show digit values',
-  };
-
-  return actions[pattern] || 'Practise with simpler examples and build up gradually';
+function generateAIInsights(attempts: any[], tokens: any[], _errors: any[]): AIInsight[] {
+  return generateFallbackInsights(attempts, tokens);
 }

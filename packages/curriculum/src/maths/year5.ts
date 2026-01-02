@@ -1273,6 +1273,7 @@ All angles around a point add up to 360° (a full rotation).`,
                 }
               ],
               questions: [
+                // === ACUTE ANGLE QUESTIONS (1-4) ===
                 {
                   id: 'VCMMG202-001',
                   question: 'What type of angle is 75°?',
@@ -1293,6 +1294,118 @@ All angles around a point add up to 360° (a full rotation).`,
                 },
                 {
                   id: 'VCMMG202-002',
+                  question: 'Which of these is an acute angle?',
+                  options: ['45°', '90°', '120°', '180°'],
+                  correctAnswer: 0,
+                  explanation: '45° is less than 90°, making it an acute angle. 90° is a right angle, 120° is obtuse, and 180° is a straight angle.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['acute-angle-identification'],
+                    correctToken: 'acute-angle-identification',
+                    incorrectTokens: [
+                      null, // Option A is correct
+                      'acute-right-confusion',      // Thinks 90° is acute
+                      'acute-obtuse-confusion',     // Thinks 120° is acute
+                      'straight-angle-confusion',   // Thinks 180° is acute
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-003',
+                  question: 'An angle measures 23°. What type of angle is it?',
+                  options: ['Reflex', 'Obtuse', 'Right', 'Acute'],
+                  correctAnswer: 3,
+                  explanation: '23° is much less than 90°, so it is an acute angle (a small, sharp angle)',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['acute-angle-identification'],
+                    correctToken: 'acute-angle-identification',
+                    incorrectTokens: [
+                      'reflex-misunderstanding',    // Thinks small angles are reflex
+                      'acute-obtuse-confusion',     // Confuses acute with obtuse
+                      'acute-right-confusion',      // Confuses acute with right
+                      null, // Option D is correct
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-004',
+                  question: 'How many degrees are in an acute angle?',
+                  options: ['Exactly 90°', 'More than 90° but less than 180°', 'Less than 90°', 'More than 180°'],
+                  correctAnswer: 2,
+                  explanation: 'An acute angle is any angle that measures less than 90°',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['acute-angle-identification'],
+                    correctToken: 'acute-angle-identification',
+                    incorrectTokens: [
+                      'acute-right-confusion',      // Thinks acute = 90°
+                      'acute-obtuse-confusion',     // Confuses definition with obtuse
+                      null, // Option C is correct
+                      'reflex-misunderstanding',    // Confuses with reflex
+                    ],
+                  },
+                },
+
+                // === RIGHT ANGLE QUESTIONS (5-7) ===
+                {
+                  id: 'VCMMG202-005',
+                  question: 'What type of angle is exactly 90°?',
+                  options: ['Acute', 'Right', 'Obtuse', 'Reflex'],
+                  correctAnswer: 1,
+                  explanation: 'An angle of exactly 90° is called a right angle. It forms a perfect square corner.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['right-angle-identification'],
+                    correctToken: 'right-angle-identification',
+                    incorrectTokens: [
+                      'right-acute-confusion',      // Thinks 90° is acute
+                      null, // Option B is correct
+                      'right-obtuse-confusion',     // Thinks 90° is obtuse
+                      'reflex-misunderstanding',    // Doesn't understand angle types
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-006',
+                  question: 'Where would you find a right angle in everyday life?',
+                  options: ['The corner of a book', 'The hands of a clock at 2:00', 'The peak of a roof', 'An open door at 45°'],
+                  correctAnswer: 0,
+                  explanation: 'The corner of a book forms a perfect right angle (90°). Book corners are designed to be square.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['right-angle-identification'],
+                    correctToken: 'right-angle-identification',
+                    incorrectTokens: [
+                      null, // Option A is correct
+                      'right-angle-real-world-error', // Can't identify right angles in context
+                      'right-angle-real-world-error', // Can't identify right angles in context
+                      'right-angle-real-world-error', // Can't identify right angles in context
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-007',
+                  question: 'How many right angles are in a rectangle?',
+                  options: ['2', '3', '4', '6'],
+                  correctAnswer: 2,
+                  explanation: 'A rectangle has 4 corners, and each corner is a right angle (90°). So rectangles have 4 right angles.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['right-angle-identification'],
+                    correctToken: 'right-angle-identification',
+                    incorrectTokens: [
+                      'rectangle-angle-count-error', // Only counted 2 corners
+                      'rectangle-angle-count-error', // Counted wrong number
+                      null, // Option C is correct
+                      'rectangle-angle-count-error', // Counted too many
+                    ],
+                  },
+                },
+
+                // === OBTUSE ANGLE QUESTIONS (8-11) ===
+                {
+                  id: 'VCMMG202-008',
                   question: 'What type of angle is 145°?',
                   options: ['Acute', 'Right', 'Obtuse', 'Reflex'],
                   correctAnswer: 2,
@@ -1310,7 +1423,119 @@ All angles around a point add up to 360° (a full rotation).`,
                   },
                 },
                 {
-                  id: 'VCMMG202-003',
+                  id: 'VCMMG202-009',
+                  question: 'Which angle is obtuse?',
+                  options: ['60°', '90°', '110°', '200°'],
+                  correctAnswer: 2,
+                  explanation: '110° is between 90° and 180°, making it obtuse. 60° is acute, 90° is right, and 200° is reflex.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['obtuse-angle-identification'],
+                    correctToken: 'obtuse-angle-identification',
+                    incorrectTokens: [
+                      'obtuse-acute-confusion',     // Thinks 60° is obtuse
+                      'obtuse-right-confusion',     // Thinks 90° is obtuse
+                      null, // Option C is correct
+                      'obtuse-reflex-confusion',    // Thinks 200° is obtuse
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-010',
+                  question: 'An obtuse angle measures between:',
+                  options: ['0° and 90°', '90° and 180°', '180° and 270°', '270° and 360°'],
+                  correctAnswer: 1,
+                  explanation: 'An obtuse angle is greater than 90° but less than 180°. It\'s "fatter" than a right angle.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['obtuse-angle-identification'],
+                    correctToken: 'obtuse-angle-identification',
+                    incorrectTokens: [
+                      'obtuse-definition-error',    // Confused with acute range
+                      null, // Option B is correct
+                      'obtuse-reflex-confusion',    // Confused with reflex range
+                      'obtuse-definition-error',    // Doesn't know the range
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-011',
+                  question: 'What type of angle is 179°?',
+                  options: ['Acute', 'Right', 'Obtuse', 'Straight'],
+                  correctAnswer: 2,
+                  explanation: '179° is just under 180°, so it\'s still an obtuse angle (between 90° and 180°). At exactly 180° it would be a straight angle.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['obtuse-angle-identification'],
+                    correctToken: 'obtuse-angle-identification',
+                    incorrectTokens: [
+                      'obtuse-acute-confusion',     // Major confusion about angle types
+                      'obtuse-right-confusion',     // Major confusion about angle types
+                      null, // Option C is correct
+                      'obtuse-straight-confusion',  // Thinks 179° is straight
+                    ],
+                  },
+                },
+
+                // === REFLEX ANGLE QUESTIONS (12-14) ===
+                {
+                  id: 'VCMMG202-012',
+                  question: 'What type of angle is 250°?',
+                  options: ['Acute', 'Obtuse', 'Straight', 'Reflex'],
+                  correctAnswer: 3,
+                  explanation: '250° is greater than 180°, so it is a reflex angle. Reflex angles are between 180° and 360°.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reflex-angle-identification'],
+                    correctToken: 'reflex-angle-identification',
+                    incorrectTokens: [
+                      'reflex-acute-confusion',     // Major confusion
+                      'reflex-obtuse-confusion',    // Thinks reflex is obtuse
+                      'reflex-straight-confusion',  // Confused with straight angle
+                      null, // Option D is correct
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-013',
+                  question: 'A reflex angle is:',
+                  options: ['Less than 90°', 'Exactly 180°', 'Between 180° and 360°', 'Exactly 360°'],
+                  correctAnswer: 2,
+                  explanation: 'A reflex angle is greater than 180° but less than 360°. It goes "past" a straight line.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reflex-angle-identification'],
+                    correctToken: 'reflex-angle-identification',
+                    incorrectTokens: [
+                      'reflex-definition-error',    // Confused with acute
+                      'reflex-straight-confusion',  // Thinks reflex = 180°
+                      null, // Option C is correct
+                      'reflex-full-rotation-confusion', // Thinks reflex = 360°
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-014',
+                  question: 'Which of these is a reflex angle?',
+                  options: ['89°', '91°', '179°', '181°'],
+                  correctAnswer: 3,
+                  explanation: '181° is just over 180°, making it a reflex angle. 89° is acute, 91° and 179° are obtuse.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reflex-angle-identification'],
+                    correctToken: 'reflex-angle-identification',
+                    incorrectTokens: [
+                      'reflex-acute-confusion',     // Thinks 89° is reflex
+                      'reflex-obtuse-confusion',    // Thinks 91° is reflex
+                      'reflex-obtuse-confusion',    // Thinks 179° is reflex
+                      null, // Option D is correct
+                    ],
+                  },
+                },
+
+                // === ANGLE ADDITION QUESTIONS (15-17) ===
+                {
+                  id: 'VCMMG202-015',
                   question: 'A right angle and an angle of 35° are together. What is their total?',
                   options: ['115°', '125°', '135°', '145°'],
                   correctAnswer: 1,
@@ -1328,7 +1553,45 @@ All angles around a point add up to 360° (a full rotation).`,
                   },
                 },
                 {
-                  id: 'VCMMG202-004',
+                  id: 'VCMMG202-016',
+                  question: 'Two angles are 65° and 45°. What is their sum?',
+                  options: ['100°', '110°', '120°', '130°'],
+                  correctAnswer: 1,
+                  explanation: '65° + 45° = 110°. Add the two angles together.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['angle-addition'],
+                    correctToken: 'angle-addition',
+                    incorrectTokens: [
+                      'addition-calculation-error', // Got 100° (subtracted or miscounted)
+                      null, // Option B is correct
+                      'addition-calculation-error', // Got 120°
+                      'addition-calculation-error', // Got 130°
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-017',
+                  question: 'An angle of 90° is split into two equal parts. What is each part?',
+                  options: ['30°', '45°', '60°', '90°'],
+                  correctAnswer: 1,
+                  explanation: '90° ÷ 2 = 45°. When you split a right angle in half, each part is 45°.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['angle-addition', 'right-angle-identification'],
+                    correctToken: 'angle-addition',
+                    incorrectTokens: [
+                      'division-calculation-error', // Wrong division result
+                      null, // Option B is correct
+                      'division-calculation-error', // Wrong division result
+                      'division-concept-error',     // Didn't understand the splitting
+                    ],
+                  },
+                },
+
+                // === TRIANGLE ANGLE SUM QUESTIONS (18-20) ===
+                {
+                  id: 'VCMMG202-018',
                   question: 'The angles of a triangle are 90°, 45°, and what?',
                   options: ['35°', '45°', '55°', '65°'],
                   correctAnswer: 1,
@@ -1346,20 +1609,38 @@ All angles around a point add up to 360° (a full rotation).`,
                   },
                 },
                 {
-                  id: 'VCMMG202-005',
-                  question: 'What is the reflex angle when the acute angle is 50°?',
-                  options: ['130°', '230°', '310°', '360°'],
-                  correctAnswer: 2,
-                  explanation: 'A reflex angle and its corresponding angle make 360°. 360° - 50° = 310°',
-                  difficulty: 3,
+                  id: 'VCMMG202-019',
+                  question: 'A triangle has angles of 60°, 60°, and 60°. What type of triangle is it?',
+                  options: ['Right triangle', 'Equilateral triangle', 'Scalene triangle', 'Impossible triangle'],
+                  correctAnswer: 1,
+                  explanation: '60° + 60° + 60° = 180°. This is an equilateral triangle where all angles are equal.',
+                  difficulty: 2,
                   knowledge: {
-                    questionTokens: ['reflex-complementary', 'reflex-angle-identification'],
-                    correctToken: 'reflex-complementary',
+                    questionTokens: ['triangle-angle-sum'],
+                    correctToken: 'triangle-angle-sum',
                     incorrectTokens: [
-                      'supplementary-confusion',     // 180-50=130: confused with supplementary angles
-                      'reflex-calculation-error',    // Wrong calculation
-                      null, // Option C is correct
-                      'full-rotation-confusion',     // Chose 360°: confused reflex with full rotation
+                      'triangle-type-confusion',    // Confused with right triangle
+                      null, // Option B is correct
+                      'triangle-type-confusion',    // Confused triangle types
+                      'triangle-sum-rule-error',    // Doesn't recognise 180° rule works
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG202-020',
+                  question: 'In a triangle, two angles are 30° and 70°. What is the third angle?',
+                  options: ['70°', '80°', '90°', '100°'],
+                  correctAnswer: 1,
+                  explanation: 'All angles in a triangle sum to 180°. So 180° - 30° - 70° = 80°',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['triangle-angle-sum', 'angle-addition'],
+                    correctToken: 'triangle-angle-sum',
+                    incorrectTokens: [
+                      'triangle-sum-calculation-error', // Wrong calculation
+                      null, // Option B is correct
+                      'triangle-sum-calculation-error', // Wrong calculation
+                      'triangle-sum-rule-error',        // May have used wrong total
                     ],
                   },
                 }
