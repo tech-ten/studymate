@@ -14,6 +14,7 @@
 - **Transparent Progress**: Real-time dashboards show exactly where your child stands
 - **Affordable**: $5-12/month vs $50-100/hour for human tutors
 - **Safe**: No ads, no data selling, Australian-hosted (Sydney)
+- **Self-Paced**: Unlike group classes (Kumon, James An), kids learn at their own speed
 
 ### For Students
 - **Fun, Not Boring**: Gamified with XP, badges, streaks, and levels
@@ -26,6 +27,48 @@
 - **High LTV**: Multi-year retention as children progress through grades
 - **Scalable**: Serverless architecture costs ~$0.04/user/month
 - **Defensible**: Curriculum-specific content and learning data moat
+
+---
+
+## Why Not Just Use ChatGPT?
+
+A fair question. Here's the difference:
+
+| Feature | Free ChatGPT | StudyMate |
+|---------|-------------|-----------|
+| Curriculum alignment | Generic knowledge | Victorian VCAA codes |
+| Progress tracking | None | Per-child, per-section |
+| Structured learning | Random Q&A | Strands → Chapters → Sections |
+| Parent visibility | None | Dashboard with accuracy, streaks |
+| Age-appropriate | User must prompt | Automatic Year 3-6 level |
+| Assessment | None | Cambridge-style exams |
+| Gamification | None | XP, badges, streaks |
+| Safety | Minimal | Child-safe, guardrailed |
+| Data residency | US servers | Sydney, Privacy Act compliant |
+
+**ChatGPT is a tool. StudyMate is a learning system.**
+
+### What Parents Actually Pay For
+
+1. **Structure** - Systematic curriculum coverage, not random Q&A
+2. **Accountability** - Progress tracking, streaks, parent reports
+3. **Safety** - Guardrailed AI, no ads, Australian data residency
+4. **Peace of mind** - Covers exactly what school covers
+5. **Record keeping** - All AI interactions logged for review
+
+---
+
+## Competitive Landscape
+
+| Service | Monthly Cost | AI | Curriculum | Self-Paced |
+|---------|-------------|-----|------------|------------|
+| **Kumon** | $80-160 | No | Generic | Fixed pace |
+| **James An College** | $200-400 | No | Yes | Group pace |
+| **Cluey Learning** | $300+ | No | Yes | Tutor-paced |
+| **Khan Academy** | Free | Limited | US-focused | Yes |
+| **StudyMate** | $5-12 | Yes | Victorian | Yes |
+
+**Our position**: Premium AI features at commodity pricing
 
 ---
 

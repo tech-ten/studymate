@@ -20,6 +20,7 @@
 2. **One-size-fits-all curriculum**: Schools can't personalise for each child
 3. **Parents can't help**: Curriculum has changed; parents don't know how to teach new methods
 4. **Screen time guilt**: Parents want educational screen time, not YouTube/games
+5. **Group classes don't fit all kids**: Services like Kumon ($160/mo) or James An College work for some, but kids who are behind can't keep up with the pace
 
 ## The Solution
 
@@ -28,6 +29,34 @@ An AI tutor that:
 - Adapts to each child's level in real-time
 - Aligns perfectly with what they're learning at school
 - Makes learning feel like a game, not homework
+
+---
+
+## Why Not Just Use ChatGPT?
+
+This is a fair question. Here's the difference:
+
+| Feature | Free ChatGPT | StudyMate |
+|---------|-------------|-----------|
+| Curriculum alignment | Generic knowledge | Victorian VCAA codes (VCMNA186, etc.) |
+| Progress tracking | None | Per-child, per-section, over time |
+| Structured learning path | Random Q&A | Strands → Chapters → Sections → Quizzes |
+| Parent visibility | None | Dashboard with accuracy, streaks, weak areas |
+| Age-appropriate context | User must prompt correctly | Automatic Year 3-6 language level |
+| Assessment | None | Cambridge-style exams, benchmarks |
+| Gamification | None | XP, badges, streaks, levels |
+| Safety guardrails | Minimal | Child-safe, no inappropriate content |
+| Australian data | US servers | Sydney-hosted, Privacy Act compliant |
+
+**ChatGPT is a tool. StudyMate is a learning system.**
+
+### What Parents Actually Pay For
+
+1. **Structure** - Not "ask anything" but "learn this curriculum systematically"
+2. **Accountability** - Progress tracking, streak motivation, parent reports
+3. **Safety** - Guardrailed AI, no ads, no inappropriate content
+4. **Peace of mind** - Covers exactly what school covers, identifies and fills gaps
+5. **Record keeping** - All AI interactions logged for parent review
 
 ---
 
@@ -80,6 +109,42 @@ We use Groq's free tier (LLaMA 3.3 70B) for AI tutoring - same quality as ChatGP
 - Curriculum content library (time-intensive to replicate)
 - Learning data moat (improves recommendations over time)
 - School relationships (once established, high switching costs)
+
+### 5. RAG-Enhanced AI (Roadmap)
+With Retrieval-Augmented Generation, the AI will:
+- Reference actual VCAA syllabus documents in responses
+- Cite specific curriculum outcomes ("You're working on VCMNA186")
+- Know what comes next in the learning sequence
+- Provide explanations grounded in official curriculum language
+
+---
+
+## Founder Story
+
+> "I was paying $160/month for Kumon for my two kids. The content was okay, but it wasn't personalised—just worksheets at a fixed pace.
+>
+> I also tried James An College, but one of my sons had a low English level and couldn't keep up with the group pace. He needed to learn at his own speed while still covering all curriculum requirements.
+>
+> So I built StudyMate. AI-powered, curriculum-aligned, self-paced learning for a fraction of the cost. This service is essentially free to run—I just need users to contribute enough to cover the AI costs built into the application."
+>
+> — Founder
+
+This is the core proposition: **Replace $160-400/month tutoring services with a $5-12/month AI-powered alternative that adapts to each child.**
+
+---
+
+## Competitive Comparison
+
+| Service | Monthly Cost | AI-Powered | Curriculum-Aligned | Self-Paced | Progress Tracking |
+|---------|-------------|------------|-------------------|------------|-------------------|
+| **Kumon** | $80-160 | No | Generic | Fixed pace | Paper-based |
+| **James An College** | $200-400 | No | Yes | Group pace | Limited |
+| **Cluey Learning** | $300+ | No | Yes | Tutor-paced | Yes |
+| **Khan Academy** | Free | Limited | US-focused | Yes | Basic |
+| **Mathletics** | $99/year | No | Australian | Yes | Yes |
+| **StudyMate** | $5-12 | Yes (LLaMA 3.3) | Victorian VCAA | Yes | Comprehensive |
+
+**Our position**: Premium AI features at commodity pricing
 
 ---
 

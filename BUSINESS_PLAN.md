@@ -41,6 +41,35 @@ AgentsForm is an AI-powered tutoring platform for Australian primary school stud
 3. **Affordable** - Fraction of the cost of human tutors ($50-80/hr)
 4. **Available 24/7** - Learn anytime, anywhere
 5. **Parent Visibility** - See exactly what your child is learning
+6. **Self-Paced** - Unlike Kumon or James An, kids who are behind can catch up at their own speed
+
+---
+
+## Why Not Just Use ChatGPT?
+
+| Feature | Free ChatGPT | AgentsForm |
+|---------|-------------|------------|
+| Curriculum alignment | Generic | Victorian VCAA codes |
+| Progress tracking | None | Per-child, per-section |
+| Structured learning | Random Q&A | Strands → Chapters → Sections |
+| Parent visibility | None | Dashboard with streaks, accuracy |
+| Assessment | None | Cambridge-style exams |
+| Gamification | None | XP, badges, streaks |
+| Safety | Minimal | Child-safe, guardrailed |
+
+**ChatGPT is a tool. AgentsForm is a learning system.**
+
+---
+
+## Founder Story
+
+> "I was paying $160/month for Kumon for two kids. Just worksheets at a fixed pace—no AI, no personalisation.
+>
+> I tried James An College too, but one of my sons couldn't keep up with the group pace because his English was behind. He needed to learn at his own speed while still covering curriculum requirements.
+>
+> So I built this. AI-powered, curriculum-aligned, self-paced. The service is essentially free to run—subscriptions just cover AI costs."
+
+This is the proposition: **Replace $160-400/month tutoring with a $5-12/month AI alternative that adapts to each child.**
 
 ---
 
@@ -266,14 +295,36 @@ tutor.agentsform.ai
 
 ## Appendix: Competitor Analysis
 
-| Competitor | Price | AI? | Curriculum? |
-|------------|-------|-----|-------------|
-| Mathletics | $99/year | No | Yes |
-| Khan Academy | Free | Limited | US-focused |
-| Cluey Learning | $300/month | No | Yes |
-| **AgentsForm** | $9.99/month | Yes | Victorian |
+| Competitor | Monthly Cost | AI? | Curriculum? | Self-Paced? |
+|------------|-------------|-----|-------------|-------------|
+| Kumon | $80-160 | No | Generic | Fixed pace |
+| James An College | $200-400 | No | Yes | Group pace |
+| Cluey Learning | $300+ | No | Yes | Tutor-paced |
+| Mathletics | $8/month | No | Australian | Yes |
+| Khan Academy | Free | Limited | US-focused | Yes |
+| **AgentsForm** | $5-12 | Yes | Victorian VCAA | Yes |
 
-Our advantage: AI + Australian Curriculum + Affordable price
+**Our advantage**: AI-powered + Australian Curriculum + Self-paced + Affordable
+
+### Key Differentiators vs Each Competitor
+
+**vs Kumon ($160/mo)**
+- 97% cheaper
+- AI explanations vs paper worksheets
+- Self-paced vs fixed schedule
+- Progress visible online vs paper reports
+
+**vs James An College ($300/mo)**
+- 97% cheaper
+- Self-paced for struggling kids
+- Available 24/7 vs scheduled classes
+- AI adapts to each child's level
+
+**vs Khan Academy (Free)**
+- Victorian curriculum alignment (not US Common Core)
+- Australian English and examples
+- Parent dashboard with progress tracking
+- Cambridge-style exam practice
 
 ---
 
