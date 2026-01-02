@@ -24,10 +24,10 @@ export default function ContactPage() {
               For general inquiries, technical support, or billing questions:
             </p>
             <a
-              href="mailto:support@agentsform.ai"
+              href="mailto:mail@agentsformation.com"
               className="text-lg font-medium text-black hover:underline"
             >
-              support@agentsform.ai
+              mail@agentsformation.com
             </a>
             <p className="text-sm text-neutral-500 mt-2">
               We typically respond within 24 hours on business days.
