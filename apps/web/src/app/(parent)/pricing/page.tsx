@@ -95,7 +95,10 @@ function PricingContent() {
     setUpgrading(planId)
     try {
       const result = await createCheckoutSession(planId as 'scholar' | 'achiever')
-      window.location.href = result.url
+      // Open Stripe checkout in new tab so user can return to app
+      window.open(result.url, '_blank')
+      setUpgrading(null)
+      setMessage('Checkout opened in new tab. Complete payment there, then return here.')
     } catch (err) {
       console.error('Failed to create checkout session:', err)
       setMessage('Failed to start checkout. Please try again.')
@@ -106,7 +109,8 @@ function PricingContent() {
   const handleManageSubscription = async () => {
     try {
       const result = await getCustomerPortalUrl()
-      window.location.href = result.url
+      // Open portal in new tab
+      window.open(result.url, '_blank')
     } catch (err) {
       console.error('Failed to open portal:', err)
       setMessage('Failed to open subscription management. Please try again.')
