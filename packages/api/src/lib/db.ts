@@ -23,6 +23,33 @@ export const keys = {
   generatedQuestion: (subject: string, difficulty: number, hash: string) => ({ PK: `GENQ#${subject}#${difficulty}`, SK: `Q#${hash}` }),
   // Section quiz results
   sectionQuiz: (childId: string, sectionId: string) => ({ PK: `CHILD#${childId}`, SK: `QUIZ#${sectionId}` }),
+
+  // ============ CURRICULUM KEYS ============
+  // Curriculum structure
+  curriculumSection: (yearLevel: number, sectionId: string) => ({
+    PK: `CURRICULUM#YEAR${yearLevel}`,
+    SK: `SECTION#${sectionId}`,
+  }),
+  // Questions stored by section for efficient querying
+  curriculumQuestion: (sectionId: string, questionId: string) => ({
+    PK: `SECTION#${sectionId}`,
+    SK: `QUESTION#${questionId}`,
+  }),
+  // Question analytics
+  questionStats: (questionId: string) => ({
+    PK: `QSTATS#${questionId}`,
+    SK: 'AGGREGATE',
+  }),
+  // Child mastery per section
+  childMastery: (childId: string, sectionId: string) => ({
+    PK: `CHILD#${childId}`,
+    SK: `MASTERY#${sectionId}`,
+  }),
+  // AI-generated questions pool
+  aiQuestion: (sectionId: string, difficulty: number, hash: string) => ({
+    PK: `AIQUESTION#${sectionId}#D${difficulty}`,
+    SK: `Q#${hash}`,
+  }),
 };
 
 // Get user ID from JWT claims

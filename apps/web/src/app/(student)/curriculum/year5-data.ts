@@ -2152,6 +2152,214 @@ Decimals are another way to show parts of a whole number, just like fractions!
                   difficulty: 3
                 }
               ]
+            },
+            {
+              id: 'VCMNA191',
+              code: 'VCMNA191',
+              title: 'Multiplying and Dividing Decimals',
+              description: 'Use efficient mental and written strategies to multiply and divide decimals by 10, 100, 1000',
+              content: `# Multiplying and Dividing Decimals
+
+When we multiply or divide decimals by powers of 10, the decimal point moves!
+
+## Multiplying by 10, 100, 1000
+
+The decimal point moves RIGHT:
+- × 10: move 1 place right (2.5 × 10 = 25)
+- × 100: move 2 places right (2.5 × 100 = 250)
+- × 1000: move 3 places right (2.5 × 1000 = 2500)
+
+## Dividing by 10, 100, 1000
+
+The decimal point moves LEFT:
+- ÷ 10: move 1 place left (25 ÷ 10 = 2.5)
+- ÷ 100: move 2 places left (25 ÷ 100 = 0.25)
+- ÷ 1000: move 3 places left (25 ÷ 1000 = 0.025)
+
+## Multiplying Decimals by Whole Numbers
+
+Multiply as if there's no decimal, then put the decimal point back:
+- 2.4 × 3 = (24 × 3) ÷ 10 = 72 ÷ 10 = 7.2`,
+              keyPoints: [
+                'Multiplying by 10/100/1000 moves the decimal RIGHT',
+                'Dividing by 10/100/1000 moves the decimal LEFT',
+                'Count the zeros to know how many places to move',
+                'When multiplying decimals, count total decimal places in your answer'
+              ],
+              examples: [
+                {
+                  problem: '3.45 × 100',
+                  solution: '345',
+                  explanation: 'Move decimal 2 places right: 3.45 → 34.5 → 345'
+                },
+                {
+                  problem: '567 ÷ 1000',
+                  solution: '0.567',
+                  explanation: 'Move decimal 3 places left: 567 → 56.7 → 5.67 → 0.567'
+                }
+              ],
+              questions: [
+                {
+                  id: 'VCMNA191-001',
+                  question: 'What is 2.5 × 10?',
+                  options: ['0.25', '2.5', '25', '250'],
+                  correctAnswer: 2,
+                  explanation: 'Move decimal 1 place right: 2.5 → 25',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-002',
+                  question: 'What is 3.7 × 100?',
+                  options: ['37', '370', '3700', '0.037'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 2 places right: 3.7 → 37 → 370',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-003',
+                  question: 'What is 45 ÷ 10?',
+                  options: ['450', '4.5', '0.45', '0.045'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 1 place left: 45 → 4.5',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-004',
+                  question: 'What is 8 ÷ 100?',
+                  options: ['800', '80', '0.8', '0.08'],
+                  correctAnswer: 3,
+                  explanation: 'Move decimal 2 places left: 8 → 0.8 → 0.08',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-005',
+                  question: 'What is 0.6 × 1000?',
+                  options: ['6', '60', '600', '6000'],
+                  correctAnswer: 2,
+                  explanation: 'Move decimal 3 places right: 0.6 → 6 → 60 → 600',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-006',
+                  question: 'What is 5.67 × 10?',
+                  options: ['567', '56.7', '5.67', '0.567'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 1 place right: 5.67 → 56.7',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-007',
+                  question: 'What is 234 ÷ 1000?',
+                  options: ['2.34', '0.234', '23.4', '234000'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 3 places left: 234 → 23.4 → 2.34 → 0.234',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-008',
+                  question: 'What is 0.05 × 100?',
+                  options: ['0.5', '5', '50', '500'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 2 places right: 0.05 → 0.5 → 5',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-009',
+                  question: 'What is 7.2 × 5?',
+                  options: ['3.6', '36', '35', '12.2'],
+                  correctAnswer: 1,
+                  explanation: '72 × 5 = 360, then ÷ 10 = 36',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-010',
+                  question: 'What is 12.5 ÷ 10?',
+                  options: ['125', '1.25', '0.125', '12.5'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 1 place left: 12.5 → 1.25',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-011',
+                  question: 'What is 0.008 × 1000?',
+                  options: ['0.8', '8', '80', '800'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 3 places right: 0.008 → 0.08 → 0.8 → 8',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-012',
+                  question: 'What is 3.4 × 3?',
+                  options: ['9.2', '10.2', '10.12', '9.12'],
+                  correctAnswer: 1,
+                  explanation: '34 × 3 = 102, then ÷ 10 = 10.2',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-013',
+                  question: 'A pack costs $2.50. How much for 10 packs?',
+                  options: ['$0.25', '$25', '$250', '$2.50'],
+                  correctAnswer: 1,
+                  explanation: '$2.50 × 10 = $25',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-014',
+                  question: 'What is 45.6 ÷ 100?',
+                  options: ['4560', '4.56', '0.456', '456'],
+                  correctAnswer: 2,
+                  explanation: 'Move decimal 2 places left: 45.6 → 4.56 → 0.456',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-015',
+                  question: 'What is 0.25 × 4?',
+                  options: ['0.1', '1', '10', '100'],
+                  correctAnswer: 1,
+                  explanation: '25 × 4 = 100, then ÷ 100 = 1',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-016',
+                  question: '1000 grams = 1 kg. How many kg is 250 grams?',
+                  options: ['2.5 kg', '0.25 kg', '25 kg', '0.025 kg'],
+                  correctAnswer: 1,
+                  explanation: '250 ÷ 1000 = 0.25 kg',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-017',
+                  question: 'What is 6.25 × 100?',
+                  options: ['62.5', '625', '6250', '0.0625'],
+                  correctAnswer: 1,
+                  explanation: 'Move decimal 2 places right: 6.25 → 62.5 → 625',
+                  difficulty: 1
+                },
+                {
+                  id: 'VCMNA191-018',
+                  question: 'What is 7.5 ÷ 5?',
+                  options: ['0.15', '1.5', '15', '37.5'],
+                  correctAnswer: 1,
+                  explanation: '75 ÷ 5 = 15, then ÷ 10 = 1.5',
+                  difficulty: 2
+                },
+                {
+                  id: 'VCMNA191-019',
+                  question: 'A 1.5 litre bottle costs $3. How much per litre?',
+                  options: ['$1', '$2', '$4.50', '$0.50'],
+                  correctAnswer: 1,
+                  explanation: '$3 ÷ 1.5 = $2 per litre',
+                  difficulty: 3
+                },
+                {
+                  id: 'VCMNA191-020',
+                  question: 'What is 0.125 × 8?',
+                  options: ['0.1', '1', '10', '100'],
+                  correctAnswer: 1,
+                  explanation: '0.125 = ⅛, so 0.125 × 8 = 1',
+                  difficulty: 2
+                }
+              ]
             }
           ]
         }

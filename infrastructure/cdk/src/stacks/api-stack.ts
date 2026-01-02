@@ -324,6 +324,52 @@ export class ApiStack extends cdk.Stack {
       integration: new apigatewayv2Integrations.HttpLambdaIntegration('PaymentWebhookIntegration', paymentHandler),
     });
 
+    // === CURRICULUM ROUTES ===
+    // Database-backed curriculum with adaptive question selection
+    const curriculumHandler = createLambda('CurriculumHandler', 'handlers/curriculum.handler');
+
+    // Get all sections for a year level
+    this.api.addRoutes({
+      path: '/curriculum/{yearLevel}',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumYearIntegration', curriculumHandler),
+    });
+
+    // Get section content
+    this.api.addRoutes({
+      path: '/curriculum/{yearLevel}/{sectionId}',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumSectionIntegration', curriculumHandler),
+    });
+
+    // Get questions for a section
+    this.api.addRoutes({
+      path: '/curriculum/{yearLevel}/{sectionId}/questions',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumQuestionsIntegration', curriculumHandler),
+    });
+
+    // Get adaptive question (selects based on child's ability)
+    this.api.addRoutes({
+      path: '/curriculum/{yearLevel}/{sectionId}/adaptive',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumAdaptiveIntegration', curriculumHandler),
+    });
+
+    // Record question attempt (updates analytics + mastery)
+    this.api.addRoutes({
+      path: '/curriculum/attempt',
+      methods: [apigatewayv2.HttpMethod.POST],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumAttemptIntegration', curriculumHandler),
+    });
+
+    // Get child's mastery across all sections
+    this.api.addRoutes({
+      path: '/curriculum/mastery/{childId}',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CurriculumMasteryIntegration', curriculumHandler),
+    });
+
     // Outputs
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: this.api.apiEndpoint,
