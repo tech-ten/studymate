@@ -30,16 +30,26 @@ export default function DashboardPage() {
       router.push('/login')
       return
     }
-    loadChildren()
-    loadSubscription()
+    checkSubscriptionAndLoad()
   }, [router])
 
-  const loadSubscription = async () => {
+  const checkSubscriptionAndLoad = async () => {
     try {
       const status = await getSubscriptionStatus()
       setSubscription(status)
+
+      // If user has no subscription (free tier with no subscriptionId), redirect to pricing
+      // Users need to at least start a trial/subscription to access dashboard
+      if (status.tier === 'free' && !status.subscriptionId) {
+        router.push('/pricing')
+        return
+      }
+
+      loadChildren()
     } catch (err) {
       console.error('Failed to load subscription:', err)
+      // On error, redirect to pricing to be safe
+      router.push('/pricing')
     }
   }
 
@@ -157,6 +167,56 @@ export default function DashboardPage() {
             >
               Retry
             </button>
+          </div>
+        )}
+
+        {/* Upgrade Required Gate - Explorer users after 60 days */}
+        {subscription?.requiresUpgrade && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">⏰</span>
+              </div>
+              <h2 className="text-2xl font-semibold mb-3">Time to Upgrade!</h2>
+              <p className="text-neutral-600 mb-6">
+                Your 60-day Explorer period has ended. Upgrade to Scholar to continue
+                your child's learning journey with unlimited questions and AI help.
+              </p>
+              <div className="space-y-3">
+                <Link href="/pricing" className="block">
+                  <Button className="w-full h-12 rounded-xl">
+                    Upgrade to Scholar - $5/month
+                  </Button>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-neutral-500 hover:text-black"
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Explorer upgrade countdown banner */}
+        {subscription?.tier === 'explorer' && !subscription.requiresUpgrade && subscription.explorerDaysLeft <= 14 && (
+          <div className="mb-8 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-amber-800">
+                  {subscription.explorerDaysLeft} days left on Explorer
+                </p>
+                <p className="text-sm text-amber-600">
+                  Upgrade to Scholar now for uninterrupted learning
+                </p>
+              </div>
+              <Link href="/pricing">
+                <Button size="sm" className="rounded-full">
+                  Upgrade Now
+                </Button>
+              </Link>
+            </div>
           </div>
         )}
 

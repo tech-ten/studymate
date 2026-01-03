@@ -30,9 +30,10 @@ function VerifyForm() {
 
     try {
       await confirmSignUp(email, code)
-      setSuccess('Email verified! Redirecting to login...')
+      setSuccess('Email verified! Redirecting to choose your plan...')
       setTimeout(() => {
-        router.push('/login')
+        // Redirect to login, which will then redirect to pricing for new users
+        router.push('/login?redirect=/pricing')
       }, 1500)
     } catch (err) {
       console.error('Verification failed:', err)

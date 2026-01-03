@@ -620,6 +620,12 @@ export interface SubscriptionStatus {
   tier: 'free' | 'explorer' | 'scholar' | 'achiever';
   subscriptionId: string | null;
   limits: TierLimits;
+  // Trial info
+  trialEndsAt: string | null;
+  isTrialing: boolean;
+  trialDaysLeft: number;
+  explorerDaysLeft: number; // Days left before Explorer must upgrade to Scholar
+  requiresUpgrade: boolean; // True if 60 days passed and must upgrade to Scholar/Achiever
 }
 
 export async function createCheckoutSession(plan: 'explorer' | 'scholar' | 'achiever'): Promise<{ sessionId: string; url: string }> {

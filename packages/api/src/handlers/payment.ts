@@ -28,10 +28,13 @@ const PRICE_IDS: Record<string, string> = {
 
 // Trial periods per plan (in days)
 const TRIAL_DAYS: Record<string, number> = {
-  explorer: 21,
+  explorer: 21, // 21-day free trial, then $0.99/month
   scholar: 14,
   achiever: 14,
 };
+
+// Days before Explorer users must upgrade to Scholar/Achiever
+const EXPLORER_UPGRADE_DAYS = 60;
 
 // Tier limits configuration
 const TIER_LIMITS = {
@@ -229,11 +232,54 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       }));
 
       const user = userResult.Item;
+      const tier = user?.tier || 'free';
+      const subscriptionId = user?.stripeSubscriptionId || null;
+
+      // Get trial info from Stripe if user has a subscription
+      let trialEndsAt: string | null = null;
+      let isTrialing = false;
+      let trialDaysLeft = 0;
+      let requiresUpgrade = false;
+      let explorerDaysLeft = 0;
+
+      if (subscriptionId) {
+        try {
+          const subscription = await getStripe().subscriptions.retrieve(subscriptionId);
+          const now = Date.now();
+
+          if (subscription.trial_end) {
+            trialEndsAt = new Date(subscription.trial_end * 1000).toISOString();
+            isTrialing = subscription.status === 'trialing';
+            const trialEnd = subscription.trial_end * 1000;
+            trialDaysLeft = Math.max(0, Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24)));
+          }
+
+          // For Explorer users, calculate days until forced upgrade to Scholar
+          // They get 60 days total (21 free + 39 paid at $0.99) before must upgrade
+          if (tier === 'explorer' && subscription.created) {
+            const subscriptionStart = subscription.created * 1000;
+            const daysSinceStart = Math.floor((now - subscriptionStart) / (1000 * 60 * 60 * 24));
+            explorerDaysLeft = Math.max(0, EXPLORER_UPGRADE_DAYS - daysSinceStart);
+
+            // If 60 days have passed, force upgrade
+            if (daysSinceStart >= EXPLORER_UPGRADE_DAYS) {
+              requiresUpgrade = true;
+            }
+          }
+        } catch (err) {
+          console.error('Error fetching subscription details:', err);
+        }
+      }
 
       return success({
-        tier: user?.tier || 'free',
-        subscriptionId: user?.stripeSubscriptionId || null,
-        limits: TIER_LIMITS[user?.tier as keyof typeof TIER_LIMITS] || TIER_LIMITS.free,
+        tier,
+        subscriptionId,
+        limits: TIER_LIMITS[tier as keyof typeof TIER_LIMITS] || TIER_LIMITS.free,
+        trialEndsAt,
+        isTrialing,
+        trialDaysLeft,
+        explorerDaysLeft, // Days left before Explorer must upgrade
+        requiresUpgrade, // If true, user must upgrade to Scholar or Achiever
       });
     }
 
