@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -29,6 +29,9 @@ function BenchmarkContent() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [transitioning, setTransitioning] = useState(false)
+
+  // Ref to track if we're blocking clicks - more reliable than state for rapid clicks
+  const blockingRef = useRef(false)
 
   useEffect(() => {
     const id = childIdParam || getSelectedChild()
@@ -146,23 +149,23 @@ function BenchmarkContent() {
     e.preventDefault()
     e.stopPropagation()
 
-    // Already transitioning - ignore
-    if (transitioning) return
-
-    // Block all interactions during transition
+    // Use ref for immediate blocking - state updates are async
+    if (blockingRef.current || transitioning) return
+    blockingRef.current = true
     setTransitioning(true)
 
-    // Use requestAnimationFrame to ensure state updates are batched
-    requestAnimationFrame(() => {
+    // Update state after a brief delay to allow button to visually disable
+    setTimeout(() => {
       setCurrentQuestion(prev => prev + 1)
       setSelectedAnswer(null)
       setShowResult(false)
 
-      // Allow answer selection after delay to prevent accidental clicks
+      // Allow answer selection after UI has updated
       setTimeout(() => {
+        blockingRef.current = false
         setTransitioning(false)
-      }, 500)
-    })
+      }, 400)
+    }, 50)
   }
 
   if (!started) {
@@ -257,7 +260,11 @@ function BenchmarkContent() {
           {currentQ.options.map((option, index) => (
             <button
               key={`${currentQuestion}-${index}`}
-              onClick={() => !showResult && !transitioning && setSelectedAnswer(index)}
+              onClick={() => {
+                // Triple-check: ref, state, and showResult
+                if (blockingRef.current || transitioning || showResult) return
+                setSelectedAnswer(index)
+              }}
               disabled={showResult || transitioning}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 showResult
