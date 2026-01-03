@@ -44,8 +44,15 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
           return notFound('Username not found. Check your spelling!');
         }
 
-        childProfile = usernameResult.Items[0];
-        parentId = childProfile.parentId;
+        // Find the PROFILE record (has parentId) - GSI may return both CHILD and PROFILE records
+        childProfile = usernameResult.Items.find(item => item.parentId) || usernameResult.Items[0];
+
+        // If childProfile doesn't have parentId, it's the CHILD record - extract parentId from PK
+        if (!childProfile.parentId && childProfile.PK?.startsWith('USER#')) {
+          parentId = childProfile.PK.replace('USER#', '');
+        } else {
+          parentId = childProfile.parentId;
+        }
       } else {
         // Login by childId (legacy/QR code flow)
         const profileResult = await db.send(new GetCommand({
