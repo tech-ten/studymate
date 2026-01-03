@@ -1127,6 +1127,67 @@ For quick estimates, just use the first digits:
                 'Estimation helps check if calculated answers are reasonable',
                 'Front-end estimation uses only the first (leftmost) digits'
               ],
+              knowledgeTokens: [
+                {
+                  id: 'rounding-to-ten',
+                  name: 'Rounding to Nearest Ten',
+                  description: 'Rounding numbers to the nearest 10',
+                },
+                {
+                  id: 'rounding-to-hundred',
+                  name: 'Rounding to Nearest Hundred',
+                  description: 'Rounding numbers to the nearest 100',
+                  prerequisites: ['rounding-to-ten'],
+                },
+                {
+                  id: 'rounding-to-thousand',
+                  name: 'Rounding to Nearest Thousand',
+                  description: 'Rounding numbers to the nearest 1000',
+                  prerequisites: ['rounding-to-hundred'],
+                },
+                {
+                  id: 'rounding-rule-application',
+                  name: 'Rounding Rule Application',
+                  description: 'Correctly applying the 5+ rounds up rule',
+                  prerequisites: ['rounding-to-ten'],
+                },
+                {
+                  id: 'estimation-addition',
+                  name: 'Estimation with Addition',
+                  description: 'Using rounding to estimate sums',
+                  prerequisites: ['rounding-to-hundred'],
+                },
+                {
+                  id: 'estimation-subtraction',
+                  name: 'Estimation with Subtraction',
+                  description: 'Using rounding to estimate differences',
+                  prerequisites: ['rounding-to-hundred'],
+                },
+                {
+                  id: 'estimation-multiplication',
+                  name: 'Estimation with Multiplication',
+                  description: 'Using rounding to estimate products',
+                  prerequisites: ['rounding-to-hundred'],
+                },
+                {
+                  id: 'estimation-division',
+                  name: 'Estimation with Division',
+                  description: 'Using rounding to estimate quotients',
+                  prerequisites: ['rounding-to-hundred'],
+                },
+                {
+                  id: 'reasonableness-checking',
+                  name: 'Checking Reasonableness',
+                  description: 'Using estimation to verify if an answer makes sense',
+                  prerequisites: ['estimation-multiplication'],
+                },
+                {
+                  id: 'front-end-estimation',
+                  name: 'Front-End Estimation',
+                  description: 'Quick estimation using leading digits only',
+                  prerequisites: ['estimation-addition'],
+                },
+              ],
               examples: [
                 {
                   problem: 'Round 7,849 to the nearest hundred',
@@ -1140,46 +1201,389 @@ For quick estimates, just use the first digits:
                 }
               ],
               questions: [
+                // === ROUNDING TO NEAREST TEN (1-3) ===
                 {
                   id: 'VCMNA182-001',
-                  question: 'What is 6,473 rounded to the nearest thousand?',
-                  options: ['6,000', '6,400', '6,500', '7,000'],
-                  correctAnswer: 0,
-                  explanation: 'The hundreds digit is 4, which is less than 5, so round down to 6,000.',
-                  difficulty: 1
+                  question: 'What is 47 rounded to the nearest ten?',
+                  options: ['40', '45', '50', '47'],
+                  correctAnswer: 2,
+                  explanation: 'Look at the ones digit (7). Since 7 ≥ 5, round up to 50.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['rounding-to-ten', 'rounding-rule-application'],
+                    correctToken: 'rounding-to-ten',
+                    incorrectTokens: [
+                      'rounding-direction-error',      // Rounded down instead of up
+                      'rounding-halfway-confusion',    // Confused about rounding point
+                      null,
+                      'rounding-concept-confusion',    // Doesn't understand rounding changes the number
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA182-002',
-                  question: 'Estimate 298 + 512 by rounding to the nearest hundred',
-                  options: ['700', '800', '810', '900'],
-                  correctAnswer: 1,
-                  explanation: '298 ≈ 300, 512 ≈ 500, so 300 + 500 = 800',
-                  difficulty: 1
+                  question: 'Round 234 to the nearest ten.',
+                  options: ['230', '235', '240', '200'],
+                  correctAnswer: 0,
+                  explanation: 'Look at the ones digit (4). Since 4 < 5, round down to 230.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['rounding-to-ten'],
+                    correctToken: 'rounding-to-ten',
+                    incorrectTokens: [
+                      null,
+                      'rounding-halfway-confusion',    // Stopped at halfway point
+                      'rounding-direction-error',      // Rounded up instead of down
+                      'rounding-wrong-place',          // Rounded to hundreds
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA182-003',
-                  question: 'A student calculated 89 × 7 = 543. Use estimation to check if this is reasonable.',
-                  options: ['Yes, it\'s close to 630', 'No, it should be closer to 560', 'Yes, it\'s close to 540', 'No, it should be closer to 700'],
-                  correctAnswer: 0,
-                  explanation: '89 ≈ 90, and 90 × 7 = 630. The answer 543 is not close to 630, so it may be wrong. (89 × 7 = 623)',
-                  difficulty: 2
+                  question: 'What is 85 rounded to the nearest ten?',
+                  options: ['80', '85', '90', '100'],
+                  correctAnswer: 2,
+                  explanation: 'The ones digit is 5. When it equals 5, we round up to 90.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['rounding-to-ten', 'rounding-rule-application'],
+                    correctToken: 'rounding-rule-application',
+                    incorrectTokens: [
+                      'rounding-five-confusion',       // Uncertain what to do with 5
+                      'rounding-concept-confusion',    // Kept the number as is
+                      null,
+                      'rounding-wrong-place',          // Rounded to hundreds
+                    ],
+                  },
                 },
+
+                // === ROUNDING TO NEAREST HUNDRED (4-6) ===
                 {
                   id: 'VCMNA182-004',
-                  question: 'Estimate 4,892 ÷ 5',
-                  options: ['About 800', 'About 900', 'About 1,000', 'About 1,100'],
+                  question: 'What is 6,473 rounded to the nearest hundred?',
+                  options: ['6,400', '6,470', '6,500', '6,000'],
                   correctAnswer: 2,
-                  explanation: '4,892 ≈ 5,000, and 5,000 ÷ 5 = 1,000',
-                  difficulty: 2
+                  explanation: 'Look at the tens digit (7). Since 7 ≥ 5, round up to 6,500.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['rounding-to-hundred'],
+                    correctToken: 'rounding-to-hundred',
+                    incorrectTokens: [
+                      'rounding-direction-error',      // Rounded down
+                      'rounding-wrong-place',          // Rounded to tens
+                      null,
+                      'rounding-wrong-place',          // Rounded to thousands
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA182-005',
+                  question: 'Round 3,849 to the nearest hundred.',
+                  options: ['3,800', '3,850', '3,900', '4,000'],
+                  correctAnswer: 0,
+                  explanation: 'Look at the tens digit (4). Since 4 < 5, round down to 3,800.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['rounding-to-hundred'],
+                    correctToken: 'rounding-to-hundred',
+                    incorrectTokens: [
+                      null,
+                      'rounding-wrong-place',          // Stopped at tens
+                      'rounding-direction-error',      // Rounded up
+                      'rounding-wrong-place',          // Rounded to thousands
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-006',
+                  question: 'What is 2,950 rounded to the nearest hundred?',
+                  options: ['2,900', '2,950', '3,000', '2,000'],
+                  correctAnswer: 2,
+                  explanation: 'The tens digit is 5, so round up. 2,950 rounds to 3,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['rounding-to-hundred', 'rounding-rule-application'],
+                    correctToken: 'rounding-to-hundred',
+                    incorrectTokens: [
+                      'rounding-direction-error',      // Rounded down
+                      'rounding-concept-confusion',    // Kept number as is
+                      null,
+                      'rounding-wrong-place',          // Rounded to thousands incorrectly
+                    ],
+                  },
+                },
+
+                // === ROUNDING TO NEAREST THOUSAND (7-9) ===
+                {
+                  id: 'VCMNA182-007',
+                  question: 'What is 6,473 rounded to the nearest thousand?',
+                  options: ['6,000', '6,400', '6,500', '7,000'],
+                  correctAnswer: 0,
+                  explanation: 'Look at the hundreds digit (4). Since 4 < 5, round down to 6,000.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['rounding-to-thousand'],
+                    correctToken: 'rounding-to-thousand',
+                    incorrectTokens: [
+                      null,
+                      'rounding-wrong-place',          // Rounded to hundreds
+                      'rounding-wrong-place',          // Rounded to hundreds
+                      'rounding-direction-error',      // Rounded up
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-008',
+                  question: 'Round 45,678 to the nearest thousand.',
+                  options: ['45,000', '45,700', '46,000', '50,000'],
+                  correctAnswer: 2,
+                  explanation: 'Look at the hundreds digit (6). Since 6 ≥ 5, round up to 46,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['rounding-to-thousand'],
+                    correctToken: 'rounding-to-thousand',
+                    incorrectTokens: [
+                      'rounding-direction-error',      // Rounded down
+                      'rounding-wrong-place',          // Rounded to hundreds
+                      null,
+                      'rounding-wrong-place',          // Rounded to ten thousands
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-009',
+                  question: 'What is 89,500 rounded to the nearest thousand?',
+                  options: ['89,000', '89,500', '90,000', '100,000'],
+                  correctAnswer: 2,
+                  explanation: 'The hundreds digit is 5, so round up. 89,500 rounds to 90,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['rounding-to-thousand', 'rounding-rule-application'],
+                    correctToken: 'rounding-to-thousand',
+                    incorrectTokens: [
+                      'rounding-direction-error',      // Rounded down
+                      'rounding-concept-confusion',    // Kept number as is
+                      null,
+                      'rounding-wrong-place',          // Rounded to ten thousands
+                    ],
+                  },
+                },
+
+                // === ESTIMATION WITH ADDITION (10-12) ===
+                {
+                  id: 'VCMNA182-010',
+                  question: 'Estimate 298 + 512 by rounding to the nearest hundred.',
+                  options: ['700', '800', '810', '900'],
+                  correctAnswer: 1,
+                  explanation: '298 ≈ 300, 512 ≈ 500, so 300 + 500 = 800.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['estimation-addition', 'rounding-to-hundred'],
+                    correctToken: 'estimation-addition',
+                    incorrectTokens: [
+                      'estimation-rounding-error',     // Rounded incorrectly
+                      null,
+                      'estimation-calculation-error',  // Added rounded values wrong
+                      'estimation-over-rounding',      // Rounded too aggressively
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-011',
+                  question: 'Estimate 4,387 + 2,891 by rounding to the nearest thousand.',
+                  options: ['6,000', '7,000', '7,300', '8,000'],
+                  correctAnswer: 1,
+                  explanation: '4,387 ≈ 4,000 and 2,891 ≈ 3,000. So 4,000 + 3,000 = 7,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['estimation-addition', 'rounding-to-thousand'],
+                    correctToken: 'estimation-addition',
+                    incorrectTokens: [
+                      'estimation-rounding-error',     // Rounded 2,891 down to 2,000
+                      null,
+                      'estimation-partial-rounding',   // Didn't fully round
+                      'estimation-over-rounding',      // Rounded too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-012',
+                  question: 'Using front-end estimation, estimate 487 + 312.',
+                  options: ['700', '750', '800', '900'],
+                  correctAnswer: 0,
+                  explanation: 'Front-end uses leading digits: 400 + 300 = 700.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['front-end-estimation'],
+                    correctToken: 'front-end-estimation',
+                    incorrectTokens: [
+                      null,
+                      'front-end-adjustment-error',    // Added too much adjustment
+                      'estimation-full-rounding',      // Used regular rounding
+                      'estimation-over-estimate',      // Overestimated
+                    ],
+                  },
+                },
+
+                // === ESTIMATION WITH MULTIPLICATION (13-15) ===
+                {
+                  id: 'VCMNA182-013',
+                  question: 'Estimate 492 × 6.',
+                  options: ['2,400', '2,700', '3,000', '3,600'],
+                  correctAnswer: 2,
+                  explanation: '492 ≈ 500, and 500 × 6 = 3,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['estimation-multiplication', 'rounding-to-hundred'],
+                    correctToken: 'estimation-multiplication',
+                    incorrectTokens: [
+                      'estimation-rounding-error',     // Rounded to 400
+                      'estimation-calculation-error',  // Multiplied incorrectly
+                      null,
+                      'estimation-over-rounding',      // Rounded too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-014',
+                  question: 'Estimate 38 × 21.',
+                  options: ['600', '800', '1,000', '1,200'],
+                  correctAnswer: 1,
+                  explanation: '38 ≈ 40 and 21 ≈ 20, so 40 × 20 = 800.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['estimation-multiplication'],
+                    correctToken: 'estimation-multiplication',
+                    incorrectTokens: [
+                      'estimation-under-rounding',     // Underestimated
+                      null,
+                      'estimation-over-rounding',      // Overestimated
+                      'estimation-calculation-error',  // Wrong multiplication
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-015',
+                  question: 'Estimate 397 × 8.',
+                  options: ['2,400', '2,800', '3,200', '4,000'],
+                  correctAnswer: 2,
+                  explanation: '397 ≈ 400, and 400 × 8 = 3,200.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['estimation-multiplication'],
+                    correctToken: 'estimation-multiplication',
+                    incorrectTokens: [
+                      'estimation-rounding-error',     // Rounded to 300
+                      'estimation-calculation-error',  // Multiplied incorrectly
+                      null,
+                      'estimation-over-rounding',      // Rounded to 500
+                    ],
+                  },
+                },
+
+                // === ESTIMATION WITH DIVISION (16-17) ===
+                {
+                  id: 'VCMNA182-016',
+                  question: 'Estimate 4,892 ÷ 5.',
+                  options: ['About 800', 'About 900', 'About 1,000', 'About 1,100'],
+                  correctAnswer: 2,
+                  explanation: '4,892 ≈ 5,000, and 5,000 ÷ 5 = 1,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['estimation-division', 'rounding-to-thousand'],
+                    correctToken: 'estimation-division',
+                    incorrectTokens: [
+                      'estimation-under-rounding',     // Rounded too low
+                      'estimation-calculation-error',  // Divided incorrectly
+                      null,
+                      'estimation-over-rounding',      // Rounded too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-017',
+                  question: 'Estimate 632 ÷ 7.',
+                  options: ['About 70', 'About 90', 'About 100', 'About 120'],
+                  correctAnswer: 1,
+                  explanation: '632 ≈ 630 (a friendly number for 7), and 630 ÷ 7 = 90.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['estimation-division'],
+                    correctToken: 'estimation-division',
+                    incorrectTokens: [
+                      'estimation-under-estimate',     // Too low
+                      null,
+                      'estimation-over-estimate',      // Too high
+                      'estimation-calculation-error',  // Divided incorrectly
+                    ],
+                  },
+                },
+
+                // === CHECKING REASONABLENESS (18-20) ===
+                {
+                  id: 'VCMNA182-018',
+                  question: 'A student calculated 89 × 7 = 543. Use estimation to check if this is reasonable.',
+                  options: [
+                    'Yes, it seems reasonable',
+                    'No, it should be closer to 630',
+                    'No, it should be closer to 450',
+                    'No, it should be closer to 700'
+                  ],
+                  correctAnswer: 1,
+                  explanation: '89 ≈ 90, and 90 × 7 = 630. The answer 543 is too low. (Actual: 89 × 7 = 623)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reasonableness-checking', 'estimation-multiplication'],
+                    correctToken: 'reasonableness-checking',
+                    incorrectTokens: [
+                      'reasonableness-false-positive', // Accepted incorrect answer
+                      null,
+                      'estimation-under-estimate',     // Estimated too low
+                      'estimation-over-estimate',      // Estimated too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-019',
+                  question: 'Sam calculated 412 + 389 = 801. Is this reasonable?',
+                  options: [
+                    'Yes, it\'s close to 800',
+                    'No, it should be closer to 700',
+                    'No, it should be closer to 900',
+                    'Yes, it\'s exactly right'
+                  ],
+                  correctAnswer: 0,
+                  explanation: '412 ≈ 400 and 389 ≈ 400, so 400 + 400 = 800. 801 is very reasonable.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reasonableness-checking', 'estimation-addition'],
+                    correctToken: 'reasonableness-checking',
+                    incorrectTokens: [
+                      null,
+                      'estimation-under-estimate',     // Estimated too low
+                      'estimation-over-estimate',      // Estimated too high
+                      'reasonableness-exact-expectation', // Expects exact match
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA182-020',
                   question: 'Which calculation will give an answer closest to 2,000?',
                   options: ['512 × 3', '389 × 6', '198 × 9', '678 × 3'],
                   correctAnswer: 2,
-                  explanation: '198 ≈ 200, and 200 × 9 = 1,800. This is closest to 2,000.',
-                  difficulty: 3
-                }
+                  explanation: '198 ≈ 200, and 200 × 9 = 1,800. This is closest to 2,000. (512×3≈1,500, 389×6≈2,400, 678×3≈2,000)',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['estimation-multiplication', 'reasonableness-checking'],
+                    correctToken: 'estimation-multiplication',
+                    incorrectTokens: [
+                      'estimation-calculation-error',  // 500×3=1,500
+                      'estimation-calculation-error',  // 400×6=2,400
+                      null,
+                      'estimation-close-competition',  // 700×3=2,100 also close
+                    ],
+                  },
+                },
               ]
             }
           ]
