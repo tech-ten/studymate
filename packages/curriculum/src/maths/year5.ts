@@ -2674,6 +2674,52 @@ Compare fractions to ½:
                 'Same numerators: larger denominator = smaller fraction',
                 'Use ½ as a benchmark to help compare fractions'
               ],
+              knowledgeTokens: [
+                {
+                  id: 'unit-fraction-concept',
+                  name: 'Unit Fraction Concept',
+                  description: 'Understanding fractions with numerator 1',
+                },
+                {
+                  id: 'unit-fraction-comparison',
+                  name: 'Comparing Unit Fractions',
+                  description: 'Larger denominator means smaller unit fraction',
+                  prerequisites: ['unit-fraction-concept'],
+                },
+                {
+                  id: 'same-denominator-comparison',
+                  name: 'Same Denominator Comparison',
+                  description: 'Comparing fractions with the same denominator',
+                },
+                {
+                  id: 'same-numerator-comparison',
+                  name: 'Same Numerator Comparison',
+                  description: 'Comparing fractions with the same numerator',
+                },
+                {
+                  id: 'benchmark-half',
+                  name: 'Using Half as Benchmark',
+                  description: 'Comparing fractions to one-half',
+                },
+                {
+                  id: 'equivalent-fractions',
+                  name: 'Equivalent Fractions',
+                  description: 'Finding and using equivalent fractions to compare',
+                  prerequisites: ['same-denominator-comparison'],
+                },
+                {
+                  id: 'fraction-number-line',
+                  name: 'Fractions on Number Line',
+                  description: 'Locating and ordering fractions on a number line',
+                  prerequisites: ['unit-fraction-concept'],
+                },
+                {
+                  id: 'ordering-fractions',
+                  name: 'Ordering Multiple Fractions',
+                  description: 'Arranging three or more fractions in order',
+                  prerequisites: ['same-denominator-comparison', 'equivalent-fractions'],
+                },
+              ],
               examples: [
                 {
                   problem: 'Order from smallest to largest: ½, ¼, ⅓',
@@ -2687,46 +2733,375 @@ Compare fractions to ½:
                 }
               ],
               questions: [
+                // === UNIT FRACTION COMPARISON (1-4) ===
                 {
                   id: 'VCMNA187-001',
                   question: 'Which fraction is the smallest?',
                   options: ['½', '⅓', '¼', '⅕'],
                   correctAnswer: 3,
-                  explanation: 'For unit fractions, the larger the denominator, the smaller the fraction. ⅕ has the largest denominator.',
-                  difficulty: 1
+                  explanation: 'For unit fractions, the larger the denominator, the smaller the fraction. ⅕ has the largest denominator (5).',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['unit-fraction-comparison'],
+                    correctToken: 'unit-fraction-comparison',
+                    incorrectTokens: [
+                      'unit-fraction-reversal',          // Thinks larger denominator = larger fraction
+                      'unit-fraction-reversal',          // Same error
+                      'unit-fraction-reversal',          // Same error
+                      null,
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA187-002',
-                  question: 'Order these fractions from smallest to largest: ⅝, ⅜, ⅞',
-                  options: ['⅜, ⅝, ⅞', '⅞, ⅝, ⅜', '⅝, ⅜, ⅞', '⅜, ⅞, ⅝'],
-                  correctAnswer: 0,
-                  explanation: 'Same denominators, so compare numerators: 3 < 5 < 7',
-                  difficulty: 1
+                  question: 'Which unit fraction is the largest?',
+                  options: ['⅛', '⅙', '¼', '⅓'],
+                  correctAnswer: 3,
+                  explanation: 'For unit fractions, the smaller the denominator, the larger the fraction. ⅓ has the smallest denominator.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['unit-fraction-comparison'],
+                    correctToken: 'unit-fraction-comparison',
+                    incorrectTokens: [
+                      'unit-fraction-reversal',          // Wrong direction
+                      'unit-fraction-reversal',          // Wrong direction
+                      'unit-fraction-reversal',          // Wrong direction
+                      null,
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA187-003',
-                  question: 'Which fraction is greater than ½?',
-                  options: ['³⁄₈', '²⁄₅', '⁴⁄₉', '⁵⁄₈'],
-                  correctAnswer: 3,
-                  explanation: '½ = ⁴⁄₈, and ⁵⁄₈ > ⁴⁄₈, so ⁵⁄₈ > ½',
-                  difficulty: 2
+                  question: 'Order from smallest to largest: ⅓, ⅕, ¼',
+                  options: ['⅕, ¼, ⅓', '⅓, ¼, ⅕', '¼, ⅓, ⅕', '⅕, ⅓, ¼'],
+                  correctAnswer: 0,
+                  explanation: 'Unit fractions: larger denominator = smaller fraction. 5 > 4 > 3, so ⅕ < ¼ < ⅓.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['unit-fraction-comparison', 'ordering-fractions'],
+                    correctToken: 'ordering-fractions',
+                    incorrectTokens: [
+                      null,
+                      'unit-fraction-reversal',          // Got order backwards
+                      'ordering-partial-error',          // Partial ordering error
+                      'ordering-partial-error',          // Partial ordering error
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA187-004',
+                  question: 'Which statement is TRUE?',
+                  options: ['⅙ > ⅕', '⅓ < ¼', '½ > ⅓', '⅛ > ¼'],
+                  correctAnswer: 2,
+                  explanation: '½ > ⅓ is true because 2 < 3 (smaller denominator = larger unit fraction).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['unit-fraction-comparison'],
+                    correctToken: 'unit-fraction-comparison',
+                    incorrectTokens: [
+                      'unit-fraction-reversal',          // 6 > 5 but ⅙ < ⅕
+                      'unit-fraction-reversal',          // 3 < 4 but ⅓ > ¼
+                      null,
+                      'unit-fraction-reversal',          // 8 > 4 but ⅛ < ¼
+                    ],
+                  },
+                },
+
+                // === SAME DENOMINATOR COMPARISON (5-8) ===
+                {
+                  id: 'VCMNA187-005',
+                  question: 'Which fraction is largest?',
+                  options: ['²⁄₇', '⁴⁄₇', '⁵⁄₇', '³⁄₇'],
+                  correctAnswer: 2,
+                  explanation: 'Same denominators, so compare numerators. 5 is the largest numerator, so ⁵⁄₇ is largest.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['same-denominator-comparison'],
+                    correctToken: 'same-denominator-comparison',
+                    incorrectTokens: [
+                      'numerator-comparison-error',      // Wrong numerator chosen
+                      'numerator-comparison-error',      // Wrong numerator chosen
+                      null,
+                      'numerator-comparison-error',      // Wrong numerator chosen
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-006',
+                  question: 'Order these fractions from smallest to largest: ⅝, ⅜, ⅞',
+                  options: ['⅜, ⅝, ⅞', '⅞, ⅝, ⅜', '⅝, ⅜, ⅞', '⅜, ⅞, ⅝'],
+                  correctAnswer: 0,
+                  explanation: 'Same denominators (8), so compare numerators: 3 < 5 < 7.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['same-denominator-comparison', 'ordering-fractions'],
+                    correctToken: 'same-denominator-comparison',
+                    incorrectTokens: [
+                      null,
+                      'ordering-direction-error',        // Ordered largest to smallest
+                      'ordering-partial-error',          // Wrong order
+                      'ordering-partial-error',          // Wrong order
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-007',
+                  question: 'Which is greater: ⁷⁄₁₀ or ⁴⁄₁₀?',
+                  options: ['⁷⁄₁₀', '⁴⁄₁₀', 'They are equal', 'Cannot tell'],
+                  correctAnswer: 0,
+                  explanation: 'Same denominators (10), compare numerators: 7 > 4, so ⁷⁄₁₀ > ⁴⁄₁₀.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['same-denominator-comparison'],
+                    correctToken: 'same-denominator-comparison',
+                    incorrectTokens: [
+                      null,
+                      'numerator-comparison-error',      // Chose smaller
+                      'comparison-uncertainty',          // Thought equal
+                      'comparison-uncertainty',          // Uncertain
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-008',
+                  question: 'Which fraction is closest to 1?',
+                  options: ['⁵⁄₉', '⁷⁄₉', '⁸⁄₉', '⁶⁄₉'],
+                  correctAnswer: 2,
+                  explanation: '⁸⁄₉ is closest to 1 because it has the largest numerator (only ¹⁄₉ away from 1).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['same-denominator-comparison', 'fraction-number-line'],
+                    correctToken: 'same-denominator-comparison',
+                    incorrectTokens: [
+                      'closest-to-one-error',            // Wrong choice
+                      'closest-to-one-error',            // Wrong choice
+                      null,
+                      'closest-to-one-error',            // Wrong choice
+                    ],
+                  },
+                },
+
+                // === BENCHMARK COMPARISON (9-12) ===
+                {
+                  id: 'VCMNA187-009',
+                  question: 'Which fraction is greater than ½?',
+                  options: ['³⁄₈', '²⁄₅', '⁴⁄₉', '⁵⁄₈'],
+                  correctAnswer: 3,
+                  explanation: '½ = ⁴⁄₈. Since ⁵⁄₈ > ⁴⁄₈, we know ⁵⁄₈ > ½.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['benchmark-half', 'equivalent-fractions'],
+                    correctToken: 'benchmark-half',
+                    incorrectTokens: [
+                      'benchmark-comparison-error',      // Miscompared to ½
+                      'benchmark-comparison-error',      // Miscompared to ½
+                      'benchmark-comparison-error',      // Miscompared to ½
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-010',
+                  question: 'Which fraction is less than ½?',
+                  options: ['⁵⁄₉', '⁴⁄₇', '³⁄₅', '²⁄₅'],
+                  correctAnswer: 3,
+                  explanation: '²⁄₅ = 0.4, which is less than ½ = 0.5. (Or: ½ = ²·⁵⁄₅, and 2 < 2.5)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['benchmark-half'],
+                    correctToken: 'benchmark-half',
+                    incorrectTokens: [
+                      'benchmark-comparison-error',      // Miscompared to ½
+                      'benchmark-comparison-error',      // Miscompared to ½
+                      'benchmark-comparison-error',      // Miscompared to ½
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-011',
+                  question: 'Is ³⁄₇ more or less than ½?',
+                  options: ['More than ½', 'Less than ½', 'Equal to ½', 'Cannot tell'],
+                  correctAnswer: 1,
+                  explanation: '½ = ³·⁵⁄₇. Since 3 < 3.5, we know ³⁄₇ < ½.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['benchmark-half'],
+                    correctToken: 'benchmark-half',
+                    incorrectTokens: [
+                      'benchmark-comparison-error',      // Thought more
+                      null,
+                      'benchmark-equality-error',        // Thought equal
+                      'comparison-uncertainty',          // Uncertain
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-012',
+                  question: 'Both ⁴⁄₉ and ⁵⁄₁₁ are close to ½. Which is closer?',
+                  options: ['⁴⁄₉', '⁵⁄₁₁', 'They are equally close', 'Cannot tell'],
+                  correctAnswer: 0,
+                  explanation: '⁴⁄₉ ≈ 0.444, ⁵⁄₁₁ ≈ 0.455. Both are less than 0.5. ⁵⁄₁₁ is closer to 0.5.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['benchmark-half'],
+                    correctToken: 'benchmark-half',
+                    incorrectTokens: [
+                      null,
+                      'distance-from-half-error',        // Wrong distance calculation
+                      'equal-proximity-error',           // Thought equal
+                      'comparison-uncertainty',          // Uncertain
+                    ],
+                  },
+                },
+
+                // === NUMBER LINE (13-15) ===
+                {
+                  id: 'VCMNA187-013',
                   question: 'Where would ³⁄₄ be on a number line from 0 to 1?',
                   options: ['Closer to 0', 'Exactly at ½', 'Between ½ and 1', 'At 1'],
                   correctAnswer: 2,
-                  explanation: '³⁄₄ = 0.75, which is between ½ (0.5) and 1',
-                  difficulty: 2
+                  explanation: '³⁄₄ = 0.75, which is between ½ (0.5) and 1.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-number-line'],
+                    correctToken: 'fraction-number-line',
+                    incorrectTokens: [
+                      'number-line-position-error',      // Wrong region
+                      'number-line-position-error',      // Wrong region
+                      null,
+                      'number-line-position-error',      // Wrong region
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA187-005',
+                  id: 'VCMNA187-014',
+                  question: 'Which fraction would be closest to 0 on a number line?',
+                  options: ['¼', '⅕', '⅛', '⅙'],
+                  correctAnswer: 2,
+                  explanation: '⅛ is the smallest because it has the largest denominator (for unit fractions).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-number-line', 'unit-fraction-comparison'],
+                    correctToken: 'fraction-number-line',
+                    incorrectTokens: [
+                      'number-line-position-error',      // Wrong choice
+                      'number-line-position-error',      // Wrong choice
+                      null,
+                      'number-line-position-error',      // Wrong choice
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-015',
+                  question: 'On a number line from 0 to 1, where would ⅗ be?',
+                  options: ['Before ½', 'Exactly at ½', 'After ½ but before ¾', 'After ¾'],
+                  correctAnswer: 2,
+                  explanation: '⅗ = 0.6, which is after ½ (0.5) but before ¾ (0.75).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-number-line', 'benchmark-half'],
+                    correctToken: 'fraction-number-line',
+                    incorrectTokens: [
+                      'benchmark-comparison-error',      // Mislocated relative to ½
+                      'number-line-position-error',      // Wrong region
+                      null,
+                      'number-line-position-error',      // Wrong region
+                    ],
+                  },
+                },
+
+                // === EQUIVALENT FRACTIONS & COMPLEX COMPARISON (16-20) ===
+                {
+                  id: 'VCMNA187-016',
+                  question: 'Which fraction is equivalent to ½?',
+                  options: ['²⁄₃', '³⁄₆', '⁴⁄₆', '⁵⁄₈'],
+                  correctAnswer: 1,
+                  explanation: '³⁄₆ = ½ because 3 is half of 6, just as 1 is half of 2.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['equivalent-fractions'],
+                    correctToken: 'equivalent-fractions',
+                    incorrectTokens: [
+                      'equivalent-fraction-error',       // Wrong equivalent
+                      null,
+                      'equivalent-fraction-error',       // Wrong equivalent
+                      'equivalent-fraction-error',       // Wrong equivalent
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-017',
+                  question: 'Which is larger: ⅗ or ⁷⁄₁₀?',
+                  options: ['⅗', '⁷⁄₁₀', 'They are equal', 'Cannot compare'],
+                  correctAnswer: 1,
+                  explanation: '⅗ = ⁶⁄₁₀. Since ⁷⁄₁₀ > ⁶⁄₁₀, we know ⁷⁄₁₀ > ⅗.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['equivalent-fractions', 'same-denominator-comparison'],
+                    correctToken: 'equivalent-fractions',
+                    incorrectTokens: [
+                      'equivalent-conversion-error',     // Wrong conversion
+                      null,
+                      'comparison-uncertainty',          // Thought equal
+                      'comparison-uncertainty',          // Uncertain
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-018',
                   question: 'Which is larger: ⁵⁄₆ or ⁷⁄₈?',
                   options: ['⁵⁄₆', '⁷⁄₈', 'They are equal', 'Cannot compare'],
                   correctAnswer: 1,
-                  explanation: '⁵⁄₆ ≈ 0.833, ⁷⁄₈ = 0.875. So ⁷⁄₈ is larger.',
-                  difficulty: 3
-                }
+                  explanation: '⁵⁄₆ ≈ 0.833, ⁷⁄₈ = 0.875. So ⁷⁄₈ is larger. (Or: both are 1 fraction from 1: ⅙ vs ⅛, and ⅙ > ⅛)',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['same-numerator-comparison'],
+                    correctToken: 'same-numerator-comparison',
+                    incorrectTokens: [
+                      'complex-comparison-error',        // Wrong comparison
+                      null,
+                      'comparison-uncertainty',          // Thought equal
+                      'comparison-uncertainty',          // Uncertain
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-019',
+                  question: 'Order from smallest to largest: ²⁄₃, ³⁄₄, ⅝',
+                  options: ['⅝, ²⁄₃, ³⁄₄', '²⁄₃, ⅝, ³⁄₄', '³⁄₄, ²⁄₃, ⅝', '⅝, ³⁄₄, ²⁄₃'],
+                  correctAnswer: 0,
+                  explanation: '⅝ = 0.625, ²⁄₃ ≈ 0.667, ³⁄₄ = 0.75. So ⅝ < ²⁄₃ < ³⁄₄.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['ordering-fractions', 'equivalent-fractions'],
+                    correctToken: 'ordering-fractions',
+                    incorrectTokens: [
+                      null,
+                      'ordering-partial-error',          // Partial order wrong
+                      'ordering-direction-error',        // Wrong direction
+                      'ordering-partial-error',          // Partial order wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA187-020',
+                  question: 'Which fraction is between ½ and ¾?',
+                  options: ['²⁄₅', '⅜', '⅗', '⁷⁄₈'],
+                  correctAnswer: 2,
+                  explanation: '½ = 0.5, ¾ = 0.75. ⅗ = 0.6, which is between 0.5 and 0.75.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['fraction-number-line', 'benchmark-half'],
+                    correctToken: 'fraction-number-line',
+                    incorrectTokens: [
+                      'between-fractions-error',         // Less than ½
+                      'between-fractions-error',         // Less than ½
+                      null,
+                      'between-fractions-error',         // Greater than ¾
+                    ],
+                  },
+                },
               ]
             },
             {
