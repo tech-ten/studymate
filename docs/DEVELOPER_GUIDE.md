@@ -128,7 +128,193 @@ CHILD#<childId>       │ PROFILE               │ parentId, username, avatar
 CHILD#<childId>       │ PROGRESS#maths        │ level, xp, accuracy
 CHILD#<childId>       │ QUIZ#<quizId>         │ section, score, answers
 CHILD#<childId>       │ AILOG#<timestamp>     │ type, latency, tokens
+CHILD#<childId>       │ TOKEN#<tokenId>       │ masteryScore, confusionPatterns
+CHILD#<childId>       │ ATTEMPT#<timestamp>   │ questionId, isCorrect, knowledgeToken
+CURRICULUM#YEAR<n>    │ SECTION#<code>        │ title, content, keyPoints, examples
+SECTION#<code>        │ QUESTION#<id>         │ question, options, knowledge tokens
 ```
+
+---
+
+## Curriculum & Question Architecture
+
+### Overview
+
+Questions are stored in **DynamoDB**, not in local files. The TypeScript file `packages/curriculum/src/maths/year5.ts` serves as the **development/authoring source**, which is then seeded to DynamoDB.
+
+### Data Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    CURRICULUM DATA FLOW                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. AUTHORING                                                   │
+│     packages/curriculum/src/maths/year5.ts                     │
+│     └─ Questions with knowledge tokens defined in TypeScript    │
+│                                                                 │
+│  2. SEEDING                                                     │
+│     npx ts-node packages/api/src/scripts/seed-curriculum.ts    │
+│     └─ Migrates to DynamoDB (SECTION#, QUESTION#)              │
+│                                                                 │
+│  3. RUNTIME                                                     │
+│     API reads from DynamoDB (NOT from TypeScript files)         │
+│     └─ GET /curriculum/:year/:section/questions                │
+│                                                                 │
+│  4. ANALYTICS                                                   │
+│     Attempts stored with knowledge tokens for tracking          │
+│     └─ POST /analytics/attempt                                  │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Why year5.ts Still Exists
+
+The TypeScript file is kept for:
+1. **Version control** - Track question changes in Git
+2. **Type safety** - TypeScript ensures valid question structure
+3. **Bulk editing** - Easier to edit many questions in IDE
+4. **Seeding source** - Single source of truth for new deployments
+
+**Important:** After editing `year5.ts`, you must re-run the seed script!
+
+### DynamoDB Question Schema
+
+```typescript
+// Stored in DynamoDB as: PK=SECTION#VCMMG202, SK=QUESTION#VCMMG202-001
+{
+  PK: 'SECTION#VCMMG202',
+  SK: 'QUESTION#VCMMG202-001',
+  type: 'QUESTION',
+  id: 'VCMMG202-001',
+  sectionId: 'VCMMG202',
+  question: 'What type of angle is 75°?',
+  options: ['Acute', 'Right', 'Obtuse', 'Reflex'],
+  correctAnswer: 0,
+  explanation: 'An acute angle is less than 90°...',
+  difficulty: 1,
+
+  // Knowledge tokens for analytics
+  knowledge: {
+    questionTokens: ['acute-angle-identification', 'right-angle-identification', ...],
+    correctToken: 'acute-angle-identification',
+    incorrectTokens: [
+      null,                      // Option 0 is correct
+      'acute-right-confusion',   // Chose Right → confusion
+      'acute-obtuse-confusion',  // Chose Obtuse → confusion
+      'reflex-misunderstanding', // Chose Reflex → confusion
+    ],
+  },
+
+  // Analytics (updated by system)
+  totalAttempts: 0,
+  correctAttempts: 0,
+  avgTimeSeconds: 0,
+  isAiGenerated: false,
+}
+```
+
+### Adding New Questions
+
+#### Step 1: Edit the TypeScript Source
+
+```typescript
+// packages/curriculum/src/maths/year5.ts
+{
+  id: 'VCMMG202-021',
+  question: 'What is the angle in a straight line?',
+  options: ['90°', '180°', '270°', '360°'],
+  correctAnswer: 1,
+  explanation: 'A straight angle is exactly 180°',
+  difficulty: 2,
+  knowledge: {
+    questionTokens: ['straight-angle-identification'],
+    correctToken: 'straight-angle-identification',
+    incorrectTokens: [
+      'right-straight-confusion',  // Chose 90°
+      null,                         // Correct
+      'reflex-misunderstanding',    // Chose 270°
+      'full-rotation-confusion',    // Chose 360°
+    ],
+  },
+}
+```
+
+#### Step 2: Seed to DynamoDB
+
+```bash
+cd packages/api
+npx ts-node src/scripts/seed-curriculum.ts
+```
+
+#### Step 3: Verify in DynamoDB
+
+```bash
+aws dynamodb query \
+  --table-name agentsform-main \
+  --key-condition-expression "PK = :pk AND SK = :sk" \
+  --expression-attribute-values '{":pk":{"S":"SECTION#VCMMG202"},":sk":{"S":"QUESTION#VCMMG202-021"}}'
+```
+
+### Knowledge Token System
+
+Knowledge tokens enable granular skill tracking. Each question tests specific skills and tracks which misconceptions occur when wrong answers are selected.
+
+```typescript
+// Token definition (in section)
+knowledgeTokens: [
+  { id: 'acute-angle-identification', name: 'Acute Angle Identification' },
+  { id: 'right-angle-identification', name: 'Right Angle Identification' },
+]
+
+// Question tagging
+knowledge: {
+  questionTokens: ['acute-angle-identification', 'right-angle-identification'],
+  correctToken: 'acute-angle-identification',  // Skill proven by correct answer
+  incorrectTokens: [null, 'acute-right-confusion', ...],  // Misconceptions by wrong answer
+}
+```
+
+### API Endpoints for Curriculum
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/curriculum/:year` | List all sections for year level |
+| GET | `/curriculum/:year/:sectionId` | Get section content |
+| GET | `/curriculum/:year/:sectionId/questions` | Get all questions (from DB) |
+| GET | `/curriculum/:year/:sectionId/adaptive` | Get adaptive question |
+| POST | `/curriculum/attempt` | Record question attempt |
+| GET | `/curriculum/mastery/:childId` | Get child's mastery |
+
+### Attempt Recording with Knowledge Tokens
+
+When a child answers a question, the frontend sends knowledge token data:
+
+```typescript
+// Frontend: submit answer
+await fetch('/analytics/attempt', {
+  method: 'POST',
+  body: JSON.stringify({
+    childId,
+    questionId: question.id,
+    sectionId,
+    selectedAnswer,
+    correctAnswer: question.correctAnswer,
+    timeSpentSeconds,
+    difficulty: question.difficulty,
+    questionText: question.question,
+    options: question.options,
+    explanation: question.explanation,
+    // Include knowledge token data from the question
+    knowledge: question.knowledge,
+  }),
+});
+```
+
+The backend then:
+1. Records the attempt in `CHILD#/ATTEMPT#`
+2. Updates knowledge token mastery in `CHILD#/TOKEN#`
+3. Tracks confusion patterns for misconception analysis
 
 ---
 
