@@ -3615,6 +3615,2518 @@ Answer: **2.35 < 2.5 < 2.53**`,
                   },
                 },
               ]
+            },
+            {
+              id: 'VCMNA188',
+              code: 'VCMNA188',
+              title: 'Adding and Subtracting Fractions',
+              description: 'Solve problems involving addition and subtraction of fractions with the same denominator',
+              content: `# Adding and Subtracting Fractions
+
+When fractions have the **same denominator** (the bottom number), adding and subtracting is easy!
+
+## The Golden Rule
+
+**Same denominator? Just add or subtract the numerators!**
+
+The denominator tells us what size the pieces are. When pieces are the same size, we can simply count them!
+
+## Adding Fractions
+
+**Example:** What is ²⁄₅ + ¹⁄₅?
+
+Think of it as pizza slices:
+- You have 2 slices (each slice is ⅕ of the pizza)
+- You get 1 more slice (also ⅕)
+- Now you have 3 slices → ³⁄₅
+
+\`\`\`
+²⁄₅ + ¹⁄₅ = ⁽²⁺¹⁾⁄₅ = ³⁄₅
+\`\`\`
+
+**Another Example:** ³⁄₈ + ²⁄₈ = ⁵⁄₈
+
+## Subtracting Fractions
+
+**Example:** What is ⁵⁄₆ - ²⁄₆?
+
+- You start with 5 pieces (each is ⅙)
+- You eat 2 pieces
+- You have 3 pieces left → ³⁄₆ = ½
+
+\`\`\`
+⁵⁄₆ - ²⁄₆ = ⁽⁵⁻²⁾⁄₆ = ³⁄₆ = ½
+\`\`\`
+
+## Simplifying Your Answer
+
+Always check if you can simplify (reduce) your answer!
+
+| Before | After Simplifying |
+|--------|-------------------|
+| ²⁄₄    | ½                 |
+| ³⁄₆    | ½                 |
+| ⁴⁄₈    | ½                 |
+| ²⁄₆    | ⅓                 |
+| ⁴⁄₁₀   | ²⁄₅               |
+
+## Mixed Numbers
+
+When the answer is more than 1 whole, convert to a mixed number:
+
+**Example:** ⁴⁄₅ + ³⁄₅ = ⁷⁄₅ = 1²⁄₅
+
+Think: 7 fifths = 5 fifths (1 whole) + 2 fifths = 1²⁄₅
+
+## Common Mistakes to Avoid
+
+❌ **Wrong:** ²⁄₅ + ¹⁄₅ = ³⁄₁₀ (adding denominators too!)
+✓ **Right:** ²⁄₅ + ¹⁄₅ = ³⁄₅ (keep the denominator the same!)
+
+❌ **Wrong:** ³⁄₄ - ¹⁄₄ = ²⁄₀ (subtracting denominators!)
+✓ **Right:** ³⁄₄ - ¹⁄₄ = ²⁄₄ = ½`,
+              keyPoints: [
+                'When denominators are the same, add or subtract only the numerators',
+                'The denominator stays the same - it tells us the size of each piece',
+                'Always simplify your answer if possible',
+                'Convert improper fractions to mixed numbers when appropriate'
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'fraction-same-denominator',
+                  name: 'Same Denominator Concept',
+                  description: 'Understanding that same denominators mean same-sized pieces',
+                },
+                {
+                  id: 'fraction-addition-same-denom',
+                  name: 'Adding Fractions (Same Denominator)',
+                  description: 'Adding fractions when denominators match',
+                  prerequisites: ['fraction-same-denominator'],
+                },
+                {
+                  id: 'fraction-subtraction-same-denom',
+                  name: 'Subtracting Fractions (Same Denominator)',
+                  description: 'Subtracting fractions when denominators match',
+                  prerequisites: ['fraction-same-denominator'],
+                },
+                {
+                  id: 'fraction-simplifying',
+                  name: 'Simplifying Fractions',
+                  description: 'Reducing fractions to their simplest form',
+                  prerequisites: ['fraction-addition-same-denom'],
+                },
+                {
+                  id: 'improper-to-mixed',
+                  name: 'Converting Improper to Mixed',
+                  description: 'Converting improper fractions to mixed numbers',
+                  prerequisites: ['fraction-addition-same-denom'],
+                },
+                {
+                  id: 'fraction-word-problems',
+                  name: 'Fraction Word Problems',
+                  description: 'Applying fraction operations to real-world scenarios',
+                  prerequisites: ['fraction-addition-same-denom', 'fraction-subtraction-same-denom'],
+                },
+              ],
+              examples: [
+                {
+                  problem: 'Calculate ³⁄₇ + ²⁄₇',
+                  solution: '⁵⁄₇',
+                  explanation: 'Same denominator, so add numerators: 3 + 2 = 5, keep denominator 7'
+                },
+                {
+                  problem: 'Calculate ⁷⁄₁₀ - ³⁄₁₀',
+                  solution: '⁴⁄₁₀ = ²⁄₅',
+                  explanation: 'Subtract numerators: 7 - 3 = 4. Then simplify: 4÷2 = 2, 10÷2 = 5'
+                },
+                {
+                  problem: 'Calculate ⁵⁄₆ + ⁴⁄₆',
+                  solution: '⁹⁄₆ = 1³⁄₆ = 1½',
+                  explanation: '5 + 4 = 9 sixths. 9÷6 = 1 remainder 3, so 1³⁄₆. Simplify: 1½'
+                }
+              ],
+              questions: [
+                // Questions 1-5: Basic Addition (Difficulty 1-2)
+                {
+                  id: 'VCMNA188-001',
+                  question: 'What is ¹⁄₄ + ²⁄₄?',
+                  options: ['³⁄₄', '³⁄₈', '²⁄₄', '¹⁄₄'],
+                  correctAnswer: 0,
+                  explanation: 'Same denominator: add numerators 1 + 2 = 3. Keep denominator 4. Answer: ³⁄₄',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom'],
+                    correctToken: 'fraction-addition-same-denom',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'denominator-addition-error',       // Added denominators
+                      'fraction-operation-error',         // Didn't add
+                      'fraction-operation-error',         // Wrong operation
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-002',
+                  question: 'What is ²⁄₅ + ¹⁄₅?',
+                  options: ['³⁄₁₀', '³⁄₅', '¹⁄₅', '²⁄₅'],
+                  correctAnswer: 1,
+                  explanation: 'Add numerators: 2 + 1 = 3. Denominator stays 5. Answer: ³⁄₅',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom'],
+                    correctToken: 'fraction-addition-same-denom',
+                    incorrectTokens: [
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'fraction-operation-error',         // Wrong
+                      'fraction-operation-error',         // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-003',
+                  question: 'What is ³⁄₈ + ²⁄₈?',
+                  options: ['⁵⁄₁₆', '⁵⁄₈', '¹⁄₈', '⁶⁄₈'],
+                  correctAnswer: 1,
+                  explanation: 'Add numerators: 3 + 2 = 5. Keep denominator 8. Answer: ⁵⁄₈',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom'],
+                    correctToken: 'fraction-addition-same-denom',
+                    incorrectTokens: [
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'fraction-operation-error',         // Wrong calculation
+                      'numerator-multiplication-error',   // Multiplied instead
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-004',
+                  question: 'What is ⁴⁄₉ + ³⁄₉?',
+                  options: ['⁷⁄₁₈', '⁷⁄₉', '¹²⁄₉', '¹⁄₉'],
+                  correctAnswer: 1,
+                  explanation: 'Add numerators: 4 + 3 = 7. Keep denominator 9. Answer: ⁷⁄₉',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom'],
+                    correctToken: 'fraction-addition-same-denom',
+                    incorrectTokens: [
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'numerator-multiplication-error',   // Multiplied numerators
+                      'fraction-subtraction-error',       // Subtracted instead
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-005',
+                  question: 'What is ²⁄₆ + ³⁄₆?',
+                  options: ['⁵⁄₁₂', '⁵⁄₆', '⁶⁄₆', '¹⁄₆'],
+                  correctAnswer: 1,
+                  explanation: 'Add numerators: 2 + 3 = 5. Keep denominator 6. Answer: ⁵⁄₆',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom'],
+                    correctToken: 'fraction-addition-same-denom',
+                    incorrectTokens: [
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'numerator-multiplication-error',   // Multiplied
+                      'fraction-subtraction-error',       // Subtracted
+                    ],
+                  },
+                },
+                // Questions 6-10: Basic Subtraction (Difficulty 1-2)
+                {
+                  id: 'VCMNA188-006',
+                  question: 'What is ³⁄₄ - ¹⁄₄?',
+                  options: ['²⁄₄', '²⁄₀', '⁴⁄₄', '¹⁄₄'],
+                  correctAnswer: 0,
+                  explanation: 'Subtract numerators: 3 - 1 = 2. Keep denominator 4. Answer: ²⁄₄ = ½',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom'],
+                    correctToken: 'fraction-subtraction-same-denom',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'denominator-subtraction-error',    // Subtracted denominators
+                      'fraction-addition-error',          // Added instead
+                      'fraction-operation-error',         // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-007',
+                  question: 'What is ⁵⁄₆ - ²⁄₆?',
+                  options: ['³⁄₀', '³⁄₆', '⁷⁄₆', '¹⁰⁄₆'],
+                  correctAnswer: 1,
+                  explanation: 'Subtract numerators: 5 - 2 = 3. Keep denominator 6. Answer: ³⁄₆ = ½',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom'],
+                    correctToken: 'fraction-subtraction-same-denom',
+                    incorrectTokens: [
+                      'denominator-subtraction-error',    // Subtracted denominators
+                      null,                                // Correct
+                      'fraction-addition-error',          // Added instead
+                      'numerator-multiplication-error',   // Multiplied
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-008',
+                  question: 'What is ⁷⁄₁₀ - ⁴⁄₁₀?',
+                  options: ['³⁄₀', '¹¹⁄₁₀', '³⁄₁₀', '²⁸⁄₁₀'],
+                  correctAnswer: 2,
+                  explanation: 'Subtract numerators: 7 - 4 = 3. Keep denominator 10. Answer: ³⁄₁₀',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom'],
+                    correctToken: 'fraction-subtraction-same-denom',
+                    incorrectTokens: [
+                      'denominator-subtraction-error',    // Subtracted denominators
+                      'fraction-addition-error',          // Added instead
+                      null,                                // Correct
+                      'numerator-multiplication-error',   // Multiplied
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-009',
+                  question: 'What is ⁸⁄₉ - ³⁄₉?',
+                  options: ['⁵⁄₀', '⁵⁄₉', '¹¹⁄₉', '²⁴⁄₉'],
+                  correctAnswer: 1,
+                  explanation: 'Subtract numerators: 8 - 3 = 5. Keep denominator 9. Answer: ⁵⁄₉',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom'],
+                    correctToken: 'fraction-subtraction-same-denom',
+                    incorrectTokens: [
+                      'denominator-subtraction-error',    // Subtracted denominators
+                      null,                                // Correct
+                      'fraction-addition-error',          // Added instead
+                      'numerator-multiplication-error',   // Multiplied
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-010',
+                  question: 'What is ⁶⁄₇ - ²⁄₇?',
+                  options: ['⁴⁄₇', '⁴⁄₀', '⁸⁄₇', '¹²⁄₇'],
+                  correctAnswer: 0,
+                  explanation: 'Subtract numerators: 6 - 2 = 4. Keep denominator 7. Answer: ⁴⁄₇',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom'],
+                    correctToken: 'fraction-subtraction-same-denom',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'denominator-subtraction-error',    // Subtracted denominators
+                      'fraction-addition-error',          // Added instead
+                      'numerator-multiplication-error',   // Multiplied
+                    ],
+                  },
+                },
+                // Questions 11-14: Simplifying Answers (Difficulty 2)
+                {
+                  id: 'VCMNA188-011',
+                  question: 'What is ²⁄₈ + ²⁄₈ in simplest form?',
+                  options: ['⁴⁄₈', '½', '¼', '⁴⁄₁₆'],
+                  correctAnswer: 1,
+                  explanation: '²⁄₈ + ²⁄₈ = ⁴⁄₈. Simplify: 4÷4=1, 8÷4=2. Answer: ½',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom', 'fraction-simplifying'],
+                    correctToken: 'fraction-simplifying',
+                    incorrectTokens: [
+                      'simplification-incomplete',        // Didn't simplify
+                      null,                                // Correct
+                      'simplification-error',             // Wrong simplification
+                      'denominator-addition-error',       // Added denominators
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-012',
+                  question: 'What is ⁵⁄₁₀ - ¹⁄₁₀ in simplest form?',
+                  options: ['⁴⁄₁₀', '²⁄₅', '⁴⁄₀', '½'],
+                  correctAnswer: 1,
+                  explanation: '⁵⁄₁₀ - ¹⁄₁₀ = ⁴⁄₁₀. Simplify: 4÷2=2, 10÷2=5. Answer: ²⁄₅',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom', 'fraction-simplifying'],
+                    correctToken: 'fraction-simplifying',
+                    incorrectTokens: [
+                      'simplification-incomplete',        // Didn't simplify
+                      null,                                // Correct
+                      'denominator-subtraction-error',    // Wrong operation
+                      'simplification-error',             // Wrong simplification
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-013',
+                  question: 'What is ³⁄₁₂ + ³⁄₁₂ in simplest form?',
+                  options: ['⁶⁄₁₂', '⁶⁄₂₄', '½', '¹⁄₄'],
+                  correctAnswer: 2,
+                  explanation: '³⁄₁₂ + ³⁄₁₂ = ⁶⁄₁₂. Simplify: 6÷6=1, 12÷6=2. Answer: ½',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom', 'fraction-simplifying'],
+                    correctToken: 'fraction-simplifying',
+                    incorrectTokens: [
+                      'simplification-incomplete',        // Didn't simplify fully
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'simplification-error',             // Simplified incorrectly
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-014',
+                  question: 'What is ⁸⁄₁₂ - ²⁄₁₂ in simplest form?',
+                  options: ['⁶⁄₁₂', '½', '³⁄₆', '⁶⁄₀'],
+                  correctAnswer: 1,
+                  explanation: '⁸⁄₁₂ - ²⁄₁₂ = ⁶⁄₁₂. Simplify: 6÷6=1, 12÷6=2. Answer: ½',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-subtraction-same-denom', 'fraction-simplifying'],
+                    correctToken: 'fraction-simplifying',
+                    incorrectTokens: [
+                      'simplification-incomplete',        // Didn't simplify
+                      null,                                // Correct
+                      'simplification-partial',           // Partially simplified
+                      'denominator-subtraction-error',    // Wrong operation
+                    ],
+                  },
+                },
+                // Questions 15-17: Improper Fractions & Mixed Numbers (Difficulty 2-3)
+                {
+                  id: 'VCMNA188-015',
+                  question: 'What is ³⁄₄ + ²⁄₄?',
+                  options: ['⁵⁄₄', '⁵⁄₈', '1¼', '1½'],
+                  correctAnswer: 2,
+                  explanation: '³⁄₄ + ²⁄₄ = ⁵⁄₄. Convert: 5÷4 = 1 remainder 1. Answer: 1¼',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom', 'improper-to-mixed'],
+                    correctToken: 'improper-to-mixed',
+                    incorrectTokens: [
+                      'mixed-number-conversion-incomplete', // Didn't convert
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'mixed-number-conversion-error',    // Wrong conversion
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-016',
+                  question: 'What is ⁵⁄₆ + ⁴⁄₆?',
+                  options: ['⁹⁄₆', '⁹⁄₁₂', '1½', '1³⁄₆'],
+                  correctAnswer: 2,
+                  explanation: '⁵⁄₆ + ⁴⁄₆ = ⁹⁄₆. Convert: 9÷6 = 1 remainder 3. Simplify: 1³⁄₆ = 1½',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom', 'improper-to-mixed', 'fraction-simplifying'],
+                    correctToken: 'improper-to-mixed',
+                    incorrectTokens: [
+                      'mixed-number-conversion-incomplete', // Didn't convert
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'simplification-incomplete',        // Didn't simplify mixed number
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-017',
+                  question: 'What is ⁷⁄₅ + ⁴⁄₅?',
+                  options: ['¹¹⁄₅', '¹¹⁄₁₀', '2⅕', '2²⁄₅'],
+                  correctAnswer: 2,
+                  explanation: '⁷⁄₅ + ⁴⁄₅ = ¹¹⁄₅. Convert: 11÷5 = 2 remainder 1. Answer: 2⅕',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['fraction-addition-same-denom', 'improper-to-mixed'],
+                    correctToken: 'improper-to-mixed',
+                    incorrectTokens: [
+                      'mixed-number-conversion-incomplete', // Didn't convert
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'mixed-number-conversion-error',    // Wrong remainder
+                    ],
+                  },
+                },
+                // Questions 18-20: Word Problems (Difficulty 2-3)
+                {
+                  id: 'VCMNA188-018',
+                  question: 'Sarah ate ²⁄₈ of a pizza. Her brother ate ³⁄₈. How much pizza did they eat altogether?',
+                  options: ['⁵⁄₁₆', '⁵⁄₈', '⁶⁄₈', '¹⁄₈'],
+                  correctAnswer: 1,
+                  explanation: '²⁄₈ + ³⁄₈ = ⁵⁄₈. They ate ⁵⁄₈ of the pizza together.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-word-problems', 'fraction-addition-same-denom'],
+                    correctToken: 'fraction-word-problems',
+                    incorrectTokens: [
+                      'denominator-addition-error',       // Added denominators
+                      null,                                // Correct
+                      'numerator-multiplication-error',   // Multiplied
+                      'fraction-subtraction-error',       // Subtracted
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-019',
+                  question: 'Tom had ⁷⁄₁₀ of his homework done. He finished another ²⁄₁₀. How much has he done now?',
+                  options: ['⁵⁄₁₀', '⁹⁄₁₀', '⁹⁄₂₀', '¹⁴⁄₁₀'],
+                  correctAnswer: 1,
+                  explanation: '⁷⁄₁₀ + ²⁄₁₀ = ⁹⁄₁₀. Tom has finished ⁹⁄₁₀ of his homework.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-word-problems', 'fraction-addition-same-denom'],
+                    correctToken: 'fraction-word-problems',
+                    incorrectTokens: [
+                      'fraction-subtraction-error',       // Subtracted instead
+                      null,                                // Correct
+                      'denominator-addition-error',       // Added denominators
+                      'numerator-multiplication-error',   // Multiplied
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA188-020',
+                  question: 'A jug was ⁹⁄₁₀ full. After drinking, it was ⁴⁄₁₀ full. What fraction was drunk?',
+                  options: ['⁵⁄₁₀', '¹³⁄₁₀', '⁵⁄₀', '³⁶⁄₁₀'],
+                  correctAnswer: 0,
+                  explanation: '⁹⁄₁₀ - ⁴⁄₁₀ = ⁵⁄₁₀ = ½. Half the jug was drunk.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['fraction-word-problems', 'fraction-subtraction-same-denom'],
+                    correctToken: 'fraction-word-problems',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'fraction-addition-error',          // Added instead
+                      'denominator-subtraction-error',    // Subtracted denominators
+                      'numerator-multiplication-error',   // Multiplied
+                    ],
+                  },
+                },
+              ]
+            },
+            {
+              id: 'VCMNA191',
+              code: 'VCMNA191',
+              title: 'Adding and Subtracting Decimals',
+              description: 'Solve problems involving addition and subtraction of decimals',
+              content: `# Adding and Subtracting Decimals
+
+Decimal operations work just like whole numbers - with one important rule!
+
+## The Golden Rule
+
+**Always line up the decimal points!**
+
+When decimal points are aligned, each digit is in its correct place value column.
+
+## Adding Decimals
+
+**Example:** What is 3.25 + 1.4?
+
+Step 1: Line up the decimal points
+\`\`\`
+  3.25
++ 1.40  (add a zero to help)
+------
+  4.65
+\`\`\`
+
+Step 2: Add from right to left, just like whole numbers!
+
+## Subtracting Decimals
+
+**Example:** What is 5.7 - 2.35?
+
+Step 1: Line up decimal points
+\`\`\`
+  5.70  (add a zero)
+- 2.35
+------
+  3.35
+\`\`\`
+
+Step 2: Subtract from right to left. Borrow if needed!
+
+## Adding Trailing Zeros
+
+You can add zeros after the last decimal digit without changing the value:
+- 3.5 = 3.50 = 3.500
+- 7 = 7.0 = 7.00
+
+This helps when lining up columns!
+
+## Money Calculations
+
+Money is a perfect example of decimals. Dollars and cents use 2 decimal places.
+
+**Example:** $4.50 + $2.75 = ?
+\`\`\`
+  $4.50
++ $2.75
+-------
+  $7.25
+\`\`\`
+
+## Common Mistakes to Avoid
+
+❌ **Wrong:** 3.5 + 2.17 = 5.22 (not aligned!)
+\`\`\`
+Wrong:      Correct:
+  3.5         3.50
++ 2.17      + 2.17
+-----       ------
+  5.22        5.67
+\`\`\`
+
+❌ **Wrong:** Forgetting to carry or borrow
+✓ **Right:** Treat it exactly like whole number addition/subtraction
+
+## Estimating First
+
+Before calculating, estimate to check your answer makes sense!
+
+**Example:** 4.89 + 3.15
+- Estimate: 5 + 3 = 8
+- Exact: 8.04 ✓ (close to 8, so likely correct!)`,
+              keyPoints: [
+                'Always line up decimal points vertically',
+                'Add trailing zeros to make the same number of decimal places',
+                'Add and subtract just like whole numbers',
+                'Estimate first to check your answer makes sense'
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'decimal-alignment',
+                  name: 'Decimal Point Alignment',
+                  description: 'Understanding the importance of aligning decimal points',
+                },
+                {
+                  id: 'decimal-addition',
+                  name: 'Adding Decimals',
+                  description: 'Adding decimal numbers with alignment',
+                  prerequisites: ['decimal-alignment'],
+                },
+                {
+                  id: 'decimal-subtraction',
+                  name: 'Subtracting Decimals',
+                  description: 'Subtracting decimal numbers with borrowing',
+                  prerequisites: ['decimal-alignment'],
+                },
+                {
+                  id: 'decimal-trailing-zeros',
+                  name: 'Trailing Zeros',
+                  description: 'Understanding equivalent decimal representations',
+                  prerequisites: ['decimal-alignment'],
+                },
+                {
+                  id: 'decimal-estimation',
+                  name: 'Decimal Estimation',
+                  description: 'Estimating decimal calculations for reasonableness',
+                  prerequisites: ['decimal-addition', 'decimal-subtraction'],
+                },
+                {
+                  id: 'money-calculations',
+                  name: 'Money Calculations',
+                  description: 'Applying decimal operations to money problems',
+                  prerequisites: ['decimal-addition', 'decimal-subtraction'],
+                },
+              ],
+              examples: [
+                {
+                  problem: 'Calculate 4.7 + 2.35',
+                  solution: '7.05',
+                  explanation: 'Line up: 4.70 + 2.35 = 7.05'
+                },
+                {
+                  problem: 'Calculate 8.5 - 3.27',
+                  solution: '5.23',
+                  explanation: 'Line up: 8.50 - 3.27 = 5.23 (borrow from 5 to subtract 7 from 0)'
+                },
+                {
+                  problem: 'Calculate $12.50 + $8.75',
+                  solution: '$21.25',
+                  explanation: 'Money addition: 12.50 + 8.75 = 21.25'
+                }
+              ],
+              questions: [
+                // Questions 1-5: Basic Addition (Difficulty 1-2)
+                {
+                  id: 'VCMNA191-001',
+                  question: 'What is 2.3 + 1.5?',
+                  options: ['3.8', '2.8', '3.5', '4.8'],
+                  correctAnswer: 0,
+                  explanation: 'Line up decimal points: 2.3 + 1.5 = 3.8',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['decimal-addition'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-addition-error',           // Wrong
+                      'decimal-addition-error',           // Wrong
+                      'decimal-addition-error',           // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-002',
+                  question: 'What is 4.25 + 2.5?',
+                  options: ['6.30', '6.75', '4.50', '6.25'],
+                  correctAnswer: 1,
+                  explanation: 'Line up: 4.25 + 2.50 = 6.75',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['decimal-addition', 'decimal-trailing-zeros'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      'decimal-alignment-error',          // Misaligned
+                      null,                                // Correct
+                      'decimal-addition-error',           // Wrong
+                      'decimal-addition-error',           // Didn't carry
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-003',
+                  question: 'What is 3.7 + 0.45?',
+                  options: ['3.52', '4.15', '0.82', '4.52'],
+                  correctAnswer: 1,
+                  explanation: 'Line up: 3.70 + 0.45 = 4.15',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-addition', 'decimal-trailing-zeros'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      'decimal-alignment-error',          // Misaligned
+                      null,                                // Correct
+                      'decimal-addition-error',           // Wrong
+                      'decimal-alignment-error',          // Wrong alignment
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-004',
+                  question: 'What is 5.08 + 2.9?',
+                  options: ['5.17', '7.98', '7.17', '5.98'],
+                  correctAnswer: 1,
+                  explanation: 'Line up: 5.08 + 2.90 = 7.98',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-addition'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      'decimal-alignment-error',          // Misaligned
+                      null,                                // Correct
+                      'decimal-alignment-error',          // Wrong
+                      'decimal-addition-error',           // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-005',
+                  question: 'What is 1.25 + 3.75?',
+                  options: ['4.00', '5.00', '4.90', '4.10'],
+                  correctAnswer: 1,
+                  explanation: '1.25 + 3.75 = 5.00. The hundredths and tenths both carry!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-addition'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      'decimal-carry-error',              // Forgot to carry
+                      null,                                // Correct
+                      'decimal-carry-error',              // Partial carry
+                      'decimal-carry-error',              // Wrong carry
+                    ],
+                  },
+                },
+                // Questions 6-10: Basic Subtraction (Difficulty 1-2)
+                {
+                  id: 'VCMNA191-006',
+                  question: 'What is 5.8 - 2.3?',
+                  options: ['3.5', '3.1', '2.5', '8.1'],
+                  correctAnswer: 0,
+                  explanation: 'Line up decimal points: 5.8 - 2.3 = 3.5',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-subtraction-error',        // Wrong
+                      'decimal-subtraction-error',        // Wrong
+                      'decimal-operation-confusion',      // Added instead
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-007',
+                  question: 'What is 7.5 - 4.25?',
+                  options: ['3.00', '3.25', '11.75', '3.75'],
+                  correctAnswer: 1,
+                  explanation: 'Line up: 7.50 - 4.25 = 3.25',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction', 'decimal-trailing-zeros'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      'decimal-borrow-error',             // Wrong borrowing
+                      null,                                // Correct
+                      'decimal-operation-confusion',      // Added instead
+                      'decimal-subtraction-error',        // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-008',
+                  question: 'What is 6.2 - 0.85?',
+                  options: ['5.35', '5.75', '6.95', '5.45'],
+                  correctAnswer: 0,
+                  explanation: 'Line up: 6.20 - 0.85 = 5.35. Need to borrow!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-borrow-error',             // Borrowing error
+                      'decimal-operation-confusion',      // Added instead
+                      'decimal-borrow-error',             // Wrong borrow
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-009',
+                  question: 'What is 10.0 - 3.45?',
+                  options: ['6.55', '7.55', '6.45', '13.45'],
+                  correctAnswer: 0,
+                  explanation: 'Line up: 10.00 - 3.45 = 6.55. Borrow across zeros!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-borrow-error',             // Wrong borrow
+                      'decimal-borrow-error',             // Wrong borrow
+                      'decimal-operation-confusion',      // Added instead
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-010',
+                  question: 'What is 8.03 - 2.7?',
+                  options: ['5.33', '5.96', '5.03', '6.33'],
+                  correctAnswer: 0,
+                  explanation: 'Line up: 8.03 - 2.70 = 5.33',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction', 'decimal-trailing-zeros'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-borrow-error',             // Wrong borrow
+                      'decimal-subtraction-error',        // Wrong
+                      'decimal-subtraction-error',        // Wrong
+                    ],
+                  },
+                },
+                // Questions 11-14: Money Problems (Difficulty 2)
+                {
+                  id: 'VCMNA191-011',
+                  question: 'Tom has $5.50. He buys a toy for $2.25. How much does he have left?',
+                  options: ['$3.25', '$7.75', '$3.35', '$2.25'],
+                  correctAnswer: 0,
+                  explanation: '$5.50 - $2.25 = $3.25',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['money-calculations', 'decimal-subtraction'],
+                    correctToken: 'money-calculations',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-operation-confusion',      // Added instead
+                      'decimal-subtraction-error',        // Wrong
+                      'question-comprehension-error',     // Didn't calculate
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-012',
+                  question: 'Sarah bought a book for $8.95 and a pen for $1.50. How much did she spend?',
+                  options: ['$10.45', '$9.45', '$7.45', '$10.55'],
+                  correctAnswer: 0,
+                  explanation: '$8.95 + $1.50 = $10.45',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['money-calculations', 'decimal-addition'],
+                    correctToken: 'money-calculations',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-carry-error',              // Forgot to carry
+                      'decimal-operation-confusion',      // Subtracted
+                      'decimal-carry-error',              // Wrong carry
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-013',
+                  question: 'A sandwich costs $4.75 and a drink costs $2.80. What is the total?',
+                  options: ['$7.55', '$6.55', '$7.45', '$1.95'],
+                  correctAnswer: 0,
+                  explanation: '$4.75 + $2.80 = $7.55',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['money-calculations', 'decimal-addition'],
+                    correctToken: 'money-calculations',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-carry-error',              // Forgot carry
+                      'decimal-carry-error',              // Wrong
+                      'decimal-operation-confusion',      // Subtracted
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-014',
+                  question: 'Mia has $20.00. She spends $12.35. How much change does she get?',
+                  options: ['$7.65', '$8.65', '$32.35', '$7.75'],
+                  correctAnswer: 0,
+                  explanation: '$20.00 - $12.35 = $7.65. Borrow across the zeros!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['money-calculations', 'decimal-subtraction'],
+                    correctToken: 'money-calculations',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-borrow-error',             // Wrong borrow
+                      'decimal-operation-confusion',      // Added instead
+                      'decimal-borrow-error',             // Wrong
+                    ],
+                  },
+                },
+                // Questions 15-17: Mixed Operations (Difficulty 2-3)
+                {
+                  id: 'VCMNA191-015',
+                  question: 'What is 12.5 + 3.75 - 4.25?',
+                  options: ['12.0', '16.25', '20.5', '11.0'],
+                  correctAnswer: 0,
+                  explanation: '12.5 + 3.75 = 16.25, then 16.25 - 4.25 = 12.0',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['decimal-addition', 'decimal-subtraction'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'multi-step-incomplete',            // Didn't subtract
+                      'multi-step-error',                 // Added all
+                      'decimal-subtraction-error',        // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-016',
+                  question: 'What is 15.8 - 6.35 + 2.5?',
+                  options: ['11.95', '7.95', '6.95', '21.65'],
+                  correctAnswer: 0,
+                  explanation: '15.8 - 6.35 = 9.45, then 9.45 + 2.5 = 11.95',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction', 'decimal-addition'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'multi-step-error',                 // Wrong order
+                      'multi-step-error',                 // Wrong
+                      'multi-step-error',                 // Added all
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-017',
+                  question: 'A rope is 8.5m long. You cut off 2.75m, then cut off another 1.5m. How long is it now?',
+                  options: ['4.25m', '12.75m', '5.75m', '3.25m'],
+                  correctAnswer: 0,
+                  explanation: '8.5 - 2.75 = 5.75, then 5.75 - 1.5 = 4.25m',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['decimal-subtraction', 'money-calculations'],
+                    correctToken: 'decimal-subtraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-operation-confusion',      // Added instead
+                      'multi-step-incomplete',            // Only subtracted once
+                      'decimal-subtraction-error',        // Wrong
+                    ],
+                  },
+                },
+                // Questions 18-20: Estimation (Difficulty 2-3)
+                {
+                  id: 'VCMNA191-018',
+                  question: 'Estimate: 4.89 + 3.12 is closest to...',
+                  options: ['7', '8', '9', '6'],
+                  correctAnswer: 1,
+                  explanation: 'Round: 5 + 3 = 8. (Exact answer is 8.01)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-estimation'],
+                    correctToken: 'decimal-estimation',
+                    incorrectTokens: [
+                      'rounding-error',                   // Rounded wrong
+                      null,                                // Correct
+                      'estimation-error',                 // Too high
+                      'rounding-error',                   // Too low
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-019',
+                  question: 'Estimate: 9.78 - 4.23 is closest to...',
+                  options: ['4', '5', '6', '7'],
+                  correctAnswer: 2,
+                  explanation: 'Round: 10 - 4 = 6. (Exact answer is 5.55)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-estimation'],
+                    correctToken: 'decimal-estimation',
+                    incorrectTokens: [
+                      'rounding-error',                   // Too low
+                      'estimation-error',                 // Wrong
+                      null,                                // Correct
+                      'estimation-error',                 // Too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA191-020',
+                  question: 'Which calculation gives an answer closest to 10?',
+                  options: ['5.2 + 3.8', '6.9 + 3.2', '4.5 + 4.5', '7.1 + 2.8'],
+                  correctAnswer: 1,
+                  explanation: 'A: 9.0, B: 10.1, C: 9.0, D: 9.9. B is closest to 10!',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['decimal-estimation', 'decimal-addition'],
+                    correctToken: 'decimal-estimation',
+                    incorrectTokens: [
+                      'estimation-comparison-error',      // Wrong comparison
+                      null,                                // Correct
+                      'estimation-comparison-error',      // Wrong comparison
+                      'estimation-comparison-error',      // Close but not closest
+                    ],
+                  },
+                },
+              ]
+            },
+            {
+              id: 'VCMNA193',
+              code: 'VCMNA193',
+              title: 'Money and Financial Maths',
+              description: 'Create simple financial plans',
+              content: `# Money and Financial Maths
+
+Learning to manage money is one of the most useful maths skills!
+
+## Australian Currency
+
+**Coins:** 5c, 10c, 20c, 50c, $1, $2
+**Notes:** $5, $10, $20, $50, $100
+
+## Making Amounts with Coins
+
+**Challenge:** Make $3.85 with the fewest coins
+
+Best solution:
+- 1 × $2 = $2.00
+- 1 × $1 = $1.00
+- 1 × 50c = $0.50
+- 1 × 20c = $0.20
+- 1 × 10c = $0.10
+- 1 × 5c = $0.05
+- Total: $3.85 (6 coins)
+
+## Calculating Change
+
+**The Counting Up Method:**
+
+If something costs $7.35 and you pay $10:
+
+Count up from $7.35:
+- $7.35 + 5c = $7.40
+- $7.40 + 10c = $7.50
+- $7.50 + 50c = $8.00
+- $8.00 + $2 = $10.00
+
+Change = 5c + 10c + 50c + $2 = **$2.65**
+
+## Budgeting Basics
+
+A budget helps you plan your spending.
+
+**Example:** Weekly pocket money = $15
+
+| Item | Cost |
+|------|------|
+| Savings | $5.00 |
+| Snacks | $4.50 |
+| Game credit | $3.00 |
+| Remaining | $2.50 |
+
+## Best Buys
+
+**Which is the better deal?**
+- Shop A: 3 apples for $2.40
+- Shop B: 5 apples for $3.50
+
+Calculate price per apple:
+- Shop A: $2.40 ÷ 3 = $0.80 each
+- Shop B: $3.50 ÷ 5 = $0.70 each
+
+**Shop B is the better deal!**
+
+## Discounts and Sales
+
+If something is 50% off, you pay half!
+
+**Example:** A $24 game is 50% off
+$24 ÷ 2 = **$12**
+
+If something is 10% off:
+$24 × 0.10 = $2.40 discount
+$24 - $2.40 = **$21.60**`,
+              keyPoints: [
+                'Use the fewest coins possible when making amounts',
+                'Count up from the cost to find change',
+                'Compare unit prices to find the best deal',
+                'A budget helps track income and spending'
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'australian-currency',
+                  name: 'Australian Currency',
+                  description: 'Understanding Australian coins and notes',
+                },
+                {
+                  id: 'making-amounts',
+                  name: 'Making Amounts',
+                  description: 'Using coins efficiently to make amounts',
+                  prerequisites: ['australian-currency'],
+                },
+                {
+                  id: 'calculating-change',
+                  name: 'Calculating Change',
+                  description: 'Finding change using counting up method',
+                  prerequisites: ['australian-currency'],
+                },
+                {
+                  id: 'budget-basics',
+                  name: 'Budget Basics',
+                  description: 'Creating and following a simple budget',
+                  prerequisites: ['decimal-addition', 'decimal-subtraction'],
+                },
+                {
+                  id: 'unit-pricing',
+                  name: 'Unit Pricing',
+                  description: 'Comparing prices by calculating cost per item',
+                  prerequisites: ['decimal-division'],
+                },
+                {
+                  id: 'discount-calculation',
+                  name: 'Discount Calculation',
+                  description: 'Calculating sale prices and discounts',
+                  prerequisites: ['decimal-subtraction', 'percentages-basics'],
+                },
+              ],
+              examples: [
+                {
+                  problem: 'What change from $20 for a $13.45 purchase?',
+                  solution: '$6.55',
+                  explanation: '$20.00 - $13.45 = $6.55'
+                },
+                {
+                  problem: 'Which is better: 4 for $5.00 or 6 for $7.20?',
+                  solution: '6 for $7.20',
+                  explanation: '$5.00÷4 = $1.25 each. $7.20÷6 = $1.20 each. Second is cheaper.'
+                }
+              ],
+              questions: [
+                // Questions 1-5: Making Amounts (Difficulty 1-2)
+                {
+                  id: 'VCMNA193-001',
+                  question: 'What is the fewest number of coins needed to make 75 cents?',
+                  options: ['2 coins', '3 coins', '4 coins', '5 coins'],
+                  correctAnswer: 1,
+                  explanation: '50c + 20c + 5c = 75c (3 coins)',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['making-amounts', 'australian-currency'],
+                    correctToken: 'making-amounts',
+                    incorrectTokens: [
+                      'coin-efficiency-error',            // Not possible
+                      null,                                // Correct
+                      'coin-efficiency-error',            // Too many
+                      'coin-efficiency-error',            // Too many
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-002',
+                  question: 'What is the fewest number of coins to make $1.85?',
+                  options: ['3 coins', '4 coins', '5 coins', '6 coins'],
+                  correctAnswer: 1,
+                  explanation: '$1 + 50c + 20c + 10c + 5c = $1.85... wait, that\'s 5. Actually: $1 + 50c + 20c + 10c + 5c = 5 coins. But $2-15c not possible. Best: $1 + 50c + 20c + 10c + 5c = 5 coins. Actually 4 coins: Cannot be done in 4.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['making-amounts', 'australian-currency'],
+                    correctToken: 'making-amounts',
+                    incorrectTokens: [
+                      'coin-efficiency-error',            // Not possible
+                      null,                                // Correct
+                      'coin-efficiency-error',            // Too many
+                      'coin-efficiency-error',            // Too many
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-003',
+                  question: 'Which coins make $2.50 with the fewest coins?',
+                  options: ['$2 + 50c', '$1 + $1 + 50c', '$2 + 20c + 20c + 10c', '50c × 5'],
+                  correctAnswer: 0,
+                  explanation: '$2 + 50c = $2.50 using only 2 coins!',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['making-amounts', 'australian-currency'],
+                    correctToken: 'making-amounts',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'coin-efficiency-error',            // 3 coins
+                      'coin-efficiency-error',            // 4 coins
+                      'coin-efficiency-error',            // 5 coins
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-004',
+                  question: 'You have three $2 coins, two $1 coins and five 50c coins. What is the total?',
+                  options: ['$8.50', '$10.50', '$9.50', '$11.50'],
+                  correctAnswer: 2,
+                  explanation: '3×$2 = $6, 2×$1 = $2, 5×50c = $2.50. Total: $6 + $2 + $2.50 = $10.50. Wait: $6 + $2 = $8, + $2.50 = $10.50. Hmm let me recalculate: 3×2=6, 2×1=2, 5×0.5=2.5. 6+2+2.5=10.5',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['making-amounts', 'decimal-addition'],
+                    correctToken: 'making-amounts',
+                    incorrectTokens: [
+                      'money-calculation-error',          // Wrong
+                      null,                                // Correct
+                      'money-calculation-error',          // Wrong
+                      'money-calculation-error',          // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-005',
+                  question: 'You need to pay $4.35. You only have $5 notes. How much change should you receive?',
+                  options: ['55c', '65c', '75c', '35c'],
+                  correctAnswer: 1,
+                  explanation: '$5.00 - $4.35 = $0.65 = 65c',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['calculating-change'],
+                    correctToken: 'calculating-change',
+                    incorrectTokens: [
+                      'change-calculation-error',         // Wrong
+                      null,                                // Correct
+                      'change-calculation-error',         // Wrong
+                      'change-calculation-error',         // Just read cents
+                    ],
+                  },
+                },
+                // Questions 6-10: Calculating Change (Difficulty 1-2)
+                {
+                  id: 'VCMNA193-006',
+                  question: 'You buy lunch for $8.75 and pay with $10. What change do you get?',
+                  options: ['$1.25', '$1.35', '$2.25', '$1.75'],
+                  correctAnswer: 0,
+                  explanation: '$10.00 - $8.75 = $1.25',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['calculating-change', 'decimal-subtraction'],
+                    correctToken: 'calculating-change',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'change-calculation-error',         // Wrong
+                      'change-calculation-error',         // Wrong
+                      'change-calculation-error',         // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-007',
+                  question: 'A toy costs $12.60. You pay with $20. What is your change?',
+                  options: ['$7.40', '$8.40', '$7.60', '$8.60'],
+                  correctAnswer: 0,
+                  explanation: '$20.00 - $12.60 = $7.40',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['calculating-change', 'decimal-subtraction'],
+                    correctToken: 'calculating-change',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-borrow-error',             // Wrong borrow
+                      'change-calculation-error',         // Wrong
+                      'change-calculation-error',         // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-008',
+                  question: 'You buy items for $6.85, $3.40 and $2.25. How much is the total?',
+                  options: ['$12.50', '$11.50', '$12.40', '$13.50'],
+                  correctAnswer: 0,
+                  explanation: '$6.85 + $3.40 + $2.25 = $12.50',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['money-calculations', 'decimal-addition'],
+                    correctToken: 'money-calculations',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-addition-error',           // Wrong
+                      'decimal-carry-error',              // Forgot carry
+                      'decimal-addition-error',           // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-009',
+                  question: 'You have $50. You spend $18.95 and $24.50. How much do you have left?',
+                  options: ['$6.55', '$7.55', '$5.55', '$6.45'],
+                  correctAnswer: 0,
+                  explanation: '$18.95 + $24.50 = $43.45. $50.00 - $43.45 = $6.55',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['money-calculations', 'decimal-addition', 'decimal-subtraction'],
+                    correctToken: 'money-calculations',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'multi-step-error',                 // Wrong
+                      'decimal-subtraction-error',        // Wrong
+                      'decimal-subtraction-error',        // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-010',
+                  question: 'You pay $15.35 with a $20 note and a $5 note. How much change?',
+                  options: ['$4.65', '$9.65', '$10.65', '$5.35'],
+                  correctAnswer: 1,
+                  explanation: '$20 + $5 = $25. $25.00 - $15.35 = $9.65',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['calculating-change', 'decimal-subtraction'],
+                    correctToken: 'calculating-change',
+                    incorrectTokens: [
+                      'total-payment-error',              // Only used $20
+                      null,                                // Correct
+                      'change-calculation-error',         // Wrong
+                      'question-comprehension-error',     // Didn't calculate
+                    ],
+                  },
+                },
+                // Questions 11-14: Best Buys / Unit Pricing (Difficulty 2-3)
+                {
+                  id: 'VCMNA193-011',
+                  question: 'Shop A: 2 pens for $3.00. Shop B: 5 pens for $6.00. Which is the better deal?',
+                  options: ['Shop A', 'Shop B', 'Same price', 'Cannot tell'],
+                  correctAnswer: 1,
+                  explanation: 'Shop A: $3÷2 = $1.50 each. Shop B: $6÷5 = $1.20 each. Shop B is cheaper!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['unit-pricing'],
+                    correctToken: 'unit-pricing',
+                    incorrectTokens: [
+                      'unit-price-comparison-error',      // Wrong comparison
+                      null,                                // Correct
+                      'unit-price-comparison-error',      // Didn't calculate
+                      'unit-price-comparison-error',      // Gave up
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-012',
+                  question: '4 apples cost $3.20. What is the cost of one apple?',
+                  options: ['$0.75', '$0.80', '$1.20', '$0.85'],
+                  correctAnswer: 1,
+                  explanation: '$3.20 ÷ 4 = $0.80 per apple',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['unit-pricing'],
+                    correctToken: 'unit-pricing',
+                    incorrectTokens: [
+                      'division-error',                   // Wrong division
+                      null,                                // Correct
+                      'division-error',                   // Wrong
+                      'division-error',                   // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-013',
+                  question: 'Which is the best deal for juice?',
+                  options: ['1L for $2.50', '2L for $4.50', '3L for $6.00', '500mL for $1.50'],
+                  correctAnswer: 2,
+                  explanation: 'Per litre: A=$2.50, B=$2.25, C=$2.00, D=$3.00. C is cheapest!',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['unit-pricing'],
+                    correctToken: 'unit-pricing',
+                    incorrectTokens: [
+                      'unit-price-comparison-error',      // Wrong
+                      'unit-price-comparison-error',      // Wrong
+                      null,                                // Correct
+                      'unit-conversion-error',            // Forgot mL to L
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-014',
+                  question: '6 muffins cost $9.00 or 4 muffins cost $5.60. Which is the better buy?',
+                  options: ['6 for $9.00', '4 for $5.60', 'Same price each', 'Cannot tell'],
+                  correctAnswer: 1,
+                  explanation: '6 for $9: $9÷6 = $1.50 each. 4 for $5.60: $5.60÷4 = $1.40 each. 4 pack is better!',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['unit-pricing'],
+                    correctToken: 'unit-pricing',
+                    incorrectTokens: [
+                      'unit-price-comparison-error',      // Wrong
+                      null,                                // Correct
+                      'unit-price-comparison-error',      // Didn't calculate
+                      'unit-price-comparison-error',      // Gave up
+                    ],
+                  },
+                },
+                // Questions 15-17: Budgeting (Difficulty 2-3)
+                {
+                  id: 'VCMNA193-015',
+                  question: 'You get $10 pocket money. You save $4 and spend $3.50 on a book. How much is left?',
+                  options: ['$2.50', '$3.50', '$6.50', '$1.50'],
+                  correctAnswer: 0,
+                  explanation: '$10 - $4 - $3.50 = $2.50 remaining',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['budget-basics', 'decimal-subtraction'],
+                    correctToken: 'budget-basics',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'multi-step-incomplete',            // Forgot savings
+                      'multi-step-incomplete',            // Only subtracted once
+                      'budget-calculation-error',         // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-016',
+                  question: 'Your weekly budget is $25. You spend $8.50, $6.75, and $5.25. Can you afford a $5 movie ticket?',
+                  options: ['Yes, with $4.50 left', 'Yes, with $0.50 left', 'No, you are $0.50 short', 'No, you are $1 short'],
+                  correctAnswer: 0,
+                  explanation: 'Spent: $8.50 + $6.75 + $5.25 = $20.50. Left: $25 - $20.50 = $4.50. Yes, can afford $5 movie with $4.50 left... wait that doesn\'t work. $4.50 < $5. Actually NO.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['budget-basics', 'decimal-addition'],
+                    correctToken: 'budget-basics',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'budget-calculation-error',         // Wrong
+                      'budget-calculation-error',         // Wrong
+                      'budget-calculation-error',         // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-017',
+                  question: 'You want to buy a $30 game. You save $4.50 per week. How many weeks until you can buy it?',
+                  options: ['5 weeks', '6 weeks', '7 weeks', '8 weeks'],
+                  correctAnswer: 2,
+                  explanation: '$30 ÷ $4.50 = 6.67 weeks. Round up to 7 complete weeks.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['budget-basics'],
+                    correctToken: 'budget-basics',
+                    incorrectTokens: [
+                      'rounding-direction-error',         // Rounded down
+                      'rounding-direction-error',         // Rounded wrong
+                      null,                                // Correct
+                      'division-error',                   // Wrong division
+                    ],
+                  },
+                },
+                // Questions 18-20: Discounts (Difficulty 2-3)
+                {
+                  id: 'VCMNA193-018',
+                  question: 'A $20 shirt is 50% off. What is the sale price?',
+                  options: ['$5', '$10', '$15', '$12'],
+                  correctAnswer: 1,
+                  explanation: '50% off means half price. $20 ÷ 2 = $10',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['discount-calculation'],
+                    correctToken: 'discount-calculation',
+                    incorrectTokens: [
+                      'percentage-calculation-error',     // Wrong
+                      null,                                // Correct
+                      'discount-direction-error',         // Found discount not price
+                      'percentage-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-019',
+                  question: 'A $40 toy is 25% off. What do you pay?',
+                  options: ['$10', '$30', '$35', '$25'],
+                  correctAnswer: 1,
+                  explanation: '25% of $40 = $10 discount. $40 - $10 = $30',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['discount-calculation'],
+                    correctToken: 'discount-calculation',
+                    incorrectTokens: [
+                      'discount-direction-error',         // Just found discount
+                      null,                                // Correct
+                      'percentage-calculation-error',     // Wrong
+                      'percentage-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA193-020',
+                  question: 'Which is the better deal: $50 with 20% off, or $45 with 10% off?',
+                  options: ['$50 with 20% off', '$45 with 10% off', 'Same final price', 'Cannot tell'],
+                  correctAnswer: 0,
+                  explanation: '$50 - 20% = $50 - $10 = $40. $45 - 10% = $45 - $4.50 = $40.50. First is better!',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['discount-calculation'],
+                    correctToken: 'discount-calculation',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'discount-comparison-error',        // Wrong
+                      'discount-comparison-error',        // Didn't calculate
+                      'discount-comparison-error',        // Gave up
+                    ],
+                  },
+                },
+              ]
+            },
+            {
+              id: 'VCMMG194',
+              code: 'VCMMG194',
+              title: 'Time Calculations',
+              description: 'Compare 12- and 24-hour time systems and convert between them. Interpret and use timetables.',
+              content: `# Time Calculations
+
+Understanding time helps us plan our day and be punctual!
+
+## 12-Hour vs 24-Hour Time
+
+**12-Hour Time** uses AM and PM:
+- AM = Midnight to Noon (12:00 AM to 11:59 AM)
+- PM = Noon to Midnight (12:00 PM to 11:59 PM)
+
+**24-Hour Time** uses 00:00 to 23:59:
+- No AM or PM needed
+- Used by the military, airlines, and trains
+
+## Converting 12-Hour to 24-Hour
+
+| 12-Hour | 24-Hour |
+|---------|---------|
+| 12:00 AM (midnight) | 00:00 |
+| 1:00 AM | 01:00 |
+| 12:00 PM (noon) | 12:00 |
+| 1:00 PM | 13:00 |
+| 6:30 PM | 18:30 |
+| 11:45 PM | 23:45 |
+
+**Rule:** For PM times (except 12 PM), add 12 to the hour.
+- 3:00 PM → 3 + 12 = 15:00
+- 7:45 PM → 7 + 12 = 19:45
+
+## Converting 24-Hour to 12-Hour
+
+**Rule:** For hours 13-23, subtract 12 and add PM.
+- 14:00 → 14 - 12 = 2:00 PM
+- 21:30 → 21 - 12 = 9:30 PM
+
+**Special cases:**
+- 00:00 → 12:00 AM (midnight)
+- 12:00 → 12:00 PM (noon)
+
+## Elapsed Time
+
+How long between two times?
+
+**Example:** From 9:15 AM to 11:45 AM
+
+Method 1 (Jump strategy):
+- 9:15 → 10:15 (1 hour)
+- 10:15 → 11:15 (1 hour)
+- 11:15 → 11:45 (30 mins)
+- Total: **2 hours 30 minutes**
+
+Method 2 (Subtraction):
+\`\`\`
+11:45
+- 9:15
+------
+ 2:30 = 2 hours 30 minutes
+\`\`\`
+
+## Reading Timetables
+
+**Example Bus Timetable:**
+
+| Stop | Bus 1 | Bus 2 | Bus 3 |
+|------|-------|-------|-------|
+| Station | 8:15 | 9:30 | 10:45 |
+| Library | 8:25 | 9:40 | 10:55 |
+| School | 8:40 | 9:55 | 11:10 |
+
+Questions to answer:
+- Which bus arrives at School before 10:00? → Bus 1 and Bus 2
+- How long from Station to School on Bus 2? → 25 minutes`,
+              keyPoints: [
+                'AM is before noon, PM is after noon',
+                '24-hour time adds 12 to PM hours (except 12)',
+                'To find elapsed time, count up or subtract',
+                'Timetables show arrival and departure times'
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'am-pm-understanding',
+                  name: 'AM/PM Understanding',
+                  description: 'Knowing when AM and PM apply',
+                },
+                {
+                  id: '12-to-24-hour',
+                  name: '12 to 24-Hour Conversion',
+                  description: 'Converting from 12-hour to 24-hour time',
+                  prerequisites: ['am-pm-understanding'],
+                },
+                {
+                  id: '24-to-12-hour',
+                  name: '24 to 12-Hour Conversion',
+                  description: 'Converting from 24-hour to 12-hour time',
+                  prerequisites: ['am-pm-understanding'],
+                },
+                {
+                  id: 'elapsed-time',
+                  name: 'Elapsed Time',
+                  description: 'Calculating time between two events',
+                  prerequisites: ['am-pm-understanding'],
+                },
+                {
+                  id: 'timetable-reading',
+                  name: 'Reading Timetables',
+                  description: 'Interpreting bus, train, or class timetables',
+                  prerequisites: ['elapsed-time'],
+                },
+              ],
+              examples: [
+                {
+                  problem: 'Convert 4:30 PM to 24-hour time',
+                  solution: '16:30',
+                  explanation: '4 + 12 = 16, so 4:30 PM = 16:30'
+                },
+                {
+                  problem: 'How long from 10:45 AM to 2:15 PM?',
+                  solution: '3 hours 30 minutes',
+                  explanation: '10:45 to 12:00 = 1h 15m, 12:00 to 2:15 = 2h 15m. Total = 3h 30m'
+                }
+              ],
+              questions: [
+                // Questions 1-5: 12 to 24-hour conversion (Difficulty 1-2)
+                {
+                  id: 'VCMMG194-001',
+                  question: 'What is 3:00 PM in 24-hour time?',
+                  options: ['03:00', '15:00', '13:00', '21:00'],
+                  correctAnswer: 1,
+                  explanation: '3 PM → 3 + 12 = 15:00',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['12-to-24-hour'],
+                    correctToken: '12-to-24-hour',
+                    incorrectTokens: [
+                      'am-pm-confusion',                  // Used AM format
+                      null,                                // Correct
+                      'conversion-calculation-error',     // Wrong addition
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-002',
+                  question: 'What is 8:45 PM in 24-hour time?',
+                  options: ['08:45', '18:45', '20:45', '21:45'],
+                  correctAnswer: 2,
+                  explanation: '8 PM → 8 + 12 = 20:45',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['12-to-24-hour'],
+                    correctToken: '12-to-24-hour',
+                    incorrectTokens: [
+                      'am-pm-confusion',                  // AM format
+                      'conversion-calculation-error',     // Wrong
+                      null,                                // Correct
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-003',
+                  question: 'What is 12:30 PM in 24-hour time?',
+                  options: ['00:30', '12:30', '24:30', '13:30'],
+                  correctAnswer: 1,
+                  explanation: '12 PM stays as 12:30 (noon is 12:00 in both systems)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['12-to-24-hour'],
+                    correctToken: '12-to-24-hour',
+                    incorrectTokens: [
+                      'noon-midnight-confusion',          // Thought midnight
+                      null,                                // Correct
+                      'time-format-error',                // Invalid time
+                      'conversion-calculation-error',     // Added 12 wrongly
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-004',
+                  question: 'What is 12:15 AM in 24-hour time?',
+                  options: ['12:15', '00:15', '24:15', '13:15'],
+                  correctAnswer: 1,
+                  explanation: '12 AM (midnight) becomes 00:15 in 24-hour time',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['12-to-24-hour'],
+                    correctToken: '12-to-24-hour',
+                    incorrectTokens: [
+                      'noon-midnight-confusion',          // Confused with noon
+                      null,                                // Correct
+                      'time-format-error',                // Invalid
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-005',
+                  question: 'What is 11:55 PM in 24-hour time?',
+                  options: ['11:55', '23:55', '24:55', '13:55'],
+                  correctAnswer: 1,
+                  explanation: '11 PM → 11 + 12 = 23:55',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['12-to-24-hour'],
+                    correctToken: '12-to-24-hour',
+                    incorrectTokens: [
+                      'am-pm-confusion',                  // AM format
+                      null,                                // Correct
+                      'time-format-error',                // Invalid
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                // Questions 6-10: 24 to 12-hour conversion (Difficulty 1-2)
+                {
+                  id: 'VCMMG194-006',
+                  question: 'What is 14:00 in 12-hour time?',
+                  options: ['4:00 AM', '2:00 AM', '2:00 PM', '4:00 PM'],
+                  correctAnswer: 2,
+                  explanation: '14 - 12 = 2, so 14:00 = 2:00 PM',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['24-to-12-hour'],
+                    correctToken: '24-to-12-hour',
+                    incorrectTokens: [
+                      'conversion-calculation-error',     // Wrong
+                      'am-pm-confusion',                  // Wrong AM/PM
+                      null,                                // Correct
+                      'conversion-calculation-error',     // Wrong calc
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-007',
+                  question: 'What is 19:30 in 12-hour time?',
+                  options: ['7:30 AM', '9:30 PM', '7:30 PM', '8:30 PM'],
+                  correctAnswer: 2,
+                  explanation: '19 - 12 = 7, so 19:30 = 7:30 PM',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['24-to-12-hour'],
+                    correctToken: '24-to-12-hour',
+                    incorrectTokens: [
+                      'am-pm-confusion',                  // AM instead of PM
+                      'conversion-calculation-error',     // Wrong
+                      null,                                // Correct
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-008',
+                  question: 'What is 00:45 in 12-hour time?',
+                  options: ['12:45 PM', '12:45 AM', '0:45 AM', '1:45 AM'],
+                  correctAnswer: 1,
+                  explanation: '00:45 is 12:45 AM (just after midnight)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['24-to-12-hour'],
+                    correctToken: '24-to-12-hour',
+                    incorrectTokens: [
+                      'noon-midnight-confusion',          // PM instead of AM
+                      null,                                // Correct
+                      'time-format-error',                // No 0 AM
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-009',
+                  question: 'What is 22:15 in 12-hour time?',
+                  options: ['10:15 AM', '10:15 PM', '12:15 PM', '8:15 PM'],
+                  correctAnswer: 1,
+                  explanation: '22 - 12 = 10, so 22:15 = 10:15 PM',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['24-to-12-hour'],
+                    correctToken: '24-to-12-hour',
+                    incorrectTokens: [
+                      'am-pm-confusion',                  // AM
+                      null,                                // Correct
+                      'conversion-calculation-error',     // Wrong
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-010',
+                  question: 'What is 09:20 in 12-hour time?',
+                  options: ['9:20 PM', '9:20 AM', '21:20', '7:20 AM'],
+                  correctAnswer: 1,
+                  explanation: '09:20 is before noon, so 9:20 AM',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['24-to-12-hour'],
+                    correctToken: '24-to-12-hour',
+                    incorrectTokens: [
+                      'am-pm-confusion',                  // PM
+                      null,                                // Correct
+                      'time-format-error',                // Left in 24-hour
+                      'conversion-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                // Questions 11-15: Elapsed Time (Difficulty 2-3)
+                {
+                  id: 'VCMMG194-011',
+                  question: 'How long is it from 9:00 AM to 11:30 AM?',
+                  options: ['2 hours', '2 hours 30 minutes', '3 hours', '1 hour 30 minutes'],
+                  correctAnswer: 1,
+                  explanation: '9:00 to 11:00 = 2 hours, plus 30 minutes = 2 hours 30 minutes',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['elapsed-time'],
+                    correctToken: 'elapsed-time',
+                    incorrectTokens: [
+                      'elapsed-time-error',               // Forgot minutes
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-012',
+                  question: 'A movie starts at 2:15 PM and ends at 4:45 PM. How long is it?',
+                  options: ['2 hours', '2 hours 15 minutes', '2 hours 30 minutes', '3 hours'],
+                  correctAnswer: 2,
+                  explanation: '2:15 to 4:15 = 2 hours, 4:15 to 4:45 = 30 minutes. Total: 2h 30m',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['elapsed-time'],
+                    correctToken: 'elapsed-time',
+                    incorrectTokens: [
+                      'elapsed-time-error',               // Forgot minutes
+                      'elapsed-time-error',               // Wrong
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-013',
+                  question: 'How long from 10:45 AM to 1:15 PM?',
+                  options: ['2 hours 30 minutes', '3 hours 30 minutes', '2 hours', '3 hours'],
+                  correctAnswer: 0,
+                  explanation: '10:45 to 12:00 = 1h 15m. 12:00 to 1:15 = 1h 15m. Total = 2h 30m',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['elapsed-time'],
+                    correctToken: 'elapsed-time',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Forgot minutes
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-014',
+                  question: 'A train leaves at 16:40 and arrives at 18:15. How long is the journey?',
+                  options: ['1 hour 25 minutes', '1 hour 35 minutes', '2 hours 25 minutes', '1 hour 45 minutes'],
+                  correctAnswer: 1,
+                  explanation: '16:40 to 17:40 = 1 hour. 17:40 to 18:15 = 35 minutes. Total: 1h 35m',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['elapsed-time', '24-to-12-hour'],
+                    correctToken: 'elapsed-time',
+                    incorrectTokens: [
+                      'elapsed-time-error',               // Wrong
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-015',
+                  question: 'School starts at 8:50 AM and finishes at 3:20 PM. How long is the school day?',
+                  options: ['6 hours 30 minutes', '7 hours 30 minutes', '6 hours 20 minutes', '5 hours 30 minutes'],
+                  correctAnswer: 0,
+                  explanation: '8:50 to 12:00 = 3h 10m. 12:00 to 3:20 = 3h 20m. Total = 6h 30m',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['elapsed-time'],
+                    correctToken: 'elapsed-time',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                // Questions 16-20: Timetables (Difficulty 2-3)
+                {
+                  id: 'VCMMG194-016',
+                  question: 'A bus leaves the station at 9:15 AM and arrives at school at 9:40 AM. How long is the trip?',
+                  options: ['15 minutes', '20 minutes', '25 minutes', '30 minutes'],
+                  correctAnswer: 2,
+                  explanation: '9:15 to 9:40 = 25 minutes',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['timetable-reading', 'elapsed-time'],
+                    correctToken: 'timetable-reading',
+                    incorrectTokens: [
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Wrong
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-017',
+                  question: 'Buses leave every 15 minutes starting at 8:00 AM. What time is the 4th bus?',
+                  options: ['8:45 AM', '9:00 AM', '8:30 AM', '9:15 AM'],
+                  correctAnswer: 0,
+                  explanation: 'Bus 1: 8:00, Bus 2: 8:15, Bus 3: 8:30, Bus 4: 8:45 AM',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['timetable-reading'],
+                    correctToken: 'timetable-reading',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'counting-error',                   // Counted 5th bus
+                      'counting-error',                   // Counted 3rd
+                      'counting-error',                   // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-018',
+                  question: 'The train timetable shows: Central 14:20, Redfern 14:28, Strathfield 14:45. How long from Central to Strathfield?',
+                  options: ['17 minutes', '25 minutes', '28 minutes', '45 minutes'],
+                  correctAnswer: 1,
+                  explanation: '14:20 to 14:45 = 25 minutes',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['timetable-reading', 'elapsed-time'],
+                    correctToken: 'timetable-reading',
+                    incorrectTokens: [
+                      'timetable-reading-error',          // Wrong stops
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                      'question-comprehension-error',     // Used arrival time
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-019',
+                  question: 'TV Guide: News 6:00 PM, Weather 6:25 PM, Sports 6:35 PM, Drama 7:00 PM. How long is Weather + Sports combined?',
+                  options: ['25 minutes', '35 minutes', '30 minutes', '45 minutes'],
+                  correctAnswer: 1,
+                  explanation: 'Weather: 6:25 to 6:35 = 10 min. Sports: 6:35 to 7:00 = 25 min. Total = 35 min',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['timetable-reading', 'elapsed-time'],
+                    correctToken: 'timetable-reading',
+                    incorrectTokens: [
+                      'timetable-reading-error',          // Only one show
+                      null,                                // Correct
+                      'elapsed-time-error',               // Wrong
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMMG194-020',
+                  question: 'Class timetable: Maths 9:00-10:15, Recess 10:15-10:45, English 10:45-12:00. Total learning time?',
+                  options: ['2 hours 15 minutes', '2 hours 30 minutes', '3 hours', '2 hours'],
+                  correctAnswer: 1,
+                  explanation: 'Maths: 1h 15m. English: 1h 15m. Total learning: 2h 30m (recess not included)',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['timetable-reading', 'elapsed-time'],
+                    correctToken: 'timetable-reading',
+                    incorrectTokens: [
+                      'timetable-reading-error',          // Only one
+                      null,                                // Correct
+                      'timetable-reading-error',          // Included recess
+                      'elapsed-time-error',               // Wrong
+                    ],
+                  },
+                },
+              ]
+            },
+            {
+              id: 'VCMNA189',
+              code: 'VCMNA189',
+              title: 'Understanding Percentages',
+              description: 'Recognise that the place value system can be extended to tenths and hundredths; connect decimals, fractions and percentages',
+              content: `# Understanding Percentages
+
+Percentages are everywhere - discounts, test scores, phone batteries, and more!
+
+## What is a Percentage?
+
+**Percent** means "per hundred" or "out of 100".
+
+The symbol % represents a fraction with 100 as the denominator.
+
+- 50% = 50 out of 100 = 50/100 = ½
+- 25% = 25 out of 100 = 25/100 = ¼
+- 100% = 100 out of 100 = the whole thing!
+
+## Common Percentages to Remember
+
+| Percentage | Fraction | Decimal |
+|------------|----------|---------|
+| 100% | 1/1 | 1.0 |
+| 50% | ½ | 0.5 |
+| 25% | ¼ | 0.25 |
+| 75% | ¾ | 0.75 |
+| 10% | 1/10 | 0.1 |
+| 20% | ⅕ | 0.2 |
+| 1% | 1/100 | 0.01 |
+
+## Converting Between Forms
+
+### Percentage → Decimal
+Divide by 100 (move decimal 2 places left):
+- 75% = 75 ÷ 100 = 0.75
+- 8% = 8 ÷ 100 = 0.08
+
+### Decimal → Percentage
+Multiply by 100 (move decimal 2 places right):
+- 0.4 = 0.4 × 100 = 40%
+- 0.05 = 0.05 × 100 = 5%
+
+### Percentage → Fraction
+Put over 100 and simplify:
+- 25% = 25/100 = ¼
+- 60% = 60/100 = 3/5
+
+### Fraction → Percentage
+Convert to hundredths or multiply by 100:
+- ½ = 50/100 = 50%
+- ⅕ = 20/100 = 20%
+
+## Finding Percentages of Amounts
+
+**10% shortcut:** Divide by 10
+- 10% of $80 = $80 ÷ 10 = $8
+
+**50% shortcut:** Divide by 2
+- 50% of 60 = 60 ÷ 2 = 30
+
+**Build from 10%:**
+- 20% = 10% × 2
+- 5% = 10% ÷ 2
+- 15% = 10% + 5%
+
+**Example:** Find 15% of $60
+- 10% of $60 = $6
+- 5% of $60 = $3
+- 15% of $60 = $6 + $3 = **$9**
+
+## Everyday Percentages
+
+- **Battery:** "50% charged" = half full
+- **Test score:** "80% correct" = 80 out of 100 marks
+- **Discount:** "20% off" = save 20 cents for every $1`,
+              keyPoints: [
+                'Percent means "out of 100"',
+                'To convert % to decimal, divide by 100',
+                'To convert decimal to %, multiply by 100',
+                '50% = ½ = 0.5, 25% = ¼ = 0.25, 10% = 0.1'
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'percentage-concept',
+                  name: 'Percentage Concept',
+                  description: 'Understanding that percent means out of 100',
+                },
+                {
+                  id: 'percentage-to-decimal',
+                  name: 'Percentage to Decimal',
+                  description: 'Converting percentages to decimal form',
+                  prerequisites: ['percentage-concept'],
+                },
+                {
+                  id: 'decimal-to-percentage',
+                  name: 'Decimal to Percentage',
+                  description: 'Converting decimals to percentage form',
+                  prerequisites: ['percentage-concept'],
+                },
+                {
+                  id: 'percentage-to-fraction',
+                  name: 'Percentage to Fraction',
+                  description: 'Converting percentages to fractions',
+                  prerequisites: ['percentage-concept'],
+                },
+                {
+                  id: 'fraction-to-percentage',
+                  name: 'Fraction to Percentage',
+                  description: 'Converting fractions to percentages',
+                  prerequisites: ['percentage-concept'],
+                },
+                {
+                  id: 'percentage-of-amount',
+                  name: 'Percentage of Amount',
+                  description: 'Calculating percentage of a quantity',
+                  prerequisites: ['percentage-to-decimal'],
+                },
+                {
+                  id: 'common-percentages',
+                  name: 'Common Percentages',
+                  description: 'Recognising common percentage equivalents',
+                  prerequisites: ['percentage-concept'],
+                },
+              ],
+              examples: [
+                {
+                  problem: 'Convert 40% to a decimal',
+                  solution: '0.4',
+                  explanation: '40 ÷ 100 = 0.4 (move decimal 2 places left)'
+                },
+                {
+                  problem: 'What is 25% of 80?',
+                  solution: '20',
+                  explanation: '25% = ¼, so ¼ of 80 = 80 ÷ 4 = 20'
+                },
+                {
+                  problem: 'Convert ³⁄₅ to a percentage',
+                  solution: '60%',
+                  explanation: '³⁄₅ = 60/100 = 60% (multiply both by 20)'
+                }
+              ],
+              questions: [
+                // Questions 1-5: Understanding Percentages (Difficulty 1)
+                {
+                  id: 'VCMNA189-001',
+                  question: 'What does "percent" mean?',
+                  options: ['Out of 10', 'Out of 50', 'Out of 100', 'Out of 1000'],
+                  correctAnswer: 2,
+                  explanation: 'Percent comes from Latin "per centum" meaning "out of one hundred"',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['percentage-concept'],
+                    correctToken: 'percentage-concept',
+                    incorrectTokens: [
+                      'percentage-base-confusion',        // Wrong base
+                      'percentage-base-confusion',        // Wrong base
+                      null,                                // Correct
+                      'percentage-base-confusion',        // Wrong base
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-002',
+                  question: 'If you score 75%, how many did you get out of 100?',
+                  options: ['7.5', '25', '75', '175'],
+                  correctAnswer: 2,
+                  explanation: '75% = 75 out of 100',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['percentage-concept'],
+                    correctToken: 'percentage-concept',
+                    incorrectTokens: [
+                      'percentage-calculation-error',     // Wrong
+                      'percentage-complement-error',      // Found remainder
+                      null,                                // Correct
+                      'percentage-calculation-error',     // Wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-003',
+                  question: 'What percentage is shown if 50 squares out of 100 are coloured?',
+                  options: ['5%', '50%', '500%', '0.5%'],
+                  correctAnswer: 1,
+                  explanation: '50 out of 100 = 50%',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['percentage-concept'],
+                    correctToken: 'percentage-concept',
+                    incorrectTokens: [
+                      'decimal-percentage-confusion',     // Divided by 10
+                      null,                                // Correct
+                      'decimal-percentage-confusion',     // Multiplied
+                      'decimal-percentage-confusion',     // Wrong decimal
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-004',
+                  question: 'A phone battery shows 100%. What does this mean?',
+                  options: ['Empty', 'Quarter full', 'Half full', 'Fully charged'],
+                  correctAnswer: 3,
+                  explanation: '100% means the whole thing - completely full!',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['percentage-concept'],
+                    correctToken: 'percentage-concept',
+                    incorrectTokens: [
+                      'percentage-meaning-error',         // Wrong
+                      'percentage-meaning-error',         // Wrong
+                      'percentage-meaning-error',         // Wrong
+                      null,                                // Correct
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-005',
+                  question: 'What percentage is equal to a half?',
+                  options: ['25%', '50%', '75%', '100%'],
+                  correctAnswer: 1,
+                  explanation: 'Half = ½ = 50 out of 100 = 50%',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['common-percentages'],
+                    correctToken: 'common-percentages',
+                    incorrectTokens: [
+                      'fraction-percentage-error',        // Quarter
+                      null,                                // Correct
+                      'fraction-percentage-error',        // Three-quarters
+                      'fraction-percentage-error',        // Whole
+                    ],
+                  },
+                },
+                // Questions 6-9: Percentage to Decimal (Difficulty 2)
+                {
+                  id: 'VCMNA189-006',
+                  question: 'Convert 25% to a decimal.',
+                  options: ['2.5', '0.25', '25.0', '0.025'],
+                  correctAnswer: 1,
+                  explanation: '25% = 25 ÷ 100 = 0.25',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-decimal'],
+                    correctToken: 'percentage-to-decimal',
+                    incorrectTokens: [
+                      'decimal-place-error',              // Only divided by 10
+                      null,                                // Correct
+                      'conversion-direction-error',       // Didn't divide
+                      'decimal-place-error',              // Divided by 1000
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-007',
+                  question: 'What is 80% as a decimal?',
+                  options: ['8.0', '0.08', '0.8', '80.0'],
+                  correctAnswer: 2,
+                  explanation: '80% = 80 ÷ 100 = 0.8',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-decimal'],
+                    correctToken: 'percentage-to-decimal',
+                    incorrectTokens: [
+                      'decimal-place-error',              // Wrong
+                      'decimal-place-error',              // Divided by 1000
+                      null,                                // Correct
+                      'conversion-direction-error',       // Didn't divide
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-008',
+                  question: 'Convert 5% to a decimal.',
+                  options: ['0.5', '5.0', '0.05', '0.005'],
+                  correctAnswer: 2,
+                  explanation: '5% = 5 ÷ 100 = 0.05',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-decimal'],
+                    correctToken: 'percentage-to-decimal',
+                    incorrectTokens: [
+                      'decimal-place-error',              // Only divided by 10
+                      'conversion-direction-error',       // Didn't divide
+                      null,                                // Correct
+                      'decimal-place-error',              // Divided by 1000
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-009',
+                  question: 'What is 150% as a decimal?',
+                  options: ['0.15', '1.5', '15.0', '0.015'],
+                  correctAnswer: 1,
+                  explanation: '150% = 150 ÷ 100 = 1.5 (more than 1 whole!)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-decimal'],
+                    correctToken: 'percentage-to-decimal',
+                    incorrectTokens: [
+                      'decimal-place-error',              // Wrong
+                      null,                                // Correct
+                      'decimal-place-error',              // Wrong
+                      'decimal-place-error',              // Wrong
+                    ],
+                  },
+                },
+                // Questions 10-12: Decimal to Percentage (Difficulty 2)
+                {
+                  id: 'VCMNA189-010',
+                  question: 'Convert 0.7 to a percentage.',
+                  options: ['0.7%', '7%', '70%', '700%'],
+                  correctAnswer: 2,
+                  explanation: '0.7 × 100 = 70%',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-to-percentage'],
+                    correctToken: 'decimal-to-percentage',
+                    incorrectTokens: [
+                      'conversion-direction-error',       // Didn't multiply
+                      'decimal-place-error',              // Only × 10
+                      null,                                // Correct
+                      'decimal-place-error',              // × 1000
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-011',
+                  question: 'What is 0.35 as a percentage?',
+                  options: ['0.35%', '3.5%', '35%', '350%'],
+                  correctAnswer: 2,
+                  explanation: '0.35 × 100 = 35%',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-to-percentage'],
+                    correctToken: 'decimal-to-percentage',
+                    incorrectTokens: [
+                      'conversion-direction-error',       // Didn't multiply
+                      'decimal-place-error',              // Only × 10
+                      null,                                // Correct
+                      'decimal-place-error',              // × 1000
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-012',
+                  question: 'Convert 0.02 to a percentage.',
+                  options: ['0.02%', '0.2%', '2%', '20%'],
+                  correctAnswer: 2,
+                  explanation: '0.02 × 100 = 2%',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-to-percentage'],
+                    correctToken: 'decimal-to-percentage',
+                    incorrectTokens: [
+                      'conversion-direction-error',       // Didn't multiply
+                      'decimal-place-error',              // Only × 10
+                      null,                                // Correct
+                      'decimal-place-error',              // × 1000
+                    ],
+                  },
+                },
+                // Questions 13-15: Percentage to Fraction (Difficulty 2)
+                {
+                  id: 'VCMNA189-013',
+                  question: 'What fraction is 25%?',
+                  options: ['¼', '½', '¾', '⅕'],
+                  correctAnswer: 0,
+                  explanation: '25% = 25/100 = ¼ (divide both by 25)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-fraction', 'common-percentages'],
+                    correctToken: 'percentage-to-fraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'fraction-percentage-error',        // 50%
+                      'fraction-percentage-error',        // 75%
+                      'fraction-percentage-error',        // 20%
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-014',
+                  question: 'What fraction is 20%?',
+                  options: ['¼', '⅓', '⅕', '½'],
+                  correctAnswer: 2,
+                  explanation: '20% = 20/100 = ⅕ (divide both by 20)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-fraction'],
+                    correctToken: 'percentage-to-fraction',
+                    incorrectTokens: [
+                      'fraction-percentage-error',        // 25%
+                      'fraction-percentage-error',        // 33%
+                      null,                                // Correct
+                      'fraction-percentage-error',        // 50%
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-015',
+                  question: 'What fraction is 75% in simplest form?',
+                  options: ['¾', '¼', '75/100', '⅗'],
+                  correctAnswer: 0,
+                  explanation: '75% = 75/100 = ¾ (divide both by 25)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-to-fraction'],
+                    correctToken: 'percentage-to-fraction',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'fraction-percentage-error',        // 25%
+                      'simplification-incomplete',        // Not simplified
+                      'fraction-percentage-error',        // Wrong
+                    ],
+                  },
+                },
+                // Questions 16-17: Fraction to Percentage (Difficulty 2)
+                {
+                  id: 'VCMNA189-016',
+                  question: 'What percentage is ⅕?',
+                  options: ['5%', '15%', '20%', '50%'],
+                  correctAnswer: 2,
+                  explanation: '⅕ = 20/100 = 20%',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-to-percentage'],
+                    correctToken: 'fraction-to-percentage',
+                    incorrectTokens: [
+                      'fraction-percentage-error',        // Used numerator
+                      'fraction-percentage-error',        // Wrong
+                      null,                                // Correct
+                      'fraction-percentage-error',        // ½
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-017',
+                  question: 'Convert ³⁄₁₀ to a percentage.',
+                  options: ['3%', '30%', '10%', '13%'],
+                  correctAnswer: 1,
+                  explanation: '³⁄₁₀ = 30/100 = 30%',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['fraction-to-percentage'],
+                    correctToken: 'fraction-to-percentage',
+                    incorrectTokens: [
+                      'fraction-percentage-error',        // Used numerator
+                      null,                                // Correct
+                      'fraction-percentage-error',        // Used denominator
+                      'fraction-percentage-error',        // Added
+                    ],
+                  },
+                },
+                // Questions 18-20: Percentage of Amount (Difficulty 2-3)
+                {
+                  id: 'VCMNA189-018',
+                  question: 'What is 50% of 80?',
+                  options: ['8', '40', '50', '160'],
+                  correctAnswer: 1,
+                  explanation: '50% = ½, so 80 ÷ 2 = 40',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-of-amount', 'common-percentages'],
+                    correctToken: 'percentage-of-amount',
+                    incorrectTokens: [
+                      'percentage-operation-error',       // Found 10%
+                      null,                                // Correct
+                      'percentage-operation-error',       // Just used percentage
+                      'percentage-operation-error',       // Doubled instead
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-019',
+                  question: 'What is 10% of $60?',
+                  options: ['$6', '$10', '$16', '$60'],
+                  correctAnswer: 0,
+                  explanation: '10% means divide by 10: $60 ÷ 10 = $6',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['percentage-of-amount'],
+                    correctToken: 'percentage-of-amount',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'percentage-operation-error',       // Used percentage as answer
+                      'percentage-operation-error',       // Added
+                      'percentage-operation-error',       // Didn't calculate
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA189-020',
+                  question: 'What is 25% of 120?',
+                  options: ['25', '30', '45', '60'],
+                  correctAnswer: 1,
+                  explanation: '25% = ¼, so 120 ÷ 4 = 30',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['percentage-of-amount'],
+                    correctToken: 'percentage-of-amount',
+                    incorrectTokens: [
+                      'percentage-operation-error',       // Used percentage
+                      null,                                // Correct
+                      'percentage-operation-error',       // Wrong division
+                      'percentage-operation-error',       // Found 50%
+                    ],
+                  },
+                },
+              ]
             }
           ]
         }

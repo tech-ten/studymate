@@ -26,6 +26,7 @@ function BenchmarkContent() {
   const [finalLevel, setFinalLevel] = useState(5)
   const [answers, setAnswers] = useState<{ correct: boolean; difficulty: number }[]>([])
   const [question, setQuestion] = useState<BenchmarkQuestion | null>(null)
+  const [pendingQuestion, setPendingQuestion] = useState<BenchmarkQuestion | null>(null) // Store next question until transition
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -105,8 +106,8 @@ function BenchmarkContent() {
           setFinalLevel(response.finalLevel!)
           setCompleted(true)
         } else if (response.nextQuestion) {
-          setQuestion(response.nextQuestion)
-          setDifficulty(response.nextQuestion.difficulty)
+          // Store next question for later - don't apply until handleNext
+          setPendingQuestion(response.nextQuestion)
         }
       } else {
         const correct = selectedAnswer === currentQ.correctAnswer
@@ -126,8 +127,9 @@ function BenchmarkContent() {
           setFinalLevel(avgDiff)
           setCompleted(true)
         } else {
-          setDifficulty(newDiff)
-          setQuestion(getFallbackQuestion(newDiff))
+          // Store next question for later - don't apply until handleNext
+          const nextQ = getFallbackQuestion(newDiff)
+          setPendingQuestion({ ...nextQ, difficulty: newDiff })
         }
       }
     } catch (err) {
@@ -141,8 +143,15 @@ function BenchmarkContent() {
     }
   }
 
-  // Simple handleNext - matches learn page exactly
+  // Apply pending question and transition - this ensures question doesn't change while result is showing
   const handleNext = () => {
+    // First apply the pending question (this is the KEY fix - question changes AFTER result is hidden)
+    if (pendingQuestion) {
+      setQuestion(pendingQuestion)
+      setDifficulty(pendingQuestion.difficulty)
+      setPendingQuestion(null)
+    }
+    // Then update UI state
     setCurrentQuestion(prev => prev + 1)
     setSelectedAnswer(null)
     setShowResult(false)

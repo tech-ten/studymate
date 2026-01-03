@@ -2,27 +2,37 @@
  * Seed Curriculum Data Script
  *
  * Run this to migrate static curriculum content into DynamoDB.
- * Usage: npx ts-node src/scripts/seed-curriculum.ts
  *
- * This script reads from the static year5-data.ts and populates:
- * - Curriculum sections (CURRICULUM#YEAR5, SECTION#VCMNA186)
- * - Questions (SECTION#VCMNA186, QUESTION#VCMNA186-001)
+ * Usage:
+ *   npx ts-node src/scripts/seed-curriculum.ts [year] [--clean]
+ *
+ * Examples:
+ *   npx ts-node src/scripts/seed-curriculum.ts           # Seed all years
+ *   npx ts-node src/scripts/seed-curriculum.ts 5         # Seed Year 5 only
+ *   npx ts-node src/scripts/seed-curriculum.ts 5 --clean # Clean and re-seed Year 5
+ *   npx ts-node src/scripts/seed-curriculum.ts --clean   # Clean and re-seed all years
  */
 
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, PutCommand, BatchWriteCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, PutCommand, BatchWriteCommand, QueryCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 
 const client = new DynamoDBClient({ region: 'ap-southeast-2' });
 const db = DynamoDBDocumentClient.from(client);
 const TABLE_NAME = process.env.TABLE_NAME || 'agentsform-main';
 
-// Import static data (you'll need to export it from year5-data.ts)
-// For now, this is a sample structure - adapt to match your actual data
+// ============ TYPES ============
 
 interface QuestionKnowledge {
   questionTokens: string[];
   correctToken: string;
   incorrectTokens: (string | null)[];
+}
+
+interface KnowledgeToken {
+  id: string;
+  name: string;
+  description: string;
+  prerequisites?: string[];
 }
 
 interface Question {
@@ -43,6 +53,7 @@ interface Section {
   description: string;
   content: string;
   keyPoints: string[];
+  knowledgeTokens?: KnowledgeToken[];
   examples: Array<{ problem: string; solution: string; explanation: string }>;
   questions: Question[];
 }
@@ -66,6 +77,71 @@ interface YearCurriculum {
   strands: Strand[];
 }
 
+// ============ CLEAN FUNCTIONS ============
+
+async function deleteQuestionsForSection(sectionId: string): Promise<number> {
+  let deletedCount = 0;
+
+  // Query all questions for this section
+  const result = await db.send(new QueryCommand({
+    TableName: TABLE_NAME,
+    KeyConditionExpression: 'PK = :pk',
+    ExpressionAttributeValues: {
+      ':pk': `SECTION#${sectionId}`,
+    },
+  }));
+
+  // Delete each question
+  for (const item of result.Items || []) {
+    await db.send(new DeleteCommand({
+      TableName: TABLE_NAME,
+      Key: {
+        PK: item.PK,
+        SK: item.SK,
+      },
+    }));
+    deletedCount++;
+  }
+
+  return deletedCount;
+}
+
+async function cleanYear(yearLevel: number): Promise<void> {
+  console.log(`\n🧹 Cleaning Year ${yearLevel} data...`);
+
+  // Query all sections for this year
+  const result = await db.send(new QueryCommand({
+    TableName: TABLE_NAME,
+    KeyConditionExpression: 'PK = :pk',
+    ExpressionAttributeValues: {
+      ':pk': `CURRICULUM#YEAR${yearLevel}`,
+    },
+  }));
+
+  let totalQuestions = 0;
+  let totalSections = 0;
+
+  for (const section of result.Items || []) {
+    // Delete questions for this section
+    const deleted = await deleteQuestionsForSection(section.id);
+    totalQuestions += deleted;
+
+    // Delete the section itself
+    await db.send(new DeleteCommand({
+      TableName: TABLE_NAME,
+      Key: {
+        PK: section.PK,
+        SK: section.SK,
+      },
+    }));
+    totalSections++;
+  }
+
+  console.log(`   Deleted ${totalSections} sections and ${totalQuestions} questions`);
+}
+
+// ============ SEED FUNCTIONS ============
+
 async function seedSection(yearLevel: number, strandId: string, chapterId: string, section: Section) {
   const now = new Date().toISOString();
 
@@ -84,6 +160,7 @@ async function seedSection(yearLevel: number, strandId: string, chapterId: strin
       description: section.description,
       content: section.content,
       keyPoints: section.keyPoints,
+      knowledgeTokens: section.knowledgeTokens || [],
       examples: section.examples,
       questionCount: section.questions.length,
       createdAt: now,
@@ -134,7 +211,10 @@ async function seedSection(yearLevel: number, strandId: string, chapterId: strin
 }
 
 async function seedCurriculum(curriculum: YearCurriculum) {
-  console.log(`\nSeeding Year ${curriculum.yearLevel} ${curriculum.subject}...\n`);
+  console.log(`\n📚 Seeding Year ${curriculum.yearLevel} ${curriculum.subject}...\n`);
+
+  let totalSections = 0;
+  let totalQuestions = 0;
 
   for (const strand of curriculum.strands) {
     console.log(`📚 Strand: ${strand.name}`);
@@ -144,29 +224,77 @@ async function seedCurriculum(curriculum: YearCurriculum) {
 
       for (const section of chapter.sections) {
         await seedSection(curriculum.yearLevel, strand.id, chapter.id, section);
+        totalSections++;
+        totalQuestions += section.questions.length;
       }
     }
   }
 
-  console.log(`\n✅ Seeding complete for Year ${curriculum.yearLevel}!`);
+  console.log(`\n✅ Year ${curriculum.yearLevel} complete: ${totalSections} sections, ${totalQuestions} questions`);
 }
 
 // Export for programmatic use
-export { seedCurriculum, seedSection };
+export { seedCurriculum, seedSection, cleanYear };
 
-// Main execution - import and run
+// ============ MAIN ============
+
 async function main() {
+  const args = process.argv.slice(2);
+  const cleanMode = args.includes('--clean');
+  const yearArg = args.find(a => /^\d+$/.test(a));
+  const specificYear = yearArg ? parseInt(yearArg) : null;
+
   console.log(`
 ====================================
   Curriculum Seeding Script
 ====================================
 Table: ${TABLE_NAME}
+Mode: ${cleanMode ? 'Clean & Re-seed' : 'Seed/Update'}
+Years: ${specificYear ? `Year ${specificYear} only` : 'All (3, 4, 5, 6)'}
   `);
 
-  // Dynamic import the curriculum data (with knowledge tokens)
+  // Import all curriculum data
+  const { year3Maths } = await import('../../../curriculum/src/maths/year3');
+  const { year4Maths } = await import('../../../curriculum/src/maths/year4');
   const { year5Maths } = await import('../../../curriculum/src/maths/year5');
+  const { year6Maths } = await import('../../../curriculum/src/maths/year6');
 
-  await seedCurriculum(year5Maths as YearCurriculum);
+  const allYears: YearCurriculum[] = [
+    year3Maths as YearCurriculum,
+    year4Maths as YearCurriculum,
+    year5Maths as YearCurriculum,
+    year6Maths as YearCurriculum,
+  ];
+
+  const yearsToSeed = specificYear
+    ? allYears.filter(y => y.yearLevel === specificYear)
+    : allYears;
+
+  if (yearsToSeed.length === 0) {
+    console.error(`❌ Year ${specificYear} not found!`);
+    process.exit(1);
+  }
+
+  // Clean if requested
+  if (cleanMode) {
+    for (const curriculum of yearsToSeed) {
+      await cleanYear(curriculum.yearLevel);
+    }
+  }
+
+  // Seed each year
+  for (const curriculum of yearsToSeed) {
+    await seedCurriculum(curriculum);
+  }
+
+  console.log(`
+====================================
+  ✅ All done!
+====================================
+  `);
 }
 
-main().catch(console.error);
+main().catch(err => {
+  console.error('❌ Error:', err);
+  process.exit(1);
+});
