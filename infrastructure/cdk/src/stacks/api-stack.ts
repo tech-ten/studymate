@@ -56,6 +56,7 @@ export class ApiStack extends cdk.Stack {
       GROQ_API_KEY: process.env.GROQ_API_KEY || '',
       STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || '',
       STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || '',
+      STRIPE_PRICE_EXPLORER: process.env.STRIPE_PRICE_EXPLORER || '',
       STRIPE_PRICE_SCHOLAR: process.env.STRIPE_PRICE_SCHOLAR || '',
       STRIPE_PRICE_ACHIEVER: process.env.STRIPE_PRICE_ACHIEVER || '',
       ADMIN_API_KEY: process.env.ADMIN_API_KEY || 'studymate-admin-2024',

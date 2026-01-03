@@ -14,7 +14,7 @@ import {
 
 const plans = [
   {
-    id: 'free',
+    id: 'explorer',
     name: 'Explorer',
     price: 0,
     futurePrice: 0.99,
@@ -98,11 +98,9 @@ function PricingContent() {
   }
 
   const handleUpgrade = async (planId: string) => {
-    if (planId === 'free') return
-
     setUpgrading(planId)
     try {
-      const result = await createCheckoutSession(planId as 'scholar' | 'achiever')
+      const result = await createCheckoutSession(planId as 'explorer' | 'scholar' | 'achiever')
       // Open Stripe checkout in new tab so user can return to app
       window.open(result.url, '_blank')
       setUpgrading(null)
@@ -234,10 +232,10 @@ function PricingContent() {
             {/* Pricing Grid */}
             <div className="grid md:grid-cols-3 gap-6">
               {plans.map((plan) => {
-                const isCurrentPlan = plan.id === currentTier
+                const isCurrentPlan = plan.id === currentTier || (plan.id === 'explorer' && currentTier === 'free')
                 const isDowngrade =
                   (currentTier === 'achiever' && plan.id !== 'achiever') ||
-                  (currentTier === 'scholar' && plan.id === 'free')
+                  (currentTier === 'scholar' && (plan.id === 'explorer' || plan.id === 'free'))
 
                 return (
                   <div
@@ -320,13 +318,14 @@ function PricingContent() {
                       >
                         Manage Plan
                       </Button>
-                    ) : plan.id === 'free' ? (
+                    ) : plan.id === 'explorer' ? (
                       <Button
                         variant="outline"
                         className="w-full rounded-full bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200 hover:from-amber-100 hover:to-orange-100"
-                        disabled
+                        onClick={() => handleUpgrade(plan.id)}
+                        disabled={upgrading !== null}
                       >
-                        Get Started Free
+                        {upgrading === plan.id ? 'Processing...' : 'Start Free Trial'}
                       </Button>
                     ) : (
                       <Button

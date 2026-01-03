@@ -617,12 +617,12 @@ export interface TierLimits {
 }
 
 export interface SubscriptionStatus {
-  tier: 'free' | 'scholar' | 'achiever';
+  tier: 'free' | 'explorer' | 'scholar' | 'achiever';
   subscriptionId: string | null;
   limits: TierLimits;
 }
 
-export async function createCheckoutSession(plan: 'scholar' | 'achiever'): Promise<{ sessionId: string; url: string }> {
+export async function createCheckoutSession(plan: 'explorer' | 'scholar' | 'achiever'): Promise<{ sessionId: string; url: string }> {
   return apiFetch('/payments/create-checkout', {
     method: 'POST',
     body: JSON.stringify({ plan }),

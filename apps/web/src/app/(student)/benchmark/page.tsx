@@ -28,6 +28,7 @@ function BenchmarkContent() {
   const [question, setQuestion] = useState<BenchmarkQuestion | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [transitioning, setTransitioning] = useState(false)
 
   useEffect(() => {
     const id = childIdParam || getSelectedChild()
@@ -141,10 +142,20 @@ function BenchmarkContent() {
     }
   }
 
-  const handleNext = () => {
+  const handleNext = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    // Prevent click-through to answer options by blocking selection briefly
+    setTransitioning(true)
     setCurrentQuestion(prev => prev + 1)
     setSelectedAnswer(null)
     setShowResult(false)
+
+    // Allow answer selection after a short delay to prevent accidental clicks
+    setTimeout(() => {
+      setTransitioning(false)
+    }, 300)
   }
 
   if (!started) {
@@ -239,8 +250,8 @@ function BenchmarkContent() {
           {currentQ.options.map((option, index) => (
             <button
               key={index}
-              onClick={() => !showResult && setSelectedAnswer(index)}
-              disabled={showResult}
+              onClick={() => !showResult && !transitioning && setSelectedAnswer(index)}
+              disabled={showResult || transitioning}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 showResult
                   ? index === currentQ.correctAnswer

@@ -20,14 +20,27 @@ function getStripe(): Stripe {
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 // Price IDs - set these in your Stripe dashboard
-const PRICE_IDS = {
+const PRICE_IDS: Record<string, string> = {
+  explorer: process.env.STRIPE_PRICE_EXPLORER || 'price_explorer',
   scholar: process.env.STRIPE_PRICE_SCHOLAR || 'price_scholar',
   achiever: process.env.STRIPE_PRICE_ACHIEVER || 'price_achiever',
+};
+
+// Trial periods per plan (in days)
+const TRIAL_DAYS: Record<string, number> = {
+  explorer: 21,
+  scholar: 14,
+  achiever: 14,
 };
 
 // Tier limits configuration
 const TIER_LIMITS = {
   free: {
+    maxChildren: 2,
+    dailyQuestions: 20,
+    dailyAiCalls: 10,
+  },
+  explorer: {
     maxChildren: 2,
     dailyQuestions: 20,
     dailyAiCalls: 10,
@@ -59,8 +72,8 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const body = JSON.parse(event.body || '{}');
       const { plan } = body;
 
-      if (!plan || !['scholar', 'achiever'].includes(plan)) {
-        return badRequest('Invalid plan. Must be "scholar" or "achiever"');
+      if (!plan || !['explorer', 'scholar', 'achiever'].includes(plan)) {
+        return badRequest('Invalid plan. Must be "explorer", "scholar", or "achiever"');
       }
 
       // Get user email for pre-filling
@@ -71,14 +84,15 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
       const userEmail = userResult.Item?.email;
 
-      // Create Stripe Checkout session with 1-month free trial
+      // Create Stripe Checkout session with plan-specific trial period
+      const trialDays = TRIAL_DAYS[plan] || 14;
       const session = await getStripe().checkout.sessions.create({
         mode: 'subscription',
         payment_method_types: ['card'],
         customer_email: userEmail,
         line_items: [
           {
-            price: PRICE_IDS[plan as keyof typeof PRICE_IDS],
+            price: PRICE_IDS[plan],
             quantity: 1,
           },
         ],
@@ -89,7 +103,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         success_url: `${process.env.FRONTEND_URL || 'https://tutor.agentsform.ai'}/dashboard?payment=success`,
         cancel_url: `${process.env.FRONTEND_URL || 'https://tutor.agentsform.ai'}/pricing?payment=cancelled`,
         subscription_data: {
-          trial_period_days: 14, // 2-week free trial
+          trial_period_days: trialDays,
           metadata: {
             userId,
             plan,
@@ -141,7 +155,10 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
           const customerId = subscription.customer as string;
 
           if (userId) {
-            const plan = subscription.items.data[0]?.price.id === PRICE_IDS.achiever ? 'achiever' : 'scholar';
+            const priceId = subscription.items.data[0]?.price.id;
+            let plan = 'explorer';
+            if (priceId === PRICE_IDS.achiever) plan = 'achiever';
+            else if (priceId === PRICE_IDS.scholar) plan = 'scholar';
             const status = subscription.status;
 
             // Active or trialing subscriptions get the paid tier
