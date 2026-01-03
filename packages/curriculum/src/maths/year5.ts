@@ -64,6 +64,79 @@ When comparing large numbers, start from the left and compare digit by digit:
                 'When comparing numbers, start from the leftmost digit',
                 'The more digits a number has, the larger it generally is'
               ],
+              knowledgeTokens: [
+                {
+                  id: 'place-value-ones',
+                  name: 'Ones Place Value',
+                  description: 'Understanding the ones (units) position',
+                },
+                {
+                  id: 'place-value-tens',
+                  name: 'Tens Place Value',
+                  description: 'Understanding the tens position',
+                  prerequisites: ['place-value-ones'],
+                },
+                {
+                  id: 'place-value-hundreds',
+                  name: 'Hundreds Place Value',
+                  description: 'Understanding the hundreds position',
+                  prerequisites: ['place-value-tens'],
+                },
+                {
+                  id: 'place-value-thousands',
+                  name: 'Thousands Place Value',
+                  description: 'Understanding the thousands position',
+                  prerequisites: ['place-value-hundreds'],
+                },
+                {
+                  id: 'place-value-ten-thousands',
+                  name: 'Ten Thousands Place Value',
+                  description: 'Understanding the ten thousands position',
+                  prerequisites: ['place-value-thousands'],
+                },
+                {
+                  id: 'place-value-hundred-thousands',
+                  name: 'Hundred Thousands Place Value',
+                  description: 'Understanding the hundred thousands position',
+                  prerequisites: ['place-value-ten-thousands'],
+                },
+                {
+                  id: 'reading-large-numbers',
+                  name: 'Reading Large Numbers',
+                  description: 'Converting numerals to words correctly',
+                  prerequisites: ['place-value-hundred-thousands'],
+                },
+                {
+                  id: 'writing-large-numbers',
+                  name: 'Writing Large Numbers',
+                  description: 'Converting words to numerals correctly',
+                  prerequisites: ['place-value-hundred-thousands'],
+                },
+                {
+                  id: 'comparing-large-numbers',
+                  name: 'Comparing Large Numbers',
+                  description: 'Determining which of two numbers is larger or smaller',
+                  prerequisites: ['place-value-hundred-thousands'],
+                },
+                {
+                  id: 'ordering-large-numbers',
+                  name: 'Ordering Large Numbers',
+                  description: 'Arranging multiple numbers from smallest to largest or vice versa',
+                  prerequisites: ['comparing-large-numbers'],
+                },
+                {
+                  id: 'adding-place-value',
+                  name: 'Adding by Place Value',
+                  description: 'Adding a specific place value amount to a number',
+                  prerequisites: ['place-value-hundred-thousands'],
+                },
+                {
+                  id: 'rounding-large-numbers',
+                  name: 'Rounding Large Numbers',
+                  description: 'Rounding to nearest thousand, ten thousand, etc.',
+                  prerequisites: ['place-value-hundred-thousands'],
+                },
+              ],
               examples: [
                 {
                   problem: 'Write 456,789 in words',
@@ -77,46 +150,395 @@ When comparing large numbers, start from the left and compare digit by digit:
                 }
               ],
               questions: [
+                // === PLACE VALUE IDENTIFICATION (1-5) ===
                 {
                   id: 'VCMNA186-001',
                   question: 'What is the value of the 7 in 372,458?',
                   options: ['7', '70', '700', '70,000'],
                   correctAnswer: 3,
                   explanation: 'The 7 is in the ten thousands place, so its value is 70,000.',
-                  difficulty: 1
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['place-value-ten-thousands'],
+                    correctToken: 'place-value-ten-thousands',
+                    incorrectTokens: [
+                      'place-value-ones-confusion',      // Thinks digit = value
+                      'place-value-tens-confusion',      // Wrong place identification
+                      'place-value-hundreds-confusion',  // Wrong place identification
+                      null,
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA186-002',
-                  question: 'Which number is largest?',
-                  options: ['199,999', '200,001', '189,999', '201,000'],
-                  correctAnswer: 3,
-                  explanation: '201,000 has the highest value in the hundred thousands and thousands places.',
-                  difficulty: 2
+                  question: 'In the number 528,147, what digit is in the hundred thousands place?',
+                  options: ['1', '2', '5', '8'],
+                  correctAnswer: 2,
+                  explanation: 'Reading from left to right, the 5 is in the hundred thousands place (500,000).',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['place-value-hundred-thousands'],
+                    correctToken: 'place-value-hundred-thousands',
+                    incorrectTokens: [
+                      'place-value-hundreds-confusion',      // Confused hundreds with hundred thousands
+                      'place-value-ten-thousands-confusion', // Wrong position
+                      null,
+                      'place-value-thousands-confusion',     // Wrong position
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA186-003',
+                  question: 'What is the value of the 4 in 645,213?',
+                  options: ['4', '400', '4,000', '40,000'],
+                  correctAnswer: 3,
+                  explanation: 'The 4 is in the ten thousands place, so its value is 40,000.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['place-value-ten-thousands'],
+                    correctToken: 'place-value-ten-thousands',
+                    incorrectTokens: [
+                      'place-value-ones-confusion',          // Thinks digit = value
+                      'place-value-hundreds-confusion',      // Wrong place
+                      'place-value-thousands-confusion',     // Adjacent place confusion
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-004',
+                  question: 'In 907,365, which digit is in the thousands place?',
+                  options: ['9', '7', '3', '6'],
+                  correctAnswer: 1,
+                  explanation: 'Counting from the right: 5 (ones), 6 (tens), 3 (hundreds), 7 (thousands).',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['place-value-thousands'],
+                    correctToken: 'place-value-thousands',
+                    incorrectTokens: [
+                      'place-value-hundred-thousands-confusion', // Confused with leftmost
+                      null,
+                      'place-value-hundreds-confusion',          // Adjacent place error
+                      'place-value-tens-confusion',              // Wrong position
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-005',
+                  question: 'The digit 8 in which number has a value of 80,000?',
+                  options: ['482,156', '248,156', '824,156', '842,156'],
+                  correctAnswer: 0,
+                  explanation: 'In 482,156, the 8 is in the ten thousands place, so its value is 80,000. In 248,156, 8 is in thousands (8,000). In 824,156 and 842,156, 8 is in hundred thousands (800,000).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['place-value-ten-thousands'],
+                    correctToken: 'place-value-ten-thousands',
+                    incorrectTokens: [
+                      null,
+                      'place-value-thousands-confusion',         // 8 is in thousands here
+                      'place-value-hundred-thousands-confusion', // 8 is in hundred thousands
+                      'place-value-hundred-thousands-confusion', // 8 is in hundred thousands
+                    ],
+                  },
+                },
+
+                // === READING AND WRITING NUMBERS (6-10) ===
+                {
+                  id: 'VCMNA186-006',
                   question: 'How do you write "five hundred and thirty-two thousand, one hundred and seven" as a number?',
                   options: ['53,217', '532,107', '532,170', '523,107'],
                   correctAnswer: 1,
                   explanation: '532 thousand = 532,000, plus 107 = 532,107',
-                  difficulty: 2
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['writing-large-numbers'],
+                    correctToken: 'writing-large-numbers',
+                    incorrectTokens: [
+                      'digit-grouping-confusion',       // Wrong thousands grouping
+                      null,
+                      'ones-tens-transposition',        // Swapped 07 to 70
+                      'digit-order-confusion',          // Misplaced digits
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA186-004',
+                  id: 'VCMNA186-007',
+                  question: 'How is 408,052 written in words?',
+                  options: [
+                    'Four hundred and eight thousand, fifty-two',
+                    'Forty-eight thousand and fifty-two',
+                    'Four hundred and eighty thousand, five hundred and two',
+                    'Four million, eight thousand and fifty-two'
+                  ],
+                  correctAnswer: 0,
+                  explanation: '408,052 = 408 thousand + 52. The zero in the hundreds place means we skip "hundred" in the second part.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reading-large-numbers'],
+                    correctToken: 'reading-large-numbers',
+                    incorrectTokens: [
+                      null,
+                      'place-value-grouping-confusion', // Misread groupings
+                      'zero-placeholder-confusion',     // Mishandled zeros
+                      'millions-thousands-confusion',   // Wrong magnitude
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-008',
+                  question: 'Write "two hundred and fifteen thousand, six hundred and forty" as a number.',
+                  options: ['21,564', '215,640', '215,064', '250,640'],
+                  correctAnswer: 1,
+                  explanation: '215 thousand = 215,000 + 640 = 215,640',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['writing-large-numbers'],
+                    correctToken: 'writing-large-numbers',
+                    incorrectTokens: [
+                      'magnitude-confusion',            // Too few digits
+                      null,
+                      'zero-placeholder-error',         // Inserted wrong zero
+                      'digit-substitution-error',       // Wrong digits entirely
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-009',
+                  question: 'How is 670,009 written in words?',
+                  options: [
+                    'Six hundred and seventy thousand and nine',
+                    'Sixty-seven thousand and nine',
+                    'Six hundred and seven thousand and ninety',
+                    'Six hundred and seventy thousand, nine hundred'
+                  ],
+                  correctAnswer: 0,
+                  explanation: '670,009 = 670 thousand + 9. The zeros in hundreds and tens places are not spoken.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['reading-large-numbers'],
+                    correctToken: 'reading-large-numbers',
+                    incorrectTokens: [
+                      null,
+                      'magnitude-confusion',            // Dropped a zero
+                      'zero-placeholder-confusion',     // Misread zeros
+                      'ones-hundreds-confusion',        // Confused 9 with 900
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-010',
+                  question: 'Write "nine hundred thousand, three hundred and one" as a number.',
+                  options: ['900,301', '903,001', '90,301', '900,031'],
+                  correctAnswer: 0,
+                  explanation: '900 thousand = 900,000 + 301 = 900,301. Note: no ten thousands or thousands in this number.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['writing-large-numbers'],
+                    correctToken: 'writing-large-numbers',
+                    incorrectTokens: [
+                      null,
+                      'zero-placeholder-error',         // Misplaced the 3
+                      'magnitude-confusion',            // Dropped hundred thousands
+                      'tens-ones-transposition',        // Swapped 01 to 10
+                    ],
+                  },
+                },
+
+                // === COMPARING AND ORDERING (11-15) ===
+                {
+                  id: 'VCMNA186-011',
+                  question: 'Which number is largest?',
+                  options: ['199,999', '200,001', '189,999', '201,000'],
+                  correctAnswer: 3,
+                  explanation: '201,000 has 2 hundred thousands AND 1 thousand, making it the largest.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-large-numbers'],
+                    correctToken: 'comparing-large-numbers',
+                    incorrectTokens: [
+                      'digit-sum-confusion',            // Focused on 9s
+                      'comparing-adjacent-confusion',   // Close to 201,000
+                      'smaller-digits-confusion',       // Misread as larger
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-012',
+                  question: 'Which number is smallest?',
+                  options: ['345,678', '354,678', '345,876', '343,678'],
+                  correctAnswer: 3,
+                  explanation: 'Compare from left: all start with 3, then 4. 343,678 has 3 in the ten thousands (smallest), so it is the smallest.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-large-numbers'],
+                    correctToken: 'comparing-large-numbers',
+                    incorrectTokens: [
+                      'leftmost-digit-only-error',      // Only checked first digit
+                      'digit-magnitude-confusion',     // Confused by 5 in ten thousands
+                      'rightmost-focus-error',         // Focused on wrong digits
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-013',
+                  question: 'Order these numbers from smallest to largest: 562,418 | 526,418 | 562,148',
+                  options: [
+                    '526,418 < 562,148 < 562,418',
+                    '562,148 < 526,418 < 562,418',
+                    '562,418 < 562,148 < 526,418',
+                    '526,418 < 562,418 < 562,148'
+                  ],
+                  correctAnswer: 0,
+                  explanation: 'First compare ten thousands: 526 < 562. Then compare the two 562s: 562,148 < 562,418 (hundreds place: 1 < 4).',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['ordering-large-numbers'],
+                    correctToken: 'ordering-large-numbers',
+                    incorrectTokens: [
+                      null,
+                      'sequential-comparison-error',    // Didn't compare systematically
+                      'reverse-order-error',           // Got order backwards
+                      'partial-comparison-error',      // Stopped comparing too early
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-014',
+                  question: 'Which symbol makes this true? 478,293 ___ 478,329',
+                  options: ['>', '<', '=', 'Cannot tell'],
+                  correctAnswer: 1,
+                  explanation: 'Both have 478,2__ but then 93 vs 29. Compare tens: 9 > 2, so 478,293 < 478,329 is FALSE. Wait - 478,293 has 29 in the last two digits, 478,329 has 32. 293 < 329, so 478,293 < 478,329.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-large-numbers'],
+                    correctToken: 'comparing-large-numbers',
+                    incorrectTokens: [
+                      'comparison-direction-error',    // Got inequality backwards
+                      null,
+                      'equality-assumption-error',     // Assumed equal
+                      'comparison-confidence-error',   // Uncertain about method
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-015',
+                  question: 'Put these in order from largest to smallest: 891,234 | 819,432 | 891,324',
+                  options: [
+                    '891,324 > 891,234 > 819,432',
+                    '891,234 > 891,324 > 819,432',
+                    '819,432 > 891,234 > 891,324',
+                    '891,234 > 819,432 > 891,324'
+                  ],
+                  correctAnswer: 0,
+                  explanation: '891,324 and 891,234 both start with 891. Compare: 324 > 234, so 891,324 > 891,234. 819,432 is smallest (81 < 89 in ten thousands).',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['ordering-large-numbers'],
+                    correctToken: 'ordering-large-numbers',
+                    incorrectTokens: [
+                      null,
+                      'hundreds-comparison-error',     // Miscompared 324 vs 234
+                      'descending-order-confusion',    // Got order direction wrong
+                      'partial-comparison-error',      // Incomplete comparison
+                    ],
+                  },
+                },
+
+                // === ADDING/SUBTRACTING PLACE VALUE (16-18) ===
+                {
+                  id: 'VCMNA186-016',
                   question: 'What number is 10,000 more than 456,789?',
                   options: ['456,799', '457,789', '466,789', '556,789'],
                   correctAnswer: 2,
-                  explanation: 'Adding 10,000 changes the ten thousands digit: 456,789 + 10,000 = 466,789',
-                  difficulty: 2
+                  explanation: 'Adding 10,000 changes the ten thousands digit: 5 becomes 6. So 456,789 + 10,000 = 466,789.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['adding-place-value', 'place-value-ten-thousands'],
+                    correctToken: 'adding-place-value',
+                    incorrectTokens: [
+                      'adding-wrong-place-error',      // Added to ones
+                      'adding-wrong-place-error',      // Added to thousands
+                      null,
+                      'magnitude-confusion',           // Added 100,000 instead
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA186-005',
-                  question: 'Round 847,562 to the nearest ten thousand',
+                  id: 'VCMNA186-017',
+                  question: 'What number is 100,000 less than 523,456?',
+                  options: ['423,456', '522,456', '513,456', '523,356'],
+                  correctAnswer: 0,
+                  explanation: 'Subtracting 100,000 reduces the hundred thousands digit: 5 becomes 4. So 523,456 - 100,000 = 423,456.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['adding-place-value', 'place-value-hundred-thousands'],
+                    correctToken: 'adding-place-value',
+                    incorrectTokens: [
+                      null,
+                      'subtracting-wrong-place-error', // Subtracted from thousands
+                      'subtracting-wrong-place-error', // Subtracted from ten thousands
+                      'subtracting-wrong-place-error', // Subtracted from hundreds
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-018',
+                  question: 'Start at 789,000. Add 1,000 three times. What number do you have?',
+                  options: ['789,003', '789,300', '792,000', '819,000'],
+                  correctAnswer: 2,
+                  explanation: '789,000 + 1,000 + 1,000 + 1,000 = 789,000 + 3,000 = 792,000.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['adding-place-value', 'place-value-thousands'],
+                    correctToken: 'adding-place-value',
+                    incorrectTokens: [
+                      'adding-wrong-place-error',      // Added to ones
+                      'adding-wrong-place-error',      // Added to hundreds
+                      null,
+                      'magnitude-confusion',           // Added 30,000 instead
+                    ],
+                  },
+                },
+
+                // === ROUNDING (19-20) ===
+                {
+                  id: 'VCMNA186-019',
+                  question: 'Round 847,562 to the nearest ten thousand.',
                   options: ['847,000', '848,000', '850,000', '840,000'],
                   correctAnswer: 2,
-                  explanation: 'Look at the thousands digit (7). Since 7 ≥ 5, round up to 850,000.',
-                  difficulty: 3
-                }
+                  explanation: 'Look at the thousands digit (7). Since 7 ≥ 5, round up the ten thousands: 4 becomes 5. Answer: 850,000.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['rounding-large-numbers'],
+                    correctToken: 'rounding-large-numbers',
+                    incorrectTokens: [
+                      'rounding-wrong-place-error',    // Rounded to thousands
+                      'rounding-wrong-place-error',    // Rounded to thousands
+                      null,
+                      'rounding-direction-error',      // Rounded down incorrectly
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA186-020',
+                  question: 'Round 634,281 to the nearest hundred thousand.',
+                  options: ['600,000', '630,000', '634,000', '700,000'],
+                  correctAnswer: 0,
+                  explanation: 'Look at the ten thousands digit (3). Since 3 < 5, round down. The hundred thousands digit stays as 6, so the answer is 600,000.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['rounding-large-numbers'],
+                    correctToken: 'rounding-large-numbers',
+                    incorrectTokens: [
+                      null,
+                      'rounding-wrong-place-error',    // Rounded to ten thousands
+                      'rounding-wrong-place-error',    // Rounded to thousands
+                      'rounding-direction-error',      // Rounded up incorrectly
+                    ],
+                  },
+                },
               ]
             },
             {
