@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -28,10 +28,6 @@ function BenchmarkContent() {
   const [question, setQuestion] = useState<BenchmarkQuestion | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [transitioning, setTransitioning] = useState(false)
-
-  // Ref to track if we're blocking clicks - more reliable than state for rapid clicks
-  const blockingRef = useRef(false)
 
   useEffect(() => {
     const id = childIdParam || getSelectedChild()
@@ -145,27 +141,11 @@ function BenchmarkContent() {
     }
   }
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    // Use ref for immediate blocking - state updates are async
-    if (blockingRef.current || transitioning) return
-    blockingRef.current = true
-    setTransitioning(true)
-
-    // Update state after a brief delay to allow button to visually disable
-    setTimeout(() => {
-      setCurrentQuestion(prev => prev + 1)
-      setSelectedAnswer(null)
-      setShowResult(false)
-
-      // Allow answer selection after UI has updated
-      setTimeout(() => {
-        blockingRef.current = false
-        setTransitioning(false)
-      }, 400)
-    }, 50)
+  // Simple handleNext - matches learn page exactly
+  const handleNext = () => {
+    setCurrentQuestion(prev => prev + 1)
+    setSelectedAnswer(null)
+    setShowResult(false)
   }
 
   if (!started) {
@@ -256,16 +236,13 @@ function BenchmarkContent() {
       <div className="space-y-8">
         <h2 className="text-2xl font-semibold text-center">{currentQ.question}</h2>
 
-        <div className={`space-y-3 ${transitioning ? 'pointer-events-none opacity-50' : ''}`}>
+        {/* Options - exactly like learn page */}
+        <div className="space-y-3">
           {currentQ.options.map((option, index) => (
             <button
-              key={`${currentQuestion}-${index}`}
-              onClick={() => {
-                // Triple-check: ref, state, and showResult
-                if (blockingRef.current || transitioning || showResult) return
-                setSelectedAnswer(index)
-              }}
-              disabled={showResult || transitioning}
+              key={index}
+              onClick={() => !showResult && setSelectedAnswer(index)}
+              disabled={showResult}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 showResult
                   ? index === currentQ.correctAnswer
@@ -286,6 +263,7 @@ function BenchmarkContent() {
           ))}
         </div>
 
+        {/* Result - exactly like learn page */}
         {showResult ? (
           <div className="space-y-4">
             <div
