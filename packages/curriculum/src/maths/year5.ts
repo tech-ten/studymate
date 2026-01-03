@@ -2162,6 +2162,61 @@ The remainder's meaning depends on the situation:
                 'The remainder must always be less than the divisor',
                 'Context determines how to interpret the remainder'
               ],
+              knowledgeTokens: [
+                {
+                  id: 'division-basic',
+                  name: 'Basic Division',
+                  description: 'Dividing with no remainder',
+                },
+                {
+                  id: 'remainder-concept',
+                  name: 'Remainder Concept',
+                  description: 'Understanding what a remainder represents',
+                  prerequisites: ['division-basic'],
+                },
+                {
+                  id: 'calculating-remainder',
+                  name: 'Calculating Remainders',
+                  description: 'Finding the remainder after division',
+                  prerequisites: ['remainder-concept'],
+                },
+                {
+                  id: 'division-checking',
+                  name: 'Checking Division',
+                  description: 'Using multiplication to verify division answers',
+                  prerequisites: ['calculating-remainder'],
+                },
+                {
+                  id: 'long-division',
+                  name: 'Long Division Algorithm',
+                  description: 'Using the standard algorithm for larger dividends',
+                  prerequisites: ['division-basic'],
+                },
+                {
+                  id: 'remainder-interpretation-ignore',
+                  name: 'Interpreting Remainders - Ignore',
+                  description: 'Recognising when to ignore the remainder (full groups)',
+                  prerequisites: ['remainder-concept'],
+                },
+                {
+                  id: 'remainder-interpretation-roundup',
+                  name: 'Interpreting Remainders - Round Up',
+                  description: 'Recognising when to add one more (containers, buses)',
+                  prerequisites: ['remainder-concept'],
+                },
+                {
+                  id: 'remainder-interpretation-answer',
+                  name: 'Interpreting Remainders - As Answer',
+                  description: 'Recognising when the remainder is the answer (leftovers)',
+                  prerequisites: ['remainder-concept'],
+                },
+                {
+                  id: 'division-word-problems',
+                  name: 'Division Word Problems',
+                  description: 'Applying division to real-world contexts',
+                  prerequisites: ['remainder-concept'],
+                },
+              ],
               examples: [
                 {
                   problem: '87 ÷ 4',
@@ -2175,46 +2230,385 @@ The remainder's meaning depends on the situation:
                 }
               ],
               questions: [
+                // === BASIC DIVISION WITH REMAINDERS (1-5) ===
                 {
                   id: 'VCMNA184-001',
                   question: 'What is 47 ÷ 5?',
                   options: ['8 r 7', '9 r 2', '9 r 3', '10 r 3'],
                   correctAnswer: 1,
                   explanation: '5 × 9 = 45, and 47 - 45 = 2. So 47 ÷ 5 = 9 r 2',
-                  difficulty: 1
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['calculating-remainder', 'remainder-concept'],
+                    correctToken: 'calculating-remainder',
+                    incorrectTokens: [
+                      'remainder-too-large',             // Remainder can't be larger than divisor
+                      null,
+                      'remainder-calculation-error',     // Close but wrong
+                      'quotient-too-high',               // Quotient is too high
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA184-002',
-                  question: '83 students need to be divided into groups of 6. How many complete groups can be made?',
-                  options: ['12', '13', '14', '15'],
+                  question: 'What is 65 ÷ 8?',
+                  options: ['7 r 9', '8 r 1', '8 r 2', '9 r 1'],
                   correctAnswer: 1,
-                  explanation: '83 ÷ 6 = 13 r 5. There are 13 complete groups.',
-                  difficulty: 2
+                  explanation: '8 × 8 = 64, and 65 - 64 = 1. So 65 ÷ 8 = 8 r 1',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['calculating-remainder'],
+                    correctToken: 'calculating-remainder',
+                    incorrectTokens: [
+                      'remainder-too-large',             // Remainder can't exceed divisor
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'quotient-too-high',               // Wrong quotient
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA184-003',
+                  question: 'Calculate 93 ÷ 7.',
+                  options: ['12 r 9', '13 r 2', '13 r 3', '14 r 1'],
+                  correctAnswer: 1,
+                  explanation: '7 × 13 = 91, and 93 - 91 = 2. So 93 ÷ 7 = 13 r 2',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['calculating-remainder'],
+                    correctToken: 'calculating-remainder',
+                    incorrectTokens: [
+                      'remainder-too-large',             // Remainder exceeds divisor
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'quotient-too-high',               // Wrong quotient
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-004',
                   question: 'What is 156 ÷ 7?',
                   options: ['21 r 3', '22 r 2', '22 r 3', '23 r 1'],
                   correctAnswer: 1,
                   explanation: '7 × 22 = 154, and 156 - 154 = 2. So 156 ÷ 7 = 22 r 2',
-                  difficulty: 2
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['calculating-remainder', 'long-division'],
+                    correctToken: 'calculating-remainder',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Quotient is too low
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'quotient-too-high',               // Quotient is too high
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA184-004',
+                  id: 'VCMNA184-005',
+                  question: 'Calculate 247 ÷ 9.',
+                  options: ['26 r 7', '27 r 4', '27 r 5', '28 r 1'],
+                  correctAnswer: 1,
+                  explanation: '9 × 27 = 243, and 247 - 243 = 4. So 247 ÷ 9 = 27 r 4',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['calculating-remainder', 'long-division'],
+                    correctToken: 'long-division',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Quotient too low
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'quotient-too-high',               // Quotient too high
+                    ],
+                  },
+                },
+
+                // === CHECKING DIVISION (6-8) ===
+                {
+                  id: 'VCMNA184-006',
+                  question: 'If 173 ÷ 8 = 21 r ?, what is the remainder?',
+                  options: ['3', '4', '5', '6'],
+                  correctAnswer: 2,
+                  explanation: '8 × 21 = 168, and 173 - 168 = 5. The remainder is 5.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['division-checking', 'calculating-remainder'],
+                    correctToken: 'division-checking',
+                    incorrectTokens: [
+                      'checking-multiplication-error',   // Wrong 8×21
+                      'checking-subtraction-error',      // Wrong subtraction
+                      null,
+                      'checking-subtraction-error',      // Wrong subtraction
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-007',
+                  question: 'Check: Is 84 ÷ 6 = 13 r 6 correct?',
+                  options: [
+                    'Yes, it is correct',
+                    'No, the remainder is wrong',
+                    'No, the quotient is wrong',
+                    'No, both are wrong'
+                  ],
+                  correctAnswer: 3,
+                  explanation: 'Remainder 6 equals the divisor - impossible! 6 × 13 = 78. 84 - 78 = 6 would give r 6, but we must say 14 r 0 instead. Actually: 6 × 14 = 84 exactly!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['division-checking', 'remainder-concept'],
+                    correctToken: 'division-checking',
+                    incorrectTokens: [
+                      'checking-oversight',              // Didn't check properly
+                      'remainder-rule-error',            // Didn't know remainder must be < divisor
+                      'partial-checking',                // Only checked one thing
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-008',
+                  question: 'To check 95 ÷ 4 = 23 r 3, which calculation should you do?',
+                  options: [
+                    '95 - 4 = 91',
+                    '4 × 23 = 92',
+                    '4 × 23 + 3 = 95',
+                    '95 + 3 = 98'
+                  ],
+                  correctAnswer: 2,
+                  explanation: 'To check division: divisor × quotient + remainder should equal the dividend.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['division-checking'],
+                    correctToken: 'division-checking',
+                    incorrectTokens: [
+                      'checking-method-confusion',       // Wrong method
+                      'checking-incomplete',             // Forgot remainder
+                      null,
+                      'checking-method-confusion',       // Wrong method
+                    ],
+                  },
+                },
+
+                // === REMAINDER INTERPRETATION (9-14) ===
+                {
+                  id: 'VCMNA184-009',
+                  question: '83 students need to be divided into groups of 6. How many complete groups can be made?',
+                  options: ['12', '13', '14', '15'],
+                  correctAnswer: 1,
+                  explanation: '83 ÷ 6 = 13 r 5. There are 13 complete groups (we ignore the remainder).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['remainder-interpretation-ignore', 'division-word-problems'],
+                    correctToken: 'remainder-interpretation-ignore',
+                    incorrectTokens: [
+                      'remainder-interpretation-error',  // Rounded wrong way
+                      null,
+                      'remainder-included-error',        // Added 1 for remainder
+                      'division-calculation-error',      // Wrong division
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-010',
                   question: 'A baker has 200 cupcakes to put in boxes of 8. How many boxes does she need?',
                   options: ['24', '25', '26', '27'],
                   correctAnswer: 1,
                   explanation: '200 ÷ 8 = 25 exactly. She needs 25 boxes.',
-                  difficulty: 2
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['division-basic', 'division-word-problems'],
+                    correctToken: 'division-word-problems',
+                    incorrectTokens: [
+                      'division-calculation-error',      // Wrong calculation
+                      null,
+                      'unnecessary-roundup',             // Rounded up when not needed
+                      'division-calculation-error',      // Wrong calculation
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA184-005',
-                  question: 'If 173 ÷ 8 = 21 r ?, what is the remainder?',
-                  options: ['3', '4', '5', '6'],
+                  id: 'VCMNA184-011',
+                  question: '50 people need to travel in minibuses that hold 8 each. How many minibuses are needed?',
+                  options: ['6', '6 r 2', '7', '8'],
                   correctAnswer: 2,
-                  explanation: '8 × 21 = 168, and 173 - 168 = 5',
-                  difficulty: 3
-                }
+                  explanation: '50 ÷ 8 = 6 r 2. We need 7 buses because we can\'t leave 2 people behind!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['remainder-interpretation-roundup', 'division-word-problems'],
+                    correctToken: 'remainder-interpretation-roundup',
+                    incorrectTokens: [
+                      'remainder-interpretation-error',  // Ignored remainder when shouldn\'t
+                      'gave-calculation-not-answer',     // Gave division result, not answer
+                      null,
+                      'over-rounded',                    // Rounded up too much
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-012',
+                  question: 'You share 50 stickers among 8 friends equally. How many stickers are left over?',
+                  options: ['0', '2', '6', '8'],
+                  correctAnswer: 1,
+                  explanation: '50 ÷ 8 = 6 r 2. The remainder (2 stickers) is what\'s left over.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['remainder-interpretation-answer', 'division-word-problems'],
+                    correctToken: 'remainder-interpretation-answer',
+                    incorrectTokens: [
+                      'remainder-interpretation-error',  // Thought it divided evenly
+                      null,
+                      'quotient-not-remainder',          // Gave quotient instead
+                      'divisor-not-remainder',           // Gave divisor instead
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-013',
+                  question: 'Eggs come in cartons of 6. If you have 32 eggs, how many full cartons can you fill?',
+                  options: ['4', '5', '5 r 2', '6'],
+                  correctAnswer: 1,
+                  explanation: '32 ÷ 6 = 5 r 2. You can fill 5 full cartons (ignore the 2 leftover eggs).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['remainder-interpretation-ignore', 'division-word-problems'],
+                    correctToken: 'remainder-interpretation-ignore',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Wrong calculation
+                      null,
+                      'gave-calculation-not-answer',     // Gave full answer with remainder
+                      'remainder-included-error',        // Rounded up
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-014',
+                  question: '75 children need to cross a river. Each boat holds 8 children. How many boat trips are needed?',
+                  options: ['8', '9', '10', '11'],
+                  correctAnswer: 2,
+                  explanation: '75 ÷ 8 = 9 r 3. We need 10 trips because 3 children still need to cross!',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['remainder-interpretation-roundup', 'division-word-problems'],
+                    correctToken: 'remainder-interpretation-roundup',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Wrong calculation
+                      'remainder-interpretation-error',  // Ignored remainder
+                      null,
+                      'over-rounded',                    // Too many trips
+                    ],
+                  },
+                },
+
+                // === LARGER DIVISION (15-17) ===
+                {
+                  id: 'VCMNA184-015',
+                  question: 'What is 345 ÷ 6?',
+                  options: ['56 r 3', '57 r 3', '57 r 4', '58 r 1'],
+                  correctAnswer: 1,
+                  explanation: '6 × 57 = 342, and 345 - 342 = 3. So 345 ÷ 6 = 57 r 3',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['long-division', 'calculating-remainder'],
+                    correctToken: 'long-division',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Quotient too low
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'quotient-too-high',               // Quotient too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-016',
+                  question: 'Calculate 512 ÷ 7.',
+                  options: ['72 r 6', '73 r 1', '73 r 2', '74 r 0'],
+                  correctAnswer: 1,
+                  explanation: '7 × 73 = 511, and 512 - 511 = 1. So 512 ÷ 7 = 73 r 1',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['long-division'],
+                    correctToken: 'long-division',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Quotient too low
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'quotient-too-high',               // Quotient too high
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-017',
+                  question: 'What is 1,000 ÷ 6?',
+                  options: ['165 r 4', '166 r 4', '166 r 2', '167 r 0'],
+                  correctAnswer: 1,
+                  explanation: '6 × 166 = 996, and 1,000 - 996 = 4. So 1,000 ÷ 6 = 166 r 4',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['long-division'],
+                    correctToken: 'long-division',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Quotient too low
+                      null,
+                      'remainder-calculation-error',     // Wrong remainder
+                      'division-calculation-error',      // Wrong calculation
+                    ],
+                  },
+                },
+
+                // === WORD PROBLEMS (18-20) ===
+                {
+                  id: 'VCMNA184-018',
+                  question: 'A rope 175 cm long is cut into pieces of 8 cm each. How many pieces can be cut, and how much rope is left over?',
+                  options: ['21 pieces, 7 cm left', '21 pieces, 8 cm left', '22 pieces, 0 cm left', '22 pieces, 1 cm left'],
+                  correctAnswer: 0,
+                  explanation: '175 ÷ 8 = 21 r 7. So 21 pieces can be cut with 7 cm left over.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['division-word-problems', 'remainder-interpretation-answer'],
+                    correctToken: 'division-word-problems',
+                    incorrectTokens: [
+                      null,
+                      'remainder-too-large',             // Remainder can't equal divisor
+                      'remainder-interpretation-error',  // Thought it divided evenly
+                      'quotient-too-high',               // Wrong calculation
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-019',
+                  question: 'A factory produces 894 toys. They are packed in boxes of 9. How many boxes are completely filled?',
+                  options: ['98', '99', '100', '101'],
+                  correctAnswer: 1,
+                  explanation: '894 ÷ 9 = 99 r 3. 99 boxes are completely filled.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['division-word-problems', 'remainder-interpretation-ignore'],
+                    correctToken: 'division-word-problems',
+                    incorrectTokens: [
+                      'quotient-too-low',                // Wrong calculation
+                      null,
+                      'remainder-included-error',        // Rounded up
+                      'division-calculation-error',      // Wrong division
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA184-020',
+                  question: 'A school has 287 students going on an excursion. Each bus holds 45 students. How many buses are needed?',
+                  options: ['6', '6 r 17', '7', '8'],
+                  correctAnswer: 2,
+                  explanation: '287 ÷ 45 = 6 r 17. We need 7 buses because 17 students can\'t be left behind.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['division-word-problems', 'remainder-interpretation-roundup'],
+                    correctToken: 'remainder-interpretation-roundup',
+                    incorrectTokens: [
+                      'remainder-interpretation-error',  // Ignored remainder
+                      'gave-calculation-not-answer',     // Gave full division result
+                      null,
+                      'over-rounded',                    // Too many buses
+                    ],
+                  },
+                },
               ]
             }
           ]
