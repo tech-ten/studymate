@@ -3197,47 +3197,423 @@ Answer: **2.35 < 2.5 < 2.53**`,
                   explanation: '4.500 vs 4.125: The tenths digit 5 > 1'
                 }
               ],
+              knowledgeTokens: [
+                {
+                  id: 'decimal-place-value',
+                  name: 'Decimal Place Value',
+                  description: 'Understanding tenths, hundredths, thousandths positions',
+                  prerequisites: [],
+                },
+                {
+                  id: 'comparing-decimals',
+                  name: 'Comparing Decimals',
+                  description: 'Using place value to compare decimal numbers',
+                  prerequisites: ['decimal-place-value'],
+                },
+                {
+                  id: 'ordering-decimals',
+                  name: 'Ordering Decimals',
+                  description: 'Arranging multiple decimals from smallest to largest or vice versa',
+                  prerequisites: ['comparing-decimals'],
+                },
+                {
+                  id: 'decimal-fraction-equivalence',
+                  name: 'Decimal-Fraction Equivalence',
+                  description: 'Converting between common fractions and decimals',
+                  prerequisites: ['decimal-place-value'],
+                },
+                {
+                  id: 'decimal-addition',
+                  name: 'Decimal Addition',
+                  description: 'Adding decimals by aligning decimal points',
+                  prerequisites: ['decimal-place-value'],
+                },
+                {
+                  id: 'trailing-zeros-concept',
+                  name: 'Trailing Zeros Concept',
+                  description: 'Understanding that trailing zeros do not change decimal value',
+                  prerequisites: ['decimal-place-value'],
+                },
+                {
+                  id: 'decimal-number-line',
+                  name: 'Decimal Number Line',
+                  description: 'Placing and locating decimals on a number line',
+                  prerequisites: ['decimal-place-value', 'comparing-decimals'],
+                },
+                {
+                  id: 'rounding-decimals',
+                  name: 'Rounding Decimals',
+                  description: 'Rounding decimals to given decimal places',
+                  prerequisites: ['decimal-place-value'],
+                },
+              ],
               questions: [
+                // Questions 1-5: Decimal Place Value
                 {
                   id: 'VCMNA190-001',
                   question: 'What is the value of the 7 in 3.478?',
                   options: ['7', '0.7', '0.07', '0.007'],
                   correctAnswer: 2,
                   explanation: 'The 7 is in the hundredths place, so its value is 0.07',
-                  difficulty: 1
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['decimal-place-value'],
+                    correctToken: 'decimal-place-value',
+                    incorrectTokens: [
+                      'place-value-position-error',       // Ignored decimal completely
+                      'tenths-hundredths-confusion',      // Confused with tenths
+                      null,                                // Correct
+                      'hundredths-thousandths-confusion', // Confused with thousandths
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA190-002',
-                  question: 'Which decimal is largest?',
-                  options: ['0.9', '0.85', '0.095', '0.58'],
-                  correctAnswer: 0,
-                  explanation: 'Compare tenths: 9 > 8 > 5 > 0, so 0.9 is largest',
-                  difficulty: 1
+                  question: 'In the number 45.692, what digit is in the tenths place?',
+                  options: ['4', '5', '6', '9'],
+                  correctAnswer: 2,
+                  explanation: 'The tenths place is the first digit after the decimal point, which is 6.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['decimal-place-value'],
+                    correctToken: 'decimal-place-value',
+                    incorrectTokens: [
+                      'ones-tenths-confusion',            // Chose tens digit
+                      'ones-tenths-confusion',            // Chose ones digit
+                      null,                                // Correct
+                      'tenths-hundredths-confusion',      // Chose hundredths
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA190-003',
-                  question: 'Order these from smallest to largest: 2.05, 2.5, 2.005',
-                  options: ['2.005, 2.05, 2.5', '2.5, 2.05, 2.005', '2.05, 2.005, 2.5', '2.5, 2.005, 2.05'],
-                  correctAnswer: 0,
-                  explanation: '2.005 = 2.005, 2.05 = 2.050, 2.5 = 2.500. Comparing: 005 < 050 < 500',
-                  difficulty: 2
+                  question: 'What is the value of the 3 in 8.235?',
+                  options: ['3', '0.3', '0.03', '0.003'],
+                  correctAnswer: 2,
+                  explanation: 'The 3 is in the hundredths place (second position after decimal), so its value is 0.03.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['decimal-place-value'],
+                    correctToken: 'decimal-place-value',
+                    incorrectTokens: [
+                      'place-value-position-error',       // Ignored decimal
+                      'tenths-hundredths-confusion',      // Confused with tenths
+                      null,                                // Correct
+                      'hundredths-thousandths-confusion', // Confused with thousandths
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA190-004',
-                  question: 'Which decimal is equivalent to ¾?',
-                  options: ['0.34', '0.43', '0.75', '0.74'],
+                  question: 'Which number has a 5 in the thousandths place?',
+                  options: ['5.123', '1.523', '1.235', '1.253'],
                   correctAnswer: 2,
-                  explanation: '¾ = 3 ÷ 4 = 0.75',
-                  difficulty: 2
+                  explanation: 'In 1.235, the 5 is in the third position after the decimal point (thousandths place).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-place-value'],
+                    correctToken: 'decimal-place-value',
+                    incorrectTokens: [
+                      'ones-tenths-confusion',            // Confused ones with thousandths
+                      'tenths-hundredths-confusion',      // 5 is in tenths
+                      null,                                // Correct
+                      'hundredths-thousandths-confusion', // 5 is in hundredths
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA190-005',
+                  question: 'What is 0.4 + 0.08 + 0.003?',
+                  options: ['0.483', '0.0483', '4.83', '0.4083'],
+                  correctAnswer: 0,
+                  explanation: '0.4 (4 tenths) + 0.08 (8 hundredths) + 0.003 (3 thousandths) = 0.483',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-place-value', 'decimal-addition'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'decimal-point-alignment-error',    // Wrong alignment
+                      'decimal-point-alignment-error',    // Moved decimal incorrectly
+                      'place-value-position-error',       // Added extra zero
+                    ],
+                  },
+                },
+                // Questions 6-10: Comparing Decimals
+                {
+                  id: 'VCMNA190-006',
+                  question: 'Which decimal is largest?',
+                  options: ['0.9', '0.85', '0.095', '0.58'],
+                  correctAnswer: 0,
+                  explanation: 'Compare tenths first: 0.9 has 9 tenths, which is greater than 8, 5, or 0 tenths in the others.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['comparing-decimals'],
+                    correctToken: 'comparing-decimals',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'more-digits-larger-misconception', // Thought more digits = larger
+                      'more-digits-larger-misconception', // Thought more digits = larger
+                      'comparing-wrong-place-value',      // Compared wrong places
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-007',
+                  question: 'Which is greater: 0.6 or 0.42?',
+                  options: ['0.6', '0.42', 'They are equal', 'Cannot compare'],
+                  correctAnswer: 0,
+                  explanation: '0.6 = 0.60, and 60 hundredths > 42 hundredths, so 0.6 is greater.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['comparing-decimals', 'trailing-zeros-concept'],
+                    correctToken: 'comparing-decimals',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'more-digits-larger-misconception', // Thought 42 > 6
+                      'comparing-decimals-error',         // Thought equal
+                      'comparing-decimals-error',         // Didn't know how
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-008',
+                  question: 'Which decimal is smallest?',
+                  options: ['0.3', '0.33', '0.303', '0.033'],
+                  correctAnswer: 3,
+                  explanation: '0.033 = 33 thousandths is smallest. Compare: 0.033 < 0.3 < 0.303 < 0.33',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-decimals'],
+                    correctToken: 'comparing-decimals',
+                    incorrectTokens: [
+                      'fewer-digits-smaller-misconception', // Thought fewer digits = smaller
+                      'comparing-wrong-place-value',        // Compared wrong places
+                      'comparing-decimals-error',           // General error
+                      null,                                  // Correct
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-009',
+                  question: 'Which comparison is correct?',
+                  options: ['0.7 < 0.65', '0.08 > 0.8', '0.5 = 0.50', '0.12 > 0.2'],
+                  correctAnswer: 2,
+                  explanation: '0.5 and 0.50 are equal because trailing zeros don\'t change the value. 5 tenths = 50 hundredths.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-decimals', 'trailing-zeros-concept'],
+                    correctToken: 'trailing-zeros-concept',
+                    incorrectTokens: [
+                      'more-digits-larger-misconception', // Thought 65 > 7
+                      'place-value-position-error',       // Confused place values
+                      null,                                // Correct
+                      'more-digits-larger-misconception', // Thought 12 > 2
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-010',
+                  question: 'Which is the largest: 2.5, 2.05, or 2.505?',
+                  options: ['2.5', '2.05', '2.505', 'They are all equal'],
+                  correctAnswer: 2,
+                  explanation: 'Compare as 2.500, 2.050, 2.505. Looking at tenths: 5 = 5 > 0. Then comparing 2.5 and 2.505: 2.505 > 2.500',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-decimals'],
+                    correctToken: 'comparing-decimals',
+                    incorrectTokens: [
+                      'comparing-decimals-error',         // Stopped comparing too early
+                      'comparing-wrong-place-value',      // Wrong comparison
+                      null,                                // Correct
+                      'comparing-decimals-error',         // Thought equal
+                    ],
+                  },
+                },
+                // Questions 11-14: Ordering Decimals
+                {
+                  id: 'VCMNA190-011',
+                  question: 'Order these from smallest to largest: 2.05, 2.5, 2.005',
+                  options: ['2.005, 2.05, 2.5', '2.5, 2.05, 2.005', '2.05, 2.005, 2.5', '2.5, 2.005, 2.05'],
+                  correctAnswer: 0,
+                  explanation: 'Write as 2.005, 2.050, 2.500. Comparing thousandths: 005 < 050 < 500.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['ordering-decimals', 'trailing-zeros-concept'],
+                    correctToken: 'ordering-decimals',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'ordering-direction-error',         // Ordered largest to smallest
+                      'comparing-decimals-error',         // Wrong comparison
+                      'comparing-decimals-error',         // Mixed up order
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-012',
+                  question: 'Order from largest to smallest: 0.6, 0.06, 0.66',
+                  options: ['0.66, 0.6, 0.06', '0.06, 0.6, 0.66', '0.6, 0.66, 0.06', '0.6, 0.06, 0.66'],
+                  correctAnswer: 0,
+                  explanation: 'Compare as 0.60, 0.06, 0.66. The tenths: 6 = 6 > 0. Then 0.66 > 0.60, so 0.66, 0.6, 0.06',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['ordering-decimals'],
+                    correctToken: 'ordering-decimals',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'ordering-direction-error',         // Smallest to largest
+                      'comparing-decimals-error',         // Wrong order
+                      'comparing-decimals-error',         // Wrong order
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-013',
+                  question: 'Which list is in order from smallest to largest?',
+                  options: ['1.2, 1.02, 1.22', '1.02, 1.2, 1.22', '1.22, 1.2, 1.02', '1.02, 1.22, 1.2'],
+                  correctAnswer: 1,
+                  explanation: '1.02 < 1.20 < 1.22. The tenths: 0 < 2 = 2, then comparing hundredths: 0 < 2',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['ordering-decimals'],
+                    correctToken: 'ordering-decimals',
+                    incorrectTokens: [
+                      'comparing-decimals-error',         // Wrong order
+                      null,                                // Correct
+                      'ordering-direction-error',         // Reversed direction
+                      'comparing-decimals-error',         // Wrong order
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-014',
+                  question: 'Put in order from smallest to largest: 3.45, 3.405, 3.54, 3.045',
+                  options: ['3.045, 3.405, 3.45, 3.54', '3.045, 3.45, 3.405, 3.54', '3.405, 3.045, 3.45, 3.54', '3.54, 3.45, 3.405, 3.045'],
+                  correctAnswer: 0,
+                  explanation: 'Compare: 3.045 < 3.405 < 3.450 < 3.540. Compare tenths first (0 < 4 < 4 < 5), then hundredths.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['ordering-decimals'],
+                    correctToken: 'ordering-decimals',
+                    incorrectTokens: [
+                      null,                                // Correct
+                      'comparing-decimals-error',         // Wrong comparison
+                      'comparing-decimals-error',         // Wrong comparison
+                      'ordering-direction-error',         // Reversed direction
+                    ],
+                  },
+                },
+                // Questions 15-17: Decimal-Fraction Equivalence
+                {
+                  id: 'VCMNA190-015',
+                  question: 'Which decimal is equivalent to ¾?',
+                  options: ['0.34', '0.43', '0.75', '0.74'],
+                  correctAnswer: 2,
+                  explanation: '¾ = 3 ÷ 4 = 0.75. Three quarters means 75 hundredths.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-fraction-equivalence'],
+                    correctToken: 'decimal-fraction-equivalence',
+                    incorrectTokens: [
+                      'fraction-decimal-digit-confusion', // Just wrote 3 and 4
+                      'fraction-decimal-digit-confusion', // Reversed digits
+                      null,                                // Correct
+                      'fraction-decimal-digit-confusion', // Close but wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-016',
+                  question: 'What fraction is equal to 0.4?',
+                  options: ['¼', '⅖', '⅘', '4/100'],
+                  correctAnswer: 1,
+                  explanation: '0.4 = 4/10 = 2/5 (simplifying by dividing both by 2).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-fraction-equivalence'],
+                    correctToken: 'decimal-fraction-equivalence',
+                    incorrectTokens: [
+                      'decimal-fraction-equivalence-error', // ¼ = 0.25
+                      null,                                  // Correct
+                      'decimal-fraction-equivalence-error', // ⅘ = 0.8
+                      'simplifying-fractions-error',        // Didn't simplify
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-017',
+                  question: 'Which decimal is equal to ⅕?',
+                  options: ['0.15', '0.2', '0.5', '0.25'],
+                  correctAnswer: 1,
+                  explanation: '⅕ = 1 ÷ 5 = 0.2. One fifth is 2 tenths.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-fraction-equivalence'],
+                    correctToken: 'decimal-fraction-equivalence',
+                    incorrectTokens: [
+                      'fraction-decimal-digit-confusion', // Just wrote digits
+                      null,                                // Correct
+                      'decimal-fraction-equivalence-error', // Confused with ½
+                      'decimal-fraction-equivalence-error', // Confused with ¼
+                    ],
+                  },
+                },
+                // Questions 18-19: Number Line and Rounding
+                {
+                  id: 'VCMNA190-018',
+                  question: 'Which decimal is closest to 3 on a number line?',
+                  options: ['2.4', '2.89', '3.15', '3.02'],
+                  correctAnswer: 3,
+                  explanation: 'Distance from 3: 2.4 is 0.6 away, 2.89 is 0.11 away, 3.15 is 0.15 away, 3.02 is 0.02 away. 3.02 is closest.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['decimal-number-line', 'comparing-decimals'],
+                    correctToken: 'decimal-number-line',
+                    incorrectTokens: [
+                      'decimal-number-line-error',        // Furthest away
+                      'decimal-number-line-error',        // Close but not closest
+                      'decimal-number-line-error',        // Close but not closest
+                      null,                                // Correct
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA190-019',
+                  question: 'Round 4.678 to one decimal place.',
+                  options: ['4.6', '4.7', '5.0', '4.68'],
+                  correctAnswer: 1,
+                  explanation: 'Look at the hundredths digit (7). Since 7 ≥ 5, round up the tenths digit: 4.678 ≈ 4.7',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['rounding-decimals', 'decimal-place-value'],
+                    correctToken: 'rounding-decimals',
+                    incorrectTokens: [
+                      'rounding-direction-error',         // Rounded down incorrectly
+                      null,                                // Correct
+                      'rounding-place-error',             // Rounded to wrong place
+                      'rounding-place-error',             // Rounded to 2 decimal places
+                    ],
+                  },
+                },
+                // Question 20: Decimal Addition
+                {
+                  id: 'VCMNA190-020',
                   question: 'What is 2.8 + 0.35?',
                   options: ['2.115', '3.15', '2.43', '3.05'],
                   correctAnswer: 1,
-                  explanation: '2.80 + 0.35 = 3.15 (line up decimal points)',
-                  difficulty: 3
-                }
+                  explanation: 'Line up decimal points: 2.80 + 0.35 = 3.15. Add hundredths (0+5=5), tenths (8+3=11, carry 1), ones (2+0+1=3).',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['decimal-addition'],
+                    correctToken: 'decimal-addition',
+                    incorrectTokens: [
+                      'decimal-point-alignment-error',    // Misaligned
+                      null,                                // Correct
+                      'decimal-point-alignment-error',    // Misaligned
+                      'decimal-addition-carry-error',     // Forgot to carry
+                    ],
+                  },
+                },
               ]
             }
           ]
