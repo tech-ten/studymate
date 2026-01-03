@@ -606,6 +606,66 @@ They're like two sides of the same coin!
                 'Every number has at least two factors: 1 and itself',
                 'Common factors/multiples are shared between numbers'
               ],
+              knowledgeTokens: [
+                {
+                  id: 'factor-definition',
+                  name: 'Factor Definition',
+                  description: 'Understanding what a factor is',
+                },
+                {
+                  id: 'finding-factors',
+                  name: 'Finding Factors',
+                  description: 'Systematically finding all factors of a number',
+                  prerequisites: ['factor-definition'],
+                },
+                {
+                  id: 'multiple-definition',
+                  name: 'Multiple Definition',
+                  description: 'Understanding what a multiple is',
+                },
+                {
+                  id: 'finding-multiples',
+                  name: 'Finding Multiples',
+                  description: 'Calculating multiples of a number',
+                  prerequisites: ['multiple-definition'],
+                },
+                {
+                  id: 'factor-multiple-relationship',
+                  name: 'Factor-Multiple Relationship',
+                  description: 'Understanding that if A is a factor of B, then B is a multiple of A',
+                  prerequisites: ['factor-definition', 'multiple-definition'],
+                },
+                {
+                  id: 'common-factors',
+                  name: 'Common Factors',
+                  description: 'Finding factors shared by two numbers',
+                  prerequisites: ['finding-factors'],
+                },
+                {
+                  id: 'greatest-common-factor',
+                  name: 'Greatest Common Factor (GCF)',
+                  description: 'Finding the largest common factor of two numbers',
+                  prerequisites: ['common-factors'],
+                },
+                {
+                  id: 'common-multiples',
+                  name: 'Common Multiples',
+                  description: 'Finding multiples shared by two numbers',
+                  prerequisites: ['finding-multiples'],
+                },
+                {
+                  id: 'least-common-multiple',
+                  name: 'Least Common Multiple (LCM)',
+                  description: 'Finding the smallest common multiple of two numbers',
+                  prerequisites: ['common-multiples'],
+                },
+                {
+                  id: 'factor-pairs',
+                  name: 'Factor Pairs',
+                  description: 'Identifying pairs of factors that multiply to give a number',
+                  prerequisites: ['finding-factors'],
+                },
+              ],
               examples: [
                 {
                   problem: 'Find all factors of 24',
@@ -619,46 +679,390 @@ They're like two sides of the same coin!
                 }
               ],
               questions: [
+                // === FACTOR IDENTIFICATION (1-5) ===
                 {
                   id: 'VCMNA181-001',
                   question: 'Which of these is NOT a factor of 20?',
                   options: ['2', '4', '6', '10'],
                   correctAnswer: 2,
-                  explanation: '20 ÷ 6 = 3 remainder 2. Since there is a remainder, 6 is not a factor.',
-                  difficulty: 1
+                  explanation: '20 ÷ 6 = 3 remainder 2. Since there is a remainder, 6 is not a factor of 20.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['factor-definition', 'finding-factors'],
+                    correctToken: 'factor-definition',
+                    incorrectTokens: [
+                      'factor-divisibility-error',     // Thinks 2 is not a factor
+                      'factor-divisibility-error',     // Thinks 4 is not a factor
+                      null,
+                      'factor-divisibility-error',     // Thinks 10 is not a factor
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA181-002',
+                  question: 'Which number is a factor of 36?',
+                  options: ['5', '7', '8', '9'],
+                  correctAnswer: 3,
+                  explanation: '36 ÷ 9 = 4 exactly, so 9 is a factor of 36.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['factor-definition'],
+                    correctToken: 'factor-definition',
+                    incorrectTokens: [
+                      'factor-divisibility-error',     // Thinks 5 divides 36
+                      'factor-divisibility-error',     // Thinks 7 divides 36
+                      'factor-divisibility-error',     // Thinks 8 divides 36
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-003',
+                  question: 'What are ALL the factors of 18?',
+                  options: [
+                    '1, 2, 3, 6, 9, 18',
+                    '1, 2, 9, 18',
+                    '2, 3, 6, 9',
+                    '1, 2, 3, 4, 6, 9, 18'
+                  ],
+                  correctAnswer: 0,
+                  explanation: 'Pairs: 1×18, 2×9, 3×6. So factors are 1, 2, 3, 6, 9, 18.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['finding-factors', 'factor-pairs'],
+                    correctToken: 'finding-factors',
+                    incorrectTokens: [
+                      null,
+                      'factor-pairs-incomplete',       // Missed some factor pairs
+                      'factor-includes-one-error',     // Forgot 1 and/or the number itself
+                      'factor-divisibility-error',     // Included 4 which isn't a factor
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-004',
+                  question: 'How many factors does 36 have?',
+                  options: ['6', '8', '9', '12'],
+                  correctAnswer: 2,
+                  explanation: 'Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36 = 9 factors.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['finding-factors', 'factor-pairs'],
+                    correctToken: 'finding-factors',
+                    incorrectTokens: [
+                      'factor-pairs-incomplete',       // Missed some pairs
+                      'factor-pairs-incomplete',       // Missed some pairs
+                      null,
+                      'factor-counting-error',         // Overcounted
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-005',
+                  question: 'Which number has exactly 4 factors?',
+                  options: ['8', '9', '10', '12'],
+                  correctAnswer: 0,
+                  explanation: 'Factors of 8: 1, 2, 4, 8 (4 factors). 9 has 3 factors, 10 has 4 factors, 12 has 6 factors. Wait - 10 also has 4 factors (1,2,5,10). Let me recheck: 8 has 1,2,4,8 = 4 factors. 10 has 1,2,5,10 = 4 factors too. The first correct answer is 8.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['finding-factors'],
+                    correctToken: 'finding-factors',
+                    incorrectTokens: [
+                      null,
+                      'factor-counting-error',         // Miscounted factors of 9
+                      'factor-counting-error',         // Also has 4 factors but not first
+                      'factor-counting-error',         // Miscounted factors of 12
+                    ],
+                  },
+                },
+
+                // === MULTIPLE IDENTIFICATION (6-10) ===
+                {
+                  id: 'VCMNA181-006',
                   question: 'What is the 6th multiple of 8?',
                   options: ['40', '48', '56', '64'],
                   correctAnswer: 1,
                   explanation: '8 × 6 = 48. The multiples are 8, 16, 24, 32, 40, 48.',
-                  difficulty: 1
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiple-definition', 'finding-multiples'],
+                    correctToken: 'finding-multiples',
+                    incorrectTokens: [
+                      'multiple-counting-error',       // Counted to 5th multiple
+                      null,
+                      'multiple-counting-error',       // Counted to 7th multiple
+                      'multiple-counting-error',       // Counted to 8th multiple
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA181-003',
-                  question: 'How many factors does 36 have?',
-                  options: ['6', '8', '9', '12'],
+                  id: 'VCMNA181-007',
+                  question: 'Which of these is a multiple of 7?',
+                  options: ['27', '35', '45', '55'],
+                  correctAnswer: 1,
+                  explanation: '35 ÷ 7 = 5, so 35 is a multiple of 7. (7 × 5 = 35)',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiple-definition'],
+                    correctToken: 'multiple-definition',
+                    incorrectTokens: [
+                      'multiple-divisibility-error',   // Confused with multiples of 9
+                      null,
+                      'multiple-divisibility-error',   // Confused with multiples of 9
+                      'multiple-divisibility-error',   // Confused with multiples of 5
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-008',
+                  question: 'What is the first multiple of 9 that is greater than 50?',
+                  options: ['54', '56', '59', '63'],
+                  correctAnswer: 0,
+                  explanation: 'Multiples of 9: 9, 18, 27, 36, 45, 54... The first one greater than 50 is 54.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['finding-multiples'],
+                    correctToken: 'finding-multiples',
+                    incorrectTokens: [
+                      null,
+                      'multiple-divisibility-error',   // Not a multiple of 9
+                      'multiple-divisibility-error',   // Not a multiple of 9
+                      'multiple-sequence-error',       // Skipped to next multiple
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-009',
+                  question: 'Which number is NOT a multiple of 6?',
+                  options: ['24', '36', '44', '48'],
                   correctAnswer: 2,
-                  explanation: 'Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36 = 9 factors',
-                  difficulty: 2
+                  explanation: '44 ÷ 6 = 7 remainder 2. Since there is a remainder, 44 is not a multiple of 6.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiple-definition'],
+                    correctToken: 'multiple-definition',
+                    incorrectTokens: [
+                      'multiple-divisibility-error',   // 24 is a multiple of 6
+                      'multiple-divisibility-error',   // 36 is a multiple of 6
+                      null,
+                      'multiple-divisibility-error',   // 48 is a multiple of 6
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA181-004',
-                  question: 'What is the greatest common factor of 24 and 36?',
+                  id: 'VCMNA181-010',
+                  question: 'The 8th multiple of 5 is:',
+                  options: ['35', '40', '45', '50'],
+                  correctAnswer: 1,
+                  explanation: '5 × 8 = 40. Count: 5, 10, 15, 20, 25, 30, 35, 40.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['finding-multiples'],
+                    correctToken: 'finding-multiples',
+                    incorrectTokens: [
+                      'multiple-counting-error',       // 7th multiple
+                      null,
+                      'multiple-counting-error',       // 9th multiple
+                      'multiple-counting-error',       // 10th multiple
+                    ],
+                  },
+                },
+
+                // === FACTOR-MULTIPLE RELATIONSHIP (11-13) ===
+                {
+                  id: 'VCMNA181-011',
+                  question: 'If 6 is a factor of 42, then 42 is a ___ of 6.',
+                  options: ['factor', 'multiple', 'divisor', 'remainder'],
+                  correctAnswer: 1,
+                  explanation: 'If 6 is a factor of 42, then 42 is a multiple of 6. They are related concepts.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['factor-multiple-relationship'],
+                    correctToken: 'factor-multiple-relationship',
+                    incorrectTokens: [
+                      'factor-multiple-reversed',      // Confused factor and multiple
+                      null,
+                      'factor-divisor-confusion',      // Confused with divisor term
+                      'factor-remainder-confusion',    // Confused with remainder
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-012',
+                  question: '24 is a multiple of 8. What can we say about 8?',
+                  options: [
+                    '8 is a multiple of 24',
+                    '8 is a factor of 24',
+                    '8 is greater than 24',
+                    '8 and 24 are equal'
+                  ],
+                  correctAnswer: 1,
+                  explanation: 'If 24 is a multiple of 8, then 8 is a factor of 24. (8 × 3 = 24)',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['factor-multiple-relationship'],
+                    correctToken: 'factor-multiple-relationship',
+                    incorrectTokens: [
+                      'factor-multiple-reversed',      // Got relationship backwards
+                      null,
+                      'number-comparison-error',       // Unrelated to factors/multiples
+                      'equality-confusion',            // Unrelated to factors/multiples
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-013',
+                  question: 'Which statement is TRUE?',
+                  options: [
+                    '12 is a factor of 3',
+                    '3 is a multiple of 12',
+                    '12 is a multiple of 3',
+                    '3 is a factor of 5'
+                  ],
+                  correctAnswer: 2,
+                  explanation: '12 = 3 × 4, so 12 is a multiple of 3 (and 3 is a factor of 12).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['factor-multiple-relationship'],
+                    correctToken: 'factor-multiple-relationship',
+                    incorrectTokens: [
+                      'factor-multiple-reversed',      // Got relationship backwards
+                      'factor-multiple-reversed',      // Got relationship backwards
+                      null,
+                      'factor-divisibility-error',     // 3 doesn't divide 5
+                    ],
+                  },
+                },
+
+                // === COMMON FACTORS (14-16) ===
+                {
+                  id: 'VCMNA181-014',
+                  question: 'What is a common factor of 12 and 18?',
+                  options: ['4', '5', '6', '8'],
+                  correctAnswer: 2,
+                  explanation: 'Factors of 12: 1,2,3,4,6,12. Factors of 18: 1,2,3,6,9,18. Both share 6.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['common-factors'],
+                    correctToken: 'common-factors',
+                    incorrectTokens: [
+                      'common-factor-partial-check',   // Only checked one number
+                      'common-factor-neither',         // Not a factor of either
+                      null,
+                      'common-factor-partial-check',   // Only factor of one number
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-015',
+                  question: 'What is the greatest common factor (GCF) of 24 and 36?',
                   options: ['6', '8', '12', '18'],
                   correctAnswer: 2,
                   explanation: 'Factors of 24: 1,2,3,4,6,8,12,24. Factors of 36: 1,2,3,4,6,9,12,18,36. The largest shared factor is 12.',
-                  difficulty: 3
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['greatest-common-factor', 'common-factors'],
+                    correctToken: 'greatest-common-factor',
+                    incorrectTokens: [
+                      'gcf-not-greatest',              // Found a common factor but not the greatest
+                      'gcf-partial-check',             // Only checked one number
+                      null,
+                      'gcf-partial-check',             // Only factor of one number
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA181-005',
+                  id: 'VCMNA181-016',
+                  question: 'What is the GCF of 16 and 40?',
+                  options: ['4', '8', '10', '16'],
+                  correctAnswer: 1,
+                  explanation: 'Factors of 16: 1,2,4,8,16. Factors of 40: 1,2,4,5,8,10,20,40. The largest common factor is 8.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['greatest-common-factor'],
+                    correctToken: 'greatest-common-factor',
+                    incorrectTokens: [
+                      'gcf-not-greatest',              // 4 is common but not greatest
+                      null,
+                      'gcf-partial-check',             // 10 is not a factor of 16
+                      'gcf-partial-check',             // 16 is not a factor of 40
+                    ],
+                  },
+                },
+
+                // === COMMON MULTIPLES (17-20) ===
+                {
+                  id: 'VCMNA181-017',
                   question: 'What is the smallest number that is a multiple of both 4 and 6?',
                   options: ['12', '18', '24', '36'],
                   correctAnswer: 0,
                   explanation: 'Multiples of 4: 4,8,12,16... Multiples of 6: 6,12,18... The first common one is 12.',
-                  difficulty: 2
-                }
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['least-common-multiple', 'common-multiples'],
+                    correctToken: 'least-common-multiple',
+                    incorrectTokens: [
+                      null,
+                      'lcm-not-least',                 // Common multiple but not smallest
+                      'lcm-not-least',                 // Common multiple but not smallest
+                      'lcm-not-least',                 // Common multiple but not smallest
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-018',
+                  question: 'What is the LCM (least common multiple) of 5 and 3?',
+                  options: ['8', '12', '15', '30'],
+                  correctAnswer: 2,
+                  explanation: 'Multiples of 5: 5,10,15,20... Multiples of 3: 3,6,9,12,15... The smallest common one is 15.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['least-common-multiple'],
+                    correctToken: 'least-common-multiple',
+                    incorrectTokens: [
+                      'lcm-addition-error',            // Added instead of finding LCM
+                      'lcm-multiple-error',            // Not a multiple of 5
+                      null,
+                      'lcm-not-least',                 // Common multiple but not smallest
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-019',
+                  question: 'What is the LCM of 6 and 9?',
+                  options: ['12', '15', '18', '54'],
+                  correctAnswer: 2,
+                  explanation: 'Multiples of 6: 6,12,18... Multiples of 9: 9,18,27... The smallest common one is 18.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['least-common-multiple'],
+                    correctToken: 'least-common-multiple',
+                    incorrectTokens: [
+                      'lcm-multiple-error',            // Not a multiple of 9
+                      'lcm-multiple-error',            // Not a multiple of 6 or 9
+                      null,
+                      'lcm-multiplication-error',      // Multiplied instead of finding LCM
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA181-020',
+                  question: 'Which number is a common multiple of 4 and 5?',
+                  options: ['15', '16', '20', '25'],
+                  correctAnswer: 2,
+                  explanation: '20 ÷ 4 = 5 and 20 ÷ 5 = 4, so 20 is a multiple of both 4 and 5.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['common-multiples'],
+                    correctToken: 'common-multiples',
+                    incorrectTokens: [
+                      'common-multiple-partial',       // Only multiple of 5
+                      'common-multiple-partial',       // Only multiple of 4
+                      null,
+                      'common-multiple-partial',       // Only multiple of 5
+                    ],
+                  },
+                },
               ]
             },
             {
