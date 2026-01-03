@@ -628,7 +628,30 @@ export interface SubscriptionStatus {
   requiresUpgrade: boolean; // True if 60 days passed and must upgrade to Scholar/Achiever
 }
 
-export async function createCheckoutSession(plan: 'explorer' | 'scholar' | 'achiever'): Promise<{ sessionId: string; url: string }> {
+export async function createCheckoutSession(
+  plan: 'explorer' | 'scholar' | 'achiever',
+  token?: string
+): Promise<{ sessionId: string; url: string }> {
+  // If token is provided, use it directly (avoids race condition after login)
+  if (token) {
+    const response = await fetch(`${API_BASE}/payments/create-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ plan }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(error.error || error.message || `HTTP ${response.status}`);
+    }
+
+    return response.json();
+  }
+
+  // Default: use apiFetch which retrieves token from session
   return apiFetch('/payments/create-checkout', {
     method: 'POST',
     body: JSON.stringify({ plan }),

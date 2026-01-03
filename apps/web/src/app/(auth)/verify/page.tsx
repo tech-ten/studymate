@@ -10,8 +10,10 @@ function VerifyForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const email = searchParams.get('email') || ''
+  const urlPlan = searchParams.get('plan') || ''
 
   const [code, setCode] = useState('')
+  const [plan, setPlan] = useState(urlPlan)
   const [loading, setLoading] = useState(false)
   const [resending, setResending] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -20,8 +22,14 @@ function VerifyForm() {
   useEffect(() => {
     if (!email) {
       router.push('/register')
+      return
     }
-  }, [email, router])
+    // Get plan from URL or session storage
+    const storedPlan = sessionStorage.getItem('signup_plan')
+    if (!urlPlan && storedPlan) {
+      setPlan(storedPlan)
+    }
+  }, [email, router, urlPlan])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,10 +38,15 @@ function VerifyForm() {
 
     try {
       await confirmSignUp(email, code)
-      setSuccess('Email verified! Redirecting to choose your plan...')
+      setSuccess('Email verified! Redirecting to complete setup...')
+
+      // Get the plan to pass to checkout
+      const selectedPlan = plan || sessionStorage.getItem('signup_plan') || 'scholar'
+
       setTimeout(() => {
-        // Redirect to login, which will then redirect to pricing with Scholar pre-selected
-        router.push('/login?redirect=/pricing?plan=scholar')
+        // Redirect to login with checkout=true param
+        // This tells login to go directly to checkout after auth
+        router.push(`/login?checkout=${selectedPlan}&email=${encodeURIComponent(email)}`)
       }, 1500)
     } catch (err) {
       console.error('Verification failed:', err)
@@ -58,6 +71,12 @@ function VerifyForm() {
     }
   }
 
+  const planNames: Record<string, string> = {
+    explorer: 'Explorer',
+    scholar: 'Scholar',
+    achiever: 'Achiever',
+  }
+
   return (
     <div className="w-full max-w-sm">
       <div className="text-center mb-10">
@@ -68,6 +87,11 @@ function VerifyForm() {
         <p className="text-neutral-500">
           We sent a code to <span className="text-black">{email}</span>
         </p>
+        {plan && (
+          <p className="text-sm text-neutral-400 mt-2">
+            Selected plan: <span className="font-medium text-neutral-600">{planNames[plan] || plan}</span>
+          </p>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -81,6 +105,7 @@ function VerifyForm() {
             value={code}
             onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
             required
+            autoFocus
             maxLength={6}
             className="w-full px-4 py-4 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all text-center text-2xl tracking-[0.5em] font-mono"
             placeholder="000000"
@@ -121,8 +146,8 @@ function VerifyForm() {
         </p>
         <p className="text-sm text-neutral-500">
           Wrong email?{' '}
-          <Link href="/register" className="text-black font-medium hover:underline">
-            Go back
+          <Link href="/get-started" className="text-black font-medium hover:underline">
+            Start over
           </Link>
         </p>
       </div>

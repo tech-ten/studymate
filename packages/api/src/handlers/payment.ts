@@ -298,12 +298,21 @@ async function updateUserTier(
 ): Promise<void> {
   const now = new Date().toISOString();
 
+  // Determine status based on tier
+  // - 'free' tier with no subscription = 'verified' (or 'cancelled' if previously had subscription)
+  // - paid tier = 'active'
+  const status = tier === 'free' ? 'cancelled' : 'active';
+
   // Build update expression dynamically
   // Use if_not_exists for createdAt to preserve it if profile already exists
   // This gracefully handles both new and existing profiles
-  let updateExpr = 'SET tier = :tier, stripeSubscriptionId = :subId, updatedAt = :now, createdAt = if_not_exists(createdAt, :now)';
+  let updateExpr = 'SET tier = :tier, #status = :status, stripeSubscriptionId = :subId, updatedAt = :now, createdAt = if_not_exists(createdAt, :now)';
+  const exprNames: Record<string, string> = {
+    '#status': 'status', // 'status' is a reserved word
+  };
   const exprValues: Record<string, unknown> = {
     ':tier': tier,
+    ':status': status,
     ':subId': subscriptionId,
     ':now': now,
   };
@@ -314,12 +323,18 @@ async function updateUserTier(
     exprValues[':custId'] = customerId;
   }
 
+  // Set subscribedAt timestamp on first subscription
+  if (status === 'active') {
+    updateExpr += ', subscribedAt = if_not_exists(subscribedAt, :now)';
+  }
+
   await db.send(new UpdateCommand({
     TableName: TABLE_NAME,
     Key: { PK: `USER#${userId}`, SK: 'PROFILE' },
     UpdateExpression: updateExpr,
+    ExpressionAttributeNames: exprNames,
     ExpressionAttributeValues: exprValues,
   }));
 
-  console.log(`Updated user ${userId} to tier ${tier}${customerId ? ` with customer ${customerId}` : ''}`);
+  console.log(`Updated user ${userId} to tier ${tier}, status ${status}${customerId ? `, customer ${customerId}` : ''}`);
 }

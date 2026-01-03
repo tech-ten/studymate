@@ -146,16 +146,23 @@ function BenchmarkContent() {
     e.preventDefault()
     e.stopPropagation()
 
-    // Prevent click-through to answer options by blocking selection briefly
-    setTransitioning(true)
-    setCurrentQuestion(prev => prev + 1)
-    setSelectedAnswer(null)
-    setShowResult(false)
+    // Already transitioning - ignore
+    if (transitioning) return
 
-    // Allow answer selection after a short delay to prevent accidental clicks
-    setTimeout(() => {
-      setTransitioning(false)
-    }, 300)
+    // Block all interactions during transition
+    setTransitioning(true)
+
+    // Use requestAnimationFrame to ensure state updates are batched
+    requestAnimationFrame(() => {
+      setCurrentQuestion(prev => prev + 1)
+      setSelectedAnswer(null)
+      setShowResult(false)
+
+      // Allow answer selection after delay to prevent accidental clicks
+      setTimeout(() => {
+        setTransitioning(false)
+      }, 500)
+    })
   }
 
   if (!started) {
@@ -246,10 +253,10 @@ function BenchmarkContent() {
       <div className="space-y-8">
         <h2 className="text-2xl font-semibold text-center">{currentQ.question}</h2>
 
-        <div className="space-y-3">
+        <div className={`space-y-3 ${transitioning ? 'pointer-events-none opacity-50' : ''}`}>
           {currentQ.options.map((option, index) => (
             <button
-              key={index}
+              key={`${currentQuestion}-${index}`}
               onClick={() => !showResult && !transitioning && setSelectedAnswer(index)}
               disabled={showResult || transitioning}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${

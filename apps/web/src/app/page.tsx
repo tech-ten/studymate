@@ -20,7 +20,7 @@ export default function Home() {
             <Link href="/login" className="text-sm text-neutral-600 hover:text-black transition-colors">
               Sign in
             </Link>
-            <Link href="/pricing?plan=scholar">
+            <Link href="/get-started">
               <Button size="sm" className="rounded-full px-4">
                 Get Started
               </Button>
@@ -40,7 +40,7 @@ export default function Home() {
             Instant feedback, adaptive difficulty, and explanations that make sense.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/pricing?plan=scholar">
+            <Link href="/get-started">
               <Button size="lg" className="rounded-full px-8 h-12 text-base">
                 Start free trial
               </Button>
@@ -184,7 +184,7 @@ export default function Home() {
                   Basic progress tracking
                 </li>
               </ul>
-              <Link href="/pricing?plan=explorer" className="block">
+              <Link href="/get-started" className="block">
                 <Button variant="outline" className="w-full rounded-full">
                   Start Free Trial
                 </Button>
@@ -232,7 +232,7 @@ export default function Home() {
                   Concept mastery tracking
                 </li>
               </ul>
-              <Link href="/pricing?plan=scholar" className="block">
+              <Link href="/get-started" className="block">
                 <Button className="w-full rounded-full">
                   Start free trial
                 </Button>
@@ -272,7 +272,7 @@ export default function Home() {
                   Priority support
                 </li>
               </ul>
-              <Link href="/pricing?plan=achiever" className="block">
+              <Link href="/get-started" className="block">
                 <Button variant="outline" className="w-full rounded-full">
                   Start free trial
                 </Button>
@@ -291,7 +291,7 @@ export default function Home() {
           <p className="text-lg text-neutral-400 mb-8">
             Join thousands of Australian families already using StudyMate.
           </p>
-          <Link href="/pricing?plan=scholar">
+          <Link href="/get-started">
             <Button size="lg" variant="secondary" className="rounded-full px-8 h-12 text-base">
               Get started free
             </Button>
@@ -324,7 +324,7 @@ export default function Home() {
                 <li><Link href="#features" className="hover:text-black transition-colors">Features</Link></li>
                 <li><Link href="#pricing" className="hover:text-black transition-colors">Pricing</Link></li>
                 <li><Link href="/login" className="hover:text-black transition-colors">Sign In</Link></li>
-                <li><Link href="/pricing?plan=scholar" className="hover:text-black transition-colors">Get Started</Link></li>
+                <li><Link href="/get-started" className="hover:text-black transition-colors">Get Started</Link></li>
               </ul>
             </div>
 

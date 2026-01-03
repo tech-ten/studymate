@@ -9,13 +9,14 @@ This document provides a comprehensive guide to the user management system in St
 ## Table of Contents
 
 1. [Architecture Overview](#architecture-overview)
-2. [User Types](#user-types)
-3. [Authentication Flow](#authentication-flow)
-4. [Subscription Tiers](#subscription-tiers)
-5. [Complete User Journeys](#complete-user-journeys)
-6. [File Reference](#file-reference)
-7. [Common Pitfalls](#common-pitfalls)
-8. [Future Enhancements](#future-enhancements)
+2. [Data Models](#data-models)
+3. [User Types](#user-types)
+4. [Authentication Flow](#authentication-flow)
+5. [Subscription Tiers](#subscription-tiers)
+6. [Complete User Journeys](#complete-user-journeys)
+7. [File Reference](#file-reference)
+8. [Common Pitfalls](#common-pitfalls)
+9. [Future Enhancements](#future-enhancements)
 
 ---
 
@@ -49,6 +50,136 @@ This document provides a comprehensive guide to the user management system in St
 │  └── Stripe             # Payment processing                                │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Data Models
+
+### Cognito User Attributes (Authentication)
+
+Cognito is the **authentication** layer. It stores:
+
+| Attribute | Type | Description | Set By |
+|-----------|------|-------------|--------|
+| `sub` | string | Unique user ID (UUID) | Cognito (auto) |
+| `email` | string | User's email address | User (signup) |
+| `email_verified` | boolean | Whether email is verified | Cognito (auto) |
+| `name` | string | User's display name | User (signup) |
+| `custom:tier` | string | Subscription tier (legacy, not used) | - |
+
+### DynamoDB User Profile (Application Data)
+
+DynamoDB is the **application data** layer. It stores the complete user profile:
+
+```typescript
+// PK: USER#<userId>  SK: PROFILE
+interface UserProfile {
+  PK: string;                    // "USER#<cognito-sub>"
+  SK: "PROFILE";
+
+  // Identity
+  email: string;                 // User's email
+  name: string | null;           // Display name from Cognito
+
+  // Subscription Status
+  tier: "free" | "explorer" | "scholar" | "achiever";
+  status: "unverified" | "verified" | "active" | "cancelled";
+
+  // Timestamps
+  createdAt: string;             // When profile was created (ISO 8601)
+  updatedAt: string;             // Last modification (ISO 8601)
+  verifiedAt: string | null;     // When email was verified
+  subscribedAt: string | null;   // When first subscription started
+
+  // Stripe Integration
+  stripeCustomerId: string | null;     // Stripe customer ID
+  stripeSubscriptionId: string | null; // Active subscription ID
+
+  // Rate Limiting (dynamic keys)
+  [aiCalls_YYYY-MM-DD: string]: number; // Daily AI call count
+}
+```
+
+### User Status Flow
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│ unverified  │────▶│  verified   │────▶│   active    │────▶│  cancelled  │
+└─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
+      │                   │                   │                    │
+      │                   │                   │                    │
+  (Future:            Cognito            Stripe              Stripe
+  Pre-signup          Post-              Webhook:            Webhook:
+  trigger)            Confirmation       checkout.           subscription.
+                      Trigger            completed           deleted
+```
+
+| Status | Meaning | Set By | When |
+|--------|---------|--------|------|
+| `unverified` | Account created, email not verified | Future: Pre-signup Lambda | On signup (future) |
+| `verified` | Email verified, no subscription | Cognito Post-Confirmation Lambda | After email verification |
+| `active` | Has active subscription (trial or paid) | Stripe Webhook | On `checkout.session.completed` |
+| `cancelled` | Subscription cancelled/expired | Stripe Webhook | On `customer.subscription.deleted` |
+
+### Field Update Matrix
+
+| Field | Created By | Updated By | Notes |
+|-------|------------|------------|-------|
+| `PK`, `SK` | Cognito trigger | Never | Immutable primary key |
+| `email` | Cognito trigger | Never | From Cognito attributes |
+| `name` | Cognito trigger | Never | From Cognito attributes |
+| `tier` | Cognito trigger (as `free`) | Stripe webhook | Changes with subscription |
+| `status` | Cognito trigger (as `verified`) | Stripe webhook | Tracks subscription state |
+| `createdAt` | Cognito trigger | Never | Immutable |
+| `updatedAt` | Cognito trigger | Any update | Auto-updated on changes |
+| `verifiedAt` | Cognito trigger | Never | When email confirmed |
+| `subscribedAt` | Stripe webhook | Never (if_not_exists) | First subscription only |
+| `stripeCustomerId` | Stripe webhook | Never | Stripe's customer ID |
+| `stripeSubscriptionId` | Stripe webhook | Stripe webhook | Current subscription |
+| `aiCalls_YYYY-MM-DD` | AI handler | AI handler | Incremented per call |
+
+### Cognito ↔ DynamoDB Relationship
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            COGNITO USER POOL                                 │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │ Username: b9de54c8-c041-70e4-83dd-1cc7d242c690                      │    │
+│  │ Email: user@example.com                                              │    │
+│  │ Name: John Smith                                                     │    │
+│  │ Status: CONFIRMED                                                    │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      │ PostConfirmation Lambda
+                                      │ Creates/Updates DynamoDB record
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              DYNAMODB TABLE                                  │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │ PK: USER#b9de54c8-c041-70e4-83dd-1cc7d242c690                       │    │
+│  │ SK: PROFILE                                                          │    │
+│  │ email: user@example.com                                              │    │
+│  │ name: John Smith                                                     │    │
+│  │ tier: scholar                                                        │    │
+│  │ status: active                                                       │    │
+│  │ stripeCustomerId: cus_TiUtc8bVezPOBF                                │    │
+│  │ stripeSubscriptionId: sub_1Sl3tLFqL65Zilf9Tr3cKl2v                  │    │
+│  │ createdAt: 2026-01-03T07:15:24.296Z                                 │    │
+│  │ verifiedAt: 2026-01-03T07:15:24.296Z                                │    │
+│  │ subscribedAt: 2026-01-03T08:39:29.412Z                              │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Key Files for Data Model
+
+| File | Responsibility |
+|------|----------------|
+| `packages/api/src/handlers/cognito-trigger.ts` | Creates user profile on email verification |
+| `packages/api/src/handlers/payment.ts` | Updates tier, status, Stripe IDs on subscription changes |
+| `packages/api/src/handlers/ai.ts` | Increments `aiCalls_YYYY-MM-DD` counter |
+| `packages/api/src/scripts/backfill-user-profiles.ts` | Migration script for existing users |
 
 ---
 
@@ -141,78 +272,105 @@ if (tier === 'explorer' && subscription.created) {
 
 ## Complete User Journeys
 
-### Journey 1: New User Registration → First Learning Session
+### Journey 1: New User Registration → First Learning Session (Netflix-Style Funnel)
+
+This is the optimized conversion funnel that captures email first, then guides users through plan selection before account creation.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ STEP 1: Landing Page                                                        │
 │ Page: /                                                                      │
 │ Action: Click "Get Started" or "Start free trial"                           │
-│ Destination: /pricing?plan=scholar                                          │
+│ Destination: /get-started                                                   │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 2: Pricing Page (Unauthenticated)                                      │
-│ Page: /pricing?plan=scholar                                                  │
-│ Check: isAuthenticatedSync() → FALSE                                        │
-│ Action: Redirect to login with preserved plan param                         │
-│ Destination: /login?redirect=/pricing%3Fplan%3Dscholar                      │
+│ STEP 2: Email Capture (Netflix-style)                                       │
+│ Page: /get-started                                                          │
+│ Display: Simple email input form                                            │
+│ Action: Enter email address                                                 │
+│ Storage: sessionStorage.setItem('signup_email', email)                      │
+│ Destination: /choose-plan                                                   │
+│                                                                             │
+│ DB Update: NONE (email only stored in browser)                              │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 3: Login Page                                                          │
-│ Page: /login?redirect=/pricing%3Fplan%3Dscholar                             │
-│ New user: Click "Create account"                                            │
-│ Destination: /register                                                       │
+│ STEP 3: Plan Selection (Public, No Auth Required)                           │
+│ Page: /choose-plan                                                          │
+│ Check: Retrieves email from sessionStorage                                  │
+│ Display: Three plan cards (Explorer, Scholar, Achiever)                     │
+│         Scholar highlighted as "Most popular"                               │
+│ Action: Click "Select [Plan]"                                               │
+│ Storage: sessionStorage.setItem('signup_plan', plan)                        │
+│ Destination: /register?plan={plan}&email={email}                            │
+│                                                                             │
+│ DB Update: NONE (plan stored in browser session)                            │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 4: Registration                                                        │
-│ Page: /register                                                              │
-│ Action: Enter name, email, password                                         │
-│ API: signUp() → Cognito creates unverified user                             │
-│ Destination: /verify?email=user@example.com                                 │
+│ STEP 4: Registration (Locked Plan)                                          │
+│ Page: /register?plan=scholar&email=user@example.com                         │
+│ Display: Shows "Selected plan: Scholar - $5/month" (locked)                 │
+│          Email pre-filled, name and password inputs                         │
+│ Action: Enter name, password, confirm password                              │
+│ API: signUp(email, password, name, plan) → Cognito creates user             │
+│ Storage: sessionStorage.setItem('signup_plan', plan)                        │
+│ Destination: /verify?email={email}&plan={plan}                              │
+│                                                                             │
+│ Cognito Update: Creates user with status UNCONFIRMED                        │
+│ DB Update: NONE (profile created after verification)                        │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ STEP 5: Email Verification                                                  │
-│ Page: /verify?email=user@example.com                                        │
-│ Action: Enter 6-digit code from email                                       │
-│ API: confirmSignUp() → Cognito verifies email                               │
-│ Destination: /login?redirect=/pricing?plan=scholar                          │
+│ Page: /verify?email=user@example.com&plan=scholar                           │
+│ Display: 6-digit code input, shows selected plan                            │
+│ Action: Enter verification code from email                                  │
+│ API: confirmSignUp(email, code)                                             │
+│      → Cognito confirms user                                                │
+│      → PostConfirmation Lambda fires                                        │
+│ Destination: /login?checkout=scholar&email=user@example.com                 │
+│                                                                             │
+│ Cognito Update: User status → CONFIRMED                                     │
+│ DB Update (via Lambda):                                                     │
+│   - Creates USER#<id> PROFILE record                                        │
+│   - Sets: email, name, tier='free', status='verified'                       │
+│   - Sets: verifiedAt, createdAt, updatedAt                                  │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 6: Login After Verification                                            │
-│ Page: /login?redirect=/pricing?plan=scholar                                  │
-│ Action: Enter email and password                                            │
-│ API: signIn() → Get tokens, store in localStorage                           │
-│ Destination: /pricing?plan=scholar (from redirect param)                    │
+│ STEP 6: Login with Checkout Flow                                            │
+│ Page: /login?checkout=scholar&email=user@example.com                        │
+│ Display: Email pre-filled, password input, "Continue to payment" button    │
+│ Action: Enter password, click submit                                        │
+│ API: signIn(email, password) → Get tokens                                   │
+│      IF checkout param exists:                                              │
+│        createCheckoutSession(plan) → Get Stripe URL                         │
+│        window.location.href = stripeUrl (same tab)                          │
+│ Destination: Stripe Checkout (same tab for better conversion)               │
+│                                                                             │
+│ DB Update: NONE (just authentication)                                       │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 7: Pricing Page (Authenticated, No Subscription)                       │
-│ Page: /pricing?plan=scholar                                                  │
-│ Check: getSubscriptionStatus() → tier: 'free', subscriptionId: null         │
-│ Display: Scholar plan highlighted with "Recommended for you" badge          │
-│ Action: Click "Start free trial" on Scholar plan                            │
-│ API: createCheckoutSession('scholar') → Get Stripe Checkout URL             │
-│ Destination: Stripe Checkout (new tab)                                      │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                      │
-                                      ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 8: Stripe Checkout                                                     │
+│ STEP 7: Stripe Checkout                                                     │
 │ Page: Stripe hosted checkout                                                │
-│ Action: Enter payment details                                               │
-│ Webhook: checkout.session.completed → Update DynamoDB tier                  │
+│ Display: Plan details, trial info, payment form                             │
+│ Action: Enter payment details, click "Start trial"                          │
+│ Webhook: checkout.session.completed fires                                   │
 │ Redirect: /dashboard?payment=success                                        │
+│                                                                             │
+│ DB Update (via Stripe webhook):                                             │
+│   - Updates USER#<id> PROFILE                                               │
+│   - Sets: tier='scholar', status='active'                                   │
+│   - Sets: stripeCustomerId, stripeSubscriptionId, subscribedAt              │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
@@ -370,11 +528,13 @@ if (tier === 'explorer' && subscription.created) {
 |------|---------|
 | `apps/web/src/lib/auth.ts` | Authentication functions, token management |
 | `apps/web/src/lib/api.ts` | API client, type definitions |
-| `apps/web/src/app/(auth)/login/page.tsx` | Parent login page |
-| `apps/web/src/app/(auth)/register/page.tsx` | Parent registration |
+| `apps/web/src/app/(auth)/get-started/page.tsx` | **Email capture (Step 1 of funnel)** |
+| `apps/web/src/app/(auth)/choose-plan/page.tsx` | **Plan selection (Step 2, no auth)** |
+| `apps/web/src/app/(auth)/register/page.tsx` | Account creation with locked plan |
 | `apps/web/src/app/(auth)/verify/page.tsx` | Email verification |
+| `apps/web/src/app/(auth)/login/page.tsx` | Login with checkout flow support |
 | `apps/web/src/app/(parent)/dashboard/page.tsx` | Parent dashboard |
-| `apps/web/src/app/(parent)/pricing/page.tsx` | Subscription plans |
+| `apps/web/src/app/(parent)/pricing/page.tsx` | Subscription management (authenticated) |
 | `apps/web/src/app/(parent)/children/add/page.tsx` | Add child profile |
 | `apps/web/src/app/(student)/child-login/page.tsx` | Child PIN login |
 | `apps/web/src/app/(student)/learn/page.tsx` | Learning session |
@@ -384,12 +544,13 @@ if (tier === 'explorer' && subscription.created) {
 
 | File | Purpose |
 |------|---------|
-| `packages/api/src/handlers/auth.ts` | Cognito integration |
-| `packages/api/src/handlers/payment.ts` | Stripe subscriptions, tier limits |
-| `packages/api/src/handlers/children.ts` | Child CRUD, PIN verification |
+| `packages/api/src/handlers/cognito-trigger.ts` | **Creates user profile on email verification** |
+| `packages/api/src/handlers/payment.ts` | **Stripe webhooks, tier/status updates** |
+| `packages/api/src/handlers/child.ts` | Child CRUD, PIN verification |
 | `packages/api/src/handlers/progress.ts` | Learning progress tracking |
-| `packages/api/src/handlers/questions.ts` | Question generation |
-| `packages/api/src/handlers/tutor.ts` | AI explanations |
+| `packages/api/src/handlers/curriculum.ts` | Question generation |
+| `packages/api/src/handlers/ai.ts` | AI explanations, rate limiting |
+| `packages/api/src/scripts/backfill-user-profiles.ts` | **Migration script for existing users** |
 
 ### Infrastructure
 
@@ -688,5 +849,32 @@ When modifying user management features:
 
 ---
 
-*Last Updated: January 2026*
-*Version: 1.0*
+## Changelog
+
+### Version 1.1 (January 3, 2026)
+- **Netflix-Style Signup Funnel**: Implemented email-first capture flow
+  - New `/get-started` page for email capture
+  - New `/choose-plan` page for plan selection (no auth required)
+  - Updated `/register` to show locked plan with email pre-filled
+  - Updated `/login` to support `?checkout=plan` parameter for auto-redirect to Stripe
+- **User Status Tracking**: Added `status` field to DynamoDB user profile
+  - `unverified` → `verified` → `active` → `cancelled`
+  - Set by Cognito trigger and Stripe webhooks
+- **Enhanced User Profile Schema**: Added new fields
+  - `name`: Display name from Cognito
+  - `status`: Subscription status
+  - `verifiedAt`: Email verification timestamp
+  - `subscribedAt`: First subscription timestamp
+- **Backfill Script**: Updated to set correct status for existing users
+- **Documentation**: Added Data Models section with field update matrix
+
+### Version 1.0 (January 2026)
+- Initial documentation covering user management flows
+- Authentication with Cognito
+- Subscription tiers (Explorer, Scholar, Achiever)
+- Child profile management
+
+---
+
+*Last Updated: January 3, 2026*
+*Version: 1.1*

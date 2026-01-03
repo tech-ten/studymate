@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -9,16 +9,32 @@ import { signUp } from '@/lib/auth'
 function RegisterForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const plan = searchParams.get('plan') || 'scholar'
+  const urlPlan = searchParams.get('plan') || 'scholar'
+  const urlEmail = searchParams.get('email') || ''
 
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    email: urlEmail,
     password: '',
     confirmPassword: '',
   })
+  const [plan, setPlan] = useState(urlPlan)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Also check sessionStorage for email from get-started flow
+    const storedEmail = sessionStorage.getItem('signup_email')
+    if (storedEmail && !urlEmail) {
+      setFormData(prev => ({ ...prev, email: storedEmail }))
+    }
+    // Set plan from URL
+    if (urlPlan) {
+      setPlan(urlPlan)
+      // Store plan in session for after verification
+      sessionStorage.setItem('signup_plan', urlPlan)
+    }
+  }, [urlEmail, urlPlan])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -40,7 +56,9 @@ function RegisterForm() {
         name: formData.name,
         plan,
       })
-      router.push(`/verify?email=${encodeURIComponent(formData.email)}`)
+      // Store plan for after verification
+      sessionStorage.setItem('signup_plan', plan)
+      router.push(`/verify?email=${encodeURIComponent(formData.email)}&plan=${plan}`)
     } catch (err) {
       console.error('Registration failed:', err)
       setError(err instanceof Error ? err.message : 'Registration failed. Please try again.')
@@ -55,21 +73,37 @@ function RegisterForm() {
     achiever: 'Achiever',
   }
 
+  const planPrices: Record<string, string> = {
+    explorer: '$0.99/month',
+    scholar: '$5/month',
+    achiever: '$12/month',
+  }
+
   return (
     <div className="w-full max-w-sm">
       <div className="text-center mb-10">
         <Link href="/" className="text-lg font-semibold">
           StudyMate
         </Link>
-        <div className="mt-8 mb-6">
-          <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">
-            Parent / Guardian Account
+        <div className="mt-6 mb-2">
+          <span className="inline-block px-3 py-1 text-xs bg-neutral-100 text-neutral-600 rounded-full">
+            Step 3 of 3
           </span>
         </div>
         <h1 className="text-2xl font-semibold mb-2">Create your account</h1>
-        <p className="text-neutral-500">
-          Start with the {planNames[plan] || 'Explorer'} plan
-        </p>
+
+        {/* Selected plan display */}
+        <div className="mt-4 p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+          <p className="text-sm text-neutral-500 mb-1">Selected plan</p>
+          <p className="font-semibold">{planNames[plan] || 'Scholar'}</p>
+          <p className="text-sm text-neutral-500">{planPrices[plan] || '$5/month'}</p>
+          <Link
+            href="/choose-plan"
+            className="text-xs text-blue-600 hover:underline mt-2 inline-block"
+          >
+            Change plan
+          </Link>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -84,6 +118,7 @@ function RegisterForm() {
             value={formData.name}
             onChange={handleChange}
             required
+            autoFocus
             className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
             placeholder="John Smith"
           />
@@ -100,7 +135,7 @@ function RegisterForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+            className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all bg-neutral-50"
             placeholder="you@example.com"
           />
         </div>
@@ -155,7 +190,9 @@ function RegisterForm() {
       </form>
 
       <p className="mt-6 text-xs text-neutral-400 text-center">
-        By creating an account, you agree to our Terms and Privacy Policy.
+        By creating an account, you agree to our{' '}
+        <Link href="/terms" className="underline">Terms</Link> and{' '}
+        <Link href="/privacy" className="underline">Privacy Policy</Link>.
       </p>
 
       <p className="mt-8 text-center text-sm text-neutral-500">
@@ -164,15 +201,6 @@ function RegisterForm() {
           Sign in
         </Link>
       </p>
-
-      <div className="mt-10 pt-8 border-t border-neutral-100 text-center">
-        <p className="text-sm text-neutral-500 mb-3">Is your child logging in?</p>
-        <Link href="/child-login">
-          <Button variant="outline" className="rounded-full px-6">
-            Child Login (PIN)
-          </Button>
-        </Link>
-      </div>
     </div>
   )
 }
