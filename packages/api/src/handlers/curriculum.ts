@@ -111,7 +111,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 // ============ SECTION ENDPOINTS ============
 
 async function getSectionsForYear(yearLevel: number): Promise<APIGatewayProxyResultV2> {
-  const result = await db.send(new QueryCommand({
+  let result = await db.send(new QueryCommand({
     TableName: TABLE_NAME,
     KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
     ExpressionAttributeValues: {
@@ -119,6 +119,20 @@ async function getSectionsForYear(yearLevel: number): Promise<APIGatewayProxyRes
       ':sk': 'SECTION#',
     },
   }));
+
+  // Fallback to Year 5 content if requested year level has no content
+  let effectiveYearLevel = yearLevel;
+  if (!result.Items || result.Items.length === 0) {
+    effectiveYearLevel = 5;
+    result = await db.send(new QueryCommand({
+      TableName: TABLE_NAME,
+      KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
+      ExpressionAttributeValues: {
+        ':pk': `CURRICULUM#YEAR5`,
+        ':sk': 'SECTION#',
+      },
+    }));
+  }
 
   const sections = (result.Items || []).map(item => ({
     id: item.id,
@@ -130,14 +144,22 @@ async function getSectionsForYear(yearLevel: number): Promise<APIGatewayProxyRes
     questionCount: item.questionCount || 0,
   }));
 
-  return success({ yearLevel, sections });
+  return success({ yearLevel: effectiveYearLevel, sections, requestedYearLevel: yearLevel });
 }
 
 async function getSectionContent(yearLevel: number, sectionId: string): Promise<APIGatewayProxyResultV2> {
-  const result = await db.send(new GetCommand({
+  let result = await db.send(new GetCommand({
     TableName: TABLE_NAME,
     Key: keys.curriculumSection(yearLevel, sectionId),
   }));
+
+  // Fallback to Year 5 if section not found in requested year
+  if (!result.Item && yearLevel !== 5) {
+    result = await db.send(new GetCommand({
+      TableName: TABLE_NAME,
+      Key: keys.curriculumSection(5, sectionId),
+    }));
+  }
 
   if (!result.Item) {
     return notFound('Section not found');
