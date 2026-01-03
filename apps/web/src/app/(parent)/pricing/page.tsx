@@ -68,6 +68,7 @@ function PricingContent() {
   const [upgrading, setUpgrading] = useState<string | null>(null)
   const [status, setStatus] = useState<SubscriptionStatus | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+  const [highlightedPlan, setHighlightedPlan] = useState<string | null>(null)
 
   useEffect(() => {
     if (!isAuthenticatedSync()) {
@@ -82,6 +83,16 @@ function PricingContent() {
       setMessage('Payment successful! Your account has been upgraded.')
     } else if (paymentResult === 'cancelled') {
       setMessage('Payment was cancelled.')
+    }
+
+    // Check for pre-selected plan (e.g., /pricing?plan=scholar)
+    const selectedPlan = searchParams.get('plan')
+    if (selectedPlan && ['explorer', 'scholar', 'achiever'].includes(selectedPlan)) {
+      setHighlightedPlan(selectedPlan)
+      // Scroll to pricing section after a short delay
+      setTimeout(() => {
+        document.getElementById(`plan-${selectedPlan}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 500)
     }
   }, [router, searchParams])
 
@@ -235,19 +246,28 @@ function PricingContent() {
                 const isDowngrade =
                   (currentTier === 'achiever' && plan.id !== 'achiever') ||
                   (currentTier === 'scholar' && (plan.id === 'explorer' || plan.id === 'free'))
+                const isHighlighted = highlightedPlan === plan.id
 
                 return (
                   <div
                     key={plan.id}
-                    className={`rounded-2xl p-8 relative ${
-                      plan.popular
+                    id={`plan-${plan.id}`}
+                    className={`rounded-2xl p-8 relative transition-all ${
+                      plan.popular || isHighlighted
                         ? 'border-2 border-black'
                         : 'border border-neutral-200'
-                    } ${isCurrentPlan ? 'ring-2 ring-green-500 ring-offset-2' : ''}`}
+                    } ${isCurrentPlan ? 'ring-2 ring-green-500 ring-offset-2' : ''} ${
+                      isHighlighted ? 'ring-4 ring-blue-500 ring-offset-2 scale-105 shadow-xl' : ''
+                    }`}
                   >
-                    {plan.popular && (
+                    {plan.popular && !isHighlighted && (
                       <div className="absolute -top-3 left-6 bg-black text-white text-xs px-3 py-1 rounded-full">
                         Most popular
+                      </div>
+                    )}
+                    {isHighlighted && (
+                      <div className="absolute -top-3 left-6 bg-blue-600 text-white text-xs px-3 py-1 rounded-full animate-pulse">
+                        Recommended for you
                       </div>
                     )}
                     {isCurrentPlan && (

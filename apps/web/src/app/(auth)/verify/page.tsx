@@ -32,8 +32,8 @@ function VerifyForm() {
       await confirmSignUp(email, code)
       setSuccess('Email verified! Redirecting to choose your plan...')
       setTimeout(() => {
-        // Redirect to login, which will then redirect to pricing for new users
-        router.push('/login?redirect=/pricing')
+        // Redirect to login, which will then redirect to pricing with Scholar pre-selected
+        router.push('/login?redirect=/pricing?plan=scholar')
       }, 1500)
     } catch (err) {
       console.error('Verification failed:', err)
