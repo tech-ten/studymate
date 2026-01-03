@@ -1658,6 +1658,61 @@ Break the number into parts:
                 'When multiplying by two digits, multiply by each digit then add',
                 'Mental strategies like doubling/halving can make calculations easier'
               ],
+              knowledgeTokens: [
+                {
+                  id: 'multiply-by-single-digit',
+                  name: 'Multiplying by Single Digit',
+                  description: 'Multiplying a multi-digit number by a single digit',
+                },
+                {
+                  id: 'standard-algorithm',
+                  name: 'Standard Algorithm',
+                  description: 'Using the vertical/column method for multiplication',
+                  prerequisites: ['multiply-by-single-digit'],
+                },
+                {
+                  id: 'carrying-in-multiplication',
+                  name: 'Carrying in Multiplication',
+                  description: 'Correctly carrying digits during multiplication',
+                  prerequisites: ['standard-algorithm'],
+                },
+                {
+                  id: 'partitioning-multiplication',
+                  name: 'Partitioning for Multiplication',
+                  description: 'Breaking numbers into place value parts to multiply',
+                  prerequisites: ['multiply-by-single-digit'],
+                },
+                {
+                  id: 'multiply-by-two-digit',
+                  name: 'Multiplying by Two Digits',
+                  description: 'Multiplying by a two-digit number using partial products',
+                  prerequisites: ['multiply-by-single-digit'],
+                },
+                {
+                  id: 'multiply-by-tens',
+                  name: 'Multiplying by Tens',
+                  description: 'Efficiently multiplying by 10, 20, 30, etc.',
+                  prerequisites: ['multiply-by-single-digit'],
+                },
+                {
+                  id: 'doubling-halving',
+                  name: 'Doubling and Halving Strategy',
+                  description: 'Using the relationship between doubling and halving to simplify',
+                  prerequisites: ['multiply-by-single-digit'],
+                },
+                {
+                  id: 'compensation-strategy',
+                  name: 'Compensation Strategy',
+                  description: 'Using nearby friendly numbers then adjusting (e.g., 99×7 = 100×7 - 7)',
+                  prerequisites: ['multiply-by-single-digit'],
+                },
+                {
+                  id: 'multiplication-word-problems',
+                  name: 'Multiplication Word Problems',
+                  description: 'Applying multiplication to real-world contexts',
+                  prerequisites: ['multiply-by-two-digit'],
+                },
+              ],
               examples: [
                 {
                   problem: '256 × 4',
@@ -1671,46 +1726,375 @@ Break the number into parts:
                 }
               ],
               questions: [
+                // === SINGLE DIGIT MULTIPLICATION (1-5) ===
                 {
                   id: 'VCMNA183-001',
                   question: 'What is 145 × 6?',
                   options: ['770', '830', '870', '890'],
                   correctAnswer: 2,
                   explanation: '100×6=600, 40×6=240, 5×6=30. Total: 600+240+30=870',
-                  difficulty: 1
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiply-by-single-digit', 'partitioning-multiplication'],
+                    correctToken: 'multiply-by-single-digit',
+                    incorrectTokens: [
+                      'multiplication-calculation-error',  // Wrong calculation
+                      'multiplication-calculation-error',  // Wrong calculation
+                      null,
+                      'multiplication-calculation-error',  // Wrong calculation
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA183-002',
-                  question: 'Calculate 38 × 12',
-                  options: ['446', '456', '466', '476'],
-                  correctAnswer: 1,
-                  explanation: '38×10=380, 38×2=76. Total: 380+76=456',
-                  difficulty: 2
+                  question: 'Calculate 267 × 4.',
+                  options: ['1,028', '1,048', '1,068', '1,088'],
+                  correctAnswer: 2,
+                  explanation: '200×4=800, 60×4=240, 7×4=28. Total: 800+240+28=1,068',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiply-by-single-digit'],
+                    correctToken: 'multiply-by-single-digit',
+                    incorrectTokens: [
+                      'carrying-error',                    // Carrying mistake
+                      'carrying-error',                    // Carrying mistake
+                      null,
+                      'multiplication-calculation-error',  // Wrong calculation
+                    ],
+                  },
                 },
                 {
                   id: 'VCMNA183-003',
+                  question: 'What is 483 × 7?',
+                  options: ['3,281', '3,381', '3,481', '3,581'],
+                  correctAnswer: 1,
+                  explanation: '400×7=2,800, 80×7=560, 3×7=21. Total: 2,800+560+21=3,381',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiply-by-single-digit', 'carrying-in-multiplication'],
+                    correctToken: 'multiply-by-single-digit',
+                    incorrectTokens: [
+                      'carrying-error',                    // Forgot to carry
+                      null,
+                      'carrying-error',                    // Wrong carry
+                      'multiplication-calculation-error',  // Wrong basic multiplication
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-004',
+                  question: 'Calculate 1,256 × 5.',
+                  options: ['6,180', '6,280', '6,380', '6,480'],
+                  correctAnswer: 1,
+                  explanation: '1,000×5=5,000, 200×5=1,000, 50×5=250, 6×5=30. Total: 5,000+1,000+250+30=6,280',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiply-by-single-digit', 'partitioning-multiplication'],
+                    correctToken: 'multiply-by-single-digit',
+                    incorrectTokens: [
+                      'partitioning-error',                // Missed a part
+                      null,
+                      'addition-error',                    // Added parts wrong
+                      'carrying-error',                    // Carrying mistake
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-005',
+                  question: 'What is 809 × 8?',
+                  options: ['6,372', '6,432', '6,472', '6,512'],
+                  correctAnswer: 2,
+                  explanation: '800×8=6,400, 9×8=72. Total: 6,400+72=6,472',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiply-by-single-digit'],
+                    correctToken: 'multiply-by-single-digit',
+                    incorrectTokens: [
+                      'zero-handling-error',               // Error with zero in middle
+                      'multiplication-calculation-error',  // Wrong calculation
+                      null,
+                      'addition-error',                    // Added incorrectly
+                    ],
+                  },
+                },
+
+                // === MULTIPLYING BY TENS (6-8) ===
+                {
+                  id: 'VCMNA183-006',
+                  question: 'What is 47 × 30?',
+                  options: ['1,210', '1,310', '1,410', '1,510'],
+                  correctAnswer: 2,
+                  explanation: '47 × 30 = 47 × 3 × 10 = 141 × 10 = 1,410',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiply-by-tens'],
+                    correctToken: 'multiply-by-tens',
+                    incorrectTokens: [
+                      'multiply-by-tens-error',            // Wrong intermediate step
+                      'multiply-by-tens-error',            // Wrong intermediate step
+                      null,
+                      'multiply-by-tens-error',            // Wrong intermediate step
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-007',
+                  question: 'Calculate 156 × 20.',
+                  options: ['2,920', '3,020', '3,120', '3,220'],
+                  correctAnswer: 2,
+                  explanation: '156 × 20 = 156 × 2 × 10 = 312 × 10 = 3,120',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiply-by-tens'],
+                    correctToken: 'multiply-by-tens',
+                    incorrectTokens: [
+                      'multiply-by-tens-error',            // Forgot the zero
+                      'multiplication-calculation-error',  // Wrong 156×2
+                      null,
+                      'multiply-by-tens-error',            // Added extra
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-008',
+                  question: 'What is 45 × 40?',
+                  options: ['1,600', '1,700', '1,800', '1,900'],
+                  correctAnswer: 2,
+                  explanation: '45 × 40 = 45 × 4 × 10 = 180 × 10 = 1,800',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiply-by-tens'],
+                    correctToken: 'multiply-by-tens',
+                    incorrectTokens: [
+                      'multiplication-calculation-error',  // Wrong 45×4
+                      'multiplication-calculation-error',  // Wrong 45×4
+                      null,
+                      'multiply-by-tens-error',            // Added wrong
+                    ],
+                  },
+                },
+
+                // === TWO-DIGIT MULTIPLICATION (9-13) ===
+                {
+                  id: 'VCMNA183-009',
+                  question: 'Calculate 38 × 12.',
+                  options: ['446', '456', '466', '476'],
+                  correctAnswer: 1,
+                  explanation: '38×10=380, 38×2=76. Total: 380+76=456',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiply-by-two-digit', 'multiply-by-tens'],
+                    correctToken: 'multiply-by-two-digit',
+                    incorrectTokens: [
+                      'partial-products-error',            // Wrong partial product
+                      null,
+                      'partial-products-error',            // Wrong partial product
+                      'addition-error',                    // Added partials wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-010',
+                  question: 'What is 54 × 23?',
+                  options: ['1,202', '1,232', '1,242', '1,262'],
+                  correctAnswer: 2,
+                  explanation: '54×20=1,080, 54×3=162. Total: 1,080+162=1,242',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiply-by-two-digit'],
+                    correctToken: 'multiply-by-two-digit',
+                    incorrectTokens: [
+                      'partial-products-error',            // Wrong partial
+                      'partial-products-error',            // Wrong partial
+                      null,
+                      'addition-error',                    // Added wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-011',
+                  question: 'Calculate 67 × 34.',
+                  options: ['2,178', '2,228', '2,278', '2,328'],
+                  correctAnswer: 2,
+                  explanation: '67×30=2,010, 67×4=268. Total: 2,010+268=2,278',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['multiply-by-two-digit'],
+                    correctToken: 'multiply-by-two-digit',
+                    incorrectTokens: [
+                      'partial-products-error',            // Wrong partial
+                      'partial-products-error',            // Wrong partial
+                      null,
+                      'addition-error',                    // Added wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-012',
+                  question: 'What is 45 × 45?',
+                  options: ['1,925', '2,000', '2,025', '2,125'],
+                  correctAnswer: 2,
+                  explanation: '45×40=1,800, 45×5=225. Total: 1,800+225=2,025',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['multiply-by-two-digit'],
+                    correctToken: 'multiply-by-two-digit',
+                    incorrectTokens: [
+                      'partial-products-error',            // Wrong partial
+                      'estimation-not-exact',              // Rounded instead of calculating
+                      null,
+                      'addition-error',                    // Added wrong
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-013',
+                  question: 'Calculate 83 × 26.',
+                  options: ['2,058', '2,108', '2,158', '2,208'],
+                  correctAnswer: 2,
+                  explanation: '83×20=1,660, 83×6=498. Total: 1,660+498=2,158',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['multiply-by-two-digit', 'carrying-in-multiplication'],
+                    correctToken: 'multiply-by-two-digit',
+                    incorrectTokens: [
+                      'carrying-error',                    // Carrying mistake
+                      'partial-products-error',            // Wrong partial
+                      null,
+                      'addition-error',                    // Added wrong
+                    ],
+                  },
+                },
+
+                // === MENTAL STRATEGIES (14-17) ===
+                {
+                  id: 'VCMNA183-014',
                   question: 'What is 25 × 32 using the doubling and halving strategy?',
                   options: ['750', '800', '850', '900'],
                   correctAnswer: 1,
                   explanation: '25×32 = 50×16 = 100×8 = 800',
-                  difficulty: 2
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['doubling-halving'],
+                    correctToken: 'doubling-halving',
+                    incorrectTokens: [
+                      'doubling-halving-error',            // Wrong step in strategy
+                      null,
+                      'doubling-halving-error',            // Wrong step in strategy
+                      'doubling-halving-error',            // Wrong step in strategy
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA183-004',
+                  id: 'VCMNA183-015',
+                  question: 'Calculate 99 × 15 using a compensation strategy.',
+                  options: ['1,485', '1,495', '1,500', '1,515'],
+                  correctAnswer: 0,
+                  explanation: '99×15 = (100×15) - 15 = 1,500 - 15 = 1,485',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['compensation-strategy'],
+                    correctToken: 'compensation-strategy',
+                    incorrectTokens: [
+                      null,
+                      'compensation-adjustment-error',     // Wrong adjustment
+                      'compensation-forgot-adjust',        // Forgot to subtract
+                      'compensation-wrong-direction',      // Added instead of subtracted
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-016',
+                  question: 'What is 50 × 24 using doubling and halving?',
+                  options: ['1,100', '1,200', '1,300', '1,400'],
+                  correctAnswer: 1,
+                  explanation: '50×24 = 100×12 = 1,200',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['doubling-halving'],
+                    correctToken: 'doubling-halving',
+                    incorrectTokens: [
+                      'doubling-halving-error',            // Wrong calculation
+                      null,
+                      'doubling-halving-error',            // Wrong calculation
+                      'doubling-halving-error',            // Wrong calculation
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-017',
+                  question: 'Calculate 101 × 8 using compensation.',
+                  options: ['800', '804', '808', '816'],
+                  correctAnswer: 2,
+                  explanation: '101×8 = (100×8) + 8 = 800 + 8 = 808',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['compensation-strategy'],
+                    correctToken: 'compensation-strategy',
+                    incorrectTokens: [
+                      'compensation-forgot-adjust',        // Forgot to add 8
+                      'compensation-adjustment-error',     // Wrong adjustment
+                      null,
+                      'compensation-wrong-direction',      // Wrong adjustment direction
+                    ],
+                  },
+                },
+
+                // === WORD PROBLEMS (18-20) ===
+                {
+                  id: 'VCMNA183-018',
                   question: 'A school has 28 classes with 24 students in each. How many students in total?',
                   options: ['572', '612', '672', '724'],
                   correctAnswer: 2,
                   explanation: '28×24 = 28×20 + 28×4 = 560 + 112 = 672',
-                  difficulty: 2
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['multiplication-word-problems', 'multiply-by-two-digit'],
+                    correctToken: 'multiplication-word-problems',
+                    incorrectTokens: [
+                      'word-problem-setup-error',          // Set up wrong
+                      'partial-products-error',            // Wrong partial
+                      null,
+                      'addition-error',                    // Added wrong
+                    ],
+                  },
                 },
                 {
-                  id: 'VCMNA183-005',
-                  question: 'What is 99 × 15?',
-                  options: ['1,485', '1,495', '1,500', '1,515'],
-                  correctAnswer: 0,
-                  explanation: '99×15 = (100×15) - 15 = 1500 - 15 = 1,485',
-                  difficulty: 3
-                }
+                  id: 'VCMNA183-019',
+                  question: 'A bakery makes 156 muffins each day. How many muffins in a 5-day work week?',
+                  options: ['680', '730', '780', '830'],
+                  correctAnswer: 2,
+                  explanation: '156 × 5 = 780. (150×5=750, 6×5=30, Total=780)',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['multiplication-word-problems', 'multiply-by-single-digit'],
+                    correctToken: 'multiplication-word-problems',
+                    incorrectTokens: [
+                      'multiplication-calculation-error',  // Wrong calculation
+                      'multiplication-calculation-error',  // Wrong calculation
+                      null,
+                      'multiplication-calculation-error',  // Wrong calculation
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMNA183-020',
+                  question: 'Tickets cost $45 each. If 32 people buy tickets, how much money is collected?',
+                  options: ['$1,340', '$1,400', '$1,440', '$1,500'],
+                  correctAnswer: 2,
+                  explanation: '45×32 = 45×30 + 45×2 = 1,350 + 90 = 1,440',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['multiplication-word-problems', 'multiply-by-two-digit'],
+                    correctToken: 'multiplication-word-problems',
+                    incorrectTokens: [
+                      'partial-products-error',            // Wrong partial
+                      'estimation-not-exact',              // Estimated instead
+                      null,
+                      'estimation-not-exact',              // Rounded
+                    ],
+                  },
+                },
               ]
             },
             {
