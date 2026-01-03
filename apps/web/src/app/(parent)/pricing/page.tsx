@@ -32,6 +32,7 @@ const plans = [
     id: 'scholar',
     name: 'Scholar',
     price: 5,
+    trialDays: 14,
     description: 'For dedicated learners',
     popular: true,
     features: [
@@ -49,6 +50,7 @@ const plans = [
     id: 'achiever',
     name: 'Achiever',
     price: 12,
+    trialDays: 14,
     description: 'For serious students',
     features: [
       '10 child profiles',
@@ -284,6 +286,11 @@ function PricingContent() {
                         <>
                           <span className="text-4xl font-semibold">${plan.price}</span>
                           <span className="text-neutral-500">/month</span>
+                          {'trialDays' in plan && plan.trialDays && (
+                            <span className="text-green-600 block text-sm mt-1 font-medium">
+                              {plan.trialDays}-day free trial
+                            </span>
+                          )}
                         </>
                       )}
                     </div>
