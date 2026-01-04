@@ -2876,6 +2876,100 @@ For x² + bx + c, find two numbers that:
                 { id: 'VCMNA286-020', question: 'Expand: (x - 7)²', options: ['x² - 49', 'x² - 14x + 49', 'x² + 14x + 49', 'x² - 7x + 49'], correctAnswer: 1, explanation: '(x-7)² = x² - 14x + 49', difficulty: 2, knowledge: { questionTokens: ['perfect-squares'], correctToken: 'perfect-squares', incorrectTokens: ['no-middle', null, 'wrong-sign', 'wrong-middle'] } },
               ],
             },
+            {
+              id: 'VCMNA287',
+              code: 'VCMNA287',
+              title: 'Simplifying Algebraic Fractions',
+              description: 'Simplify algebraic fractions by cancelling common factors',
+              content: `# Simplifying Algebraic Fractions
+
+Algebraic fractions can be simplified by cancelling common factors, just like numerical fractions.
+
+## Basic Principle
+
+**Only cancel factors, not terms!**
+
+Correct: 6x/3 = 2x (6 and 3 are factors)
+Incorrect: (x + 3)/3 ≠ x + 1 (3 is a term, not a factor)
+
+## Simplifying with Common Numerical Factors
+
+### Example: 6x/9
+- Find HCF of 6 and 9 = 3
+- 6x/9 = 2x/3
+
+### Example: 15a²/5a
+- 15 ÷ 5 = 3
+- a² ÷ a = a
+- 15a²/5a = 3a
+
+## Simplifying with Variables
+
+### Example: x²/x
+- x²/x = x (subtract powers)
+
+### Example: 12x³y/4xy²
+- 12/4 = 3
+- x³/x = x²
+- y/y² = 1/y
+- Result: 3x²/y
+
+## Factorising First
+
+Sometimes you need to factorise before cancelling.
+
+### Example: (x² - 4)/(x + 2)
+- Factorise: (x + 2)(x - 2)/(x + 2)
+- Cancel (x + 2): = x - 2
+
+### Example: (3x + 6)/(x + 2)
+- Factorise numerator: 3(x + 2)/(x + 2)
+- Cancel: = 3
+
+## Important Rules
+
+- Can only cancel factors (what multiplies the whole expression)
+- Cannot cancel terms (what's added or subtracted)
+- Always factorise completely first`,
+              keyPoints: [
+                'Only cancel factors, never terms',
+                'Find HCF of coefficients',
+                'Subtract powers when dividing like bases',
+                'Factorise first when needed',
+              ],
+              knowledgeTokens: [
+                { id: 'cancelling-factors', name: 'Cancelling Factors', description: 'Reducing fractions by common factors' },
+                { id: 'numerical-factors', name: 'Numerical Factors', description: 'Simplifying coefficients' },
+                { id: 'variable-factors', name: 'Variable Factors', description: 'Simplifying with index laws' },
+                { id: 'factorise-then-cancel', name: 'Factorise Then Cancel', description: 'Finding factors to cancel', prerequisites: ['cancelling-factors'] },
+              ],
+              examples: [
+                { problem: 'Simplify: 8x/4', solution: '2x', explanation: '8 ÷ 4 = 2, so 8x/4 = 2x' },
+                { problem: 'Simplify: (x² - 9)/(x + 3)', solution: 'x - 3', explanation: 'Factorise: (x+3)(x-3)/(x+3) = x - 3' },
+              ],
+              questions: [
+                { id: 'VCMNA287-001', question: 'Simplify: 6x/3', options: ['2x', '3x', '2', '6x/3'], correctAnswer: 0, explanation: '6 ÷ 3 = 2, so 6x/3 = 2x', difficulty: 1, knowledge: { questionTokens: ['numerical-factors'], correctToken: 'numerical-factors', incorrectTokens: [null, 'wrong-division', 'lost-x', 'no-simplify'] } },
+                { id: 'VCMNA287-002', question: 'Simplify: 10a/5', options: ['2', '2a', '5a', '10a'], correctAnswer: 1, explanation: '10 ÷ 5 = 2, so 10a/5 = 2a', difficulty: 1, knowledge: { questionTokens: ['numerical-factors'], correctToken: 'numerical-factors', incorrectTokens: ['lost-a', null, 'wrong-division', 'no-simplify'] } },
+                { id: 'VCMNA287-003', question: 'Simplify: x³/x', options: ['x³', 'x²', 'x', '1'], correctAnswer: 1, explanation: 'x³/x = x³⁻¹ = x²', difficulty: 1, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: ['no-simplify', null, 'wrong-power', 'all-cancelled'] } },
+                { id: 'VCMNA287-004', question: 'Simplify: 12ab/4a', options: ['3b', '3ab', '8b', '3'], correctAnswer: 0, explanation: '12/4 = 3, a/a = 1, so 12ab/4a = 3b', difficulty: 1, knowledge: { questionTokens: ['numerical-factors', 'variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'kept-a', 'subtracted', 'lost-b'] } },
+                { id: 'VCMNA287-005', question: 'Can you simplify (x + 3)/3 to (x + 1)?', options: ['Yes', 'No', 'Only if x = 0', 'Sometimes'], correctAnswer: 1, explanation: '3 is a term in numerator, not a factor. Cannot cancel.', difficulty: 2, knowledge: { questionTokens: ['cancelling-factors'], correctToken: 'cancelling-factors', incorrectTokens: ['terms-error', null, 'conditional', 'uncertain'] } },
+                { id: 'VCMNA287-006', question: 'Simplify: 15x²/5x', options: ['3x', '10x', '3', '3x²'], correctAnswer: 0, explanation: '15/5 = 3, x²/x = x. Answer: 3x', difficulty: 1, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'subtracted-coeff', 'lost-x', 'no-power-change'] } },
+                { id: 'VCMNA287-007', question: 'Simplify: (x² - 4)/(x + 2)', options: ['x - 2', 'x + 2', 'x² - 2', 'Cannot simplify'], correctAnswer: 0, explanation: 'x² - 4 = (x+2)(x-2). Cancel (x+2): = x - 2', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'wrong-factor', 'no-factorise', 'gave-up'] } },
+                { id: 'VCMNA287-008', question: 'Simplify: 8x³y²/4xy', options: ['2x²y', '4x²y', '2x³y', '2xy'], correctAnswer: 0, explanation: '8/4=2, x³/x=x², y²/y=y. Answer: 2x²y', difficulty: 2, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'wrong-coeff', 'wrong-x-power', 'wrong-y-power'] } },
+                { id: 'VCMNA287-009', question: 'Simplify: (2x + 4)/2', options: ['x + 4', 'x + 2', '2x + 2', 'x + 1'], correctAnswer: 1, explanation: '(2x + 4)/2 = 2(x+2)/2 = x + 2', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: ['only-first-term', null, 'wrong-simplify', 'wrong-calculation'] } },
+                { id: 'VCMNA287-010', question: 'Simplify: a⁵/a³', options: ['a²', 'a⁸', 'a¹⁵', 'a'], correctAnswer: 0, explanation: 'a⁵/a³ = a⁵⁻³ = a²', difficulty: 1, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'added', 'multiplied', 'wrong-subtraction'] } },
+                { id: 'VCMNA287-011', question: 'Simplify: (3x + 9)/(x + 3)', options: ['3', '3x', 'x + 3', '3 + 9'], correctAnswer: 0, explanation: '3x + 9 = 3(x + 3). Cancel: 3(x+3)/(x+3) = 3', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'kept-x', 'no-factorise', 'wrong-split'] } },
+                { id: 'VCMNA287-012', question: 'Simplify: 20x⁴/4x²', options: ['5x²', '16x²', '5x⁶', '5'], correctAnswer: 0, explanation: '20/4=5, x⁴/x²=x². Answer: 5x²', difficulty: 2, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'subtracted-coeff', 'added-powers', 'lost-x'] } },
+                { id: 'VCMNA287-013', question: 'Simplify: (x² - 9)/(x - 3)', options: ['x + 3', 'x - 3', 'x² - 3', '3 - x'], correctAnswer: 0, explanation: 'x² - 9 = (x+3)(x-3). Cancel: = x + 3', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'wrong-factor', 'no-factorise', 'sign-error'] } },
+                { id: 'VCMNA287-014', question: 'Simplify: 6a²b³/2ab²', options: ['3ab', '4ab', '3a²b', '3ab²'], correctAnswer: 0, explanation: '6/2=3, a²/a=a, b³/b²=b. Answer: 3ab', difficulty: 2, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'wrong-coeff', 'wrong-a', 'wrong-b'] } },
+                { id: 'VCMNA287-015', question: 'Simplify: (4x + 8)/(x + 2)', options: ['4', '4x', '2', 'x + 2'], correctAnswer: 0, explanation: '4x + 8 = 4(x + 2). Cancel: = 4', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'kept-x', 'wrong-factor', 'no-factorise'] } },
+                { id: 'VCMNA287-016', question: 'Simplify: x²y/xy²', options: ['x/y', 'y/x', 'xy', '1'], correctAnswer: 0, explanation: 'x²/x=x, y/y²=1/y. Answer: x/y', difficulty: 2, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'inverted', 'wrong-powers', 'all-cancelled'] } },
+                { id: 'VCMNA287-017', question: 'Simplify: (x² - 1)/(x + 1)', options: ['x - 1', 'x + 1', 'x² - 1', '0'], correctAnswer: 0, explanation: 'x² - 1 = (x+1)(x-1). Cancel: = x - 1', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'wrong-factor', 'no-factorise', 'subtracted'] } },
+                { id: 'VCMNA287-018', question: 'Simplify: 18x³y⁴/6x²y', options: ['3xy³', '12xy³', '3x³y³', '3xy'], correctAnswer: 0, explanation: '18/6=3, x³/x²=x, y⁴/y=y³. Answer: 3xy³', difficulty: 3, knowledge: { questionTokens: ['variable-factors'], correctToken: 'variable-factors', incorrectTokens: [null, 'wrong-coeff', 'wrong-x', 'wrong-y'] } },
+                { id: 'VCMNA287-019', question: 'Simplify: (5x - 10)/(x - 2)', options: ['5', '5x', '3', 'x - 2'], correctAnswer: 0, explanation: '5x - 10 = 5(x - 2). Cancel: = 5', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'kept-x', 'wrong-factor', 'no-factorise'] } },
+                { id: 'VCMNA287-020', question: 'Simplify: (x² + 5x)/(x)', options: ['x + 5', 'x² + 5', '5', '5x'], correctAnswer: 0, explanation: 'x² + 5x = x(x + 5). Cancel x: = x + 5', difficulty: 2, knowledge: { questionTokens: ['factorise-then-cancel'], correctToken: 'factorise-then-cancel', incorrectTokens: [null, 'only-first', 'only-second', 'wrong-cancel'] } },
+              ],
+            },
           ],
         },
       ],
