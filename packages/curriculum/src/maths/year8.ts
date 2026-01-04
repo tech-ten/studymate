@@ -2440,8 +2440,8 @@ Substitute back to check: 5(4) - 2 = 18, 3(4) + 6 = 18 ✓`,
               ],
             },
             {
-              id: 'VCMNA280',
-              code: 'VCMNA280',
+              id: 'VCMNA283',
+              code: 'VCMNA283',
               title: 'Linear Graphs',
               description: 'Plot linear relationships on the Cartesian plane with and without the use of digital technologies',
               content: `# Linear Graphs
@@ -2497,31 +2497,31 @@ The value of y when x = 0. In y = 3x + 2, the y-intercept is 2.
                 { problem: 'State the gradient and y-intercept of y = 4x - 3', solution: 'm = 4, c = -3', explanation: 'Comparing with y = mx + c: m = 4, c = -3' },
               ],
               questions: [
-                { id: 'VCMNA280-001', question: 'What is the y-intercept of y = 2x + 5?', options: ['2', '5', '0', '7'], correctAnswer: 1, explanation: 'In y = mx + c, c is the y-intercept. Here c = 5', difficulty: 1, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'origin-confusion', 'added'] } },
-                { id: 'VCMNA280-002', question: 'What is the gradient of y = 3x - 2?', options: ['-2', '3', '1', '6'], correctAnswer: 1, explanation: 'In y = mx + c, m is the gradient. Here m = 3', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['y-intercept-confusion', null, 'wrong-value', 'multiplied'] } },
-                { id: 'VCMNA280-003', question: 'A line goes through (0, 4) and (2, 10). What is the gradient?', options: ['2', '3', '7', '14'], correctAnswer: 1, explanation: 'm = (10-4)/(2-0) = 6/2 = 3', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: ['wrong-calculation', null, 'added', 'multiplied'] } },
-                { id: 'VCMNA280-004', question: 'Which point lies on the y-axis?', options: ['(2, 0)', '(0, 5)', '(3, 3)', '(1, 1)'], correctAnswer: 1, explanation: 'Points on the y-axis have x = 0', difficulty: 1, knowledge: { questionTokens: ['plotting-points'], correctToken: 'plotting-points', incorrectTokens: ['x-axis', null, 'neither-axis', 'neither-axis'] } },
-                { id: 'VCMNA280-005', question: 'What is the gradient between (1, 2) and (3, 8)?', options: ['2', '3', '5', '6'], correctAnswer: 1, explanation: 'm = (8-2)/(3-1) = 6/2 = 3', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: ['divided-wrong', null, 'added-coords', 'subtracted-wrong'] } },
-                { id: 'VCMNA280-006', question: 'A horizontal line has gradient...', options: ['1', 'undefined', '0', '-1'], correctAnswer: 2, explanation: 'Horizontal lines have zero rise, so gradient = 0', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['confused', 'vertical', null, 'confused'] } },
-                { id: 'VCMNA280-007', question: 'What is the y-intercept of y = -x + 7?', options: ['-1', '7', '0', '-7'], correctAnswer: 1, explanation: 'In y = mx + c, c = 7 is the y-intercept', difficulty: 1, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'origin', 'wrong-sign'] } },
-                { id: 'VCMNA280-008', question: 'Line through (2, 5) and (6, 13). Find gradient.', options: ['2', '8', '4', '18'], correctAnswer: 0, explanation: 'm = (13-5)/(6-2) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'numerator-only', 'wrong-division', 'added-all'] } },
-                { id: 'VCMNA280-009', question: 'Which equation has a negative gradient?', options: ['y = 2x + 1', 'y = x', 'y = -3x + 5', 'y = 5'], correctAnswer: 2, explanation: 'y = -3x + 5 has m = -3, which is negative', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['positive', 'positive', null, 'zero'] } },
-                { id: 'VCMNA280-010', question: 'If y = 4x, what is the y-intercept?', options: ['4', '0', '1', 'undefined'], correctAnswer: 1, explanation: 'y = 4x can be written as y = 4x + 0, so c = 0', difficulty: 2, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'confused', 'no-intercept'] } },
-                { id: 'VCMNA280-011', question: 'Point (4, -2) is in which quadrant?', options: ['I', 'II', 'III', 'IV'], correctAnswer: 3, explanation: 'x positive, y negative = Quadrant IV', difficulty: 2, knowledge: { questionTokens: ['plotting-points'], correctToken: 'plotting-points', incorrectTokens: ['wrong-quadrant', 'wrong-quadrant', 'wrong-quadrant', null] } },
-                { id: 'VCMNA280-012', question: 'Find gradient: (0, -3) to (4, 5)', options: ['2', '8', '-2', '0.5'], correctAnswer: 0, explanation: 'm = (5-(-3))/(4-0) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'numerator-only', 'wrong-sign', 'inverted'] } },
-                { id: 'VCMNA280-013', question: 'What is the equation of a line with gradient 2 and y-intercept 3?', options: ['y = 3x + 2', 'y = 2x + 3', 'y = 2x - 3', 'y = 5x'], correctAnswer: 1, explanation: 'y = mx + c with m = 2, c = 3 gives y = 2x + 3', difficulty: 1, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['swapped', null, 'wrong-sign', 'added'] } },
-                { id: 'VCMNA280-014', question: 'A line passes through origin with gradient 5. Its equation is...', options: ['y = 5', 'x = 5', 'y = 5x', 'y = x + 5'], correctAnswer: 2, explanation: 'Through origin means c = 0. With m = 5: y = 5x', difficulty: 2, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['horizontal', 'vertical', null, 'added-intercept'] } },
-                { id: 'VCMNA280-015', question: 'Line y = 2x + 4. When x = 3, what is y?', options: ['6', '10', '7', '9'], correctAnswer: 1, explanation: 'y = 2(3) + 4 = 6 + 4 = 10', difficulty: 1, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['forgot-4', null, 'wrong-calculation', 'wrong-multiplication'] } },
-                { id: 'VCMNA280-016', question: 'Gradient between (-2, 1) and (2, 9)?', options: ['2', '4', '8', '10'], correctAnswer: 0, explanation: 'm = (9-1)/(2-(-2)) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'wrong-denominator', 'numerator-only', 'added'] } },
-                { id: 'VCMNA280-017', question: 'Which line is steeper: y = 3x + 1 or y = 5x - 2?', options: ['y = 3x + 1', 'y = 5x - 2', 'Same steepness', 'Cannot tell'], correctAnswer: 1, explanation: 'Gradient of 5 is steeper than gradient of 3', difficulty: 2, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['wrong', null, 'same', 'no-comparison'] } },
-                { id: 'VCMNA280-018', question: 'A vertical line has gradient...', options: ['0', '1', 'undefined', '-1'], correctAnswer: 2, explanation: 'Vertical lines have undefined gradient (divide by zero)', difficulty: 2, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['horizontal', 'confused', null, 'confused'] } },
-                { id: 'VCMNA280-019', question: 'Line passes through (3, 7) with gradient 2. What is y when x = 5?', options: ['11', '9', '13', '7'], correctAnswer: 0, explanation: 'y = 2x + c. At (3,7): 7 = 6 + c, c = 1. When x = 5: y = 10 + 1 = 11', difficulty: 3, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: [null, 'wrong-c', 'wrong-calculation', 'no-change'] } },
-                { id: 'VCMNA280-020', question: 'Lines y = 2x + 3 and y = 2x - 1 are...', options: ['Parallel', 'Perpendicular', 'Intersecting', 'The same'], correctAnswer: 0, explanation: 'Same gradient (m = 2) but different y-intercepts = parallel lines', difficulty: 2, knowledge: { questionTokens: ['equation-of-line', 'understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: [null, 'perpendicular-error', 'same-gradient', 'identical'] } },
+                { id: 'VCMNA283-001', question: 'What is the y-intercept of y = 2x + 5?', options: ['2', '5', '0', '7'], correctAnswer: 1, explanation: 'In y = mx + c, c is the y-intercept. Here c = 5', difficulty: 1, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'origin-confusion', 'added'] } },
+                { id: 'VCMNA283-002', question: 'What is the gradient of y = 3x - 2?', options: ['-2', '3', '1', '6'], correctAnswer: 1, explanation: 'In y = mx + c, m is the gradient. Here m = 3', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['y-intercept-confusion', null, 'wrong-value', 'multiplied'] } },
+                { id: 'VCMNA283-003', question: 'A line goes through (0, 4) and (2, 10). What is the gradient?', options: ['2', '3', '7', '14'], correctAnswer: 1, explanation: 'm = (10-4)/(2-0) = 6/2 = 3', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: ['wrong-calculation', null, 'added', 'multiplied'] } },
+                { id: 'VCMNA283-004', question: 'Which point lies on the y-axis?', options: ['(2, 0)', '(0, 5)', '(3, 3)', '(1, 1)'], correctAnswer: 1, explanation: 'Points on the y-axis have x = 0', difficulty: 1, knowledge: { questionTokens: ['plotting-points'], correctToken: 'plotting-points', incorrectTokens: ['x-axis', null, 'neither-axis', 'neither-axis'] } },
+                { id: 'VCMNA283-005', question: 'What is the gradient between (1, 2) and (3, 8)?', options: ['2', '3', '5', '6'], correctAnswer: 1, explanation: 'm = (8-2)/(3-1) = 6/2 = 3', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: ['divided-wrong', null, 'added-coords', 'subtracted-wrong'] } },
+                { id: 'VCMNA283-006', question: 'A horizontal line has gradient...', options: ['1', 'undefined', '0', '-1'], correctAnswer: 2, explanation: 'Horizontal lines have zero rise, so gradient = 0', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['confused', 'vertical', null, 'confused'] } },
+                { id: 'VCMNA283-007', question: 'What is the y-intercept of y = -x + 7?', options: ['-1', '7', '0', '-7'], correctAnswer: 1, explanation: 'In y = mx + c, c = 7 is the y-intercept', difficulty: 1, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'origin', 'wrong-sign'] } },
+                { id: 'VCMNA283-008', question: 'Line through (2, 5) and (6, 13). Find gradient.', options: ['2', '8', '4', '18'], correctAnswer: 0, explanation: 'm = (13-5)/(6-2) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'numerator-only', 'wrong-division', 'added-all'] } },
+                { id: 'VCMNA283-009', question: 'Which equation has a negative gradient?', options: ['y = 2x + 1', 'y = x', 'y = -3x + 5', 'y = 5'], correctAnswer: 2, explanation: 'y = -3x + 5 has m = -3, which is negative', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['positive', 'positive', null, 'zero'] } },
+                { id: 'VCMNA283-010', question: 'If y = 4x, what is the y-intercept?', options: ['4', '0', '1', 'undefined'], correctAnswer: 1, explanation: 'y = 4x can be written as y = 4x + 0, so c = 0', difficulty: 2, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'confused', 'no-intercept'] } },
+                { id: 'VCMNA283-011', question: 'Point (4, -2) is in which quadrant?', options: ['I', 'II', 'III', 'IV'], correctAnswer: 3, explanation: 'x positive, y negative = Quadrant IV', difficulty: 2, knowledge: { questionTokens: ['plotting-points'], correctToken: 'plotting-points', incorrectTokens: ['wrong-quadrant', 'wrong-quadrant', 'wrong-quadrant', null] } },
+                { id: 'VCMNA283-012', question: 'Find gradient: (0, -3) to (4, 5)', options: ['2', '8', '-2', '0.5'], correctAnswer: 0, explanation: 'm = (5-(-3))/(4-0) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'numerator-only', 'wrong-sign', 'inverted'] } },
+                { id: 'VCMNA283-013', question: 'What is the equation of a line with gradient 2 and y-intercept 3?', options: ['y = 3x + 2', 'y = 2x + 3', 'y = 2x - 3', 'y = 5x'], correctAnswer: 1, explanation: 'y = mx + c with m = 2, c = 3 gives y = 2x + 3', difficulty: 1, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['swapped', null, 'wrong-sign', 'added'] } },
+                { id: 'VCMNA283-014', question: 'A line passes through origin with gradient 5. Its equation is...', options: ['y = 5', 'x = 5', 'y = 5x', 'y = x + 5'], correctAnswer: 2, explanation: 'Through origin means c = 0. With m = 5: y = 5x', difficulty: 2, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['horizontal', 'vertical', null, 'added-intercept'] } },
+                { id: 'VCMNA283-015', question: 'Line y = 2x + 4. When x = 3, what is y?', options: ['6', '10', '7', '9'], correctAnswer: 1, explanation: 'y = 2(3) + 4 = 6 + 4 = 10', difficulty: 1, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['forgot-4', null, 'wrong-calculation', 'wrong-multiplication'] } },
+                { id: 'VCMNA283-016', question: 'Gradient between (-2, 1) and (2, 9)?', options: ['2', '4', '8', '10'], correctAnswer: 0, explanation: 'm = (9-1)/(2-(-2)) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'wrong-denominator', 'numerator-only', 'added'] } },
+                { id: 'VCMNA283-017', question: 'Which line is steeper: y = 3x + 1 or y = 5x - 2?', options: ['y = 3x + 1', 'y = 5x - 2', 'Same steepness', 'Cannot tell'], correctAnswer: 1, explanation: 'Gradient of 5 is steeper than gradient of 3', difficulty: 2, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['wrong', null, 'same', 'no-comparison'] } },
+                { id: 'VCMNA283-018', question: 'A vertical line has gradient...', options: ['0', '1', 'undefined', '-1'], correctAnswer: 2, explanation: 'Vertical lines have undefined gradient (divide by zero)', difficulty: 2, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['horizontal', 'confused', null, 'confused'] } },
+                { id: 'VCMNA283-019', question: 'Line passes through (3, 7) with gradient 2. What is y when x = 5?', options: ['11', '9', '13', '7'], correctAnswer: 0, explanation: 'y = 2x + c. At (3,7): 7 = 6 + c, c = 1. When x = 5: y = 10 + 1 = 11', difficulty: 3, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: [null, 'wrong-c', 'wrong-calculation', 'no-change'] } },
+                { id: 'VCMNA283-020', question: 'Lines y = 2x + 3 and y = 2x - 1 are...', options: ['Parallel', 'Perpendicular', 'Intersecting', 'The same'], correctAnswer: 0, explanation: 'Same gradient (m = 2) but different y-intercepts = parallel lines', difficulty: 2, knowledge: { questionTokens: ['equation-of-line', 'understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: [null, 'perpendicular-error', 'same-gradient', 'identical'] } },
               ],
             },
             {
-              id: 'VCMNA281',
-              code: 'VCMNA281',
+              id: 'VCMNA280',
+              code: 'VCMNA280',
               title: 'Factorising Algebraic Expressions',
               description: 'Factorise algebraic expressions by identifying numerical factors and common algebraic factors',
               content: `# Factorising Algebraic Expressions
@@ -2695,8 +2695,8 @@ Sometimes we have two conditions:
               ],
             },
             {
-              id: 'VCMNA283',
-              code: 'VCMNA283',
+              id: 'VCMNA284-EXT',
+              code: 'VCMNA284-EXT',
               title: 'Equations with Fractions',
               description: 'Solve linear equations involving simple algebraic fractions',
               content: `# Equations with Fractions
@@ -3855,6 +3855,226 @@ V = 282.6 cm³
       id: 'statistics-probability',
       name: 'Statistics and Probability',
       chapters: [
+        {
+          id: 'chance',
+          title: 'Chance',
+          description: 'Understanding probability concepts and events',
+          sections: [
+            {
+              id: 'VCMSP294',
+              code: 'VCMSP294',
+              title: 'Complementary Events',
+              description: 'Identify complementary events and use the sum of probabilities to solve problems',
+              content: `# Complementary Events
+
+Complementary events are pairs of events where one must happen if the other doesn't. Together they cover all possibilities.
+
+## What Are Complementary Events?
+If event A is "rolling a 6", then the complement A' is "not rolling a 6".
+- P(A) + P(A') = 1
+- P(A') = 1 - P(A)
+
+## Using Complements
+Sometimes it's easier to find P(not happening) and subtract from 1.
+
+**Example:** Probability of rolling at least one 6 in two rolls
+- Easier: P(at least one 6) = 1 - P(no 6 in either roll)
+- P(no 6) = 5/6 × 5/6 = 25/36
+- P(at least one 6) = 1 - 25/36 = 11/36
+
+## Key Properties
+- Complements always sum to 1
+- Every event has exactly one complement
+- P(A') = 1 - P(A)`,
+              keyPoints: [
+                'Complementary events sum to probability 1',
+                'P(A) + P(not A) = 1',
+                'Use complement rule when easier to find P(not happening)',
+                'Every event has exactly one complement',
+              ],
+              knowledgeTokens: [
+                { id: 'complement-definition', name: 'Complement Definition', description: 'Understanding what complementary events are' },
+                { id: 'complement-rule', name: 'Complement Rule', description: 'Using P(A) + P(A\') = 1' },
+                { id: 'complement-calculation', name: 'Complement Calculation', description: 'Finding P(not A) from P(A)', prerequisites: ['complement-rule'] },
+                { id: 'complement-strategy', name: 'Complement Strategy', description: 'Using complements to simplify problems', prerequisites: ['complement-calculation'] },
+              ],
+              examples: [
+                { problem: 'P(rain) = 0.3. Find P(no rain)', solution: '0.7', explanation: 'P(no rain) = 1 - P(rain) = 1 - 0.3 = 0.7' },
+                { problem: 'P(not winning) = 0.85. Find P(winning)', solution: '0.15', explanation: 'P(winning) = 1 - P(not winning) = 1 - 0.85 = 0.15' }
+              ],
+              questions: [
+                { id: 'VCMSP294-001', question: 'If P(A) = 0.4, what is P(not A)?', options: ['0.4', '0.6', '1.4', '0.04'], correctAnswer: 1, explanation: 'P(not A) = 1 - P(A) = 1 - 0.4 = 0.6', difficulty: 1, knowledge: { questionTokens: ['complement-rule'], correctToken: 'complement-rule', incorrectTokens: ['same-value', null, 'addition-error', 'decimal-error'] } },
+                { id: 'VCMSP294-002', question: 'P(rain tomorrow) = 0.75. What is P(no rain)?', options: ['0.75', '0.25', '1.75', '0.075'], correctAnswer: 1, explanation: 'P(no rain) = 1 - 0.75 = 0.25', difficulty: 1, knowledge: { questionTokens: ['complement-calculation'], correctToken: 'complement-calculation', incorrectTokens: ['same-value', null, 'addition-error', 'decimal-error'] } },
+                { id: 'VCMSP294-003', question: 'The probability of NOT drawing a heart from a deck is 3/4. What is P(heart)?', options: ['3/4', '1/4', '1/2', '1/3'], correctAnswer: 1, explanation: 'P(heart) = 1 - P(not heart) = 1 - 3/4 = 1/4', difficulty: 1, knowledge: { questionTokens: ['complement-rule'], correctToken: 'complement-rule', incorrectTokens: ['same-value', null, 'fraction-error', 'fraction-error'] } },
+                { id: 'VCMSP294-004', question: 'If P(winning) = 1/5, what is P(not winning)?', options: ['1/5', '4/5', '5/5', '1/4'], correctAnswer: 1, explanation: 'P(not winning) = 1 - 1/5 = 5/5 - 1/5 = 4/5', difficulty: 1, knowledge: { questionTokens: ['complement-calculation'], correctToken: 'complement-calculation', incorrectTokens: ['same-value', null, 'full-probability', 'wrong-fraction'] } },
+                { id: 'VCMSP294-005', question: 'Two events are complementary. If one has probability 0.35, the other has probability...', options: ['0.35', '0.65', '1.35', '0.70'], correctAnswer: 1, explanation: 'Complements sum to 1: 1 - 0.35 = 0.65', difficulty: 1, knowledge: { questionTokens: ['complement-definition'], correctToken: 'complement-definition', incorrectTokens: ['same-value', null, 'addition-error', 'double-error'] } },
+                { id: 'VCMSP294-006', question: 'P(at least one head in 2 coin flips) can be found by 1 - P(?)', options: ['one head', 'two heads', 'no heads', 'one tail'], correctAnswer: 2, explanation: '"At least one head" is the complement of "no heads"', difficulty: 2, knowledge: { questionTokens: ['complement-strategy'], correctToken: 'complement-strategy', incorrectTokens: ['wrong-complement', 'wrong-complement', null, 'wrong-complement'] } },
+                { id: 'VCMSP294-007', question: 'A spinner has P(blue) = 0.2, P(red) = 0.3, P(green) = 0.5. P(not green) = ?', options: ['0.5', '0.3', '0.2', '0.5'], correctAnswer: 0, explanation: 'P(not green) = 1 - P(green) = 1 - 0.5 = 0.5. Or: 0.2 + 0.3 = 0.5', difficulty: 2, knowledge: { questionTokens: ['complement-calculation'], correctToken: 'complement-calculation', incorrectTokens: [null, 'red-only', 'blue-only', 'same-value'] } },
+                { id: 'VCMSP294-008', question: 'Which pair are complementary events for rolling a die?', options: ['Rolling 6, Rolling 5', 'Rolling even, Rolling odd', 'Rolling 1, Rolling 2', 'Rolling less than 3, Rolling 3'], correctAnswer: 1, explanation: 'Even and odd cover all outcomes and cannot both occur', difficulty: 2, knowledge: { questionTokens: ['complement-definition'], correctToken: 'complement-definition', incorrectTokens: ['not-exhaustive', null, 'not-exhaustive', 'not-exhaustive'] } },
+                { id: 'VCMSP294-009', question: 'P(A) = 0.6 and P(B) = 0.4. Can A and B be complementary?', options: ['Yes', 'No, they don\'t sum to 1', 'Only if independent', 'Need more information'], correctAnswer: 0, explanation: '0.6 + 0.4 = 1, so they can be complementary events', difficulty: 2, knowledge: { questionTokens: ['complement-definition'], correctToken: 'complement-definition', incorrectTokens: [null, 'sum-error', 'independence-confusion', 'incomplete-reasoning'] } },
+                { id: 'VCMSP294-010', question: 'If P(sunny) + P(not sunny) = 1, what type of events are these?', options: ['Independent', 'Mutually exclusive', 'Complementary', 'Impossible'], correctAnswer: 2, explanation: 'Events that sum to 1 and cover all outcomes are complementary', difficulty: 1, knowledge: { questionTokens: ['complement-definition'], correctToken: 'complement-definition', incorrectTokens: ['independence-confusion', 'me-confusion', null, 'impossible-confusion'] } },
+                { id: 'VCMSP294-011', question: 'P(at least one 6 in two dice rolls) = 1 - P(no 6). If P(no 6 on one die) = 5/6, find P(no 6 on both).', options: ['10/12', '25/36', '5/6', '1/36'], correctAnswer: 1, explanation: 'P(no 6 on both) = 5/6 × 5/6 = 25/36', difficulty: 3, knowledge: { questionTokens: ['complement-strategy'], correctToken: 'complement-strategy', incorrectTokens: ['addition-error', null, 'single-roll', 'one-six'] } },
+                { id: 'VCMSP294-012', question: 'From Q11, what is P(at least one 6)?', options: ['25/36', '11/36', '1/36', '35/36'], correctAnswer: 1, explanation: 'P(at least one 6) = 1 - 25/36 = 36/36 - 25/36 = 11/36', difficulty: 3, knowledge: { questionTokens: ['complement-strategy'], correctToken: 'complement-strategy', incorrectTokens: ['forgot-complement', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMSP294-013', question: 'P(passing exam) = 7/10. What is P(failing)?', options: ['7/10', '3/10', '1/10', '10/7'], correctAnswer: 1, explanation: 'P(failing) = 1 - 7/10 = 3/10', difficulty: 1, knowledge: { questionTokens: ['complement-calculation'], correctToken: 'complement-calculation', incorrectTokens: ['same-value', null, 'wrong-subtraction', 'inverted-fraction'] } },
+                { id: 'VCMSP294-014', question: 'A bag has 3 red, 5 blue, 2 green marbles. P(not red) = ?', options: ['3/10', '7/10', '5/10', '2/10'], correctAnswer: 1, explanation: 'P(not red) = (5+2)/10 = 7/10, or 1 - 3/10 = 7/10', difficulty: 2, knowledge: { questionTokens: ['complement-calculation'], correctToken: 'complement-calculation', incorrectTokens: ['red-prob', null, 'blue-only', 'green-only'] } },
+                { id: 'VCMSP294-015', question: 'Which is NOT a pair of complementary events?', options: ['Pass/Fail', 'Rain/No rain', 'Hot/Cold', 'Win/Lose'], correctAnswer: 2, explanation: 'Hot/Cold are not complementary - weather can be neither hot nor cold (mild)', difficulty: 2, knowledge: { questionTokens: ['complement-definition'], correctToken: 'complement-definition', incorrectTokens: ['exhaustive-error', 'exhaustive-error', null, 'exhaustive-error'] } },
+                { id: 'VCMSP294-016', question: 'P(A) = 0. What is P(not A)?', options: ['0', '1', 'Undefined', '0.5'], correctAnswer: 1, explanation: 'If P(A) = 0 (impossible), then P(not A) = 1 (certain)', difficulty: 2, knowledge: { questionTokens: ['complement-rule'], correctToken: 'complement-rule', incorrectTokens: ['same-value', null, 'undefined-error', 'half-error'] } },
+                { id: 'VCMSP294-017', question: 'P(A) = 1. What is P(not A)?', options: ['1', '0', 'Undefined', '2'], correctAnswer: 1, explanation: 'If P(A) = 1 (certain), then P(not A) = 0 (impossible)', difficulty: 2, knowledge: { questionTokens: ['complement-rule'], correctToken: 'complement-rule', incorrectTokens: ['same-value', null, 'undefined-error', 'addition-error'] } },
+                { id: 'VCMSP294-018', question: 'The complement of "rolling less than 4" on a die is...', options: ['Rolling exactly 4', 'Rolling more than 4', 'Rolling 4 or more', 'Rolling 1, 2, or 3'], correctAnswer: 2, explanation: '"Less than 4" means 1,2,3. Complement is 4,5,6 = "4 or more"', difficulty: 2, knowledge: { questionTokens: ['complement-definition'], correctToken: 'complement-definition', incorrectTokens: ['boundary-error', 'boundary-error', null, 'same-event'] } },
+                { id: 'VCMSP294-019', question: 'P(at least one tail in 3 coin flips) using complements: 1 - P(?)', options: ['one tail', 'two tails', 'three tails', 'all heads'], correctAnswer: 3, explanation: 'At least one tail = not (all heads). So 1 - P(all heads)', difficulty: 3, knowledge: { questionTokens: ['complement-strategy'], correctToken: 'complement-strategy', incorrectTokens: ['wrong-complement', 'wrong-complement', 'wrong-complement', null] } },
+                { id: 'VCMSP294-020', question: 'P(all heads in 3 flips) = 1/8. So P(at least one tail) = ?', options: ['1/8', '7/8', '3/8', '1/2'], correctAnswer: 1, explanation: 'P(at least one tail) = 1 - P(all heads) = 1 - 1/8 = 7/8', difficulty: 3, knowledge: { questionTokens: ['complement-calculation'], correctToken: 'complement-calculation', incorrectTokens: ['same-value', null, 'wrong-calculation', 'half-error'] } },
+              ],
+            },
+            {
+              id: 'VCMSP295',
+              code: 'VCMSP295',
+              title: 'Event Language',
+              description: 'Describe events using language of "at least", exclusive "or", inclusive "or" and "and"',
+              content: `# Describing Events with Probability Language
+
+Understanding precise probability language helps avoid confusion when describing events.
+
+## "At Least" and "At Most"
+- **At least n**: n or more (≥)
+- **At most n**: n or fewer (≤)
+
+**Example:** Rolling a die
+- At least 4: outcomes 4, 5, 6 (3 outcomes)
+- At most 2: outcomes 1, 2 (2 outcomes)
+
+## "Or" - Two Meanings
+**Inclusive OR (A or B or both):**
+- Either event can happen, or both
+- Example: "Pass maths OR English" includes passing both
+
+**Exclusive OR (A or B but not both):**
+- Exactly one event happens
+- Example: "Heads OR tails" on one flip
+
+## "And" - Both Events
+- Both events must occur
+- Example: "Draw a red AND a king" means the red king cards
+
+## Combining Language
+- "At least one head AND at most two heads" in 3 flips
+- Outcomes: 1, 2 heads (not 0, not 3)`,
+              keyPoints: [
+                '"At least n" means n or more',
+                '"At most n" means n or fewer',
+                'Inclusive OR allows both events',
+                'Exclusive OR means exactly one event',
+                '"And" requires both events to occur',
+              ],
+              knowledgeTokens: [
+                { id: 'at-least-at-most', name: 'At Least / At Most', description: 'Understanding inequality language' },
+                { id: 'inclusive-or', name: 'Inclusive Or', description: 'A or B or both' },
+                { id: 'exclusive-or', name: 'Exclusive Or', description: 'A or B but not both' },
+                { id: 'and-events', name: 'And Events', description: 'Both events must occur' },
+                { id: 'combined-language', name: 'Combined Language', description: 'Using multiple terms together', prerequisites: ['at-least-at-most', 'inclusive-or'] },
+              ],
+              examples: [
+                { problem: 'List outcomes for "at least 5" on a die', solution: '5, 6', explanation: 'At least 5 means 5 or more: {5, 6}' },
+                { problem: 'Is "rolling even or rolling 6" inclusive or exclusive?', solution: 'Inclusive', explanation: '6 is even, so both can occur simultaneously' }
+              ],
+              questions: [
+                { id: 'VCMSP295-001', question: 'Rolling a die: how many outcomes for "at least 3"?', options: ['2', '3', '4', '6'], correctAnswer: 2, explanation: 'At least 3: outcomes 3, 4, 5, 6 = 4 outcomes', difficulty: 1, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['count-error', 'boundary-error', null, 'all-outcomes'] } },
+                { id: 'VCMSP295-002', question: 'Rolling a die: which outcomes satisfy "at most 2"?', options: ['1, 2', '1, 2, 3', '2 only', '1 only'], correctAnswer: 0, explanation: 'At most 2 means 2 or fewer: {1, 2}', difficulty: 1, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: [null, 'boundary-error', 'exactly-error', 'minimum-error'] } },
+                { id: 'VCMSP295-003', question: '"At least one head in 2 flips" includes which outcomes?', options: ['HH only', 'HT, TH only', 'HH, HT, TH', 'TT, HT, TH'], correctAnswer: 2, explanation: 'At least one head: HH, HT, TH (all except TT)', difficulty: 1, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['exactly-two', 'exactly-one', null, 'wrong-outcomes'] } },
+                { id: 'VCMSP295-004', question: '"A or B" in inclusive sense means...', options: ['A only', 'B only', 'A or B but not both', 'A or B or both'], correctAnswer: 3, explanation: 'Inclusive OR allows for both events to occur', difficulty: 1, knowledge: { questionTokens: ['inclusive-or'], correctToken: 'inclusive-or', incorrectTokens: ['single-event', 'single-event', 'exclusive-confusion', null] } },
+                { id: 'VCMSP295-005', question: 'Flip a coin once. Is "heads or tails" inclusive or exclusive?', options: ['Inclusive', 'Exclusive', 'Neither', 'Both'], correctAnswer: 1, explanation: 'Cannot get both on one flip, so exclusive', difficulty: 2, knowledge: { questionTokens: ['exclusive-or'], correctToken: 'exclusive-or', incorrectTokens: ['inclusive-confusion', null, 'neither-error', 'both-error'] } },
+                { id: 'VCMSP295-006', question: '"Drawing a heart OR a face card" from a deck is...', options: ['Exclusive OR', 'Inclusive OR', 'Impossible', 'Certain'], correctAnswer: 1, explanation: 'Can draw J/Q/K of hearts (both heart AND face card), so inclusive', difficulty: 2, knowledge: { questionTokens: ['inclusive-or'], correctToken: 'inclusive-or', incorrectTokens: ['exclusive-confusion', null, 'impossible-error', 'certain-error'] } },
+                { id: 'VCMSP295-007', question: '"Roll a 3 AND roll an even number" on one die is...', options: ['Possible', 'Impossible', 'Certain', 'Likely'], correctAnswer: 1, explanation: '3 is odd, so cannot be both 3 and even', difficulty: 2, knowledge: { questionTokens: ['and-events'], correctToken: 'and-events', incorrectTokens: ['possible-error', null, 'certain-error', 'likely-error'] } },
+                { id: 'VCMSP295-008', question: 'How many die outcomes satisfy "at least 2 AND at most 5"?', options: ['2', '3', '4', '6'], correctAnswer: 2, explanation: 'At least 2 AND at most 5: {2, 3, 4, 5} = 4 outcomes', difficulty: 2, knowledge: { questionTokens: ['combined-language'], correctToken: 'combined-language', incorrectTokens: ['boundary-error', 'count-error', null, 'all-outcomes'] } },
+                { id: 'VCMSP295-009', question: '"At most 3 heads in 4 flips" excludes which outcome?', options: ['0 heads', '2 heads', '3 heads', '4 heads'], correctAnswer: 3, explanation: 'At most 3 means 0, 1, 2, or 3 heads. 4 heads is excluded.', difficulty: 2, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['included', 'included', 'included', null] } },
+                { id: 'VCMSP295-010', question: 'Rolling two dice, "sum at least 7" includes sum of...', options: ['6', '7', 'Only 12', 'Only 7'], correctAnswer: 1, explanation: 'At least 7 means 7, 8, 9, 10, 11, 12', difficulty: 1, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['boundary-error', null, 'maximum-only', 'exact-only'] } },
+                { id: 'VCMSP295-011', question: '"Pass exam OR get extra credit" (you can get both). This is...', options: ['Exclusive OR', 'Inclusive OR', 'AND', 'NOT'], correctAnswer: 1, explanation: 'When you can get both, it\'s inclusive OR', difficulty: 1, knowledge: { questionTokens: ['inclusive-or'], correctToken: 'inclusive-or', incorrectTokens: ['exclusive-confusion', null, 'and-confusion', 'not-confusion'] } },
+                { id: 'VCMSP295-012', question: 'Pick a card: "red AND spade" has how many outcomes?', options: ['0', '13', '26', '52'], correctAnswer: 0, explanation: 'Spades are black, so no card is both red and spade', difficulty: 2, knowledge: { questionTokens: ['and-events'], correctToken: 'and-events', incorrectTokens: [null, 'spades-only', 'reds-only', 'all-cards'] } },
+                { id: 'VCMSP295-013', question: '"At least 1" is the same as...', options: ['Exactly 1', 'More than 1', '1 or more', 'Less than 1'], correctAnswer: 2, explanation: 'At least 1 means 1 or more (≥1)', difficulty: 1, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['exactly-error', 'boundary-error', null, 'opposite-error'] } },
+                { id: 'VCMSP295-014', question: '"At most 0" means...', options: ['Exactly 0', 'At least 0', '0 or more', 'Less than 0'], correctAnswer: 0, explanation: 'At most 0 means 0 or fewer. Since we can\'t have negative, it means exactly 0.', difficulty: 2, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: [null, 'at-least-confusion', 'or-more-error', 'negative-error'] } },
+                { id: 'VCMSP295-015', question: 'In 3 coin flips, outcomes with "exactly 2 heads" are...', options: ['1', '2', '3', '4'], correctAnswer: 2, explanation: 'HHT, HTH, THH = 3 outcomes with exactly 2 heads', difficulty: 2, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['count-error', 'count-error', null, 'count-error'] } },
+                { id: 'VCMSP295-016', question: '"Sunny tomorrow exclusive OR rainy tomorrow" means...', options: ['Both could happen', 'Neither could happen', 'Exactly one will happen', 'At least one happens'], correctAnswer: 2, explanation: 'Exclusive OR means exactly one of the events occurs, not both', difficulty: 2, knowledge: { questionTokens: ['exclusive-or'], correctToken: 'exclusive-or', incorrectTokens: ['inclusive-confusion', 'neither-allowed', null, 'at-least-confusion'] } },
+                { id: 'VCMSP295-017', question: 'How many ways to roll "at least 4" with one die?', options: ['1', '2', '3', '4'], correctAnswer: 2, explanation: 'At least 4: {4, 5, 6} = 3 ways', difficulty: 1, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['exactly-error', 'count-error', null, 'boundary-error'] } },
+                { id: 'VCMSP295-018', question: '"A AND B AND C" requires...', options: ['At least one event', 'Exactly one event', 'At least two events', 'All three events'], correctAnswer: 3, explanation: 'AND means all listed events must occur', difficulty: 1, knowledge: { questionTokens: ['and-events'], correctToken: 'and-events', incorrectTokens: ['or-confusion', 'exactly-one-error', 'at-least-two-error', null] } },
+                { id: 'VCMSP295-019', question: '"At least 2 AND at most 2" is the same as...', options: ['Less than 2', 'More than 2', 'Exactly 2', 'Impossible'], correctAnswer: 2, explanation: 'At least 2 AND at most 2 means ≥2 AND ≤2, which is exactly 2', difficulty: 3, knowledge: { questionTokens: ['combined-language'], correctToken: 'combined-language', incorrectTokens: ['less-error', 'more-error', null, 'impossible-error'] } },
+                { id: 'VCMSP295-020', question: '"Not at least 3" is the same as...', options: ['At least 3', 'Exactly 3', 'At most 2', 'More than 3'], correctAnswer: 2, explanation: 'Not at least 3 = not (3 or more) = less than 3 = at most 2', difficulty: 3, knowledge: { questionTokens: ['at-least-at-most'], correctToken: 'at-least-at-most', incorrectTokens: ['same-statement', 'exactly-error', null, 'more-error'] } },
+              ],
+            },
+            {
+              id: 'VCMSP296',
+              code: 'VCMSP296',
+              title: 'Two-way Tables and Venn Diagrams',
+              description: 'Represent events in two-way tables and Venn diagrams and solve related problems',
+              content: `# Two-way Tables and Venn Diagrams
+
+These tools help organise and visualise probability information.
+
+## Two-way Tables
+A grid showing how two categories overlap.
+
+**Example:** 100 students - Sport and Music
+|         | Music | No Music | Total |
+|---------|-------|----------|-------|
+| Sport   | 30    | 25       | 55    |
+| No Sport| 20    | 25       | 45    |
+| Total   | 50    | 50       | 100   |
+
+- P(Sport AND Music) = 30/100 = 0.3
+- P(Sport OR Music) = (30+25+20)/100 = 0.75
+
+## Venn Diagrams
+Circles showing overlapping events.
+- Overlap region = both events
+- Outside both circles = neither event
+- Union = everything in either circle
+
+## Reading Values
+- Intersection (A ∩ B): Middle overlap
+- Union (A ∪ B): Everything in both circles
+- Only A: Left circle minus overlap
+- Only B: Right circle minus overlap`,
+              keyPoints: [
+                'Two-way tables show all combinations of two categories',
+                'Venn diagrams visualise overlapping events',
+                'Intersection means both events occur',
+                'Union means at least one event occurs',
+                'Total probabilities must sum to 1',
+              ],
+              knowledgeTokens: [
+                { id: 'two-way-tables', name: 'Two-way Tables', description: 'Reading and creating two-way tables' },
+                { id: 'venn-diagrams', name: 'Venn Diagrams', description: 'Understanding Venn diagram regions' },
+                { id: 'intersection', name: 'Intersection', description: 'Finding where events overlap' },
+                { id: 'union', name: 'Union', description: 'Finding combined event regions' },
+                { id: 'table-venn-conversion', name: 'Table-Venn Conversion', description: 'Moving between representations', prerequisites: ['two-way-tables', 'venn-diagrams'] },
+              ],
+              examples: [
+                { problem: 'In a two-way table, 40 students play sport, 30 play music, 15 do both. How many do only sport?', solution: '25', explanation: 'Only sport = Sport - Both = 40 - 15 = 25' },
+                { problem: 'In a Venn diagram, A has 20, B has 15, overlap has 5. Find A only.', solution: '15', explanation: 'A only = A total - overlap = 20 - 5 = 15' }
+              ],
+              questions: [
+                { id: 'VCMSP296-001', question: 'In a two-way table, the intersection of "Cat" row and "Dog" column shows...', options: ['People with only cats', 'People with only dogs', 'People with both', 'People with neither'], correctAnswer: 2, explanation: 'The intersection cell shows those in both categories', difficulty: 1, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: ['row-only', 'column-only', null, 'neither-cell'] } },
+                { id: 'VCMSP296-002', question: 'The overlapping region of a Venn diagram represents...', options: ['Only A', 'Only B', 'A and B', 'Neither A nor B'], correctAnswer: 2, explanation: 'The overlap shows elements in both sets', difficulty: 1, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['only-A-error', 'only-B-error', null, 'outside-error'] } },
+                { id: 'VCMSP296-003', question: '50 students: 30 play soccer, 25 play tennis, 10 play both. How many play only soccer?', options: ['30', '20', '10', '25'], correctAnswer: 1, explanation: 'Only soccer = 30 - 10 = 20', difficulty: 1, knowledge: { questionTokens: ['intersection'], correctToken: 'intersection', incorrectTokens: ['total-soccer', null, 'both-value', 'tennis-value'] } },
+                { id: 'VCMSP296-004', question: 'From Q3, how many play soccer OR tennis (or both)?', options: ['55', '45', '50', '35'], correctAnswer: 1, explanation: 'Union = 30 + 25 - 10 = 45 (subtract overlap to avoid counting twice)', difficulty: 2, knowledge: { questionTokens: ['union'], correctToken: 'union', incorrectTokens: ['double-count', null, 'all-students', 'wrong-calculation'] } },
+                { id: 'VCMSP296-005', question: 'From Q3, how many play neither sport?', options: ['0', '5', '10', '15'], correctAnswer: 1, explanation: 'Neither = Total - Union = 50 - 45 = 5', difficulty: 2, knowledge: { questionTokens: ['union'], correctToken: 'union', incorrectTokens: ['no-neither', null, 'both-confused', 'wrong-subtraction'] } },
+                { id: 'VCMSP296-006', question: 'In a Venn diagram, A∩B represents...', options: ['A or B', 'A and B', 'Only A', 'Only B'], correctAnswer: 1, explanation: '∩ is the intersection symbol meaning "and"', difficulty: 1, knowledge: { questionTokens: ['intersection'], correctToken: 'intersection', incorrectTokens: ['union-symbol', null, 'only-A-error', 'only-B-error'] } },
+                { id: 'VCMSP296-007', question: 'A∪B in a Venn diagram means...', options: ['A and B only', 'A or B or both', 'Neither A nor B', 'Only the overlap'], correctAnswer: 1, explanation: '∪ is the union symbol meaning "or"', difficulty: 1, knowledge: { questionTokens: ['union'], correctToken: 'union', incorrectTokens: ['intersection-symbol', null, 'neither-error', 'overlap-only'] } },
+                { id: 'VCMSP296-008', question: 'Two-way table: Cat owners = 45, Dog owners = 35, Both = 15, Total = 100. Cat only?', options: ['45', '30', '15', '20'], correctAnswer: 1, explanation: 'Cat only = 45 - 15 = 30', difficulty: 2, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: ['total-cat', null, 'both-value', 'dog-only'] } },
+                { id: 'VCMSP296-009', question: 'From Q8, what goes in "Neither cat nor dog" cell?', options: ['15', '20', '35', '50'], correctAnswer: 2, explanation: 'Neither = 100 - (30 + 15 + 20) = 100 - 65 = 35', difficulty: 2, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: ['both-value', 'dog-only', null, 'half-error'] } },
+                { id: 'VCMSP296-010', question: 'If P(A) = 0.5, P(B) = 0.4, P(A∩B) = 0.2, find P(A∪B)', options: ['0.9', '0.7', '0.5', '0.3'], correctAnswer: 1, explanation: 'P(A∪B) = P(A) + P(B) - P(A∩B) = 0.5 + 0.4 - 0.2 = 0.7', difficulty: 3, knowledge: { questionTokens: ['union'], correctToken: 'union', incorrectTokens: ['double-count', null, 'A-only', 'subtraction-error'] } },
+                { id: 'VCMSP296-011', question: 'In a Venn diagram, the region outside both circles represents...', options: ['A only', 'B only', 'A and B', 'Neither A nor B'], correctAnswer: 3, explanation: 'Outside both circles means not in A and not in B', difficulty: 1, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['only-A-error', 'only-B-error', 'intersection-error', null] } },
+                { id: 'VCMSP296-012', question: '80 people surveyed: 50 like tea, 40 like coffee, 20 like both. P(tea only)?', options: ['50/80', '30/80', '20/80', '40/80'], correctAnswer: 1, explanation: 'Tea only = 50 - 20 = 30. P = 30/80', difficulty: 2, knowledge: { questionTokens: ['intersection'], correctToken: 'intersection', incorrectTokens: ['all-tea', null, 'both-only', 'coffee-value'] } },
+                { id: 'VCMSP296-013', question: 'From Q12, P(neither tea nor coffee)?', options: ['0', '10/80', '20/80', '30/80'], correctAnswer: 1, explanation: 'Tea∪Coffee = 30+20+20 = 70. Neither = 80-70 = 10. P = 10/80', difficulty: 3, knowledge: { questionTokens: ['union'], correctToken: 'union', incorrectTokens: ['no-neither', null, 'both-value', 'wrong-calculation'] } },
+                { id: 'VCMSP296-014', question: 'Two-way table totals: Row 1 = 60, Row 2 = 40, Column 1 = 55, Column 2 = ?', options: ['45', '40', '55', '100'], correctAnswer: 0, explanation: 'Total = 60 + 40 = 100. Column 2 = 100 - 55 = 45', difficulty: 2, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: [null, 'row2-value', 'column1-value', 'total-value'] } },
+                { id: 'VCMSP296-015', question: 'If two events cannot happen together, on a Venn diagram they...', options: ['Completely overlap', 'Don\'t overlap', 'Are the same circle', 'Are outside the box'], correctAnswer: 1, explanation: 'Mutually exclusive events have no intersection (no overlap)', difficulty: 2, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['full-overlap', null, 'same-circle', 'outside-error'] } },
+                { id: 'VCMSP296-016', question: 'From a two-way table: Boys = 25, Girls = 30, Play sport = 35, Boys who play sport = 18. Girls who play sport?', options: ['12', '17', '18', '7'], correctAnswer: 1, explanation: 'Girls who play sport = 35 - 18 = 17', difficulty: 2, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: ['wrong-subtraction', null, 'boys-value', 'wrong-calculation'] } },
+                { id: 'VCMSP296-017', question: 'P(A only) means...', options: ['P(A)', 'P(A∩B)', 'P(A) - P(A∩B)', 'P(A∪B)'], correctAnswer: 2, explanation: 'A only = A but not B = P(A) minus the overlap', difficulty: 3, knowledge: { questionTokens: ['intersection'], correctToken: 'intersection', incorrectTokens: ['all-A', 'both-only', null, 'union-error'] } },
+                { id: 'VCMSP296-018', question: 'Venn diagram: A circle = 40, B circle = 30, overlap = 12. Total in A only?', options: ['40', '28', '12', '18'], correctAnswer: 1, explanation: 'A only = 40 - 12 = 28', difficulty: 2, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['total-A', null, 'overlap-value', 'B-only'] } },
+                { id: 'VCMSP296-019', question: 'If P(A∪B) = 0.8 and P(A∩B) = 0.1, and P(A) = 0.5, find P(B)', options: ['0.3', '0.4', '0.5', '0.6'], correctAnswer: 1, explanation: 'P(A∪B) = P(A) + P(B) - P(A∩B). 0.8 = 0.5 + P(B) - 0.1. P(B) = 0.4', difficulty: 3, knowledge: { questionTokens: ['union'], correctToken: 'union', incorrectTokens: ['wrong-rearrange', null, 'same-as-A', 'wrong-calculation'] } },
+                { id: 'VCMSP296-020', question: 'A two-way table has 4 cells. If 3 cells contain 20, 15, 25, and total is 80, the fourth cell is...', options: ['20', '80', '60', '15'], correctAnswer: 0, explanation: 'Fourth = 80 - (20+15+25) = 80 - 60 = 20', difficulty: 2, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: [null, 'total-value', 'sum-three', 'wrong-cell'] } },
+              ],
+            },
+          ],
+        },
         {
           id: 'data-representation',
           title: 'Data Representation and Interpretation',

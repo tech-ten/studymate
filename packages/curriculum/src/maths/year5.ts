@@ -2610,6 +2610,101 @@ The remainder's meaning depends on the situation:
                   },
                 },
               ]
+            },
+            {
+              id: 'VCMNA185',
+              code: 'VCMNA185',
+              title: 'Problem Solving Strategies',
+              description: 'Use efficient mental and written strategies and apply appropriate digital technologies to solve problems',
+              content: `# Problem Solving Strategies
+
+Choosing the right strategy makes solving problems faster and easier!
+
+## Mental Strategies
+
+### Compensation
+Adjust numbers to make calculation easier, then compensate.
+
+**Example:** 48 + 37
+- Think: 48 + 40 = 88, then subtract 3 = 85
+- Or: 50 + 37 = 87, then subtract 2 = 85
+
+### Splitting (Partitioning)
+Break numbers into parts.
+
+**Example:** 56 × 4
+- 56 × 4 = (50 × 4) + (6 × 4) = 200 + 24 = 224
+
+### Doubling and Halving
+**Example:** 25 × 16
+- Double 25 = 50, halve 16 = 8
+- 50 × 8 = 400
+
+## Written Strategies
+
+### Column Addition/Subtraction
+Line up place values and work from right to left.
+
+### Short Multiplication
+Multiply by single digits efficiently.
+
+### Long Multiplication
+For two-digit multipliers, use rows.
+
+## Choosing a Strategy
+
+| Problem Type | Good Strategy |
+|-------------|---------------|
+| Adding near-100 numbers | Compensation |
+| Multiplying by 5 | ×10 then halve |
+| Multiplying by 4 | Double, double |
+| Checking answers | Estimation |
+
+## Estimation
+
+Round numbers to check if your answer is reasonable.
+
+**Example:** 487 × 23 ≈ 500 × 20 = 10,000
+So answer should be near 10,000 (actual: 11,201)`,
+              keyPoints: [
+                'Choose the most efficient strategy for each problem',
+                'Mental strategies include compensation, splitting, and doubling/halving',
+                'Written strategies are useful for larger numbers',
+                'Always estimate to check if your answer is reasonable',
+              ],
+              knowledgeTokens: [
+                { id: 'compensation-strategy', name: 'Compensation Strategy', description: 'Adjusting numbers then compensating' },
+                { id: 'splitting-strategy', name: 'Splitting Strategy', description: 'Breaking numbers into parts' },
+                { id: 'doubling-halving', name: 'Doubling and Halving', description: 'Using multiplication properties' },
+                { id: 'estimation-checking', name: 'Estimation for Checking', description: 'Using rounding to verify answers', prerequisites: ['compensation-strategy'] },
+                { id: 'strategy-selection', name: 'Strategy Selection', description: 'Choosing the best method', prerequisites: ['compensation-strategy', 'splitting-strategy'] },
+              ],
+              examples: [
+                { problem: 'Calculate 99 + 56 mentally', solution: '155', explanation: '100 + 56 = 156, minus 1 = 155' },
+                { problem: 'Calculate 25 × 8 using doubling/halving', solution: '200', explanation: '50 × 4 = 200' },
+              ],
+              questions: [
+                { id: 'VCMNA185-001', question: 'What is the best mental strategy for 99 + 47?', options: ['Count on by ones', 'Add 100, subtract 1', 'Use a calculator', 'Guess'], correctAnswer: 1, explanation: 'Adding 100 then subtracting 1 is efficient: 100 + 47 - 1 = 146', difficulty: 1, knowledge: { questionTokens: ['compensation-strategy'], correctToken: 'compensation-strategy', incorrectTokens: ['inefficient-strategy', null, 'calculator-dependency', 'no-strategy'] } },
+                { id: 'VCMNA185-002', question: 'Calculate 48 + 35 using compensation', options: ['73', '83', '93', '63'], correctAnswer: 1, explanation: '50 + 35 = 85, subtract 2 = 83', difficulty: 1, knowledge: { questionTokens: ['compensation-strategy'], correctToken: 'compensation-strategy', incorrectTokens: ['calculation-error', null, 'calculation-error', 'calculation-error'] } },
+                { id: 'VCMNA185-003', question: 'What is 56 × 4 using splitting?', options: ['214', '224', '234', '244'], correctAnswer: 1, explanation: '(50 × 4) + (6 × 4) = 200 + 24 = 224', difficulty: 1, knowledge: { questionTokens: ['splitting-strategy'], correctToken: 'splitting-strategy', incorrectTokens: ['calculation-error', null, 'calculation-error', 'calculation-error'] } },
+                { id: 'VCMNA185-004', question: 'To multiply by 5 mentally, you can...', options: ['Multiply by 10 and halve', 'Add 5 repeatedly', 'Multiply by 6 and subtract', 'Guess'], correctAnswer: 0, explanation: 'Multiplying by 10 then halving gives × 5 efficiently', difficulty: 1, knowledge: { questionTokens: ['doubling-halving'], correctToken: 'doubling-halving', incorrectTokens: [null, 'inefficient-strategy', 'wrong-method', 'no-strategy'] } },
+                { id: 'VCMNA185-005', question: '25 × 12 using doubling and halving becomes...', options: ['50 × 6', '100 × 3', '12.5 × 24', 'All of these work'], correctAnswer: 3, explanation: 'All are equivalent: 50×6=300, 100×3=300, 12.5×24=300', difficulty: 2, knowledge: { questionTokens: ['doubling-halving'], correctToken: 'doubling-halving', incorrectTokens: ['partial-understanding', 'partial-understanding', 'partial-understanding', null] } },
+                { id: 'VCMNA185-006', question: 'Estimate 489 × 21', options: ['About 1,000', 'About 5,000', 'About 10,000', 'About 50,000'], correctAnswer: 2, explanation: '500 × 20 = 10,000 (actual: 10,269)', difficulty: 1, knowledge: { questionTokens: ['estimation-checking'], correctToken: 'estimation-checking', incorrectTokens: ['underestimate', 'underestimate', null, 'overestimate'] } },
+                { id: 'VCMNA185-007', question: 'Which is the best estimate for 312 + 589?', options: ['About 800', 'About 900', 'About 1,000', 'About 1,100'], correctAnswer: 1, explanation: '300 + 600 = 900 (actual: 901)', difficulty: 1, knowledge: { questionTokens: ['estimation-checking'], correctToken: 'estimation-checking', incorrectTokens: ['underestimate', null, 'overestimate', 'overestimate'] } },
+                { id: 'VCMNA185-008', question: 'Calculate 67 + 28 mentally', options: ['85', '95', '105', '75'], correctAnswer: 1, explanation: '67 + 30 = 97, subtract 2 = 95. Or: 70 + 28 = 98, subtract 3 = 95', difficulty: 1, knowledge: { questionTokens: ['compensation-strategy'], correctToken: 'compensation-strategy', incorrectTokens: ['calculation-error', null, 'calculation-error', 'calculation-error'] } },
+                { id: 'VCMNA185-009', question: '36 × 5 equals...', options: ['150', '160', '170', '180'], correctAnswer: 3, explanation: '36 × 10 = 360, halve = 180', difficulty: 1, knowledge: { questionTokens: ['doubling-halving'], correctToken: 'doubling-halving', incorrectTokens: ['calculation-error', 'calculation-error', 'calculation-error', null] } },
+                { id: 'VCMNA185-010', question: 'To multiply by 4, you can...', options: ['Double once', 'Double twice', 'Triple once', 'Add 4'], correctAnswer: 1, explanation: 'Doubling twice: ×2 ×2 = ×4', difficulty: 1, knowledge: { questionTokens: ['doubling-halving'], correctToken: 'doubling-halving', incorrectTokens: ['×2-only', null, 'wrong-method', 'inefficient'] } },
+                { id: 'VCMNA185-011', question: 'A student got 12,456 for 247 × 5. Is this reasonable?', options: ['Yes', 'No, too high', 'No, too low', 'Cannot tell'], correctAnswer: 1, explanation: 'Estimate: 250 × 5 = 1,250. Answer should be about 1,235, not 12,456', difficulty: 2, knowledge: { questionTokens: ['estimation-checking'], correctToken: 'estimation-checking', incorrectTokens: ['no-estimation', null, 'wrong-estimate', 'no-checking'] } },
+                { id: 'VCMNA185-012', question: '74 × 8 using splitting:', options: ['512', '592', '602', '582'], correctAnswer: 1, explanation: '(70 × 8) + (4 × 8) = 560 + 32 = 592', difficulty: 2, knowledge: { questionTokens: ['splitting-strategy'], correctToken: 'splitting-strategy', incorrectTokens: ['calculation-error', null, 'calculation-error', 'calculation-error'] } },
+                { id: 'VCMNA185-013', question: 'Which strategy is best for 1000 - 347?', options: ['Count back by ones', 'Count up from 347', 'Subtract each digit', 'All equally good'], correctAnswer: 1, explanation: 'Counting up: 347 + 3 = 350, + 50 = 400, + 600 = 1000. Gap = 653', difficulty: 2, knowledge: { questionTokens: ['strategy-selection'], correctToken: 'strategy-selection', incorrectTokens: ['inefficient', null, 'less-efficient', 'no-preference'] } },
+                { id: 'VCMNA185-014', question: '125 × 8 = ?', options: ['800', '900', '1000', '1100'], correctAnswer: 2, explanation: '125 × 8 = 1000 (125 is 1/8 of 1000)', difficulty: 2, knowledge: { questionTokens: ['doubling-halving'], correctToken: 'doubling-halving', incorrectTokens: ['calculation-error', 'calculation-error', null, 'calculation-error'] } },
+                { id: 'VCMNA185-015', question: 'Estimate 4.9 × 31', options: ['About 15', 'About 50', 'About 150', 'About 500'], correctAnswer: 2, explanation: '5 × 30 = 150 (actual: 151.9)', difficulty: 2, knowledge: { questionTokens: ['estimation-checking'], correctToken: 'estimation-checking', incorrectTokens: ['wrong-rounding', 'underestimate', null, 'overestimate'] } },
+                { id: 'VCMNA185-016', question: '199 × 6 mentally:', options: ['1,194', '1,200', '1,206', '1,188'], correctAnswer: 0, explanation: '200 × 6 = 1,200, subtract 6 = 1,194', difficulty: 2, knowledge: { questionTokens: ['compensation-strategy'], correctToken: 'compensation-strategy', incorrectTokens: [null, 'forgot-subtraction', 'wrong-adjustment', 'calculation-error'] } },
+                { id: 'VCMNA185-017', question: 'Which pair of estimates shows 324 × 78?', options: ['300 × 80 = 24,000', '300 × 70 = 21,000', '320 × 80 = 25,600', 'All are good estimates'], correctAnswer: 3, explanation: 'All give reasonable estimates (actual: 25,272)', difficulty: 3, knowledge: { questionTokens: ['estimation-checking'], correctToken: 'estimation-checking', incorrectTokens: ['limited-view', 'limited-view', 'limited-view', null] } },
+                { id: 'VCMNA185-018', question: '45 × 22 using doubling/halving:', options: ['890', '900', '990', '1000'], correctAnswer: 2, explanation: '90 × 11 = 990 (double 45, halve 22)', difficulty: 3, knowledge: { questionTokens: ['doubling-halving'], correctToken: 'doubling-halving', incorrectTokens: ['calculation-error', 'calculation-error', null, 'calculation-error'] } },
+                { id: 'VCMNA185-019', question: 'A calculation gives 45,678 for 456 + 78. What went wrong?', options: ['Added incorrectly', 'Multiplied instead', 'Place value error', 'Nothing wrong'], correctAnswer: 2, explanation: 'Estimate: 460 + 80 = 540. Student likely wrote 456 and 78 as 45,678 (concatenated)', difficulty: 3, knowledge: { questionTokens: ['estimation-checking'], correctToken: 'estimation-checking', incorrectTokens: ['not-specific', 'wrong-diagnosis', null, 'no-checking'] } },
+                { id: 'VCMNA185-020', question: '998 + 567 mentally:', options: ['1,555', '1,565', '1,575', '1,665'], correctAnswer: 1, explanation: '1000 + 567 = 1,567, subtract 2 = 1,565', difficulty: 2, knowledge: { questionTokens: ['compensation-strategy'], correctToken: 'compensation-strategy', incorrectTokens: ['calculation-error', null, 'calculation-error', 'calculation-error'] } },
+              ]
             }
           ]
         },
@@ -5125,8 +5220,181 @@ $24 - $2.40 = **$21.60**`,
               ]
             },
             {
-              id: 'VCMMG194',
-              code: 'VCMMG194',
+              id: 'VCMNA192',
+              code: 'VCMNA192',
+              title: 'Patterns with Fractions and Decimals',
+              description: 'Describe, continue and create patterns with fractions, decimals and whole numbers resulting from addition and subtraction',
+              content: `# Patterns with Fractions and Decimals
+
+Patterns aren't just for whole numbers! We can find and create patterns with fractions and decimals too.
+
+## Number Patterns with Decimals
+
+**Adding Pattern:** 0.5, 1.0, 1.5, 2.0, 2.5, ...
+- Rule: Add 0.5 each time
+
+**Subtracting Pattern:** 5.0, 4.75, 4.5, 4.25, 4.0, ...
+- Rule: Subtract 0.25 each time
+
+## Number Patterns with Fractions
+
+**Adding Pattern:** 1/4, 1/2, 3/4, 1, 1 1/4, ...
+- Rule: Add 1/4 each time
+
+**Mixed Pattern:** 1/3, 2/3, 1, 1 1/3, 1 2/3, 2, ...
+- Rule: Add 1/3 each time
+
+## Finding the Rule
+
+To find the pattern rule:
+1. Look at the difference between consecutive terms
+2. Check if the difference is constant
+3. Express the rule in words or symbols
+
+**Example:** 0.2, 0.5, 0.8, 1.1, ?
+- Differences: 0.3, 0.3, 0.3
+- Rule: Add 0.3
+- Next term: 1.1 + 0.3 = 1.4
+
+## Creating Patterns
+
+You can create your own patterns by:
+1. Choosing a starting number
+2. Choosing an operation (add or subtract)
+3. Choosing how much to add or subtract`,
+              keyPoints: [
+                'Patterns can use fractions and decimals, not just whole numbers',
+                'Find the rule by looking at differences between terms',
+                'Adding patterns increase; subtracting patterns decrease',
+                'The rule stays the same throughout the pattern',
+              ],
+              knowledgeTokens: [
+                { id: 'decimal-patterns', name: 'Decimal Patterns', description: 'Recognising patterns with decimals' },
+                { id: 'fraction-patterns', name: 'Fraction Patterns', description: 'Recognising patterns with fractions' },
+                { id: 'finding-pattern-rule', name: 'Finding Pattern Rule', description: 'Identifying the rule in a sequence' },
+                { id: 'extending-patterns', name: 'Extending Patterns', description: 'Continuing a pattern', prerequisites: ['finding-pattern-rule'] },
+                { id: 'creating-patterns', name: 'Creating Patterns', description: 'Making your own patterns', prerequisites: ['decimal-patterns', 'fraction-patterns'] },
+              ],
+              examples: [
+                { problem: 'Find the next term: 0.25, 0.5, 0.75, 1.0, ?', solution: '1.25', explanation: 'Rule: Add 0.25. So 1.0 + 0.25 = 1.25' },
+                { problem: 'Find the rule: 2, 1 1/2, 1, 1/2, 0', solution: 'Subtract 1/2', explanation: 'Each term decreases by 1/2' },
+              ],
+              questions: [
+                { id: 'VCMNA192-001', question: 'What comes next: 0.1, 0.2, 0.3, 0.4, ?', options: ['0.45', '0.5', '0.04', '1.0'], correctAnswer: 1, explanation: 'Pattern adds 0.1 each time. 0.4 + 0.1 = 0.5', difficulty: 1, knowledge: { questionTokens: ['decimal-patterns'], correctToken: 'decimal-patterns', incorrectTokens: ['wrong-increment', null, 'place-value-error', 'pattern-error'] } },
+                { id: 'VCMNA192-002', question: 'What comes next: 1/4, 2/4, 3/4, ?', options: ['4/4 or 1', '5/4', '4/8', '1/2'], correctAnswer: 0, explanation: 'Adding 1/4 each time. 3/4 + 1/4 = 4/4 = 1', difficulty: 1, knowledge: { questionTokens: ['fraction-patterns'], correctToken: 'fraction-patterns', incorrectTokens: [null, 'went-past-1', 'simplified-wrong', 'subtracted'] } },
+                { id: 'VCMNA192-003', question: 'Find the pattern rule: 5.0, 4.5, 4.0, 3.5, 3.0', options: ['Add 0.5', 'Subtract 0.5', 'Divide by 2', 'Multiply by 0.5'], correctAnswer: 1, explanation: 'Each term decreases by 0.5', difficulty: 1, knowledge: { questionTokens: ['finding-pattern-rule'], correctToken: 'finding-pattern-rule', incorrectTokens: ['wrong-operation', null, 'wrong-operation', 'wrong-operation'] } },
+                { id: 'VCMNA192-004', question: 'What comes next: 1/2, 1, 1 1/2, 2, ?', options: ['2 1/4', '2 1/2', '3', '2 2/4'], correctAnswer: 1, explanation: 'Adding 1/2 each time. 2 + 1/2 = 2 1/2', difficulty: 1, knowledge: { questionTokens: ['fraction-patterns'], correctToken: 'fraction-patterns', incorrectTokens: ['wrong-increment', null, 'wrong-increment', 'equivalent-but-not-next'] } },
+                { id: 'VCMNA192-005', question: '0.25, 0.5, 0.75, 1.0 - what is the rule?', options: ['Add 0.25', 'Add 0.5', 'Double', 'Add 0.75'], correctAnswer: 0, explanation: '0.5 - 0.25 = 0.25, 0.75 - 0.5 = 0.25, 1.0 - 0.75 = 0.25', difficulty: 1, knowledge: { questionTokens: ['finding-pattern-rule'], correctToken: 'finding-pattern-rule', incorrectTokens: [null, 'wrong-difference', 'wrong-operation', 'wrong-difference'] } },
+                { id: 'VCMNA192-006', question: 'Continue: 3, 2.5, 2, 1.5, ?', options: ['1.0', '0.5', '1.25', '2.0'], correctAnswer: 0, explanation: 'Subtracting 0.5 each time. 1.5 - 0.5 = 1.0', difficulty: 1, knowledge: { questionTokens: ['extending-patterns'], correctToken: 'extending-patterns', incorrectTokens: [null, 'subtracted-twice', 'wrong-amount', 'went-backwards'] } },
+                { id: 'VCMNA192-007', question: 'What is the 6th term: 0.2, 0.4, 0.6, 0.8, ...?', options: ['1.0', '1.2', '1.4', '0.10'], correctAnswer: 1, explanation: '5th term: 1.0, 6th term: 1.0 + 0.2 = 1.2', difficulty: 2, knowledge: { questionTokens: ['extending-patterns'], correctToken: 'extending-patterns', incorrectTokens: ['stopped-early', null, 'added-extra', 'place-value-error'] } },
+                { id: 'VCMNA192-008', question: 'Find the missing term: 1/3, ?, 1, 1 1/3', options: ['1/2', '2/3', '3/3', '1/6'], correctAnswer: 1, explanation: 'Rule: Add 1/3. So 1/3 + 1/3 = 2/3', difficulty: 2, knowledge: { questionTokens: ['fraction-patterns'], correctToken: 'fraction-patterns', incorrectTokens: ['wrong-fraction', null, 'equals-1', 'wrong-direction'] } },
+                { id: 'VCMNA192-009', question: 'Which pattern has rule "subtract 0.75"?', options: ['3, 2.75, 2.5, 2.25', '3, 2.25, 1.5, 0.75', '3, 3.75, 4.5, 5.25', '3, 2.5, 2, 1.5'], correctAnswer: 1, explanation: '3 - 0.75 = 2.25, 2.25 - 0.75 = 1.5, 1.5 - 0.75 = 0.75', difficulty: 2, knowledge: { questionTokens: ['finding-pattern-rule'], correctToken: 'finding-pattern-rule', incorrectTokens: ['subtract-0.25', null, 'adding', 'subtract-0.5'] } },
+                { id: 'VCMNA192-010', question: '1/8, 2/8, 3/8, 4/8, 5/8 - what is the 8th term?', options: ['6/8', '7/8', '8/8', '1'], correctAnswer: 3, explanation: '6th: 6/8, 7th: 7/8, 8th: 8/8 = 1', difficulty: 2, knowledge: { questionTokens: ['extending-patterns'], correctToken: 'extending-patterns', incorrectTokens: ['stopped-at-6', 'stopped-at-7', 'unsimplified', null] } },
+                { id: 'VCMNA192-011', question: 'Create the next 2 terms: 0.15, 0.30, 0.45, ?, ?', options: ['0.5, 0.65', '0.60, 0.75', '0.55, 0.70', '0.50, 0.60'], correctAnswer: 1, explanation: 'Adding 0.15 each time: 0.45 + 0.15 = 0.60, 0.60 + 0.15 = 0.75', difficulty: 2, knowledge: { questionTokens: ['creating-patterns'], correctToken: 'creating-patterns', incorrectTokens: ['rounding-error', null, 'wrong-increment', 'inconsistent'] } },
+                { id: 'VCMNA192-012', question: 'What is the rule: 2.5, 2.0, 1.5, 1.0, 0.5?', options: ['Add 0.5', 'Subtract 0.5', 'Halve', 'Subtract 1'], correctAnswer: 1, explanation: 'Each term decreases by 0.5', difficulty: 1, knowledge: { questionTokens: ['finding-pattern-rule'], correctToken: 'finding-pattern-rule', incorrectTokens: ['wrong-operation', null, 'wrong-operation', 'wrong-amount'] } },
+                { id: 'VCMNA192-013', question: 'Continue: 1/5, 2/5, 3/5, 4/5, ?', options: ['5/5', '1', '6/5', 'Both A and B'], correctAnswer: 3, explanation: 'Adding 1/5: 4/5 + 1/5 = 5/5 = 1', difficulty: 2, knowledge: { questionTokens: ['fraction-patterns'], correctToken: 'fraction-patterns', incorrectTokens: ['unsimplified', 'simplified', 'beyond-1', null] } },
+                { id: 'VCMNA192-014', question: 'A pattern starts at 4.5 and subtracts 0.3 each time. What is the 5th term?', options: ['3.3', '3.6', '3.0', '3.9'], correctAnswer: 0, explanation: '4.5, 4.2, 3.9, 3.6, 3.3', difficulty: 2, knowledge: { questionTokens: ['extending-patterns'], correctToken: 'extending-patterns', incorrectTokens: [null, '4th-term', 'subtracted-more', '3rd-term'] } },
+                { id: 'VCMNA192-015', question: 'Find the missing number: 0.8, 0.6, ?, 0.2, 0', options: ['0.5', '0.4', '0.3', '0.7'], correctAnswer: 1, explanation: 'Rule: Subtract 0.2. So 0.6 - 0.2 = 0.4', difficulty: 2, knowledge: { questionTokens: ['finding-pattern-rule'], correctToken: 'finding-pattern-rule', incorrectTokens: ['wrong-guess', null, 'wrong-amount', 'wrong-direction'] } },
+                { id: 'VCMNA192-016', question: 'Which shows adding 3/4 each time?', options: ['0, 3/4, 6/4, 9/4', '1/4, 2/4, 3/4, 4/4', '1/4, 4/4, 7/4, 10/4', '0, 1/4, 2/4, 3/4'], correctAnswer: 0, explanation: '0 + 3/4 = 3/4, 3/4 + 3/4 = 6/4, 6/4 + 3/4 = 9/4', difficulty: 3, knowledge: { questionTokens: ['creating-patterns'], correctToken: 'creating-patterns', incorrectTokens: [null, 'adding-1/4', 'wrong-pattern', 'adding-1/4'] } },
+                { id: 'VCMNA192-017', question: 'If a pattern has rule "add 0.125", and starts at 0, what is the 9th term?', options: ['0.9', '1.0', '1.125', '0.875'], correctAnswer: 1, explanation: '8 steps of 0.125 = 1.0 (since 0.125 × 8 = 1)', difficulty: 3, knowledge: { questionTokens: ['extending-patterns'], correctToken: 'extending-patterns', incorrectTokens: ['wrong-count', null, '10th-term', '8th-term'] } },
+                { id: 'VCMNA192-018', question: 'Create a decreasing pattern starting at 2 with 5 terms using halves', options: ['2, 1.5, 1, 0.5, 0', '2, 1, 0, -1, -2', '2, 1.75, 1.5, 1.25, 1', '2, 1.5, 0.75, 0.375, 0.1875'], correctAnswer: 0, explanation: 'Subtracting 0.5 (half) each time: 2, 1.5, 1, 0.5, 0', difficulty: 2, knowledge: { questionTokens: ['creating-patterns'], correctToken: 'creating-patterns', incorrectTokens: [null, 'subtracting-1', 'subtracting-0.25', 'halving-value'] } },
+                { id: 'VCMNA192-019', question: '0.05, 0.10, 0.15, 0.20, ... What is the 20th term?', options: ['0.95', '1.00', '1.05', '2.00'], correctAnswer: 1, explanation: 'Rule: add 0.05. 20th term = 0.05 × 20 = 1.00', difficulty: 3, knowledge: { questionTokens: ['extending-patterns'], correctToken: 'extending-patterns', incorrectTokens: ['one-short', null, 'one-extra', 'wrong-calculation'] } },
+                { id: 'VCMNA192-020', question: '1/6, 2/6, 3/6, 4/6, 5/6, 6/6. What is 6/6 as a whole number?', options: ['0', '1', '6', '1/6'], correctAnswer: 1, explanation: '6/6 = 1 whole', difficulty: 1, knowledge: { questionTokens: ['fraction-patterns'], correctToken: 'fraction-patterns', incorrectTokens: ['zero-error', null, 'numerator-only', 'unit-fraction'] } },
+              ]
+            },
+            {
+              id: 'VCMNA194',
+              code: 'VCMNA194',
+              title: 'Following Algorithms',
+              description: 'Follow a mathematical algorithm involving branching and repetition (iteration)',
+              content: `# Following Mathematical Algorithms
+
+An algorithm is a set of step-by-step instructions to solve a problem.
+
+## What is an Algorithm?
+
+Like a recipe in cooking, an algorithm tells you:
+- What steps to follow
+- In what order to do them
+- When to repeat steps
+- When to make choices
+
+## Branching (Making Choices)
+
+Some algorithms have "if-then" decisions:
+
+**Example: Is a number even or odd?**
+1. Look at the last digit
+2. IF last digit is 0, 2, 4, 6, or 8 → number is EVEN
+3. IF last digit is 1, 3, 5, 7, or 9 → number is ODD
+
+## Repetition (Loops)
+
+Sometimes we repeat steps until something happens:
+
+**Example: Finding factors of a number**
+1. Start with 1
+2. Check if it divides evenly into the number
+3. If yes, it's a factor
+4. Add 1 to your test number
+5. REPEAT until you've tested up to the number
+
+## Flowcharts
+
+We can draw algorithms as flowcharts:
+- Ovals = Start/End
+- Rectangles = Steps/Actions
+- Diamonds = Decisions (Yes/No)
+- Arrows = Flow direction
+
+## Example Algorithm: Making a Number Even
+
+1. Start with any number
+2. IF the number is even → STOP
+3. IF the number is odd → add 1
+4. Now the number is even → STOP`,
+              keyPoints: [
+                'Algorithms are step-by-step instructions',
+                'Branching means making choices based on conditions',
+                'Repetition means repeating steps until a condition is met',
+                'Flowcharts help visualise algorithms',
+              ],
+              knowledgeTokens: [
+                { id: 'algorithm-steps', name: 'Algorithm Steps', description: 'Following ordered instructions' },
+                { id: 'branching-decisions', name: 'Branching Decisions', description: 'If-then choices in algorithms' },
+                { id: 'repetition-loops', name: 'Repetition Loops', description: 'Repeating steps until done' },
+                { id: 'flowchart-reading', name: 'Flowchart Reading', description: 'Understanding algorithm diagrams', prerequisites: ['algorithm-steps', 'branching-decisions'] },
+              ],
+              examples: [
+                { problem: 'Follow: Start with 5. If odd, add 1. If even, divide by 2. Repeat until you get 1.', solution: '5→6→3→4→2→1', explanation: '5 odd→6, 6÷2=3, 3 odd→4, 4÷2=2, 2÷2=1' },
+                { problem: 'What shape represents a decision in a flowchart?', solution: 'Diamond', explanation: 'Diamonds show Yes/No questions' },
+              ],
+              questions: [
+                { id: 'VCMNA194-001', question: 'An algorithm is...', options: ['A type of number', 'Step-by-step instructions', 'A calculator', 'A graph'], correctAnswer: 1, explanation: 'An algorithm is a set of step-by-step instructions to solve a problem', difficulty: 1, knowledge: { questionTokens: ['algorithm-steps'], correctToken: 'algorithm-steps', incorrectTokens: ['definition-error', null, 'tool-confusion', 'graph-confusion'] } },
+                { id: 'VCMNA194-002', question: 'In a flowchart, what shape shows a decision?', options: ['Circle', 'Rectangle', 'Diamond', 'Oval'], correctAnswer: 2, explanation: 'Diamonds are used for Yes/No decisions', difficulty: 1, knowledge: { questionTokens: ['flowchart-reading'], correctToken: 'flowchart-reading', incorrectTokens: ['shape-error', 'shape-error', null, 'shape-error'] } },
+                { id: 'VCMNA194-003', question: 'What does "branching" mean in an algorithm?', options: ['Drawing a tree', 'Making a choice', 'Counting', 'Stopping'], correctAnswer: 1, explanation: 'Branching means the algorithm makes different choices based on conditions', difficulty: 1, knowledge: { questionTokens: ['branching-decisions'], correctToken: 'branching-decisions', incorrectTokens: ['literal-meaning', null, 'wrong-concept', 'wrong-concept'] } },
+                { id: 'VCMNA194-004', question: 'Algorithm: "If number > 10, subtract 5. Otherwise, add 3." Start with 15. Result?', options: ['10', '18', '12', '20'], correctAnswer: 0, explanation: '15 > 10, so subtract 5: 15 - 5 = 10', difficulty: 1, knowledge: { questionTokens: ['branching-decisions'], correctToken: 'branching-decisions', incorrectTokens: [null, 'added-instead', 'wrong-calc', 'added-instead'] } },
+                { id: 'VCMNA194-005', question: 'What does "repetition" or "loop" mean?', options: ['Do once', 'Skip a step', 'Repeat steps', 'Go backwards'], correctAnswer: 2, explanation: 'Repetition means doing steps over and over until a condition is met', difficulty: 1, knowledge: { questionTokens: ['repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['no-repeat', 'skip-error', null, 'direction-error'] } },
+                { id: 'VCMNA194-006', question: 'Follow: Start at 2. Double it. Repeat 3 times. Result?', options: ['6', '8', '16', '32'], correctAnswer: 2, explanation: '2→4→8→16 (doubled 3 times)', difficulty: 2, knowledge: { questionTokens: ['repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['added-instead', 'only-2-times', null, 'extra-time'] } },
+                { id: 'VCMNA194-007', question: 'Algorithm: "If even, divide by 2. If odd, stop." Start with 24. How many divisions?', options: ['2', '3', '4', '5'], correctAnswer: 1, explanation: '24÷2=12, 12÷2=6, 6÷2=3 (stop, odd). 3 divisions.', difficulty: 2, knowledge: { questionTokens: ['branching-decisions', 'repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['count-error', null, 'count-error', 'count-error'] } },
+                { id: 'VCMNA194-008', question: 'In a flowchart, what shape is used for Start and End?', options: ['Rectangle', 'Diamond', 'Oval', 'Arrow'], correctAnswer: 2, explanation: 'Ovals (or rounded rectangles) show Start and End', difficulty: 1, knowledge: { questionTokens: ['flowchart-reading'], correctToken: 'flowchart-reading', incorrectTokens: ['shape-error', 'shape-error', null, 'shape-error'] } },
+                { id: 'VCMNA194-009', question: 'Algorithm: "Add 5 until number is greater than 20." Start with 3. Final result?', options: ['18', '23', '20', '25'], correctAnswer: 1, explanation: '3→8→13→18→23 (23>20, stop)', difficulty: 2, knowledge: { questionTokens: ['repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['stopped-early', null, 'boundary-error', 'extra-step'] } },
+                { id: 'VCMNA194-010', question: 'Why are algorithms useful?', options: ['They are fast to write', 'They give consistent results', 'They only work for maths', 'They are always short'], correctAnswer: 1, explanation: 'Following the same steps always gives the same result', difficulty: 1, knowledge: { questionTokens: ['algorithm-steps'], correctToken: 'algorithm-steps', incorrectTokens: ['not-main-benefit', null, 'too-narrow', 'not-always-true'] } },
+                { id: 'VCMNA194-011', question: 'Follow: If number ≤ 5, multiply by 2. If number > 5, subtract 3. Start with 4, do twice.', options: ['5', '8', '2', '11'], correctAnswer: 0, explanation: '4≤5→8, 8>5→5', difficulty: 2, knowledge: { questionTokens: ['branching-decisions'], correctToken: 'branching-decisions', incorrectTokens: ['one-step-only', 'stopped-early', 'wrong-calc', 'wrong-order'] } },
+                { id: 'VCMNA194-012', question: 'A rectangle in a flowchart shows...', options: ['A decision', 'An action/step', 'The end', 'A loop'], correctAnswer: 1, explanation: 'Rectangles show actions or processes', difficulty: 1, knowledge: { questionTokens: ['flowchart-reading'], correctToken: 'flowchart-reading', incorrectTokens: ['diamond-confusion', null, 'oval-confusion', 'arrow-confusion'] } },
+                { id: 'VCMNA194-013', question: 'Subtract 7 repeatedly from 50 until result < 10. How many subtractions?', options: ['5', '6', '7', '8'], correctAnswer: 1, explanation: '50→43→36→29→22→15→8 (8<10, stop). 6 subtractions.', difficulty: 3, knowledge: { questionTokens: ['repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['count-error', null, 'count-error', 'count-error'] } },
+                { id: 'VCMNA194-014', question: 'What happens at a diamond in a flowchart?', options: ['The algorithm ends', 'A calculation is done', 'A Yes/No question is asked', 'A value is displayed'], correctAnswer: 2, explanation: 'Diamonds ask questions that lead to different paths', difficulty: 1, knowledge: { questionTokens: ['flowchart-reading'], correctToken: 'flowchart-reading', incorrectTokens: ['end-confusion', 'action-confusion', null, 'output-confusion'] } },
+                { id: 'VCMNA194-015', question: 'Algorithm: "If divisible by 3, say Fizz. If divisible by 5, say Buzz." What for 15?', options: ['Fizz', 'Buzz', 'FizzBuzz', 'Nothing'], correctAnswer: 2, explanation: '15 is divisible by both 3 and 5, so FizzBuzz', difficulty: 2, knowledge: { questionTokens: ['branching-decisions'], correctToken: 'branching-decisions', incorrectTokens: ['only-3', 'only-5', null, 'neither'] } },
+                { id: 'VCMNA194-016', question: 'Start with 1. Double it until > 100. What is the final value?', options: ['64', '128', '96', '256'], correctAnswer: 1, explanation: '1→2→4→8→16→32→64→128 (128>100, stop)', difficulty: 2, knowledge: { questionTokens: ['repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['stopped-early', null, 'wrong-path', 'extra-double'] } },
+                { id: 'VCMNA194-017', question: 'Which best describes the order in algorithms?', options: ['Random order is fine', 'Order doesn\'t matter', 'Order is very important', 'Only the last step matters'], correctAnswer: 2, explanation: 'The order of steps in an algorithm is crucial for correct results', difficulty: 1, knowledge: { questionTokens: ['algorithm-steps'], correctToken: 'algorithm-steps', incorrectTokens: ['order-error', 'order-error', null, 'order-error'] } },
+                { id: 'VCMNA194-018', question: 'Find the largest factor: Test each number 1 to 20. If it divides 20 evenly, keep it. Largest?', options: ['10', '20', '5', '4'], correctAnswer: 1, explanation: '20 ÷ 20 = 1 (evenly). 20 is the largest factor of itself.', difficulty: 2, knowledge: { questionTokens: ['algorithm-steps'], correctToken: 'algorithm-steps', incorrectTokens: ['stopped-early', null, 'stopped-early', 'stopped-early'] } },
+                { id: 'VCMNA194-019', question: 'What is iteration?', options: ['Stopping', 'Choosing', 'Repeating', 'Starting'], correctAnswer: 2, explanation: 'Iteration means repeating steps (looping)', difficulty: 1, knowledge: { questionTokens: ['repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['wrong-term', 'branching', null, 'wrong-term'] } },
+                { id: 'VCMNA194-020', question: 'Algorithm: Start 100. If >50 subtract 25. If ≤50 add 10. Repeat until = 60. How many steps?', options: ['2', '3', '4', '5'], correctAnswer: 2, explanation: '100→75→50→60 (4 steps total, or 3 operations)', difficulty: 3, knowledge: { questionTokens: ['branching-decisions', 'repetition-loops'], correctToken: 'repetition-loops', incorrectTokens: ['count-error', 'count-error', null, 'count-error'] } },
+              ]
+            },
+            {
+              id: 'VCMMG197',
+              code: 'VCMMG197',
               title: 'Time Calculations',
               description: 'Compare 12- and 24-hour time systems and convert between them. Interpret and use timetables.',
               content: `# Time Calculations
