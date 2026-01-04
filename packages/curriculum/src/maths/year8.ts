@@ -1900,6 +1900,267 @@ Always substitute your answer back into the original equation to verify:
             },
           ],
         },
+        {
+          id: 'real-numbers',
+          title: 'Real Numbers',
+          description: 'Working with fractions, decimals, percentages, ratios and rates',
+          sections: [
+            {
+              id: 'VCMNA274',
+              code: 'VCMNA274',
+              title: 'Fractions, Decimals and Percentages',
+              description: 'Solve problems involving the use of percentages, including percentage increases and decreases and percentage error',
+              content: `# Connecting Fractions, Decimals and Percentages
+
+These three forms are different ways of showing the same value. Converting between them is a key skill.
+
+## Quick Conversions
+
+| Fraction | Decimal | Percentage |
+|----------|---------|------------|
+| 1/2 | 0.5 | 50% |
+| 1/4 | 0.25 | 25% |
+| 3/4 | 0.75 | 75% |
+| 1/5 | 0.2 | 20% |
+| 1/10 | 0.1 | 10% |
+
+## Fraction to Decimal
+Divide the numerator by the denominator:
+- 3/4 = 3 ÷ 4 = 0.75
+- 2/5 = 2 ÷ 5 = 0.4
+
+## Decimal to Percentage
+Multiply by 100:
+- 0.35 × 100 = 35%
+- 0.08 × 100 = 8%
+
+## Percentage to Decimal
+Divide by 100:
+- 45% ÷ 100 = 0.45
+- 7% ÷ 100 = 0.07
+
+## Finding a Percentage of an Amount
+Convert percentage to decimal, then multiply:
+- 25% of 80 = 0.25 × 80 = 20
+- 15% of 200 = 0.15 × 200 = 30`,
+              keyPoints: [
+                'Fractions, decimals and percentages show the same value differently',
+                'Fraction to decimal: divide numerator by denominator',
+                'Decimal to percentage: multiply by 100',
+                'Percentage to decimal: divide by 100'
+              ],
+              knowledgeTokens: [
+                { id: 'fraction-to-decimal', name: 'Fraction to Decimal', description: 'Converting fractions to decimals' },
+                { id: 'decimal-to-percentage', name: 'Decimal to Percentage', description: 'Converting decimals to percentages' },
+                { id: 'percentage-to-decimal', name: 'Percentage to Decimal', description: 'Converting percentages to decimals' },
+                { id: 'percentage-of-amount', name: 'Percentage of Amount', description: 'Finding a percentage of a quantity', prerequisites: ['percentage-to-decimal'] },
+              ],
+              examples: [
+                { problem: 'Convert 3/8 to a decimal', solution: '0.375', explanation: '3 ÷ 8 = 0.375' },
+                { problem: 'Find 30% of 150', solution: '45', explanation: '0.30 × 150 = 45' }
+              ],
+              questions: [
+                { id: 'VCMNA274-001', question: 'Convert 1/4 to a percentage', options: ['25%', '4%', '14%', '40%'], correctAnswer: 0, explanation: '1/4 = 0.25 = 25%', difficulty: 1, knowledge: { questionTokens: ['fraction-to-decimal', 'decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: [null, 'numerator-only-error', 'concatenation-error', 'wrong-multiplication'] } },
+                { id: 'VCMNA274-002', question: 'Convert 0.6 to a percentage', options: ['6%', '60%', '0.6%', '600%'], correctAnswer: 1, explanation: '0.6 × 100 = 60%', difficulty: 1, knowledge: { questionTokens: ['decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: ['forgot-to-multiply', null, 'decimal-placement-error', 'over-multiplication'] } },
+                { id: 'VCMNA274-003', question: 'Convert 75% to a decimal', options: ['75', '0.75', '7.5', '0.075'], correctAnswer: 1, explanation: '75 ÷ 100 = 0.75', difficulty: 1, knowledge: { questionTokens: ['percentage-to-decimal'], correctToken: 'percentage-to-decimal', incorrectTokens: ['no-conversion', null, 'wrong-decimal-places', 'over-division'] } },
+                { id: 'VCMNA274-004', question: 'What is 20% of 80?', options: ['16', '20', '60', '100'], correctAnswer: 0, explanation: '0.20 × 80 = 16', difficulty: 1, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: [null, 'percentage-as-answer', 'subtraction-error', 'addition-error'] } },
+                { id: 'VCMNA274-005', question: 'Convert 3/5 to a decimal', options: ['0.35', '0.6', '0.53', '1.67'], correctAnswer: 1, explanation: '3 ÷ 5 = 0.6', difficulty: 1, knowledge: { questionTokens: ['fraction-to-decimal'], correctToken: 'fraction-to-decimal', incorrectTokens: ['concatenation-error', null, 'reversed-digits', 'inverted-division'] } },
+                { id: 'VCMNA274-006', question: 'What is 15% of 200?', options: ['15', '30', '185', '215'], correctAnswer: 1, explanation: '0.15 × 200 = 30', difficulty: 2, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['percentage-as-answer', null, 'subtraction-error', 'addition-error'] } },
+                { id: 'VCMNA274-007', question: 'Convert 0.125 to a fraction', options: ['1/8', '1/5', '1/4', '1/125'], correctAnswer: 0, explanation: '0.125 = 125/1000 = 1/8', difficulty: 2, knowledge: { questionTokens: ['fraction-to-decimal'], correctToken: 'fraction-to-decimal', incorrectTokens: [null, 'approximation-error', 'simplification-error', 'denominator-error'] } },
+                { id: 'VCMNA274-008', question: 'What percentage is 18 out of 60?', options: ['18%', '30%', '42%', '3%'], correctAnswer: 1, explanation: '18/60 = 0.3 = 30%', difficulty: 2, knowledge: { questionTokens: ['decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: ['numerator-as-percentage', null, 'subtraction-error', 'division-error'] } },
+                { id: 'VCMNA274-009', question: 'Convert 7/8 to a percentage', options: ['78%', '87.5%', '0.875%', '7.8%'], correctAnswer: 1, explanation: '7 ÷ 8 = 0.875 = 87.5%', difficulty: 2, knowledge: { questionTokens: ['fraction-to-decimal', 'decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: ['concatenation-error', null, 'forgot-to-multiply', 'decimal-error'] } },
+                { id: 'VCMNA274-010', question: 'What is 35% of 120?', options: ['35', '42', '85', '155'], correctAnswer: 1, explanation: '0.35 × 120 = 42', difficulty: 2, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['percentage-as-answer', null, 'subtraction-error', 'addition-error'] } },
+                { id: 'VCMNA274-011', question: 'A shirt costs $50. With 20% off, what is the sale price?', options: ['$30', '$40', '$10', '$70'], correctAnswer: 1, explanation: 'Discount = 0.20 × 50 = $10. Sale price = 50 - 10 = $40', difficulty: 2, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['too-much-discount', null, 'discount-only', 'added-instead'] } },
+                { id: 'VCMNA274-012', question: 'Convert 0.045 to a percentage', options: ['45%', '4.5%', '0.45%', '0.045%'], correctAnswer: 1, explanation: '0.045 × 100 = 4.5%', difficulty: 2, knowledge: { questionTokens: ['decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: ['decimal-shift-error', null, 'decimal-shift-error', 'no-conversion'] } },
+                { id: 'VCMNA274-013', question: 'What is 12.5% of 80?', options: ['12.5', '10', '67.5', '92.5'], correctAnswer: 1, explanation: '0.125 × 80 = 10', difficulty: 3, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['percentage-as-answer', null, 'subtraction-error', 'addition-error'] } },
+                { id: 'VCMNA274-014', question: 'A price increased from $80 to $100. What is the percentage increase?', options: ['20%', '25%', '80%', '125%'], correctAnswer: 1, explanation: 'Increase = 20. Percentage = 20/80 × 100 = 25%', difficulty: 3, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['absolute-not-relative', null, 'wrong-base', 'wrong-calculation'] } },
+                { id: 'VCMNA274-015', question: 'What is 2/3 as a percentage (to 1 decimal place)?', options: ['23%', '66.7%', '67%', '0.67%'], correctAnswer: 1, explanation: '2 ÷ 3 = 0.666... = 66.7%', difficulty: 3, knowledge: { questionTokens: ['fraction-to-decimal', 'decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: ['concatenation-error', null, 'rounding-error', 'forgot-to-multiply'] } },
+                { id: 'VCMNA274-016', question: '60 is what percentage of 150?', options: ['60%', '40%', '90%', '250%'], correctAnswer: 1, explanation: '60/150 = 0.4 = 40%', difficulty: 2, knowledge: { questionTokens: ['decimal-to-percentage'], correctToken: 'decimal-to-percentage', incorrectTokens: ['numerator-as-percentage', null, 'wrong-order', 'inverted-calculation'] } },
+                { id: 'VCMNA274-017', question: 'A population grew by 15% from 2000. What is the new population?', options: ['2015', '2300', '1700', '300'], correctAnswer: 1, explanation: 'Growth = 0.15 × 2000 = 300. New = 2000 + 300 = 2300', difficulty: 3, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['added-percentage', null, 'subtracted-instead', 'growth-only'] } },
+                { id: 'VCMNA274-018', question: 'Convert 5/6 to a decimal (to 2 decimal places)', options: ['0.56', '0.83', '0.65', '1.20'], correctAnswer: 1, explanation: '5 ÷ 6 = 0.833... ≈ 0.83', difficulty: 2, knowledge: { questionTokens: ['fraction-to-decimal'], correctToken: 'fraction-to-decimal', incorrectTokens: ['concatenation-error', null, 'reversed-digits', 'inverted-division'] } },
+                { id: 'VCMNA274-019', question: 'What is 150% of 40?', options: ['60', '150', '190', '6'], correctAnswer: 0, explanation: '1.50 × 40 = 60', difficulty: 3, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: [null, 'percentage-as-answer', 'addition-error', 'decimal-error'] } },
+                { id: 'VCMNA274-020', question: 'A test score improved from 60 to 75. What was the percentage improvement?', options: ['15%', '20%', '25%', '80%'], correctAnswer: 2, explanation: 'Improvement = 15. Percentage = 15/60 × 100 = 25%', difficulty: 3, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['absolute-not-relative', 'wrong-base', null, 'wrong-calculation'] } },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'measurement-geometry',
+      name: 'Measurement and Geometry',
+      chapters: [
+        {
+          id: 'geometric-reasoning',
+          title: 'Geometric Reasoning',
+          description: 'Properties of angles, triangles, quadrilaterals and circles',
+          sections: [
+            {
+              id: 'VCMMG290',
+              code: 'VCMMG290',
+              title: 'Properties of Angles',
+              description: 'Define congruence of plane shapes using transformations and use properties of congruent figures',
+              content: `# Properties of Angles
+
+Understanding angle relationships helps us solve geometry problems.
+
+## Angle Types Review
+- **Acute**: Less than 90°
+- **Right**: Exactly 90°
+- **Obtuse**: Between 90° and 180°
+- **Straight**: Exactly 180°
+- **Reflex**: Between 180° and 360°
+
+## Angle Relationships
+
+### Complementary Angles
+Two angles that add up to 90°
+- If one angle is 35°, its complement is 55°
+
+### Supplementary Angles
+Two angles that add up to 180°
+- If one angle is 110°, its supplement is 70°
+
+### Angles on a Straight Line
+Angles on a straight line sum to 180°
+
+### Angles at a Point
+Angles around a point sum to 360°
+
+### Vertically Opposite Angles
+When two lines cross, opposite angles are equal.
+
+## Parallel Lines and Transversals
+When a line crosses two parallel lines:
+- **Corresponding angles** are equal (F-shape)
+- **Alternate angles** are equal (Z-shape)
+- **Co-interior angles** sum to 180° (C-shape)`,
+              keyPoints: [
+                'Complementary angles sum to 90°',
+                'Supplementary angles sum to 180°',
+                'Vertically opposite angles are equal',
+                'Corresponding and alternate angles are equal with parallel lines'
+              ],
+              knowledgeTokens: [
+                { id: 'complementary-angles', name: 'Complementary Angles', description: 'Angles that sum to 90°' },
+                { id: 'supplementary-angles', name: 'Supplementary Angles', description: 'Angles that sum to 180°' },
+                { id: 'vertically-opposite', name: 'Vertically Opposite Angles', description: 'Equal angles when lines cross' },
+                { id: 'parallel-line-angles', name: 'Parallel Line Angles', description: 'Corresponding and alternate angle properties', prerequisites: ['supplementary-angles'] },
+              ],
+              examples: [
+                { problem: 'Find the complement of 62°', solution: '28°', explanation: '90° - 62° = 28°' },
+                { problem: 'Two angles on a straight line: one is 125°. Find the other.', solution: '55°', explanation: '180° - 125° = 55°' }
+              ],
+              questions: [
+                { id: 'VCMMG290-001', question: 'What is the complement of 45°?', options: ['45°', '135°', '55°', '90°'], correctAnswer: 0, explanation: '90° - 45° = 45°', difficulty: 1, knowledge: { questionTokens: ['complementary-angles'], correctToken: 'complementary-angles', incorrectTokens: [null, 'used-180', 'calculation-error', 'no-calculation'] } },
+                { id: 'VCMMG290-002', question: 'What is the supplement of 60°?', options: ['30°', '120°', '60°', '300°'], correctAnswer: 1, explanation: '180° - 60° = 120°', difficulty: 1, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: ['used-90', null, 'no-calculation', 'used-360'] } },
+                { id: 'VCMMG290-003', question: 'Two lines cross. One angle is 75°. What is the vertically opposite angle?', options: ['75°', '105°', '15°', '285°'], correctAnswer: 0, explanation: 'Vertically opposite angles are equal', difficulty: 1, knowledge: { questionTokens: ['vertically-opposite'], correctToken: 'vertically-opposite', incorrectTokens: [null, 'supplement-confusion', 'complement-confusion', 'reflex-confusion'] } },
+                { id: 'VCMMG290-004', question: 'Angles on a straight line are x° and 110°. Find x.', options: ['70°', '110°', '250°', '20°'], correctAnswer: 0, explanation: 'x + 110 = 180, so x = 70°', difficulty: 1, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: [null, 'no-calculation', 'used-360', 'used-90'] } },
+                { id: 'VCMMG290-005', question: 'Three angles at a point are 120°, 150°, and x°. Find x.', options: ['90°', '270°', '180°', '30°'], correctAnswer: 0, explanation: '120 + 150 + x = 360, so x = 90°', difficulty: 2, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: [null, 'sum-error', 'used-180', 'subtraction-error'] } },
+                { id: 'VCMMG290-006', question: 'Find the complement of 78°', options: ['102°', '12°', '282°', '78°'], correctAnswer: 1, explanation: '90° - 78° = 12°', difficulty: 1, knowledge: { questionTokens: ['complementary-angles'], correctToken: 'complementary-angles', incorrectTokens: ['used-180', null, 'used-360', 'no-calculation'] } },
+                { id: 'VCMMG290-007', question: 'Corresponding angles with parallel lines are always...', options: ['Supplementary', 'Equal', 'Complementary', 'Reflex'], correctAnswer: 1, explanation: 'Corresponding angles are equal when lines are parallel', difficulty: 1, knowledge: { questionTokens: ['parallel-line-angles'], correctToken: 'parallel-line-angles', incorrectTokens: ['co-interior-confusion', null, 'definition-error', 'definition-error'] } },
+                { id: 'VCMMG290-008', question: 'Two vertically opposite angles are (2x)° and 80°. Find x.', options: ['40', '80', '160', '20'], correctAnswer: 0, explanation: '2x = 80, so x = 40', difficulty: 2, knowledge: { questionTokens: ['vertically-opposite'], correctToken: 'vertically-opposite', incorrectTokens: [null, 'no-division', 'added-instead', 'halved-wrong'] } },
+                { id: 'VCMMG290-009', question: 'Co-interior angles with parallel lines sum to...', options: ['90°', '180°', '360°', 'They are equal'], correctAnswer: 1, explanation: 'Co-interior (same-side interior) angles are supplementary', difficulty: 2, knowledge: { questionTokens: ['parallel-line-angles'], correctToken: 'parallel-line-angles', incorrectTokens: ['complement-confusion', null, 'point-confusion', 'alternate-confusion'] } },
+                { id: 'VCMMG290-010', question: 'Alternate angles with parallel lines are...', options: ['Supplementary', 'Complementary', 'Equal', 'Right angles'], correctAnswer: 2, explanation: 'Alternate angles are equal when lines are parallel', difficulty: 1, knowledge: { questionTokens: ['parallel-line-angles'], correctToken: 'parallel-line-angles', incorrectTokens: ['co-interior-confusion', 'definition-error', null, 'definition-error'] } },
+                { id: 'VCMMG290-011', question: 'An angle and its supplement differ by 40°. Find the smaller angle.', options: ['70°', '110°', '80°', '50°'], correctAnswer: 0, explanation: 'Let angles be x and x+40. Then x + x + 40 = 180, so x = 70°', difficulty: 3, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: [null, 'found-larger', 'algebra-error', 'subtraction-error'] } },
+                { id: 'VCMMG290-012', question: 'Find the supplement of the complement of 30°', options: ['120°', '60°', '150°', '30°'], correctAnswer: 0, explanation: 'Complement of 30° = 60°. Supplement of 60° = 120°', difficulty: 3, knowledge: { questionTokens: ['complementary-angles', 'supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: [null, 'only-complement', 'only-supplement', 'no-calculation'] } },
+                { id: 'VCMMG290-013', question: 'Two angles on a straight line are (3x)° and (2x+30)°. Find x.', options: ['30', '50', '25', '60'], correctAnswer: 0, explanation: '3x + 2x + 30 = 180, so 5x = 150, x = 30', difficulty: 2, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: [null, 'algebra-error', 'division-error', 'sum-error'] } },
+                { id: 'VCMMG290-014', question: 'A transversal crosses parallel lines. If one corresponding angle is 115°, what is its co-interior angle?', options: ['115°', '65°', '245°', '25°'], correctAnswer: 1, explanation: 'Co-interior angles sum to 180°. 180° - 115° = 65°', difficulty: 3, knowledge: { questionTokens: ['parallel-line-angles'], correctToken: 'parallel-line-angles', incorrectTokens: ['equal-confusion', null, 'reflex-error', 'complement-error'] } },
+                { id: 'VCMMG290-015', question: 'Four angles at a point are equal. What is each angle?', options: ['45°', '60°', '90°', '180°'], correctAnswer: 2, explanation: '360° ÷ 4 = 90°', difficulty: 1, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: ['wrong-division', 'wrong-total', null, 'used-180'] } },
+                { id: 'VCMMG290-016', question: 'An angle is twice its complement. Find the angle.', options: ['30°', '60°', '45°', '120°'], correctAnswer: 1, explanation: 'Let angle = x. Complement = 90-x. x = 2(90-x), so x = 60°', difficulty: 3, knowledge: { questionTokens: ['complementary-angles'], correctToken: 'complementary-angles', incorrectTokens: ['found-complement', null, 'equal-instead', 'supplement-used'] } },
+                { id: 'VCMMG290-017', question: 'What is the reflex angle when the acute angle is 50°?', options: ['130°', '310°', '50°', '230°'], correctAnswer: 1, explanation: 'Reflex angle = 360° - 50° = 310°', difficulty: 2, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: ['supplement-confusion', null, 'no-calculation', 'wrong-subtraction'] } },
+                { id: 'VCMMG290-018', question: 'Adjacent angles formed by two intersecting lines are (x+20)° and (2x-10)°. Find x.', options: ['50', '70', '60', '40'], correctAnswer: 1, explanation: 'Adjacent angles = 180°. x+20 + 2x-10 = 180, so x = 70', difficulty: 3, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: ['algebra-error', null, 'wrong-setup', 'calculation-error'] } },
+                { id: 'VCMMG290-019', question: 'If two parallel lines are cut by a transversal and one angle is 72°, how many other angles also measure 72°?', options: ['1', '2', '3', '4'], correctAnswer: 2, explanation: 'The angle, its vertically opposite, corresponding, and alternate = 4 angles total, so 3 others', difficulty: 2, knowledge: { questionTokens: ['parallel-line-angles', 'vertically-opposite'], correctToken: 'parallel-line-angles', incorrectTokens: ['only-counted-one', 'missed-some', null, 'counted-all-eight'] } },
+                { id: 'VCMMG290-020', question: 'The ratio of two supplementary angles is 2:7. Find the smaller angle.', options: ['20°', '40°', '140°', '70°'], correctAnswer: 1, explanation: '2x + 7x = 180, so 9x = 180, x = 20. Smaller = 2×20 = 40°', difficulty: 3, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: ['found-x-only', null, 'found-larger', 'ratio-error'] } },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'statistics-probability',
+      name: 'Statistics and Probability',
+      chapters: [
+        {
+          id: 'data-representation',
+          title: 'Data Representation and Interpretation',
+          description: 'Collecting, displaying and analysing data',
+          sections: [
+            {
+              id: 'VCMSP297',
+              code: 'VCMSP297',
+              title: 'Measures of Centre and Spread',
+              description: 'Investigate the effect of individual data values including outliers, on the mean and median',
+              content: `# Measures of Centre and Spread
+
+Statistics helps us summarise and understand data. Key measures include mean, median, mode, and range.
+
+## Mean (Average)
+Add all values and divide by the count.
+- Data: 4, 6, 8, 10, 12
+- Mean = (4+6+8+10+12) ÷ 5 = 40 ÷ 5 = 8
+
+## Median (Middle Value)
+Arrange data in order and find the middle value.
+- Odd count: The middle number
+- Even count: Average of two middle numbers
+- Data: 3, 5, 7, 9, 11 → Median = 7
+- Data: 2, 4, 6, 8 → Median = (4+6) ÷ 2 = 5
+
+## Mode (Most Common)
+The value that appears most often.
+- Data: 2, 3, 3, 4, 5, 3, 6 → Mode = 3
+
+## Range (Spread)
+Difference between highest and lowest.
+- Data: 5, 12, 8, 3, 15 → Range = 15 - 3 = 12
+
+## Effect of Outliers
+Outliers are values far from others. They affect the mean more than the median.`,
+              keyPoints: [
+                'Mean = sum of values ÷ count',
+                'Median is the middle value when ordered',
+                'Mode is the most frequent value',
+                'Range = highest - lowest',
+                'Outliers affect mean more than median'
+              ],
+              knowledgeTokens: [
+                { id: 'calculating-mean', name: 'Calculating Mean', description: 'Finding the average of a data set' },
+                { id: 'finding-median', name: 'Finding Median', description: 'Identifying the middle value' },
+                { id: 'identifying-mode', name: 'Identifying Mode', description: 'Finding the most common value' },
+                { id: 'calculating-range', name: 'Calculating Range', description: 'Finding the spread of data' },
+                { id: 'outlier-effects', name: 'Outlier Effects', description: 'Understanding how outliers affect measures', prerequisites: ['calculating-mean', 'finding-median'] },
+              ],
+              examples: [
+                { problem: 'Find the mean of 5, 8, 12, 15', solution: '10', explanation: '(5+8+12+15) ÷ 4 = 40 ÷ 4 = 10' },
+                { problem: 'Find the median of 3, 7, 2, 9, 5', solution: '5', explanation: 'Ordered: 2, 3, 5, 7, 9. Middle value = 5' }
+              ],
+              questions: [
+                { id: 'VCMSP297-001', question: 'Find the mean of 4, 6, 8, 10, 12', options: ['6', '8', '10', '40'], correctAnswer: 1, explanation: '(4+6+8+10+12) ÷ 5 = 40 ÷ 5 = 8', difficulty: 1, knowledge: { questionTokens: ['calculating-mean'], correctToken: 'calculating-mean', incorrectTokens: ['forgot-to-divide', null, 'wrong-count', 'no-division'] } },
+                { id: 'VCMSP297-002', question: 'Find the median of 3, 5, 7, 9, 11', options: ['5', '7', '9', '35'], correctAnswer: 1, explanation: 'Data is ordered. Middle value (3rd of 5) = 7', difficulty: 1, knowledge: { questionTokens: ['finding-median'], correctToken: 'finding-median', incorrectTokens: ['wrong-position', null, 'wrong-position', 'sum-error'] } },
+                { id: 'VCMSP297-003', question: 'Find the mode of 2, 3, 3, 4, 5, 3, 6', options: ['2', '3', '4', '5'], correctAnswer: 1, explanation: '3 appears most often (3 times)', difficulty: 1, knowledge: { questionTokens: ['identifying-mode'], correctToken: 'identifying-mode', incorrectTokens: ['first-value', null, 'middle-value', 'frequency-error'] } },
+                { id: 'VCMSP297-004', question: 'Find the range of 5, 12, 8, 3, 15', options: ['12', '10', '8', '5'], correctAnswer: 0, explanation: 'Range = 15 - 3 = 12', difficulty: 1, knowledge: { questionTokens: ['calculating-range'], correctToken: 'calculating-range', incorrectTokens: [null, 'subtraction-error', 'median-confusion', 'wrong-values'] } },
+                { id: 'VCMSP297-005', question: 'Find the median of 2, 4, 6, 8', options: ['4', '5', '6', '20'], correctAnswer: 1, explanation: 'Even count: (4+6) ÷ 2 = 5', difficulty: 2, knowledge: { questionTokens: ['finding-median'], correctToken: 'finding-median', incorrectTokens: ['lower-middle', null, 'upper-middle', 'sum-error'] } },
+                { id: 'VCMSP297-006', question: 'The mean of 5 numbers is 12. What is the sum?', options: ['17', '60', '7', '2.4'], correctAnswer: 1, explanation: 'Sum = Mean × Count = 12 × 5 = 60', difficulty: 2, knowledge: { questionTokens: ['calculating-mean'], correctToken: 'calculating-mean', incorrectTokens: ['addition-error', null, 'subtraction-error', 'division-error'] } },
+                { id: 'VCMSP297-007', question: 'Data: 10, 12, 14, 16, 100. Which measure is most affected by the outlier?', options: ['Median', 'Mode', 'Mean', 'None'], correctAnswer: 2, explanation: 'The mean is most affected by outliers. It would be pulled up significantly by 100.', difficulty: 2, knowledge: { questionTokens: ['outlier-effects'], correctToken: 'outlier-effects', incorrectTokens: ['median-confusion', 'mode-confusion', null, 'no-effect-error'] } },
+                { id: 'VCMSP297-008', question: 'A data set has no mode. What does this mean?', options: ['All values are 0', 'All values appear equally often', 'The median is 0', 'The mean equals the median'], correctAnswer: 1, explanation: 'No mode means no single value appears more frequently than others', difficulty: 2, knowledge: { questionTokens: ['identifying-mode'], correctToken: 'identifying-mode', incorrectTokens: ['zero-confusion', null, 'median-confusion', 'mean-median-confusion'] } },
+                { id: 'VCMSP297-009', question: 'Find the mean of 15, 20, 25, 30, 35, 45', options: ['25', '28', '30', '170'], correctAnswer: 1, explanation: '(15+20+25+30+35+45) ÷ 6 = 170 ÷ 6 ≈ 28.3 ≈ 28', difficulty: 2, knowledge: { questionTokens: ['calculating-mean'], correctToken: 'calculating-mean', incorrectTokens: ['median-found', null, 'middle-value', 'no-division'] } },
+                { id: 'VCMSP297-010', question: 'The median of 7 ordered values is 15. Which position is 15 in?', options: ['3rd', '4th', '5th', '7th'], correctAnswer: 1, explanation: 'With 7 values, the median is the 4th (middle) value', difficulty: 2, knowledge: { questionTokens: ['finding-median'], correctToken: 'finding-median', incorrectTokens: ['wrong-count', null, 'wrong-position', 'last-position'] } },
+                { id: 'VCMSP297-011', question: 'Data: 8, 8, 9, 10, 10, 10, 12. What is the mode?', options: ['8', '9', '10', '8 and 10'], correctAnswer: 2, explanation: '10 appears 3 times, more than any other value', difficulty: 1, knowledge: { questionTokens: ['identifying-mode'], correctToken: 'identifying-mode', incorrectTokens: ['first-repeated', 'unique-value', null, 'bimodal-confusion'] } },
+                { id: 'VCMSP297-012', question: 'The mean of 4 numbers is 20. Three numbers are 15, 18, 22. Find the fourth.', options: ['20', '25', '27', '23'], correctAnswer: 1, explanation: 'Sum = 80. Fourth = 80 - (15+18+22) = 80 - 55 = 25', difficulty: 3, knowledge: { questionTokens: ['calculating-mean'], correctToken: 'calculating-mean', incorrectTokens: ['mean-as-answer', null, 'calculation-error', 'wrong-subtraction'] } },
+                { id: 'VCMSP297-013', question: 'Adding 10 to every value in a data set will...', options: ['Increase the mean by 10', 'Double the mean', 'Keep the mean the same', 'Increase the range by 10'], correctAnswer: 0, explanation: 'Adding a constant to all values increases the mean by that constant', difficulty: 3, knowledge: { questionTokens: ['calculating-mean'], correctToken: 'calculating-mean', incorrectTokens: [null, 'multiplication-confusion', 'no-effect-error', 'range-confusion'] } },
+                { id: 'VCMSP297-014', question: 'Data: 2, 4, 6, 8, 10. If we remove 10, how does the median change?', options: ['Decreases by 2', 'Increases by 2', 'Stays the same', 'Becomes 5'], correctAnswer: 3, explanation: 'Original median = 6. New data: 2,4,6,8. New median = (4+6)/2 = 5', difficulty: 3, knowledge: { questionTokens: ['finding-median'], correctToken: 'finding-median', incorrectTokens: ['calculation-error', 'wrong-direction', 'unchanged-error', null] } },
+                { id: 'VCMSP297-015', question: 'Which data set has the largest range?', options: ['10, 12, 14, 16', '5, 10, 15, 20', '1, 2, 3, 100', '50, 51, 52, 53'], correctAnswer: 2, explanation: 'Ranges: 6, 15, 99, 3. Set C has range 99 (100-1)', difficulty: 2, knowledge: { questionTokens: ['calculating-range'], correctToken: 'calculating-range', incorrectTokens: ['wrong-calculation', 'wrong-calculation', null, 'wrong-calculation'] } },
+                { id: 'VCMSP297-016', question: 'Mean of 6 values is 15. Five values sum to 80. Find the sixth value.', options: ['10', '90', '5', '15'], correctAnswer: 0, explanation: 'Total = 15 × 6 = 90. Sixth = 90 - 80 = 10', difficulty: 3, knowledge: { questionTokens: ['calculating-mean'], correctToken: 'calculating-mean', incorrectTokens: [null, 'found-total', 'wrong-subtraction', 'mean-as-answer'] } },
+                { id: 'VCMSP297-017', question: 'Data: 5, 5, 5, 5, 5. What can you say about mean, median and mode?', options: ['All different', 'Mean = Median only', 'All equal to 5', 'Mode is undefined'], correctAnswer: 2, explanation: 'When all values are the same, mean = median = mode = that value', difficulty: 2, knowledge: { questionTokens: ['calculating-mean', 'finding-median', 'identifying-mode'], correctToken: 'calculating-mean', incorrectTokens: ['properties-error', 'incomplete', null, 'mode-error'] } },
+                { id: 'VCMSP297-018', question: 'Removing an outlier from data will typically...', options: ['Increase the mean', 'Have no effect', 'Bring mean and median closer', 'Increase the range'], correctAnswer: 2, explanation: 'Outliers pull the mean away from the median. Removing them brings these measures closer.', difficulty: 3, knowledge: { questionTokens: ['outlier-effects'], correctToken: 'outlier-effects', incorrectTokens: ['wrong-direction', 'no-effect-error', null, 'range-error'] } },
+                { id: 'VCMSP297-019', question: 'Find the median of 1, 3, 5, 7, 9, 11, 13, 15, 17', options: ['7', '8', '9', '81'], correctAnswer: 2, explanation: '9 values, median is the 5th value = 9', difficulty: 1, knowledge: { questionTokens: ['finding-median'], correctToken: 'finding-median', incorrectTokens: ['wrong-position', 'average-error', null, 'sum-error'] } },
+                { id: 'VCMSP297-020', question: 'Which measure is best for skewed data with outliers?', options: ['Mean', 'Mode', 'Median', 'Range'], correctAnswer: 2, explanation: 'Median is resistant to outliers and better represents typical values in skewed data', difficulty: 3, knowledge: { questionTokens: ['outlier-effects'], correctToken: 'outlier-effects', incorrectTokens: ['mean-preference', 'mode-preference', null, 'range-is-not-centre'] } },
+              ],
+            },
+          ],
+        },
       ],
     },
   ],
