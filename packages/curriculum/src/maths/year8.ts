@@ -2785,9 +2785,9 @@ Always substitute back to verify your answer works in the original equation.`,
               ],
             },
             {
-              id: 'VCMNA286',
-              code: 'VCMNA286',
-              title: 'Introduction to Quadratic Expressions',
+              id: 'VCMNA306-Y9PREV',
+              code: 'VCMNA306-Y9PREV',
+              title: 'Introduction to Quadratic Expressions (Year 9 Preview)',
               description: 'Expand binomial products and factorise monic quadratic expressions',
               content: `# Introduction to Quadratic Expressions
 
@@ -2877,9 +2877,9 @@ For x² + bx + c, find two numbers that:
               ],
             },
             {
-              id: 'VCMNA287',
-              code: 'VCMNA287',
-              title: 'Simplifying Algebraic Fractions',
+              id: 'VCMNA306-Y9PREV-B',
+              code: 'VCMNA306-Y9PREV-B',
+              title: 'Simplifying Algebraic Fractions (Year 9 Preview)',
               description: 'Simplify algebraic fractions by cancelling common factors',
               content: `# Simplifying Algebraic Fractions
 
@@ -3655,9 +3655,9 @@ Method 2: Subtract (with borrowing)
               ],
             },
             {
-              id: 'VCMMG294',
-              code: 'VCMMG294',
-              title: 'Surface Area of Prisms and Cylinders',
+              id: 'VCMMG313-Y9PREV',
+              code: 'VCMMG313-Y9PREV',
+              title: 'Surface Area of Prisms and Cylinders (Year 9 Preview)',
               description: 'Develop formulas for volumes and surface areas of rectangular and triangular prisms and cylinders',
               content: `# Surface Area of Prisms and Cylinders
 
@@ -3750,9 +3750,9 @@ SA = 244.92 cm²`,
               ],
             },
             {
-              id: 'VCMMG295',
-              code: 'VCMMG295',
-              title: 'Volume of Prisms and Cylinders',
+              id: 'VCMMG313-Y9PREV-B',
+              code: 'VCMMG313-Y9PREV-B',
+              title: 'Volume of Prisms and Cylinders (Year 9 Preview)',
               description: 'Develop formulas for volumes of rectangular and triangular prisms and cylinders',
               content: `# Volume of Prisms and Cylinders
 
@@ -4408,9 +4408,9 @@ Different types of graphs are suited to different types of data.
               ],
             },
             {
-              id: 'VCMSP301',
-              code: 'VCMSP301',
-              title: 'Sampling and Surveys',
+              id: 'VCMSP297-EXT',
+              code: 'VCMSP297-EXT',
+              title: 'Sampling and Surveys (Extension)',
               description: 'Investigate techniques for collecting data, including census, sampling and observation',
               content: `# Sampling and Surveys
 
@@ -4504,9 +4504,9 @@ Data collection methods affect the reliability and usefulness of results.
               ],
             },
             {
-              id: 'VCMSP302',
-              code: 'VCMSP302',
-              title: 'Probability and Tree Diagrams',
+              id: 'VCMSP321-Y9PREV',
+              code: 'VCMSP321-Y9PREV',
+              title: 'Probability and Tree Diagrams (Year 9 Preview)',
               description: 'Identify complementary events and use sum of probabilities to solve problems',
               content: `# Probability and Tree Diagrams
 
