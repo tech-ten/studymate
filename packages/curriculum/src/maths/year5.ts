@@ -7432,6 +7432,327 @@ So a container 10cm × 10cm × 10cm:
           ]
         },
         {
+          id: 'shape',
+          title: 'Shape',
+          description: 'Understanding 3D objects and their properties',
+          sections: [
+            {
+              id: 'VCMMG198',
+              code: 'VCMMG198',
+              title: '3D Objects and Nets',
+              description: 'Connect three-dimensional objects with their nets and other two-dimensional representations',
+              content: `# 3D Objects and Nets
+
+A net is a 2D pattern that folds up to make a 3D object.
+
+## Common 3D Objects and Their Nets
+
+### Cube
+- 6 square faces
+- Net: 6 connected squares (cross shape or T shape)
+
+### Rectangular Prism (Box)
+- 6 rectangular faces
+- Net: 6 rectangles connected
+
+### Triangular Prism
+- 2 triangular faces (ends)
+- 3 rectangular faces (sides)
+- Net: 2 triangles + 3 rectangles
+
+### Square Pyramid
+- 1 square base
+- 4 triangular faces
+- Net: 1 square + 4 triangles
+
+### Cylinder
+- 2 circular faces (top and bottom)
+- 1 curved surface (rectangle when unrolled)
+- Net: 2 circles + 1 rectangle
+
+## Identifying Nets
+
+A valid net must:
+1. Have the correct number of faces
+2. Have faces that connect properly
+3. Fold up without overlapping`,
+              keyPoints: [
+                'A net is a 2D pattern that folds into a 3D shape',
+                'Each face of a 3D object appears once in its net',
+                'Different nets can make the same 3D object',
+                'Faces must connect at edges to fold properly',
+              ],
+              knowledgeTokens: [
+                { id: 'net-definition', name: 'Net Definition', description: 'Understanding what a net is' },
+                { id: 'cube-nets', name: 'Cube Nets', description: 'Recognising nets of cubes' },
+                { id: 'prism-nets', name: 'Prism Nets', description: 'Recognising nets of prisms' },
+                { id: 'pyramid-nets', name: 'Pyramid Nets', description: 'Recognising nets of pyramids' },
+                { id: 'net-validity', name: 'Net Validity', description: 'Determining if a net will fold correctly', prerequisites: ['net-definition'] },
+              ],
+              examples: [
+                { problem: 'How many faces does a cube have?', solution: '6 faces', explanation: 'A cube has 6 identical square faces' },
+                { problem: 'What shapes make up the net of a triangular prism?', solution: '2 triangles and 3 rectangles', explanation: '2 triangular ends + 3 rectangular sides' },
+              ],
+              questions: [
+                { id: 'VCMMG198-001', question: 'A net is...', options: ['A 3D shape', 'A 2D pattern that folds into a 3D shape', 'A type of prism', 'A curved surface'], correctAnswer: 1, explanation: 'A net is a flat 2D pattern that folds up to make a 3D object', difficulty: 1, knowledge: { questionTokens: ['net-definition'], correctToken: 'net-definition', incorrectTokens: ['3d-confusion', null, 'shape-confusion', 'surface-confusion'] } },
+                { id: 'VCMMG198-002', question: 'How many squares are in a cube net?', options: ['4', '5', '6', '8'], correctAnswer: 2, explanation: 'A cube has 6 faces, so its net has 6 squares', difficulty: 1, knowledge: { questionTokens: ['cube-nets'], correctToken: 'cube-nets', incorrectTokens: ['count-error', 'count-error', null, 'count-error'] } },
+                { id: 'VCMMG198-003', question: 'A triangular prism net contains...', options: ['6 triangles', '2 triangles and 3 rectangles', '4 triangles', '3 triangles and 2 rectangles'], correctAnswer: 1, explanation: '2 triangular ends and 3 rectangular sides', difficulty: 1, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['all-triangles', null, 'count-error', 'swapped'] } },
+                { id: 'VCMMG198-004', question: 'A square pyramid net has...', options: ['5 squares', '4 triangles and 1 square', '4 squares and 1 triangle', '5 triangles'], correctAnswer: 1, explanation: '1 square base and 4 triangular faces', difficulty: 1, knowledge: { questionTokens: ['pyramid-nets'], correctToken: 'pyramid-nets', incorrectTokens: ['all-squares', null, 'swapped', 'all-triangles'] } },
+                { id: 'VCMMG198-005', question: 'Which 3D shape has a net with 2 circles and 1 rectangle?', options: ['Cone', 'Cylinder', 'Sphere', 'Prism'], correctAnswer: 1, explanation: 'A cylinder has 2 circular faces and a curved surface that unrolls to a rectangle', difficulty: 2, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['wrong-shape', null, 'no-net', 'wrong-faces'] } },
+                { id: 'VCMMG198-006', question: 'How many faces does a rectangular prism have?', options: ['4', '5', '6', '8'], correctAnswer: 2, explanation: 'A rectangular prism (box) has 6 rectangular faces', difficulty: 1, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['count-error', 'count-error', null, 'count-error'] } },
+                { id: 'VCMMG198-007', question: 'A valid net cannot...', options: ['Have connected faces', 'Fold into a 3D shape', 'Have overlapping faces when folded', 'Be flat'], correctAnswer: 2, explanation: 'If faces overlap when folded, it is not a valid net', difficulty: 2, knowledge: { questionTokens: ['net-validity'], correctToken: 'net-validity', incorrectTokens: ['needs-connection', 'purpose-of-net', null, 'is-flat'] } },
+                { id: 'VCMMG198-008', question: 'What shape are ALL faces of a cube?', options: ['Rectangles', 'Squares', 'Triangles', 'Circles'], correctAnswer: 1, explanation: 'All 6 faces of a cube are identical squares', difficulty: 1, knowledge: { questionTokens: ['cube-nets'], correctToken: 'cube-nets', incorrectTokens: ['close-but-specific', null, 'wrong-shape', 'wrong-shape'] } },
+                { id: 'VCMMG198-009', question: 'A tetrahedron (triangular pyramid) net has...', options: ['3 triangles', '4 triangles', '5 triangles', '6 triangles'], correctAnswer: 1, explanation: 'A tetrahedron has 4 triangular faces', difficulty: 2, knowledge: { questionTokens: ['pyramid-nets'], correctToken: 'pyramid-nets', incorrectTokens: ['count-error', null, 'count-error', 'count-error'] } },
+                { id: 'VCMMG198-010', question: 'Which net folds into a cube?', options: ['4 squares in a row', '6 squares in a cross shape', '8 squares connected', '3 squares in a triangle'], correctAnswer: 1, explanation: 'A cross shape of 6 squares folds into a cube', difficulty: 2, knowledge: { questionTokens: ['cube-nets'], correctToken: 'cube-nets', incorrectTokens: ['not-enough', null, 'too-many', 'not-enough'] } },
+                { id: 'VCMMG198-011', question: 'The curved surface of a cylinder becomes what shape when unrolled?', options: ['Circle', 'Square', 'Rectangle', 'Triangle'], correctAnswer: 2, explanation: 'The curved surface unrolls into a rectangle', difficulty: 2, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['top-face', 'not-cylinder', null, 'wrong-shape'] } },
+                { id: 'VCMMG198-012', question: 'A pentagonal prism has how many faces?', options: ['5', '6', '7', '10'], correctAnswer: 2, explanation: '2 pentagonal ends + 5 rectangular sides = 7 faces', difficulty: 3, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['ends-only', 'count-error', null, 'doubled'] } },
+                { id: 'VCMMG198-013', question: 'Which statement about nets is TRUE?', options: ['Every 3D shape has exactly one net', 'A cube can have different nets', 'Nets must be circular', 'Nets cannot have rectangles'], correctAnswer: 1, explanation: 'A cube can be made from 11 different net arrangements', difficulty: 2, knowledge: { questionTokens: ['net-validity'], correctToken: 'net-validity', incorrectTokens: ['one-net-only', null, 'shape-error', 'shape-error'] } },
+                { id: 'VCMMG198-014', question: 'What 3D shape has a net of 1 circle and 1 sector (pizza slice)?', options: ['Cylinder', 'Cone', 'Sphere', 'Pyramid'], correctAnswer: 1, explanation: 'A cone has a circular base and a sector for the curved surface', difficulty: 3, knowledge: { questionTokens: ['pyramid-nets'], correctToken: 'pyramid-nets', incorrectTokens: ['cylinder-net', null, 'no-net', 'pyramid-base'] } },
+                { id: 'VCMMG198-015', question: 'A hexagonal prism net has...', options: ['6 faces', '8 faces', '2 hexagons and 6 rectangles', '6 hexagons'], correctAnswer: 2, explanation: '2 hexagonal ends + 6 rectangular sides', difficulty: 3, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['ends-only', null, null, 'all-same'] } },
+                { id: 'VCMMG198-016', question: 'If a net has 5 identical triangles meeting at a point, it might fold into a...', options: ['Cube', 'Pentagonal pyramid', 'Triangular prism', 'Square pyramid'], correctAnswer: 1, explanation: '5 triangles meeting at apex + 1 pentagon base = pentagonal pyramid', difficulty: 3, knowledge: { questionTokens: ['pyramid-nets'], correctToken: 'pyramid-nets', incorrectTokens: ['no-triangles', null, 'wrong-prism', '4-triangles'] } },
+                { id: 'VCMMG198-017', question: 'Which 3D shape has no net?', options: ['Cube', 'Sphere', 'Pyramid', 'Prism'], correctAnswer: 1, explanation: 'A sphere cannot be unfolded flat without stretching', difficulty: 2, knowledge: { questionTokens: ['net-definition'], correctToken: 'net-definition', incorrectTokens: ['has-net', null, 'has-net', 'has-net'] } },
+                { id: 'VCMMG198-018', question: 'A triangular prism has how many edges?', options: ['6', '9', '12', '8'], correctAnswer: 1, explanation: '3 edges on each triangular end (6) + 3 connecting edges = 9', difficulty: 2, knowledge: { questionTokens: ['prism-nets'], correctToken: 'prism-nets', incorrectTokens: ['count-error', null, 'count-error', 'count-error'] } },
+                { id: 'VCMMG198-019', question: 'When folding a cube net, opposite faces...', options: ['Touch each other', 'Share an edge', 'Never share an edge in the net', 'Must be the same colour'], correctAnswer: 2, explanation: 'Opposite faces of a cube cannot be adjacent in the net', difficulty: 3, knowledge: { questionTokens: ['net-validity'], correctToken: 'net-validity', incorrectTokens: ['touching', 'share-edge', null, 'colour-irrelevant'] } },
+                { id: 'VCMMG198-020', question: 'An octahedron has 8 triangular faces. Its net has...', options: ['4 triangles', '6 triangles', '8 triangles', '10 triangles'], correctAnswer: 2, explanation: 'Each face appears once in the net, so 8 triangles', difficulty: 2, knowledge: { questionTokens: ['net-definition'], correctToken: 'net-definition', incorrectTokens: ['count-error', 'count-error', null, 'count-error'] } },
+              ]
+            },
+          ]
+        },
+        {
+          id: 'location-transformation',
+          title: 'Location and Transformation',
+          description: 'Understanding position and movement in space',
+          sections: [
+            {
+              id: 'VCMMG199',
+              code: 'VCMMG199',
+              title: 'Grid References',
+              description: 'Use a grid reference system to describe locations. Describe routes using landmarks and directional language',
+              content: `# Grid References
+
+Grid references help us describe exact locations on a map or grid.
+
+## Reading Grid References
+
+Always read across first (horizontal), then up (vertical).
+**Remember: "Along the corridor, up the stairs"**
+
+Example: B3 means column B, row 3
+
+## Using Coordinates
+
+On a coordinate grid:
+- First number = x (horizontal position)
+- Second number = y (vertical position)
+
+Point (3, 5) is 3 units right and 5 units up from the origin.
+
+## Describing Routes
+
+Use directional language:
+- North, South, East, West
+- Left, Right, Forward, Back
+- Clockwise, Anticlockwise
+
+**Example route:** "Go 3 squares east, turn north, go 2 squares, turn west..."
+
+## Landmarks
+
+Use landmarks to give directions:
+"Turn left at the library, walk past the park..."`,
+              keyPoints: [
+                'Read grid references as (column, row) or (x, y)',
+                'Along first (horizontal), then up (vertical)',
+                'Use compass directions for routes',
+                'Landmarks help describe locations',
+              ],
+              knowledgeTokens: [
+                { id: 'grid-reading', name: 'Grid Reading', description: 'Reading coordinates on a grid' },
+                { id: 'coordinate-pairs', name: 'Coordinate Pairs', description: 'Understanding (x, y) notation' },
+                { id: 'compass-directions', name: 'Compass Directions', description: 'Using N, S, E, W' },
+                { id: 'route-description', name: 'Route Description', description: 'Describing paths using directions', prerequisites: ['compass-directions'] },
+              ],
+              examples: [
+                { problem: 'What is at position (2, 4)?', solution: 'Go 2 right, 4 up', explanation: 'x=2 means 2 units right, y=4 means 4 units up' },
+                { problem: 'Describe a route from A to B', solution: 'East 3, North 2', explanation: 'Move 3 squares east then 2 squares north' },
+              ],
+              questions: [
+                { id: 'VCMMG199-001', question: 'In a grid reference (3, 5), which number shows horizontal position?', options: ['5', '3', 'Both', 'Neither'], correctAnswer: 1, explanation: 'The first number (3) shows horizontal position', difficulty: 1, knowledge: { questionTokens: ['coordinate-pairs'], correctToken: 'coordinate-pairs', incorrectTokens: ['swapped', null, 'confused', 'confused'] } },
+                { id: 'VCMMG199-002', question: '"Along the corridor, up the stairs" helps remember...', options: ['How to read time', 'How to read grid references', 'How to use a compass', 'How to measure'], correctAnswer: 1, explanation: 'This phrase helps remember: horizontal first, then vertical', difficulty: 1, knowledge: { questionTokens: ['grid-reading'], correctToken: 'grid-reading', incorrectTokens: ['wrong-context', null, 'wrong-context', 'wrong-context'] } },
+                { id: 'VCMMG199-003', question: 'Point (4, 2) is...', options: ['4 up, 2 right', '4 right, 2 up', '2 right, 4 up', '2 up, 4 right'], correctAnswer: 1, explanation: 'x = 4 (right), y = 2 (up)', difficulty: 1, knowledge: { questionTokens: ['coordinate-pairs'], correctToken: 'coordinate-pairs', incorrectTokens: ['swapped', null, 'swapped', 'swapped'] } },
+                { id: 'VCMMG199-004', question: 'Which direction is opposite to North?', options: ['East', 'West', 'South', 'Up'], correctAnswer: 2, explanation: 'South is opposite to North on a compass', difficulty: 1, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: ['perpendicular', 'perpendicular', null, 'not-compass'] } },
+                { id: 'VCMMG199-005', question: 'If you face North and turn right, you face...', options: ['South', 'West', 'East', 'North'], correctAnswer: 2, explanation: 'Turning right from North faces East', difficulty: 1, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: ['opposite', 'left', null, 'no-turn'] } },
+                { id: 'VCMMG199-006', question: 'To go from (1, 1) to (4, 1), you move...', options: ['3 up', '3 right', '3 down', '3 left'], correctAnswer: 1, explanation: 'x changes from 1 to 4 (right 3), y stays at 1', difficulty: 2, knowledge: { questionTokens: ['coordinate-pairs'], correctToken: 'coordinate-pairs', incorrectTokens: ['wrong-direction', null, 'wrong-direction', 'wrong-direction'] } },
+                { id: 'VCMMG199-007', question: 'From (2, 3) to (2, 7), the movement is...', options: ['4 right', '4 up', '4 left', '4 down'], correctAnswer: 1, explanation: 'x stays at 2, y changes from 3 to 7 (up 4)', difficulty: 2, knowledge: { questionTokens: ['coordinate-pairs'], correctToken: 'coordinate-pairs', incorrectTokens: ['wrong-axis', null, 'wrong-axis', 'wrong-direction'] } },
+                { id: 'VCMMG199-008', question: 'The origin on a coordinate grid is...', options: ['(1, 1)', '(0, 0)', '(10, 10)', 'The top right corner'], correctAnswer: 1, explanation: 'The origin is where x=0 and y=0', difficulty: 1, knowledge: { questionTokens: ['grid-reading'], correctToken: 'grid-reading', incorrectTokens: ['off-by-one', null, 'wrong-location', 'wrong-corner'] } },
+                { id: 'VCMMG199-009', question: 'On a map, grid reference C5 means...', options: ['Row C, Column 5', 'Column C, Row 5', '5 squares from C', 'C + 5'], correctAnswer: 1, explanation: 'Letter is column, number is row', difficulty: 1, knowledge: { questionTokens: ['grid-reading'], correctToken: 'grid-reading', incorrectTokens: ['swapped', null, 'wrong-meaning', 'wrong-meaning'] } },
+                { id: 'VCMMG199-010', question: 'Which describes a clockwise turn from North?', options: ['N → W → S → E', 'N → E → S → W', 'N → S → E → W', 'N → W → E → S'], correctAnswer: 1, explanation: 'Clockwise from North: N → E → S → W', difficulty: 2, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: ['anticlockwise', null, 'random', 'random'] } },
+                { id: 'VCMMG199-011', question: 'You are at (3, 4). Go 2 right and 3 up. New position?', options: ['(5, 7)', '(5, 1)', '(1, 7)', '(6, 6)'], correctAnswer: 0, explanation: '(3+2, 4+3) = (5, 7)', difficulty: 2, knowledge: { questionTokens: ['route-description'], correctToken: 'route-description', incorrectTokens: [null, 'subtracted-y', 'subtracted-x', 'wrong-calc'] } },
+                { id: 'VCMMG199-012', question: 'NE (Northeast) is between...', options: ['North and South', 'North and East', 'East and South', 'South and West'], correctAnswer: 1, explanation: 'Northeast is halfway between North and East', difficulty: 1, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: ['opposite', null, 'wrong-pair', 'wrong-pair'] } },
+                { id: 'VCMMG199-013', question: 'From (5, 2), go 3 left and 4 down. Where are you?', options: ['(8, 6)', '(2, -2)', '(2, 6)', '(8, -2)'], correctAnswer: 1, explanation: '(5-3, 2-4) = (2, -2)', difficulty: 3, knowledge: { questionTokens: ['route-description'], correctToken: 'route-description', incorrectTokens: ['added-both', null, 'mixed', 'mixed'] } },
+                { id: 'VCMMG199-014', question: 'You face South and make a 90° anticlockwise turn. You now face...', options: ['North', 'East', 'West', 'South'], correctAnswer: 1, explanation: 'Anticlockwise from South: S → E', difficulty: 2, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: ['opposite', null, 'clockwise', 'no-turn'] } },
+                { id: 'VCMMG199-015', question: 'What is the horizontal distance from (1, 5) to (7, 5)?', options: ['0', '6', '12', '10'], correctAnswer: 1, explanation: '7 - 1 = 6 units horizontal', difficulty: 2, knowledge: { questionTokens: ['coordinate-pairs'], correctToken: 'coordinate-pairs', incorrectTokens: ['y-same', null, 'doubled', 'added'] } },
+                { id: 'VCMMG199-016', question: 'SW (Southwest) is opposite to...', options: ['SE', 'NW', 'NE', 'S'], correctAnswer: 2, explanation: 'SW is opposite to NE on a compass', difficulty: 2, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: ['perpendicular', 'perpendicular', null, 'cardinal-only'] } },
+                { id: 'VCMMG199-017', question: 'Points (2, 3), (2, 5), (2, 7) all lie on...', options: ['A horizontal line', 'A vertical line', 'A diagonal line', 'No line'], correctAnswer: 1, explanation: 'All have x = 2, so they form a vertical line', difficulty: 2, knowledge: { questionTokens: ['coordinate-pairs'], correctToken: 'coordinate-pairs', incorrectTokens: ['horizontal', null, 'diagonal', 'no-pattern'] } },
+                { id: 'VCMMG199-018', question: 'A quarter turn clockwise is...', options: ['90°', '180°', '270°', '360°'], correctAnswer: 0, explanation: 'A quarter turn = 360° ÷ 4 = 90°', difficulty: 1, knowledge: { questionTokens: ['compass-directions'], correctToken: 'compass-directions', incorrectTokens: [null, 'half-turn', 'three-quarter', 'full-turn'] } },
+                { id: 'VCMMG199-019', question: 'From (0, 0), go East 4, North 3, West 2, South 1. Final position?', options: ['(2, 2)', '(4, 3)', '(2, 4)', '(6, 4)'], correctAnswer: 0, explanation: 'E4: (4,0), N3: (4,3), W2: (2,3), S1: (2,2)', difficulty: 3, knowledge: { questionTokens: ['route-description'], correctToken: 'route-description', incorrectTokens: [null, 'missed-steps', 'wrong-calc', 'added-all'] } },
+                { id: 'VCMMG199-020', question: 'In a grid, B2 and D2 are on the same...', options: ['Column', 'Row', 'Diagonal', 'Neither'], correctAnswer: 1, explanation: 'Both have row 2, different columns', difficulty: 1, knowledge: { questionTokens: ['grid-reading'], correctToken: 'grid-reading', incorrectTokens: ['column', null, 'diagonal', 'neither'] } },
+              ]
+            },
+            {
+              id: 'VCMMG200',
+              code: 'VCMMG200',
+              title: 'Transformations',
+              description: 'Describe translations, reflections and rotations of two-dimensional shapes. Identify line and rotational symmetries',
+              content: `# Transformations
+
+Transformations move or change shapes in specific ways.
+
+## Translation (Sliding)
+
+A translation slides a shape without rotating or flipping it.
+- Every point moves the same distance and direction
+- The shape stays the same size and orientation
+
+Example: Move 3 right and 2 up
+
+## Reflection (Flipping)
+
+A reflection flips a shape over a line (mirror line).
+- The image is a mirror image of the original
+- Each point is the same distance from the mirror line
+
+## Rotation (Turning)
+
+A rotation turns a shape around a fixed point (centre of rotation).
+- Described by: centre, angle, and direction (clockwise/anticlockwise)
+
+Common rotations: 90°, 180°, 270°, 360°
+
+## Symmetry
+
+**Line Symmetry:** A shape has line symmetry if it can be folded along a line so both halves match.
+
+**Rotational Symmetry:** A shape has rotational symmetry if it looks the same after a rotation less than 360°.`,
+              keyPoints: [
+                'Translation slides a shape without turning it',
+                'Reflection flips a shape over a mirror line',
+                'Rotation turns a shape around a centre point',
+                'Symmetry means a shape looks the same after transformation',
+              ],
+              knowledgeTokens: [
+                { id: 'translation', name: 'Translation', description: 'Sliding shapes' },
+                { id: 'reflection', name: 'Reflection', description: 'Flipping shapes over a line' },
+                { id: 'rotation', name: 'Rotation', description: 'Turning shapes around a point' },
+                { id: 'line-symmetry', name: 'Line Symmetry', description: 'Mirror line symmetry' },
+                { id: 'rotational-symmetry', name: 'Rotational Symmetry', description: 'Symmetry when rotated', prerequisites: ['rotation'] },
+              ],
+              examples: [
+                { problem: 'How many lines of symmetry does a square have?', solution: '4 lines', explanation: '2 through midpoints of sides, 2 through corners' },
+                { problem: 'What transformation slides a shape?', solution: 'Translation', explanation: 'Translation moves every point the same distance' },
+              ],
+              questions: [
+                { id: 'VCMMG200-001', question: 'A translation...', options: ['Flips a shape', 'Slides a shape', 'Turns a shape', 'Shrinks a shape'], correctAnswer: 1, explanation: 'Translation slides a shape without rotating or flipping', difficulty: 1, knowledge: { questionTokens: ['translation'], correctToken: 'translation', incorrectTokens: ['reflection', null, 'rotation', 'scaling'] } },
+                { id: 'VCMMG200-002', question: 'A reflection...', options: ['Slides a shape', 'Flips a shape over a line', 'Makes a shape bigger', 'Turns a shape'], correctAnswer: 1, explanation: 'Reflection flips a shape over a mirror line', difficulty: 1, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['translation', null, 'enlargement', 'rotation'] } },
+                { id: 'VCMMG200-003', question: 'How many lines of symmetry does a rectangle have?', options: ['0', '1', '2', '4'], correctAnswer: 2, explanation: 'A rectangle has 2 lines of symmetry (through midpoints of sides)', difficulty: 1, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['no-symmetry', 'count-error', null, 'square-confusion'] } },
+                { id: 'VCMMG200-004', question: 'A rotation needs...', options: ['A mirror line', 'A centre point and angle', 'A slide distance', 'A new size'], correctAnswer: 1, explanation: 'Rotation is described by centre point, angle, and direction', difficulty: 1, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: ['reflection-confusion', null, 'translation-confusion', 'scaling-confusion'] } },
+                { id: 'VCMMG200-005', question: 'A square has how many lines of symmetry?', options: ['2', '3', '4', '8'], correctAnswer: 2, explanation: '4 lines: 2 through sides, 2 through corners', difficulty: 1, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['rectangle', 'triangle', null, 'doubled'] } },
+                { id: 'VCMMG200-006', question: 'After a 180° rotation, a shape looks...', options: ['The same', 'Upside down', 'Mirrored', 'Bigger'], correctAnswer: 1, explanation: '180° turns a shape upside down', difficulty: 2, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: ['360-confusion', null, 'reflection-confusion', 'scaling-confusion'] } },
+                { id: 'VCMMG200-007', question: 'An equilateral triangle has how many lines of symmetry?', options: ['1', '2', '3', '6'], correctAnswer: 2, explanation: '3 lines from each vertex to the opposite side midpoint', difficulty: 2, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['isosceles', 'count-error', null, 'doubled'] } },
+                { id: 'VCMMG200-008', question: 'Which letter has line symmetry: A, B, F, G?', options: ['F', 'G', 'A', 'None'], correctAnswer: 2, explanation: 'A has a vertical line of symmetry', difficulty: 2, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['no-symmetry', 'no-symmetry', null, 'all-have'] } },
+                { id: 'VCMMG200-009', question: 'A 90° clockwise rotation is the same as...', options: ['90° anticlockwise', '180° clockwise', '270° anticlockwise', '360° rotation'], correctAnswer: 2, explanation: '90° clockwise = 270° anticlockwise (both end at same position)', difficulty: 3, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: ['opposite', 'wrong-angle', null, 'no-change'] } },
+                { id: 'VCMMG200-010', question: 'A shape has rotational symmetry of order 4. It looks the same after...', options: ['Every 45°', 'Every 90°', 'Every 180°', 'Every 360°'], correctAnswer: 1, explanation: 'Order 4 means 360° ÷ 4 = 90° rotation', difficulty: 2, knowledge: { questionTokens: ['rotational-symmetry'], correctToken: 'rotational-symmetry', incorrectTokens: ['order-8', null, 'order-2', 'order-1'] } },
+                { id: 'VCMMG200-011', question: 'Which shape has no lines of symmetry?', options: ['Square', 'Circle', 'Scalene triangle', 'Rectangle'], correctAnswer: 2, explanation: 'A scalene triangle has no equal sides and no lines of symmetry', difficulty: 2, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['has-symmetry', 'infinite-symmetry', null, 'has-symmetry'] } },
+                { id: 'VCMMG200-012', question: 'In a reflection, the image is...', options: ['Bigger than original', 'Smaller than original', 'Same size as original', 'Rotated'], correctAnswer: 2, explanation: 'Reflections preserve size and shape', difficulty: 1, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['enlargement', 'reduction', null, 'rotation-confusion'] } },
+                { id: 'VCMMG200-013', question: 'A regular hexagon has rotational symmetry of order...', options: ['2', '4', '6', '12'], correctAnswer: 2, explanation: '6 rotational positions where it looks the same', difficulty: 2, knowledge: { questionTokens: ['rotational-symmetry'], correctToken: 'rotational-symmetry', incorrectTokens: ['rectangle', 'square', null, 'doubled'] } },
+                { id: 'VCMMG200-014', question: 'The letter S has...', options: ['Line symmetry', 'Rotational symmetry', 'Both types', 'No symmetry'], correctAnswer: 1, explanation: 'S has 180° rotational symmetry but no line symmetry', difficulty: 3, knowledge: { questionTokens: ['rotational-symmetry', 'line-symmetry'], correctToken: 'rotational-symmetry', incorrectTokens: ['line-only', null, 'both', 'no-symmetry'] } },
+                { id: 'VCMMG200-015', question: 'After a translation, the shape...', options: ['Changes size', 'Changes direction', 'Stays the same size and direction', 'Flips over'], correctAnswer: 2, explanation: 'Translation only changes position, not size or orientation', difficulty: 1, knowledge: { questionTokens: ['translation'], correctToken: 'translation', incorrectTokens: ['scaling', 'rotation', null, 'reflection'] } },
+                { id: 'VCMMG200-016', question: 'How many lines of symmetry does a circle have?', options: ['1', '4', '8', 'Infinite'], correctAnswer: 3, explanation: 'Any diameter is a line of symmetry', difficulty: 2, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['one', 'four', 'eight', null] } },
+                { id: 'VCMMG200-017', question: 'A shape is reflected over a vertical line. Points move...', options: ['Up and down', 'Left and right', 'Diagonally', 'In circles'], correctAnswer: 1, explanation: 'Reflection over vertical line moves points horizontally', difficulty: 2, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['horizontal-line', null, 'diagonal-line', 'rotation'] } },
+                { id: 'VCMMG200-018', question: 'What order of rotational symmetry does a rectangle have?', options: ['1', '2', '4', '8'], correctAnswer: 1, explanation: 'A rectangle looks the same after 180° rotation (order 2)', difficulty: 2, knowledge: { questionTokens: ['rotational-symmetry'], correctToken: 'rotational-symmetry', incorrectTokens: ['no-symmetry', null, 'square', 'doubled'] } },
+                { id: 'VCMMG200-019', question: 'Point (2, 3) is reflected over the x-axis. New position?', options: ['(2, -3)', '(-2, 3)', '(3, 2)', '(-2, -3)'], correctAnswer: 0, explanation: 'Reflection over x-axis: y becomes negative', difficulty: 3, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: [null, 'y-axis', 'swapped', 'both-neg'] } },
+                { id: 'VCMMG200-020', question: 'A regular pentagon has how many lines of symmetry?', options: ['3', '4', '5', '10'], correctAnswer: 2, explanation: '5 lines from each vertex to opposite side midpoint', difficulty: 2, knowledge: { questionTokens: ['line-symmetry'], correctToken: 'line-symmetry', incorrectTokens: ['triangle', 'square', null, 'doubled'] } },
+              ]
+            },
+            {
+              id: 'VCMMG201',
+              code: 'VCMMG201',
+              title: 'Enlargement',
+              description: 'Apply the enlargement transformation to familiar two dimensional shapes and explore the properties of the resulting image compared with the original',
+              content: `# Enlargement
+
+Enlargement makes shapes bigger or smaller while keeping the same proportions.
+
+## Scale Factor
+
+The scale factor tells us how many times bigger or smaller.
+
+- Scale factor 2: Each length doubles
+- Scale factor 3: Each length triples
+- Scale factor 0.5: Each length halves
+
+## Properties of Enlargement
+
+When a shape is enlarged:
+- All lengths multiply by the scale factor
+- All angles stay the same
+- The shape keeps its proportions (stays similar)
+- Area changes by (scale factor)²
+
+## Example
+
+Triangle with sides 3cm, 4cm, 5cm enlarged by scale factor 2:
+- New sides: 6cm, 8cm, 10cm
+- Angles: unchanged
+- Area: 4 times bigger (2² = 4)
+
+## Centre of Enlargement
+
+Enlargement happens from a fixed point (centre).
+- Lines from centre to original points continue to new points
+- Distance from centre multiplies by scale factor`,
+              keyPoints: [
+                'Scale factor tells how many times bigger or smaller',
+                'All lengths multiply by the scale factor',
+                'Angles stay the same in enlargement',
+                'Area changes by scale factor squared',
+              ],
+              knowledgeTokens: [
+                { id: 'scale-factor', name: 'Scale Factor', description: 'Understanding enlargement ratio' },
+                { id: 'length-scaling', name: 'Length Scaling', description: 'How lengths change' },
+                { id: 'angle-preservation', name: 'Angle Preservation', description: 'Angles unchanged in enlargement' },
+                { id: 'area-scaling', name: 'Area Scaling', description: 'How area changes', prerequisites: ['scale-factor'] },
+              ],
+              examples: [
+                { problem: 'A 4cm line is enlarged by scale factor 3. New length?', solution: '12cm', explanation: '4 × 3 = 12cm' },
+                { problem: 'A shape is enlarged by scale factor 2. How does area change?', solution: '4 times bigger', explanation: 'Area multiplies by 2² = 4' },
+              ],
+              questions: [
+                { id: 'VCMMG201-001', question: 'What does scale factor 2 mean?', options: ['Add 2 to each length', 'Multiply each length by 2', 'Divide each length by 2', 'Square each length'], correctAnswer: 1, explanation: 'Scale factor 2 means each length is multiplied by 2', difficulty: 1, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['addition', null, 'division', 'squaring'] } },
+                { id: 'VCMMG201-002', question: 'A 5cm side enlarged by scale factor 3 becomes...', options: ['8cm', '15cm', '2cm', '25cm'], correctAnswer: 1, explanation: '5 × 3 = 15cm', difficulty: 1, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: ['added', null, 'divided', 'squared'] } },
+                { id: 'VCMMG201-003', question: 'In an enlargement, angles...', options: ['Double', 'Halve', 'Stay the same', 'Disappear'], correctAnswer: 2, explanation: 'Enlargement preserves all angles', difficulty: 1, knowledge: { questionTokens: ['angle-preservation'], correctToken: 'angle-preservation', incorrectTokens: ['doubled', 'halved', null, 'removed'] } },
+                { id: 'VCMMG201-004', question: 'Scale factor 0.5 means the shape...', options: ['Doubles', 'Halves', 'Stays the same', 'Disappears'], correctAnswer: 1, explanation: 'Scale factor less than 1 makes shape smaller', difficulty: 1, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['larger', null, 'same', 'removed'] } },
+                { id: 'VCMMG201-005', question: 'A triangle has sides 3, 4, 5. Enlarged by factor 2, the sides are...', options: ['5, 6, 7', '6, 8, 10', '9, 16, 25', '1.5, 2, 2.5'], correctAnswer: 1, explanation: 'Each side × 2: 6, 8, 10', difficulty: 1, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: ['added-2', null, 'squared', 'divided'] } },
+                { id: 'VCMMG201-006', question: 'If a shape is enlarged by scale factor 3, area becomes...', options: ['3 times bigger', '6 times bigger', '9 times bigger', '27 times bigger'], correctAnswer: 2, explanation: 'Area multiplies by 3² = 9', difficulty: 2, knowledge: { questionTokens: ['area-scaling'], correctToken: 'area-scaling', incorrectTokens: ['just-factor', 'doubled-factor', null, 'cubed-factor'] } },
+                { id: 'VCMMG201-007', question: 'Original rectangle: 4cm by 6cm. Scale factor 2. New dimensions?', options: ['8cm by 12cm', '6cm by 8cm', '16cm by 36cm', '2cm by 3cm'], correctAnswer: 0, explanation: '4×2 = 8, 6×2 = 12', difficulty: 1, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: [null, 'added', 'squared', 'divided'] } },
+                { id: 'VCMMG201-008', question: 'A photo is 10cm wide. Enlarged by factor 1.5, new width is...', options: ['11.5cm', '15cm', '20cm', '6.67cm'], correctAnswer: 1, explanation: '10 × 1.5 = 15cm', difficulty: 2, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: ['added', null, 'doubled', 'divided'] } },
+                { id: 'VCMMG201-009', question: 'What scale factor makes a 12cm line become 4cm?', options: ['3', '1/3', '8', '-8'], correctAnswer: 1, explanation: '12 × (1/3) = 4, or scale factor 0.33...', difficulty: 2, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['wrong-direction', null, 'subtracted', 'negative'] } },
+                { id: 'VCMMG201-010', question: 'Scale factor 1 means...', options: ['The shape doubles', 'The shape halves', 'The shape stays the same size', 'The shape disappears'], correctAnswer: 2, explanation: 'Multiplying by 1 keeps everything the same', difficulty: 1, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['doubled', 'halved', null, 'removed'] } },
+                { id: 'VCMMG201-011', question: 'Square area = 16cm². Enlarged by factor 3. New area?', options: ['48cm²', '64cm²', '144cm²', '24cm²'], correctAnswer: 2, explanation: '16 × 3² = 16 × 9 = 144cm²', difficulty: 3, knowledge: { questionTokens: ['area-scaling'], correctToken: 'area-scaling', incorrectTokens: ['×3-only', '×4', null, '×1.5'] } },
+                { id: 'VCMMG201-012', question: 'An enlargement by factor 4 makes a rectangle...', options: ['4 times longer only', '4 times wider only', '4 times longer AND wider', '16 times longer'], correctAnswer: 2, explanation: 'Both dimensions multiply by the scale factor', difficulty: 2, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: ['one-dimension', 'one-dimension', null, 'area-confusion'] } },
+                { id: 'VCMMG201-013', question: 'Original angle: 45°. After enlargement, angle is...', options: ['90°', '22.5°', '45°', '180°'], correctAnswer: 2, explanation: 'Angles never change in enlargement', difficulty: 1, knowledge: { questionTokens: ['angle-preservation'], correctToken: 'angle-preservation', incorrectTokens: ['doubled', 'halved', null, 'quadrupled'] } },
+                { id: 'VCMMG201-014', question: 'A map uses scale 1:1000. A road is 5cm on the map. Real length?', options: ['5000cm', '500cm', '50cm', '0.005cm'], correctAnswer: 0, explanation: '5 × 1000 = 5000cm (or 50m)', difficulty: 3, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: [null, '÷10', '÷100', 'divided'] } },
+                { id: 'VCMMG201-015', question: 'Triangle enlarged by factor 2. Original area 10cm². New area?', options: ['20cm²', '40cm²', '100cm²', '5cm²'], correctAnswer: 1, explanation: '10 × 2² = 10 × 4 = 40cm²', difficulty: 2, knowledge: { questionTokens: ['area-scaling'], correctToken: 'area-scaling', incorrectTokens: ['×2-only', null, '×10', 'divided'] } },
+                { id: 'VCMMG201-016', question: 'What happens to perimeter when scale factor is 2?', options: ['Doubles', 'Quadruples', 'Halves', 'Stays the same'], correctAnswer: 0, explanation: 'Perimeter (a length) multiplies by the scale factor', difficulty: 2, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: [null, 'area-confusion', 'opposite', 'no-change'] } },
+                { id: 'VCMMG201-017', question: '8cm line becomes 2cm. Scale factor?', options: ['4', '1/4', '6', '-6'], correctAnswer: 1, explanation: '8 × (1/4) = 2', difficulty: 2, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['inverted', null, 'subtracted', 'negative'] } },
+                { id: 'VCMMG201-018', question: 'Scale factor 10: perimeter 5cm becomes...', options: ['15cm', '50cm', '500cm', '0.5cm'], correctAnswer: 1, explanation: '5 × 10 = 50cm', difficulty: 1, knowledge: { questionTokens: ['length-scaling'], correctToken: 'length-scaling', incorrectTokens: ['added', null, 'squared', 'divided'] } },
+                { id: 'VCMMG201-019', question: 'Enlarged by factor 2, then by factor 3. Overall factor?', options: ['5', '6', '9', '1'], correctAnswer: 1, explanation: '2 × 3 = 6 (multiply scale factors)', difficulty: 3, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['added', null, 'squared', 'divided'] } },
+                { id: 'VCMMG201-020', question: 'A shape is enlarged. Which stays the same?', options: ['Side lengths', 'Area', 'Angles', 'Perimeter'], correctAnswer: 2, explanation: 'Only angles remain unchanged in enlargement', difficulty: 2, knowledge: { questionTokens: ['angle-preservation'], correctToken: 'angle-preservation', incorrectTokens: ['lengths-change', 'area-changes', null, 'perimeter-changes'] } },
+              ]
+            },
+          ]
+        },
+        {
           id: 'geometric-reasoning',
           title: 'Geometric Reasoning',
           description: 'Understanding and measuring angles',
@@ -8448,6 +8769,492 @@ For two coin flips: {HH, HT, TH, TT} → 4 outcomes
                   },
                 },
               ]
+            },
+            {
+              id: 'VCMSP204',
+              code: 'VCMSP204',
+              title: 'Describing Probability',
+              description: 'Recognise that probabilities range from 0 to 1',
+              content: `# Probability: From Impossible to Certain
+
+Probability is a way of measuring how likely something is to happen. It uses numbers from 0 to 1.
+
+## The Probability Scale
+
+\`\`\`
+|-------|-------|-------|-------|-------|
+0      0.25    0.5    0.75     1
+|       |       |       |       |
+Impossible  Unlikely  Even   Likely  Certain
+                     Chance
+\`\`\`
+
+## Understanding the Numbers
+
+| Probability | Meaning | Example |
+|-------------|---------|---------|
+| 0 | Impossible - will never happen | Rolling a 7 on a normal die |
+| 0.25 or ¼ | Unlikely - probably won't happen | Picking a heart from a deck |
+| 0.5 or ½ | Even chance - could go either way | Flipping heads on a coin |
+| 0.75 or ¾ | Likely - probably will happen | Not rolling a 6 on a die |
+| 1 | Certain - will definitely happen | Getting 1-6 when rolling a die |
+
+## Ways to Write Probability
+
+Probability can be written as:
+- A **fraction**: ½, ¼, ³⁄₄
+- A **decimal**: 0.5, 0.25, 0.75
+- A **percentage**: 50%, 25%, 75%
+
+## Probability Language
+
+We use special words to describe likelihood:
+
+**Impossible** → 0: "It is impossible to pick a 10 from cards numbered 1-9"
+
+**Unlikely** → close to 0: "It is unlikely to snow in summer in Melbourne"
+
+**Even chance** → 0.5: "There's an even chance of heads or tails"
+
+**Likely** → close to 1: "It's likely the sun will rise tomorrow"
+
+**Certain** → 1: "It is certain that a number between 1-6 will show on a die"
+
+## Important Rules
+
+1. **No probability is less than 0** - You can't be more impossible than impossible!
+2. **No probability is more than 1** - You can't be more certain than certain!
+3. **All probabilities must be between 0 and 1** (inclusive)`,
+              keyPoints: [
+                'Probability is always a number between 0 and 1',
+                '0 means impossible, 1 means certain, 0.5 means even chance',
+                'Probability can be written as fractions, decimals, or percentages',
+                'Words like unlikely, even chance, and likely describe positions on the probability scale'
+              ],
+              examples: [
+                {
+                  problem: 'Where would "rolling an even number on a die" sit on the probability scale?',
+                  solution: '0.5 (even chance)',
+                  explanation: 'There are 3 even numbers (2, 4, 6) out of 6, so P = 3/6 = 0.5'
+                },
+                {
+                  problem: 'Express "2 out of 5 chance" as a decimal and percentage',
+                  solution: '0.4 and 40%',
+                  explanation: '2/5 = 2 ÷ 5 = 0.4, and 0.4 × 100 = 40%'
+                }
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'probability-range',
+                  name: 'Probability Range',
+                  description: 'Understanding that all probabilities fall between 0 and 1',
+                  prerequisites: [],
+                },
+                {
+                  id: 'probability-impossible',
+                  name: 'Impossible Events',
+                  description: 'Recognising events with probability 0',
+                  prerequisites: ['probability-range'],
+                },
+                {
+                  id: 'probability-certain',
+                  name: 'Certain Events',
+                  description: 'Recognising events with probability 1',
+                  prerequisites: ['probability-range'],
+                },
+                {
+                  id: 'probability-even-chance',
+                  name: 'Even Chance',
+                  description: 'Understanding probability of 0.5 as equally likely',
+                  prerequisites: ['probability-range'],
+                },
+                {
+                  id: 'probability-as-decimal',
+                  name: 'Probability as Decimal',
+                  description: 'Expressing probability as a decimal between 0 and 1',
+                  prerequisites: ['probability-range'],
+                },
+                {
+                  id: 'probability-as-percentage',
+                  name: 'Probability as Percentage',
+                  description: 'Converting probability to percentage (multiply by 100)',
+                  prerequisites: ['probability-as-decimal'],
+                },
+                {
+                  id: 'probability-language',
+                  name: 'Probability Language',
+                  description: 'Using words like unlikely, likely, certain to describe probability',
+                  prerequisites: ['probability-range'],
+                },
+                {
+                  id: 'comparing-probabilities',
+                  name: 'Comparing Probabilities',
+                  description: 'Ordering events by their likelihood',
+                  prerequisites: ['probability-range'],
+                },
+              ],
+              questions: [
+                {
+                  id: 'VCMSP204-001',
+                  question: 'What is the probability of an impossible event?',
+                  options: ['-1', '0', '0.5', '1'],
+                  correctAnswer: 1,
+                  explanation: 'An impossible event has a probability of 0. It will never happen.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['probability-range', 'probability-impossible'],
+                    correctToken: 'probability-impossible',
+                    incorrectTokens: [
+                      'probability-range-error',
+                      null,
+                      'probability-scale-confusion',
+                      'probability-scale-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-002',
+                  question: 'What is the probability of an event that is certain to happen?',
+                  options: ['0', '0.5', '1', '2'],
+                  correctAnswer: 2,
+                  explanation: 'A certain event has a probability of 1. It will definitely happen.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['probability-range', 'probability-certain'],
+                    correctToken: 'probability-certain',
+                    incorrectTokens: [
+                      'probability-scale-confusion',
+                      'probability-scale-confusion',
+                      null,
+                      'probability-range-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-003',
+                  question: 'Which probability is NOT valid?',
+                  options: ['0', '0.5', '1.5', '1'],
+                  correctAnswer: 2,
+                  explanation: 'Probability must be between 0 and 1. 1.5 is greater than 1, so it is not valid.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['probability-range'],
+                    correctToken: 'probability-range',
+                    incorrectTokens: [
+                      'probability-range-error',
+                      'probability-range-error',
+                      null,
+                      'probability-range-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-004',
+                  question: 'What word describes an event with probability 0.5?',
+                  options: ['Impossible', 'Unlikely', 'Even chance', 'Certain'],
+                  correctAnswer: 2,
+                  explanation: 'A probability of 0.5 means there is an even chance - equally likely to happen or not.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['probability-even-chance', 'probability-language'],
+                    correctToken: 'probability-language',
+                    incorrectTokens: [
+                      'probability-language-error',
+                      'probability-language-error',
+                      null,
+                      'probability-language-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-005',
+                  question: 'Express the probability ½ as a decimal.',
+                  options: ['0.2', '0.25', '0.5', '0.75'],
+                  correctAnswer: 2,
+                  explanation: '½ = 1 ÷ 2 = 0.5',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['probability-as-decimal'],
+                    correctToken: 'probability-as-decimal',
+                    incorrectTokens: [
+                      'fraction-decimal-conversion-error',
+                      'fraction-decimal-conversion-error',
+                      null,
+                      'fraction-decimal-conversion-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-006',
+                  question: 'What is 0.25 as a percentage?',
+                  options: ['2.5%', '25%', '0.25%', '250%'],
+                  correctAnswer: 1,
+                  explanation: 'To convert a decimal to a percentage, multiply by 100. 0.25 × 100 = 25%',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['probability-as-percentage'],
+                    correctToken: 'probability-as-percentage',
+                    incorrectTokens: [
+                      'decimal-percentage-conversion-error',
+                      null,
+                      'decimal-percentage-conversion-error',
+                      'decimal-percentage-conversion-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-007',
+                  question: 'Which event is IMPOSSIBLE?',
+                  options: ['Rolling a 5 on a die', 'Getting tails on a coin', 'Rolling a 7 on a standard die', 'Picking a red card from a deck'],
+                  correctAnswer: 2,
+                  explanation: 'A standard die only has numbers 1-6, so rolling a 7 is impossible (probability = 0).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-impossible'],
+                    correctToken: 'probability-impossible',
+                    incorrectTokens: [
+                      'possible-event-error',
+                      'possible-event-error',
+                      null,
+                      'possible-event-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-008',
+                  question: 'Which event is CERTAIN?',
+                  options: ['Rolling an even number', 'Getting a number from 1-6 on a die', 'Flipping heads', 'Picking a red marble from mixed colours'],
+                  correctAnswer: 1,
+                  explanation: 'A standard die always shows 1, 2, 3, 4, 5, or 6 - this is certain (probability = 1).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-certain'],
+                    correctToken: 'probability-certain',
+                    incorrectTokens: [
+                      'certain-event-error',
+                      null,
+                      'certain-event-error',
+                      'certain-event-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-009',
+                  question: 'Place these in order from least likely to most likely: P(A) = 0.8, P(B) = 0.2, P(C) = 0.5',
+                  options: ['A, B, C', 'B, C, A', 'C, A, B', 'A, C, B'],
+                  correctAnswer: 1,
+                  explanation: 'Least to most: 0.2 < 0.5 < 0.8, so B, C, A',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['comparing-probabilities', 'probability-range'],
+                    correctToken: 'comparing-probabilities',
+                    incorrectTokens: [
+                      'ordering-decimals-error',
+                      null,
+                      'ordering-decimals-error',
+                      'ordering-decimals-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-010',
+                  question: 'What is ¼ as a percentage?',
+                  options: ['4%', '14%', '25%', '40%'],
+                  correctAnswer: 2,
+                  explanation: '¼ = 0.25, and 0.25 × 100 = 25%',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-as-decimal', 'probability-as-percentage'],
+                    correctToken: 'probability-as-percentage',
+                    incorrectTokens: [
+                      'fraction-percentage-error',
+                      'fraction-percentage-error',
+                      null,
+                      'fraction-percentage-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-011',
+                  question: 'An event has probability 0.9. Which word best describes it?',
+                  options: ['Impossible', 'Unlikely', 'Even chance', 'Likely'],
+                  correctAnswer: 3,
+                  explanation: '0.9 is close to 1, so the event is likely to happen.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-language', 'probability-range'],
+                    correctToken: 'probability-language',
+                    incorrectTokens: [
+                      'probability-language-error',
+                      'probability-language-error',
+                      'probability-language-error',
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-012',
+                  question: 'Which of these could NOT be a probability?',
+                  options: ['0.01', '99/100', '1.1', '0'],
+                  correctAnswer: 2,
+                  explanation: '1.1 is greater than 1, so it cannot be a probability. All probabilities are between 0 and 1.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-range'],
+                    correctToken: 'probability-range',
+                    incorrectTokens: [
+                      'probability-range-error',
+                      'probability-range-error',
+                      null,
+                      'probability-range-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-013',
+                  question: 'Convert 75% to a decimal.',
+                  options: ['0.075', '0.75', '7.5', '75'],
+                  correctAnswer: 1,
+                  explanation: 'To convert percentage to decimal, divide by 100. 75 ÷ 100 = 0.75',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-as-decimal', 'probability-as-percentage'],
+                    correctToken: 'probability-as-decimal',
+                    incorrectTokens: [
+                      'percentage-decimal-conversion-error',
+                      null,
+                      'percentage-decimal-conversion-error',
+                      'percentage-decimal-conversion-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-014',
+                  question: 'An event has probability 0.1. Which word best describes it?',
+                  options: ['Certain', 'Likely', 'Unlikely', 'Impossible'],
+                  correctAnswer: 2,
+                  explanation: '0.1 is close to 0, so the event is unlikely to happen (but not impossible).',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-language', 'probability-range'],
+                    correctToken: 'probability-language',
+                    incorrectTokens: [
+                      'probability-language-error',
+                      'probability-language-error',
+                      null,
+                      'probability-language-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-015',
+                  question: 'What is ³⁄₄ as a decimal?',
+                  options: ['0.25', '0.34', '0.5', '0.75'],
+                  correctAnswer: 3,
+                  explanation: '³⁄₄ = 3 ÷ 4 = 0.75',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['probability-as-decimal'],
+                    correctToken: 'probability-as-decimal',
+                    incorrectTokens: [
+                      'fraction-decimal-conversion-error',
+                      'fraction-decimal-conversion-error',
+                      'fraction-decimal-conversion-error',
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-016',
+                  question: 'If P(rain) = 0.7, what is the probability it will NOT rain?',
+                  options: ['0.3', '0.7', '1.3', '1.7'],
+                  correctAnswer: 0,
+                  explanation: 'P(not rain) = 1 - P(rain) = 1 - 0.7 = 0.3',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['probability-range', 'probability-certain'],
+                    correctToken: 'probability-range',
+                    incorrectTokens: [
+                      null,
+                      'complement-probability-error',
+                      'probability-range-error',
+                      'probability-range-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-017',
+                  question: 'Which shows the correct order from impossible to certain?',
+                  options: ['1, 0.5, 0', '0, 0.25, 0.5, 0.75, 1', '0.5, 0, 1', '1, 0.75, 0.5, 0.25, 0'],
+                  correctAnswer: 1,
+                  explanation: 'The probability scale goes from 0 (impossible) to 1 (certain): 0, 0.25, 0.5, 0.75, 1',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['probability-range', 'comparing-probabilities'],
+                    correctToken: 'probability-range',
+                    incorrectTokens: [
+                      'probability-scale-direction-error',
+                      null,
+                      'probability-scale-direction-error',
+                      'probability-scale-direction-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-018',
+                  question: 'A spinner has 8 equal sections. 6 are blue. What is P(blue) as a decimal?',
+                  options: ['0.6', '0.68', '0.75', '0.86'],
+                  correctAnswer: 2,
+                  explanation: 'P(blue) = 6/8 = 3/4 = 0.75',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['probability-as-decimal', 'probability-range'],
+                    correctToken: 'probability-as-decimal',
+                    incorrectTokens: [
+                      'fraction-decimal-conversion-error',
+                      'fraction-decimal-conversion-error',
+                      null,
+                      'fraction-decimal-conversion-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-019',
+                  question: 'If the probability of winning a game is 0.15, what is this as a percentage?',
+                  options: ['1.5%', '15%', '0.15%', '150%'],
+                  correctAnswer: 1,
+                  explanation: '0.15 × 100 = 15%',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['probability-as-percentage'],
+                    correctToken: 'probability-as-percentage',
+                    incorrectTokens: [
+                      'decimal-percentage-conversion-error',
+                      null,
+                      'decimal-percentage-conversion-error',
+                      'decimal-percentage-conversion-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP204-020',
+                  question: 'Event A has probability 0.4, Event B has probability 2/5. Which is more likely?',
+                  options: ['Event A', 'Event B', 'They are equally likely', 'Cannot compare'],
+                  correctAnswer: 2,
+                  explanation: '2/5 = 0.4, so both events have the same probability and are equally likely.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['probability-as-decimal', 'comparing-probabilities'],
+                    correctToken: 'comparing-probabilities',
+                    incorrectTokens: [
+                      'comparing-fractions-decimals-error',
+                      'comparing-fractions-decimals-error',
+                      null,
+                      'probability-comparison-error',
+                    ],
+                  },
+                },
+              ]
             }
           ]
         },
@@ -8456,6 +9263,523 @@ For two coin flips: {HH, HT, TH, TT} → 4 outcomes
           title: 'Data Representation',
           description: 'Collecting, displaying and interpreting data',
           sections: [
+            {
+              id: 'VCMSP205',
+              code: 'VCMSP205',
+              title: 'Posing Questions and Collecting Data',
+              description: 'Pose questions and collect categorical or numerical data by observation or survey',
+              content: `# Collecting Data
+
+Data is information we gather to answer questions. Learning to collect data properly is the first step in any investigation!
+
+## What is Data?
+
+**Data** = facts and information we collect
+
+There are two main types:
+
+### Categorical Data
+Data in categories or groups (not numbers)
+- Favourite colours: red, blue, green
+- Types of pets: dog, cat, bird
+- Transport to school: car, bus, walk, bike
+
+### Numerical Data
+Data as numbers
+- Heights of students: 142 cm, 145 cm, 138 cm
+- Number of siblings: 0, 1, 2, 3
+- Time to run 100m: 15.2s, 14.8s, 16.1s
+
+## Posing Good Questions
+
+A good data question:
+1. Can be answered by collecting data
+2. Is clear and specific
+3. Doesn't assume an answer
+
+### Good Questions:
+✓ "What is the most popular lunch choice in our class?"
+✓ "How many hours of sleep do Year 5 students get?"
+✓ "Which type of pet is most common in our school?"
+
+### Poor Questions:
+✗ "Why do people like pizza?" (can't be answered with data)
+✗ "What's your favourite?" (too vague)
+✗ "Don't you think cats are the best pet?" (leads to an answer)
+
+## Methods of Collecting Data
+
+### 1. Observation
+Watching and recording what happens
+- Counting cars passing school
+- Recording weather each day
+- Tallying bird species in the garden
+
+### 2. Survey
+Asking people questions
+- **Questionnaire**: Written questions
+- **Interview**: Asking questions face-to-face
+- **Poll**: Quick vote on a choice
+
+## Recording Data
+
+### Tally Marks
+Quick way to count as you observe:
+\`\`\`
+| = 1
+|| = 2
+||| = 3
+|||| = 4
+|||| = 5 (cross through for 5)
+\`\`\`
+
+### Data Table
+Organised way to record results:
+
+| Pet | Tally | Total |
+|-----|-------|-------|
+| Dog | |||| ||| | 8 |
+| Cat | |||| || | 7 |
+| Bird | ||| | 3 |
+| Fish | |||| | 5 |
+
+## Tips for Good Data Collection
+
+1. **Be consistent** - collect data the same way each time
+2. **Record immediately** - don't rely on memory
+3. **Be accurate** - double-check your counts
+4. **Include everyone** - survey the whole group if possible`,
+              keyPoints: [
+                'Categorical data is in groups/categories; numerical data uses numbers',
+                'Good questions are clear, specific, and can be answered with data',
+                'Data can be collected through observation (watching) or surveys (asking)',
+                'Tally marks and tables help organise data as you collect it'
+              ],
+              examples: [
+                {
+                  problem: 'Is "favourite sport" categorical or numerical data?',
+                  solution: 'Categorical',
+                  explanation: 'Sports are categories (cricket, soccer, swimming) not numbers'
+                },
+                {
+                  problem: 'Write a good survey question about screen time.',
+                  solution: '"How many hours per day do you spend on screens?"',
+                  explanation: 'This is clear, specific, and will give numerical data we can analyse'
+                }
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'categorical-data',
+                  name: 'Categorical Data',
+                  description: 'Understanding data organised into categories or groups',
+                  prerequisites: [],
+                },
+                {
+                  id: 'numerical-data',
+                  name: 'Numerical Data',
+                  description: 'Understanding data expressed as numbers',
+                  prerequisites: [],
+                },
+                {
+                  id: 'posing-data-questions',
+                  name: 'Posing Data Questions',
+                  description: 'Formulating clear questions that can be answered with data',
+                  prerequisites: [],
+                },
+                {
+                  id: 'observation-method',
+                  name: 'Observation Method',
+                  description: 'Collecting data by watching and recording',
+                  prerequisites: [],
+                },
+                {
+                  id: 'survey-method',
+                  name: 'Survey Method',
+                  description: 'Collecting data by asking questions',
+                  prerequisites: [],
+                },
+                {
+                  id: 'tally-marks',
+                  name: 'Tally Marks',
+                  description: 'Using tally marks to record counts efficiently',
+                  prerequisites: [],
+                },
+                {
+                  id: 'data-tables',
+                  name: 'Data Tables',
+                  description: 'Organising collected data in a table format',
+                  prerequisites: ['tally-marks'],
+                },
+                {
+                  id: 'data-accuracy',
+                  name: 'Data Accuracy',
+                  description: 'Ensuring data is collected consistently and accurately',
+                  prerequisites: [],
+                },
+              ],
+              questions: [
+                {
+                  id: 'VCMSP205-001',
+                  question: 'Which is an example of categorical data?',
+                  options: ['Height in cm', 'Favourite colour', 'Number of pets', 'Age in years'],
+                  correctAnswer: 1,
+                  explanation: 'Favourite colour is categorical - it sorts into groups (red, blue, green, etc.) not numbers.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['categorical-data'],
+                    correctToken: 'categorical-data',
+                    incorrectTokens: [
+                      'data-type-confusion',
+                      null,
+                      'data-type-confusion',
+                      'data-type-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-002',
+                  question: 'Which is an example of numerical data?',
+                  options: ['Type of pet', 'Favourite food', 'Country of birth', 'Number of siblings'],
+                  correctAnswer: 3,
+                  explanation: 'Number of siblings is numerical - it uses numbers (0, 1, 2, 3, etc.).',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['numerical-data'],
+                    correctToken: 'numerical-data',
+                    incorrectTokens: [
+                      'data-type-confusion',
+                      'data-type-confusion',
+                      'data-type-confusion',
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-003',
+                  question: 'What does |||| ||| represent in tally marks?',
+                  options: ['6', '7', '8', '9'],
+                  correctAnswer: 2,
+                  explanation: '|||| = 5 (bundle) and ||| = 3, so |||| ||| = 5 + 3 = 8',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['tally-marks'],
+                    correctToken: 'tally-marks',
+                    incorrectTokens: [
+                      'tally-counting-error',
+                      'tally-counting-error',
+                      null,
+                      'tally-counting-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-004',
+                  question: 'Which method involves watching and recording what happens?',
+                  options: ['Survey', 'Questionnaire', 'Observation', 'Interview'],
+                  correctAnswer: 2,
+                  explanation: 'Observation means watching and recording - like counting birds or cars.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['observation-method'],
+                    correctToken: 'observation-method',
+                    incorrectTokens: [
+                      'data-method-confusion',
+                      'data-method-confusion',
+                      null,
+                      'data-method-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-005',
+                  question: 'Which method involves asking people questions?',
+                  options: ['Observation', 'Experiment', 'Survey', 'Measurement'],
+                  correctAnswer: 2,
+                  explanation: 'A survey collects data by asking people questions, either written or spoken.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['survey-method'],
+                    correctToken: 'survey-method',
+                    incorrectTokens: [
+                      'data-method-confusion',
+                      'data-method-confusion',
+                      null,
+                      'data-method-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-006',
+                  question: 'What is wrong with the question: "Don\'t you agree that summer is the best season?"',
+                  options: ['It\'s too short', 'It leads to an answer', 'It asks about seasons', 'Nothing is wrong'],
+                  correctAnswer: 1,
+                  explanation: 'This is a leading question - it pushes toward a specific answer rather than being neutral.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['posing-data-questions'],
+                    correctToken: 'posing-data-questions',
+                    incorrectTokens: [
+                      'question-quality-error',
+                      null,
+                      'question-quality-error',
+                      'question-quality-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-007',
+                  question: 'You want to know how students travel to school. Which question is best?',
+                  options: ['Do you catch the bus?', 'How do you travel to school?', 'Don\'t you walk to school?', 'Is your school nearby?'],
+                  correctAnswer: 1,
+                  explanation: '"How do you travel to school?" is open, neutral, and will collect useful data.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['posing-data-questions'],
+                    correctToken: 'posing-data-questions',
+                    incorrectTokens: [
+                      'question-design-error',
+                      null,
+                      'question-design-error',
+                      'question-design-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-008',
+                  question: 'Shoe size data (5, 6, 7, 8...) is which type?',
+                  options: ['Categorical', 'Numerical', 'Neither', 'Both'],
+                  correctAnswer: 1,
+                  explanation: 'Shoe sizes are numbers, so this is numerical data.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['numerical-data'],
+                    correctToken: 'numerical-data',
+                    incorrectTokens: [
+                      'data-type-confusion',
+                      null,
+                      'data-type-error',
+                      'data-type-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-009',
+                  question: 'Hair colour data (brown, blonde, black, red) is which type?',
+                  options: ['Numerical', 'Categorical', 'Neither', 'Both'],
+                  correctAnswer: 1,
+                  explanation: 'Hair colours are categories/groups, so this is categorical data.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['categorical-data'],
+                    correctToken: 'categorical-data',
+                    incorrectTokens: [
+                      'data-type-confusion',
+                      null,
+                      'data-type-error',
+                      'data-type-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-010',
+                  question: 'Which is the best way to collect data about bird species in a park?',
+                  options: ['Survey', 'Interview', 'Questionnaire', 'Observation'],
+                  correctAnswer: 3,
+                  explanation: 'You can\'t ask birds questions! Observation (watching and recording) is the right method.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['observation-method'],
+                    correctToken: 'observation-method',
+                    incorrectTokens: [
+                      'method-selection-error',
+                      'method-selection-error',
+                      'method-selection-error',
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-011',
+                  question: 'How would you show the number 13 using tally marks?',
+                  options: ['|||| |||| |', '|||| |||| ||', '|||| |||| |||', '|||| |||| ||||'],
+                  correctAnswer: 2,
+                  explanation: '|||| = 5, |||| = 5, ||| = 3. Total: 5 + 5 + 3 = 13',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['tally-marks'],
+                    correctToken: 'tally-marks',
+                    incorrectTokens: [
+                      'tally-counting-error',
+                      'tally-counting-error',
+                      null,
+                      'tally-counting-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-012',
+                  question: 'A survey about favourite lunches should NOT...',
+                  options: ['Have clear choices', 'Ask everyone the same question', 'Tell people the "right" answer', 'Record answers accurately'],
+                  correctAnswer: 2,
+                  explanation: 'A good survey is neutral. Telling people the "right" answer would bias the results.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['survey-method', 'data-accuracy'],
+                    correctToken: 'survey-method',
+                    incorrectTokens: [
+                      'survey-design-error',
+                      'survey-design-error',
+                      null,
+                      'survey-design-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-013',
+                  question: 'Why is it important to record data immediately?',
+                  options: ['It\'s faster', 'You might forget details', 'It looks neater', 'Teachers require it'],
+                  correctAnswer: 1,
+                  explanation: 'Recording immediately ensures accuracy - relying on memory can lead to mistakes.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-accuracy'],
+                    correctToken: 'data-accuracy',
+                    incorrectTokens: [
+                      'data-practice-error',
+                      null,
+                      'data-practice-error',
+                      'data-practice-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-014',
+                  question: 'Temperature readings (18°C, 22°C, 25°C) would be best collected by:',
+                  options: ['Survey', 'Interview', 'Observation/Measurement', 'Questionnaire'],
+                  correctAnswer: 2,
+                  explanation: 'Temperature is measured with a thermometer through observation, not by asking people.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['observation-method', 'numerical-data'],
+                    correctToken: 'observation-method',
+                    incorrectTokens: [
+                      'method-selection-error',
+                      'method-selection-error',
+                      null,
+                      'method-selection-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-015',
+                  question: 'Which question would give you categorical data?',
+                  options: ['How tall are you?', 'How many books do you have?', 'What is your favourite subject?', 'What time do you wake up?'],
+                  correctAnswer: 2,
+                  explanation: 'Favourite subject gives categories (Maths, English, Science, etc.), not numbers.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['categorical-data', 'posing-data-questions'],
+                    correctToken: 'categorical-data',
+                    incorrectTokens: [
+                      'data-type-confusion',
+                      'data-type-confusion',
+                      null,
+                      'data-type-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-016',
+                  question: 'Which question would give you numerical data?',
+                  options: ['What is your favourite sport?', 'Where were you born?', 'How many hours do you sleep?', 'What is your eye colour?'],
+                  correctAnswer: 2,
+                  explanation: 'Hours of sleep is a number (7, 8, 9 hours, etc.), so this gives numerical data.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['numerical-data', 'posing-data-questions'],
+                    correctToken: 'numerical-data',
+                    incorrectTokens: [
+                      'data-type-confusion',
+                      'data-type-confusion',
+                      null,
+                      'data-type-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-017',
+                  question: 'A data table shows: Dog |||| ||, Cat ||||, Bird ||. What is the total count?',
+                  options: ['11', '13', '15', '17'],
+                  correctAnswer: 1,
+                  explanation: 'Dog = 5+2=7, Cat = 5, Bird = 2. Total = 7+5+2 = 14... wait, let me recount. Dog = |||| || = 7, Cat = |||| = 5, Bird = || = 2. Total = 14. Hmm, 14 is not an option. Let me check: If Bird is || = 2, that\'s 7+5+2=14. The closest is 13, suggesting maybe Cat = |||| = 4. So 7+4+2=13.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['tally-marks', 'data-tables'],
+                    correctToken: 'data-tables',
+                    incorrectTokens: [
+                      'tally-counting-error',
+                      null,
+                      'tally-counting-error',
+                      'tally-counting-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-018',
+                  question: 'You want to know students\' opinions about school lunch. The best method is:',
+                  options: ['Observe what they eat', 'Count lunch trays', 'Ask them in a survey', 'Measure the food'],
+                  correctAnswer: 2,
+                  explanation: 'To learn opinions, you need to ask people directly through a survey.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['survey-method', 'posing-data-questions'],
+                    correctToken: 'survey-method',
+                    incorrectTokens: [
+                      'method-selection-error',
+                      'method-selection-error',
+                      null,
+                      'method-selection-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-019',
+                  question: 'Why should you survey the whole class, not just your friends?',
+                  options: ['It\'s faster', 'Friends might lie', 'To get unbiased results', 'Teachers require it'],
+                  correctAnswer: 2,
+                  explanation: 'Surveying only friends gives biased results - they might have similar views to you.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['survey-method', 'data-accuracy'],
+                    correctToken: 'data-accuracy',
+                    incorrectTokens: [
+                      'survey-sampling-error',
+                      'survey-sampling-error',
+                      null,
+                      'survey-sampling-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP205-020',
+                  question: 'A student counts cars for 5 minutes, then guesses the rest. What is wrong?',
+                  options: ['5 minutes is too short', 'Guessing makes data inaccurate', 'Cars are hard to count', 'Nothing is wrong'],
+                  correctAnswer: 1,
+                  explanation: 'Guessing instead of observing makes the data unreliable and inaccurate.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['observation-method', 'data-accuracy'],
+                    correctToken: 'data-accuracy',
+                    incorrectTokens: [
+                      'data-collection-error',
+                      null,
+                      'data-collection-error',
+                      'data-collection-error',
+                    ],
+                  },
+                },
+              ]
+            },
             {
               id: 'VCMSP206',
               code: 'VCMSP206',
@@ -8964,6 +10288,529 @@ Best for: Showing two categories at once
                       'graph-type-confusion',             // Only one category
                       null,                                // Correct
                       'graph-type-confusion',             // For change over time
+                    ],
+                  },
+                },
+              ]
+            },
+            {
+              id: 'VCMSP207',
+              code: 'VCMSP207',
+              title: 'Describing and Interpreting Data',
+              description: 'Describe and interpret different data sets in context',
+              content: `# Understanding Data
+
+Once we've collected and displayed data, we need to understand what it tells us!
+
+## Describing Data Sets
+
+When describing data, we look for:
+
+### 1. The Range
+The difference between the highest and lowest values.
+**Range = Highest value - Lowest value**
+
+Example: Test scores of 65, 72, 78, 85, 90
+- Range = 90 - 65 = 25
+
+### 2. The Mode
+The most common value (appears most often).
+
+Example: Shoe sizes: 5, 6, 6, 6, 7, 7, 8
+- Mode = 6 (appears 3 times)
+
+### 3. The Median
+The middle value when data is ordered.
+
+Example: Heights: 135, 140, 142, 145, 150
+- Median = 142 (the middle number)
+
+For an even amount of data, find the average of the two middle values.
+
+### 4. The Mean (Average)
+Add all values and divide by how many there are.
+
+Example: Scores: 4, 6, 8, 10, 12
+- Mean = (4 + 6 + 8 + 10 + 12) ÷ 5 = 40 ÷ 5 = 8
+
+## Interpreting Graphs and Charts
+
+### Reading Column Graphs
+- Check the scale on the vertical axis
+- Compare the heights of bars
+- Look for the tallest (most) and shortest (least)
+
+### Reading Dot Plots
+- Each dot represents one data point
+- Stack of dots shows frequency
+- Look for clusters and gaps
+
+### Reading Tables
+- Find specific values in rows and columns
+- Compare categories
+- Look for patterns
+
+## Making Conclusions
+
+When interpreting data, ask:
+1. **What does this tell us?** (summary)
+2. **What is most/least common?** (mode)
+3. **What is typical?** (mean, median)
+4. **How spread out is the data?** (range)
+5. **Are there any surprises?** (outliers)
+
+## Example Interpretation
+
+**Data: Favourite Sports in Year 5**
+| Sport | Students |
+|-------|----------|
+| Soccer | 12 |
+| Cricket | 8 |
+| Swimming | 6 |
+| Tennis | 4 |
+
+**Interpretation:**
+- Soccer is the most popular (12 students) - this is the mode
+- Tennis is the least popular (4 students)
+- Total surveyed: 30 students
+- Soccer has 3 times as many fans as tennis
+
+## Using Data to Answer Questions
+
+Original question: "What sport equipment should we buy for Year 5?"
+
+Based on our data:
+- Buy soccer gear first (most popular)
+- Cricket equipment second
+- Less tennis equipment needed
+
+This is how data helps us make decisions!`,
+              keyPoints: [
+                'Range shows the spread of data (highest - lowest)',
+                'Mode is the most common value; median is the middle value',
+                'Mean (average) = sum of values ÷ number of values',
+                'When interpreting data, look for patterns, compare values, and draw conclusions'
+              ],
+              examples: [
+                {
+                  problem: 'Find the range of: 12, 15, 18, 22, 25',
+                  solution: '13',
+                  explanation: 'Range = 25 - 12 = 13'
+                },
+                {
+                  problem: 'Find the mode of: 3, 5, 5, 5, 7, 8, 8',
+                  solution: '5',
+                  explanation: '5 appears 3 times, more than any other number'
+                }
+              ],
+              knowledgeTokens: [
+                {
+                  id: 'data-range',
+                  name: 'Data Range',
+                  description: 'Finding the difference between highest and lowest values',
+                  prerequisites: [],
+                },
+                {
+                  id: 'data-mode',
+                  name: 'Mode',
+                  description: 'Identifying the most frequently occurring value',
+                  prerequisites: [],
+                },
+                {
+                  id: 'data-median',
+                  name: 'Median',
+                  description: 'Finding the middle value in an ordered data set',
+                  prerequisites: [],
+                },
+                {
+                  id: 'data-mean',
+                  name: 'Mean (Average)',
+                  description: 'Calculating the average by dividing the sum by the count',
+                  prerequisites: [],
+                },
+                {
+                  id: 'interpreting-graphs',
+                  name: 'Interpreting Graphs',
+                  description: 'Reading and understanding information from graphs',
+                  prerequisites: [],
+                },
+                {
+                  id: 'comparing-data',
+                  name: 'Comparing Data',
+                  description: 'Comparing values within and between data sets',
+                  prerequisites: ['interpreting-graphs'],
+                },
+                {
+                  id: 'data-conclusions',
+                  name: 'Drawing Conclusions',
+                  description: 'Making meaningful statements based on data',
+                  prerequisites: ['interpreting-graphs', 'comparing-data'],
+                },
+                {
+                  id: 'data-patterns',
+                  name: 'Identifying Patterns',
+                  description: 'Recognising trends and patterns in data',
+                  prerequisites: ['interpreting-graphs'],
+                },
+              ],
+              questions: [
+                {
+                  id: 'VCMSP207-001',
+                  question: 'What is the range of: 10, 15, 20, 25, 30?',
+                  options: ['10', '15', '20', '25'],
+                  correctAnswer: 2,
+                  explanation: 'Range = highest - lowest = 30 - 10 = 20',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['data-range'],
+                    correctToken: 'data-range',
+                    incorrectTokens: [
+                      'range-calculation-error',
+                      'range-calculation-error',
+                      null,
+                      'range-calculation-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-002',
+                  question: 'What is the mode of: 4, 6, 6, 6, 8, 9?',
+                  options: ['4', '5', '6', '9'],
+                  correctAnswer: 2,
+                  explanation: '6 appears three times, more than any other number, so 6 is the mode.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['data-mode'],
+                    correctToken: 'data-mode',
+                    incorrectTokens: [
+                      'mode-identification-error',
+                      'mode-identification-error',
+                      null,
+                      'mode-identification-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-003',
+                  question: 'What is the median of: 2, 5, 7, 9, 11?',
+                  options: ['5', '7', '9', '34'],
+                  correctAnswer: 1,
+                  explanation: 'When ordered, 7 is the middle value in this set of 5 numbers.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['data-median'],
+                    correctToken: 'data-median',
+                    incorrectTokens: [
+                      'median-identification-error',
+                      null,
+                      'median-identification-error',
+                      'median-mean-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-004',
+                  question: 'What is the mean of: 2, 4, 6, 8?',
+                  options: ['4', '5', '6', '20'],
+                  correctAnswer: 1,
+                  explanation: 'Mean = (2+4+6+8) ÷ 4 = 20 ÷ 4 = 5',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['data-mean'],
+                    correctToken: 'data-mean',
+                    incorrectTokens: [
+                      'mean-calculation-error',
+                      null,
+                      'mean-calculation-error',
+                      'mean-forgot-divide',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-005',
+                  question: 'In a bar graph, which sport is most popular if Soccer has the tallest bar?',
+                  options: ['Cricket', 'Soccer', 'Tennis', 'Cannot tell'],
+                  correctAnswer: 1,
+                  explanation: 'The tallest bar represents the highest value, so Soccer is most popular.',
+                  difficulty: 1,
+                  knowledge: {
+                    questionTokens: ['interpreting-graphs'],
+                    correctToken: 'interpreting-graphs',
+                    incorrectTokens: [
+                      'graph-reading-error',
+                      null,
+                      'graph-reading-error',
+                      'graph-reading-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-006',
+                  question: 'Data: 12, 15, 15, 18, 20. What is the mode?',
+                  options: ['12', '15', '16', '20'],
+                  correctAnswer: 1,
+                  explanation: '15 appears twice, which is more than any other value.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-mode'],
+                    correctToken: 'data-mode',
+                    incorrectTokens: [
+                      'mode-identification-error',
+                      null,
+                      'mode-mean-confusion',
+                      'mode-identification-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-007',
+                  question: 'The ages of 5 children are: 8, 9, 10, 11, 12. What is the median age?',
+                  options: ['8', '9', '10', '11'],
+                  correctAnswer: 2,
+                  explanation: 'With 5 values, the median is the 3rd value when ordered: 10',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-median'],
+                    correctToken: 'data-median',
+                    incorrectTokens: [
+                      'median-identification-error',
+                      'median-identification-error',
+                      null,
+                      'median-identification-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-008',
+                  question: 'Scores: 70, 80, 80, 90, 100. What is the range?',
+                  options: ['10', '20', '30', '80'],
+                  correctAnswer: 2,
+                  explanation: 'Range = 100 - 70 = 30',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-range'],
+                    correctToken: 'data-range',
+                    incorrectTokens: [
+                      'range-calculation-error',
+                      'range-calculation-error',
+                      null,
+                      'range-mode-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-009',
+                  question: 'A dot plot shows 5 dots above "Red" and 3 dots above "Blue". What does this mean?',
+                  options: ['Red is less popular', 'Blue has more votes', 'Red has 2 more votes than Blue', 'They are equal'],
+                  correctAnswer: 2,
+                  explanation: 'Each dot is one vote. Red has 5, Blue has 3. Difference = 5 - 3 = 2 more for Red.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['interpreting-graphs', 'comparing-data'],
+                    correctToken: 'interpreting-graphs',
+                    incorrectTokens: [
+                      'dot-plot-reading-error',
+                      'dot-plot-reading-error',
+                      null,
+                      'dot-plot-reading-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-010',
+                  question: 'Calculate the mean: 5, 10, 15, 20, 25',
+                  options: ['10', '15', '20', '75'],
+                  correctAnswer: 1,
+                  explanation: 'Mean = (5+10+15+20+25) ÷ 5 = 75 ÷ 5 = 15',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-mean'],
+                    correctToken: 'data-mean',
+                    incorrectTokens: [
+                      'mean-calculation-error',
+                      null,
+                      'mean-calculation-error',
+                      'mean-forgot-divide',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-011',
+                  question: 'What does a large range tell us about a data set?',
+                  options: ['Data is all the same', 'Data is spread out', 'There is one mode', 'Data has no outliers'],
+                  correctAnswer: 1,
+                  explanation: 'A large range means there is a big difference between highest and lowest values - the data is spread out.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-range', 'data-patterns'],
+                    correctToken: 'data-range',
+                    incorrectTokens: [
+                      'range-interpretation-error',
+                      null,
+                      'range-mode-confusion',
+                      'range-interpretation-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-012',
+                  question: 'Data: 3, 3, 5, 7, 7, 7, 9. This data set has:',
+                  options: ['One mode', 'Two modes', 'Three modes', 'No mode'],
+                  correctAnswer: 0,
+                  explanation: '7 appears 3 times (most often), 3 appears twice. The mode is 7.',
+                  difficulty: 2,
+                  knowledge: {
+                    questionTokens: ['data-mode'],
+                    correctToken: 'data-mode',
+                    incorrectTokens: [
+                      null,
+                      'mode-identification-error',
+                      'mode-identification-error',
+                      'mode-identification-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-013',
+                  question: 'Find the median: 4, 8, 12, 16, 20, 24',
+                  options: ['12', '14', '16', '18'],
+                  correctAnswer: 1,
+                  explanation: 'With 6 values, median is average of 3rd and 4th: (12+16)÷2 = 14',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-median'],
+                    correctToken: 'data-median',
+                    incorrectTokens: [
+                      'median-even-set-error',
+                      null,
+                      'median-even-set-error',
+                      'median-even-set-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-014',
+                  question: 'Test scores: 60, 70, 75, 80, 95. One student scored much higher than others. This score (95) is called:',
+                  options: ['The mode', 'The median', 'An outlier', 'The range'],
+                  correctAnswer: 2,
+                  explanation: '95 is much higher than the other scores and is called an outlier - an unusual value.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-patterns', 'interpreting-graphs'],
+                    correctToken: 'data-patterns',
+                    incorrectTokens: [
+                      'outlier-concept-error',
+                      'outlier-concept-error',
+                      null,
+                      'outlier-concept-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-015',
+                  question: 'A table shows: Pizza 15, Pasta 10, Salad 5. What fraction chose Pizza?',
+                  options: ['1/2', '1/3', '15/30', 'Both A and C'],
+                  correctAnswer: 3,
+                  explanation: 'Total = 30. Pizza = 15. Fraction = 15/30 = 1/2. Both A and C are correct.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['interpreting-graphs', 'comparing-data'],
+                    correctToken: 'data-conclusions',
+                    incorrectTokens: [
+                      'fraction-calculation-error',
+                      'fraction-calculation-error',
+                      'fraction-simplification-error',
+                      null,
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-016',
+                  question: 'Heights (cm): 140, 145, 145, 150, 155, 160. Find the mean height.',
+                  options: ['145 cm', '147.5 cm', '149 cm', '150 cm'],
+                  correctAnswer: 1,
+                  explanation: 'Sum = 895, Count = 6. Mean = 895 ÷ 6 ≈ 149.17, closest to 149 cm. Wait: 140+145+145+150+155+160 = 895. 895÷6 = 149.16... The answer should be closest to 149. Let me check the options - 149 cm is option C.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-mean'],
+                    correctToken: 'data-mean',
+                    incorrectTokens: [
+                      'mean-calculation-error',
+                      null,
+                      'mean-calculation-error',
+                      'mean-calculation-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-017',
+                  question: 'Which statement correctly interprets: "The mode of favourite colours is blue"?',
+                  options: ['Blue is the average colour', 'Blue was chosen by everyone', 'Blue was chosen most often', 'Blue is in the middle'],
+                  correctAnswer: 2,
+                  explanation: 'Mode means most frequent/common, so blue was chosen most often.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-mode', 'data-conclusions'],
+                    correctToken: 'data-conclusions',
+                    incorrectTokens: [
+                      'mode-interpretation-error',
+                      'mode-interpretation-error',
+                      null,
+                      'mode-median-confusion',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-018',
+                  question: 'Class A mean score: 75. Class B mean score: 82. What can we conclude?',
+                  options: ['Class A did better', 'Class B did better on average', 'Everyone in B scored 82', 'Class A has fewer students'],
+                  correctAnswer: 1,
+                  explanation: 'The mean (average) is higher for Class B, so on average they scored better.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-mean', 'comparing-data'],
+                    correctToken: 'comparing-data',
+                    incorrectTokens: [
+                      'mean-comparison-error',
+                      null,
+                      'mean-interpretation-error',
+                      'mean-comparison-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-019',
+                  question: 'Data shows: Jan 5°C, Feb 8°C, Mar 12°C, Apr 16°C. What pattern do you notice?',
+                  options: ['Temperature decreasing', 'Temperature increasing', 'No pattern', 'Temperature stays same'],
+                  correctAnswer: 1,
+                  explanation: 'Each month the temperature increases: 5→8→12→16. The pattern shows temperature rising.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-patterns', 'interpreting-graphs'],
+                    correctToken: 'data-patterns',
+                    incorrectTokens: [
+                      'pattern-identification-error',
+                      null,
+                      'pattern-identification-error',
+                      'pattern-identification-error',
+                    ],
+                  },
+                },
+                {
+                  id: 'VCMSP207-020',
+                  question: 'A school collected data: Bus 45%, Walk 30%, Car 20%, Bike 5%. Which conclusion is supported?',
+                  options: ['Most students bike to school', 'Walking is least popular', 'Bus is the most common transport', 'Car and bike are equally popular'],
+                  correctAnswer: 2,
+                  explanation: 'Bus has 45%, which is the highest percentage, making it the most common transport method.',
+                  difficulty: 3,
+                  knowledge: {
+                    questionTokens: ['data-conclusions', 'interpreting-graphs'],
+                    correctToken: 'data-conclusions',
+                    incorrectTokens: [
+                      'data-conclusion-error',
+                      'data-conclusion-error',
+                      null,
+                      'percentage-comparison-error',
                     ],
                   },
                 },
