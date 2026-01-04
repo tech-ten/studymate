@@ -108,6 +108,20 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
   }
 }
 
+// ============ FALLBACK LOGIC ============
+
+/**
+ * Get the appropriate fallback year level when content is not available.
+ * - Prep to Year 3: Use Year 1 as default
+ * - Year 4 to Year 7: Use Year 5 as default
+ * - Year 8 to Year 12: Use Year 8 as default
+ */
+function getFallbackYear(yearLevel: number): number {
+  if (yearLevel <= 3) return 1;
+  if (yearLevel <= 7) return 5;
+  return 8;
+}
+
 // ============ SECTION ENDPOINTS ============
 
 async function getSectionsForYear(yearLevel: number): Promise<APIGatewayProxyResultV2> {
@@ -120,15 +134,15 @@ async function getSectionsForYear(yearLevel: number): Promise<APIGatewayProxyRes
     },
   }));
 
-  // Fallback to Year 5 content if requested year level has no content
+  // Fallback to appropriate year level if requested year has no content
   let effectiveYearLevel = yearLevel;
   if (!result.Items || result.Items.length === 0) {
-    effectiveYearLevel = 5;
+    effectiveYearLevel = getFallbackYear(yearLevel);
     result = await db.send(new QueryCommand({
       TableName: TABLE_NAME,
       KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
       ExpressionAttributeValues: {
-        ':pk': `CURRICULUM#YEAR5`,
+        ':pk': `CURRICULUM#YEAR${effectiveYearLevel}`,
         ':sk': 'SECTION#',
       },
     }));
@@ -153,11 +167,12 @@ async function getSectionContent(yearLevel: number, sectionId: string): Promise<
     Key: keys.curriculumSection(yearLevel, sectionId),
   }));
 
-  // Fallback to Year 5 if section not found in requested year
-  if (!result.Item && yearLevel !== 5) {
+  // Fallback to appropriate year level if section not found
+  const fallbackYear = getFallbackYear(yearLevel);
+  if (!result.Item && yearLevel !== fallbackYear) {
     result = await db.send(new GetCommand({
       TableName: TABLE_NAME,
-      Key: keys.curriculumSection(5, sectionId),
+      Key: keys.curriculumSection(fallbackYear, sectionId),
     }));
   }
 
