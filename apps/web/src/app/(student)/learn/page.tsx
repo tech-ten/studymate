@@ -310,6 +310,8 @@ export default function LearnPage() {
     setShowDetailedResults(false)
     setQuestionStartTime(Date.now())
     setAiExplanationRequested(false)
+    // Scroll to top so the question is visible
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const handleSubmitAnswer = async () => {

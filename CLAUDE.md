@@ -108,8 +108,9 @@ All secrets stored in `.env` file (gitignored):
 | `GROQ_API_KEY` | AI tutor (LLaMA 3.3 70B) |
 | `STRIPE_SECRET_KEY` | Payment processing |
 | `STRIPE_WEBHOOK_SECRET` | Webhook signature verification |
-| `STRIPE_PRICE_SCHOLAR` | $5/mo plan price ID |
-| `STRIPE_PRICE_ACHIEVER` | $12/mo plan price ID |
+| `STRIPE_PRICE_EXPLORER` | $0.99/mo Explorer tier price ID |
+| `STRIPE_PRICE_SCHOLAR` | $5/mo Scholar tier price ID |
+| `STRIPE_PRICE_ACHIEVER` | $12/mo Achiever tier price ID |
 | `ADMIN_API_KEY` | Admin dashboard access |
 
 ---

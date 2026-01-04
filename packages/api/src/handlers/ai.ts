@@ -171,10 +171,19 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
       // Build context-aware system prompt with age-appropriate safety
       const age = getAgeFromYearLevel(yearLevel || 5);
-      const systemPrompt = `Safe for ${age}yo. You are a friendly, encouraging tutor for Australian Year ${yearLevel || 5} students.
+      const year = yearLevel || 5;
+
+      // Year-level-specific response guidelines
+      const responseGuidelines = year <= 3
+        ? `IMPORTANT: This is a young child (Year ${year}). Keep responses VERY short - 2-3 simple sentences max. Use only basic words. Be warm and encouraging like talking to a 6-7 year old.`
+        : year <= 6
+        ? `Keep responses concise - 3-4 sentences. Use age-appropriate vocabulary for Year ${year} students.`
+        : `Keep responses clear and focused - 2-3 short paragraphs max.`;
+
+      const systemPrompt = `Safe for ${age}yo. You are a friendly, encouraging tutor for Australian Year ${year} students.
 Your role is to help students understand their mistakes without being condescending.
 Use Australian English spelling (e.g., colour, favourite, maths).
-Keep explanations clear and age-appropriate.`;
+${responseGuidelines}`;
 
       const userPrompt = `A student answered this ${subject || 'maths'} question incorrectly.
 
@@ -187,9 +196,9 @@ ${topic ? `Topic: ${topic}` : ''}
 Please explain:
 1. Why their answer is incorrect
 2. The correct approach to solve this
-3. A helpful tip to remember
+${year <= 3 ? '' : '3. A helpful tip to remember'}
 
-Keep it to 2-3 short paragraphs. Be encouraging!`;
+${year <= 3 ? 'Keep it to 2-3 SHORT simple sentences only. Use easy words!' : 'Keep it to 2-3 short paragraphs. Be encouraging!'}`;
 
       // Check cache first
       const cacheKey = createHash('md5')
@@ -210,6 +219,8 @@ Keep it to 2-3 short paragraphs. Be encouraging!`;
         explanation = cachedResult.Item.response;
       } else {
         // Generate explanation using Groq
+        // Reduce tokens for younger students to enforce shorter responses
+        const maxTokens = year <= 3 ? 150 : year <= 6 ? 250 : 300;
         const completion = await groq.chat.completions.create({
           messages: [
             { role: 'system', content: systemPrompt },
@@ -217,7 +228,7 @@ Keep it to 2-3 short paragraphs. Be encouraging!`;
           ],
           model,
           temperature,
-          max_tokens: 300,
+          max_tokens: maxTokens,
         });
 
         explanation = completion.choices[0]?.message?.content || 'Let me help you understand this better.';
@@ -294,17 +305,25 @@ Keep it to 2-3 short paragraphs. Be encouraging!`;
       }
 
       const chatAge = getAgeFromYearLevel(yearLevel || 5);
+      const chatYear = yearLevel || 5;
+
+      // Year-level-specific chat guidelines
+      const chatGuidelines = chatYear <= 3
+        ? `CRITICAL: This is a young child (Year ${chatYear}). Keep ALL responses VERY short - 1-2 simple sentences. Use only basic words a 6-7 year old knows. Be warm, friendly, and encouraging like talking to a little kid.`
+        : chatYear <= 6
+        ? `Keep responses short and simple - 2-3 sentences. Use vocabulary appropriate for Year ${chatYear} students.`
+        : `Keep responses focused and clear - 3-4 sentences unless more detail is needed.`;
+
       const systemPrompt = `Safe for ${chatAge}yo. You are a friendly, patient AI tutor for Australian students.
-You're currently helping a Year ${yearLevel || 5} student with ${subject || 'their studies'}.
+You're currently helping a Year ${chatYear} student with ${subject || 'their studies'}.
 
 Guidelines:
 - Be encouraging and supportive
 - Use Australian English spelling (colour, favourite, maths)
-- Keep explanations clear and age-appropriate for Year ${yearLevel || 5}
+${chatGuidelines}
 - If they ask something off-topic, gently redirect to learning
 - Never provide answers directly - guide them to discover answers
 - Use examples relevant to Australian students
-- If discussing curriculum topics, align with Australian curriculum standards
 
 ${context ? `Current context: ${context}` : ''}
 ${topic ? `Current topic: ${topic}` : ''}`;
@@ -312,6 +331,8 @@ ${topic ? `Current topic: ${topic}` : ''}`;
       const model = 'llama-3.3-70b-versatile';
       const temperature = 0.8;
 
+      // Reduce tokens for younger students to enforce shorter responses
+      const chatMaxTokens = chatYear <= 3 ? 100 : chatYear <= 6 ? 200 : 400;
       const completion = await groq.chat.completions.create({
         messages: [
           { role: 'system', content: systemPrompt },
@@ -319,7 +340,7 @@ ${topic ? `Current topic: ${topic}` : ''}`;
         ],
         model,
         temperature,
-        max_tokens: 400,
+        max_tokens: chatMaxTokens,
       });
 
       const response = completion.choices[0]?.message?.content || "I'm here to help! What would you like to learn about?";
