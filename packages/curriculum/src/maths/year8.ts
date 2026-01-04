@@ -1982,6 +1982,225 @@ Convert percentage to decimal, then multiply:
                 { id: 'VCMNA274-020', question: 'A test score improved from 60 to 75. What was the percentage improvement?', options: ['15%', '20%', '25%', '80%'], correctAnswer: 2, explanation: 'Improvement = 15. Percentage = 15/60 × 100 = 25%', difficulty: 3, knowledge: { questionTokens: ['percentage-of-amount'], correctToken: 'percentage-of-amount', incorrectTokens: ['absolute-not-relative', 'wrong-base', null, 'wrong-calculation'] } },
               ],
             },
+            {
+              id: 'VCMNA275',
+              code: 'VCMNA275',
+              title: 'Rates and Ratios',
+              description: 'Solve a range of problems involving rates and ratios, including distance-time problems for travel at a constant speed',
+              content: `# Rates and Ratios
+
+## Ratios
+A ratio compares quantities of the same type.
+
+**Example:** 3:5 means for every 3 of one thing, there are 5 of another.
+
+### Simplifying Ratios
+Divide both parts by their HCF:
+- 12:18 = 2:3 (divide by 6)
+- 20:35 = 4:7 (divide by 5)
+
+### Equivalent Ratios
+Multiply or divide both parts by the same number:
+- 2:3 = 4:6 = 6:9 = 8:12
+
+## Rates
+A rate compares quantities of different types.
+
+**Examples:**
+- Speed: 60 km/h (kilometres per hour)
+- Price: $5/kg (dollars per kilogram)
+- Heart rate: 72 bpm (beats per minute)
+
+## Speed, Distance, Time
+- **Speed = Distance ÷ Time**
+- **Distance = Speed × Time**
+- **Time = Distance ÷ Speed**
+
+**Example:** Travel 150 km in 2 hours
+Speed = 150 ÷ 2 = 75 km/h`,
+              keyPoints: [
+                'Ratios compare same type quantities',
+                'Rates compare different type quantities',
+                'Speed = Distance ÷ Time',
+                'Simplify ratios by dividing by HCF'
+              ],
+              knowledgeTokens: [
+                { id: 'simplifying-ratios', name: 'Simplifying Ratios', description: 'Reducing ratios to simplest form' },
+                { id: 'equivalent-ratios', name: 'Equivalent Ratios', description: 'Finding equal ratios' },
+                { id: 'dividing-in-ratio', name: 'Dividing in a Ratio', description: 'Sharing amounts in given ratios', prerequisites: ['equivalent-ratios'] },
+                { id: 'speed-distance-time', name: 'Speed Distance Time', description: 'Calculating with SDT formula' },
+                { id: 'unit-rates', name: 'Unit Rates', description: 'Finding rate per single unit' },
+              ],
+              examples: [
+                { problem: 'Simplify the ratio 24:36', solution: '2:3', explanation: 'HCF of 24 and 36 is 12. 24÷12:36÷12 = 2:3' },
+                { problem: 'A car travels 240 km in 3 hours. Find the speed.', solution: '80 km/h', explanation: 'Speed = Distance ÷ Time = 240 ÷ 3 = 80 km/h' }
+              ],
+              questions: [
+                { id: 'VCMNA275-001', question: 'Simplify the ratio 15:25', options: ['3:5', '1:2', '5:3', '15:25'], correctAnswer: 0, explanation: 'HCF is 5. 15÷5:25÷5 = 3:5', difficulty: 1, knowledge: { questionTokens: ['simplifying-ratios'], correctToken: 'simplifying-ratios', incorrectTokens: [null, 'wrong-hcf', 'reversed', 'not-simplified'] } },
+                { id: 'VCMNA275-002', question: 'A car travels 180 km in 3 hours. What is the speed?', options: ['540 km/h', '60 km/h', '183 km/h', '177 km/h'], correctAnswer: 1, explanation: 'Speed = 180 ÷ 3 = 60 km/h', difficulty: 1, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: ['multiplied', null, 'added', 'subtracted'] } },
+                { id: 'VCMNA275-003', question: 'Express 2:5 with first term 8', options: ['8:5', '8:20', '8:10', '2:8'], correctAnswer: 1, explanation: '2×4=8, so 5×4=20. Answer: 8:20', difficulty: 1, knowledge: { questionTokens: ['equivalent-ratios'], correctToken: 'equivalent-ratios', incorrectTokens: ['second-unchanged', null, 'wrong-multiplier', 'reversed'] } },
+                { id: 'VCMNA275-004', question: 'How far does a train travel at 90 km/h for 2.5 hours?', options: ['225 km', '92.5 km', '87.5 km', '36 km'], correctAnswer: 0, explanation: 'Distance = Speed × Time = 90 × 2.5 = 225 km', difficulty: 2, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: [null, 'added', 'subtracted', 'divided'] } },
+                { id: 'VCMNA275-005', question: 'Divide $120 in the ratio 3:5', options: ['$45 and $75', '$60 and $60', '$40 and $80', '$36 and $84'], correctAnswer: 0, explanation: '3+5=8 parts. Each part=$15. 3×15=$45, 5×15=$75', difficulty: 2, knowledge: { questionTokens: ['dividing-in-ratio'], correctToken: 'dividing-in-ratio', incorrectTokens: [null, 'equal-split', 'wrong-calculation', 'wrong-parts'] } },
+                { id: 'VCMNA275-006', question: 'Simplify 48:72', options: ['4:6', '2:3', '8:12', '24:36'], correctAnswer: 1, explanation: 'HCF is 24. 48÷24:72÷24 = 2:3', difficulty: 1, knowledge: { questionTokens: ['simplifying-ratios'], correctToken: 'simplifying-ratios', incorrectTokens: ['partial-simplify', null, 'partial-simplify', 'partial-simplify'] } },
+                { id: 'VCMNA275-007', question: 'How long to travel 300 km at 75 km/h?', options: ['225 hours', '4 hours', '375 hours', '25 hours'], correctAnswer: 1, explanation: 'Time = Distance ÷ Speed = 300 ÷ 75 = 4 hours', difficulty: 2, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: ['multiplied', null, 'added', 'wrong-division'] } },
+                { id: 'VCMNA275-008', question: 'A recipe uses flour:sugar = 5:2. If 300g flour is used, how much sugar?', options: ['750g', '120g', '150g', '60g'], correctAnswer: 1, explanation: '5 parts = 300g, so 1 part = 60g. Sugar = 2 × 60 = 120g', difficulty: 2, knowledge: { questionTokens: ['equivalent-ratios'], correctToken: 'equivalent-ratios', incorrectTokens: ['multiplied-wrong', null, 'half-of-flour', 'one-part'] } },
+                { id: 'VCMNA275-009', question: 'Express 45 minutes as a ratio of 1 hour', options: ['45:1', '3:4', '45:60', '4:3'], correctAnswer: 1, explanation: '45:60 = 3:4 (divide by 15)', difficulty: 2, knowledge: { questionTokens: ['simplifying-ratios'], correctToken: 'simplifying-ratios', incorrectTokens: ['not-converted', null, 'not-simplified', 'reversed'] } },
+                { id: 'VCMNA275-010', question: 'A cyclist travels at 24 km/h. How far in 45 minutes?', options: ['18 km', '24 km', '69 km', '32 km'], correctAnswer: 0, explanation: '45 min = 0.75 hours. Distance = 24 × 0.75 = 18 km', difficulty: 2, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: [null, 'time-not-converted', 'added', 'wrong-calculation'] } },
+                { id: 'VCMNA275-011', question: 'Divide 180 in the ratio 2:3:4', options: ['40, 60, 80', '36, 54, 72', '20, 30, 40', '60, 60, 60'], correctAnswer: 0, explanation: '2+3+4=9 parts. 180÷9=20 per part. 2×20=40, 3×20=60, 4×20=80', difficulty: 3, knowledge: { questionTokens: ['dividing-in-ratio'], correctToken: 'dividing-in-ratio', incorrectTokens: [null, 'wrong-multiplier', 'ratio-as-answer', 'equal-split'] } },
+                { id: 'VCMNA275-012', question: 'If 5 apples cost $3, what is the cost per apple?', options: ['$0.60', '$1.67', '$15', '$8'], correctAnswer: 0, explanation: 'Unit rate = 3 ÷ 5 = $0.60 per apple', difficulty: 1, knowledge: { questionTokens: ['unit-rates'], correctToken: 'unit-rates', incorrectTokens: [null, 'inverted', 'multiplied', 'added'] } },
+                { id: 'VCMNA275-013', question: 'A train leaves at 9:00 AM and arrives at 11:30 AM after 200 km. Find speed.', options: ['80 km/h', '100 km/h', '66.7 km/h', '500 km/h'], correctAnswer: 0, explanation: 'Time = 2.5 hours. Speed = 200 ÷ 2.5 = 80 km/h', difficulty: 2, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: [null, 'wrong-time', 'wrong-formula', 'multiplied'] } },
+                { id: 'VCMNA275-014', question: 'The ratio of boys to girls is 4:5. If there are 20 boys, how many students total?', options: ['25', '45', '36', '100'], correctAnswer: 1, explanation: '4 parts = 20, so 1 part = 5. Girls = 5×5 = 25. Total = 20+25 = 45', difficulty: 3, knowledge: { questionTokens: ['dividing-in-ratio'], correctToken: 'dividing-in-ratio', incorrectTokens: ['girls-only', null, 'wrong-calculation', 'ratio-multiplied'] } },
+                { id: 'VCMNA275-015', question: 'Which is the better buy: 500g for $4 or 750g for $5.50?', options: ['500g for $4', '750g for $5.50', 'Same value', 'Cannot compare'], correctAnswer: 1, explanation: '500g: $8/kg. 750g: $7.33/kg. 750g is cheaper per kg', difficulty: 3, knowledge: { questionTokens: ['unit-rates'], correctToken: 'unit-rates', incorrectTokens: ['wrong-comparison', null, 'no-calculation', 'confused'] } },
+                { id: 'VCMNA275-016', question: 'Two towns are 420 km apart. A car travels at 70 km/h. How long is the journey?', options: ['6 hours', '350 hours', '490 hours', '60 hours'], correctAnswer: 0, explanation: 'Time = 420 ÷ 70 = 6 hours', difficulty: 1, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: [null, 'subtracted', 'added', 'multiplied'] } },
+                { id: 'VCMNA275-017', question: 'Orange juice concentrate is mixed with water in ratio 1:4. How much water for 200mL concentrate?', options: ['50mL', '800mL', '200mL', '1000mL'], correctAnswer: 1, explanation: '1 part = 200mL. Water = 4 parts = 4 × 200 = 800mL', difficulty: 2, knowledge: { questionTokens: ['equivalent-ratios'], correctToken: 'equivalent-ratios', incorrectTokens: ['inverted', null, 'same-amount', 'total-instead'] } },
+                { id: 'VCMNA275-018', question: 'A map scale is 1:50000. A distance of 3 cm on map represents how many km?', options: ['150 km', '1.5 km', '15 km', '0.15 km'], correctAnswer: 1, explanation: '3 cm × 50000 = 150000 cm = 1500 m = 1.5 km', difficulty: 3, knowledge: { questionTokens: ['equivalent-ratios'], correctToken: 'equivalent-ratios', incorrectTokens: ['wrong-conversion', null, 'wrong-conversion', 'wrong-conversion'] } },
+                { id: 'VCMNA275-019', question: 'A car uses 8L of petrol per 100 km. How much for a 350 km trip?', options: ['28L', '43.75L', '2800L', '3.5L'], correctAnswer: 0, explanation: '350 ÷ 100 = 3.5. Petrol = 3.5 × 8 = 28L', difficulty: 2, knowledge: { questionTokens: ['unit-rates'], correctToken: 'unit-rates', incorrectTokens: [null, 'wrong-calculation', 'wrong-scale', 'inverted'] } },
+                { id: 'VCMNA275-020', question: 'Walking at 5 km/h, then cycling at 20 km/h for equal times of 30 min each. Total distance?', options: ['12.5 km', '25 km', '7.5 km', '2.5 km'], correctAnswer: 0, explanation: 'Walk: 5×0.5=2.5 km. Cycle: 20×0.5=10 km. Total=12.5 km', difficulty: 3, knowledge: { questionTokens: ['speed-distance-time'], correctToken: 'speed-distance-time', incorrectTokens: [null, 'speeds-added', 'one-segment', 'time-error'] } },
+              ],
+            },
+            {
+              id: 'VCMNA276',
+              code: 'VCMNA276',
+              title: 'Percentage Increase and Decrease',
+              description: 'Solve problems involving percentage increase and decrease, with and without digital technologies',
+              content: `# Percentage Increase and Decrease
+
+## Percentage Increase
+New value = Original × (1 + percentage/100)
+
+**Example:** $80 increased by 25%
+= $80 × 1.25 = $100
+
+## Percentage Decrease
+New value = Original × (1 - percentage/100)
+
+**Example:** $80 decreased by 25%
+= $80 × 0.75 = $60
+
+## Finding Percentage Change
+Percentage change = (Change ÷ Original) × 100
+
+**Example:** Price goes from $40 to $50
+Change = $10. Percentage = (10÷40)×100 = 25% increase
+
+## Multipliers
+- 15% increase → multiply by 1.15
+- 15% decrease → multiply by 0.85
+- 120% of original → multiply by 1.20
+
+## Successive Changes
+Multiply the multipliers together.
+10% increase then 20% decrease:
+1.10 × 0.80 = 0.88 (net 12% decrease)`,
+              keyPoints: [
+                'Increase: multiply by (1 + %/100)',
+                'Decrease: multiply by (1 - %/100)',
+                '% change = (change ÷ original) × 100',
+                'Successive changes: multiply multipliers'
+              ],
+              knowledgeTokens: [
+                { id: 'percentage-increase', name: 'Percentage Increase', description: 'Calculating increased amounts' },
+                { id: 'percentage-decrease', name: 'Percentage Decrease', description: 'Calculating decreased amounts' },
+                { id: 'finding-percentage-change', name: 'Finding Percentage Change', description: 'Calculating the percentage difference' },
+                { id: 'successive-percentages', name: 'Successive Percentages', description: 'Multiple percentage changes', prerequisites: ['percentage-increase', 'percentage-decrease'] },
+              ],
+              examples: [
+                { problem: 'Increase $60 by 30%', solution: '$78', explanation: '$60 × 1.30 = $78' },
+                { problem: 'A price dropped from $80 to $64. Find the percentage decrease.', solution: '20%', explanation: 'Change = $16. (16÷80)×100 = 20%' }
+              ],
+              questions: [
+                { id: 'VCMNA276-001', question: 'Increase $50 by 20%', options: ['$60', '$70', '$10', '$40'], correctAnswer: 0, explanation: '$50 × 1.20 = $60', difficulty: 1, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: [null, 'wrong-percentage', 'increase-only', 'subtracted'] } },
+                { id: 'VCMNA276-002', question: 'Decrease $80 by 25%', options: ['$20', '$60', '$100', '$55'], correctAnswer: 1, explanation: '$80 × 0.75 = $60', difficulty: 1, knowledge: { questionTokens: ['percentage-decrease'], correctToken: 'percentage-decrease', incorrectTokens: ['decrease-only', null, 'added-instead', 'wrong-percentage'] } },
+                { id: 'VCMNA276-003', question: 'A shirt was $40, now $50. What is the percentage increase?', options: ['10%', '20%', '25%', '50%'], correctAnswer: 2, explanation: 'Change=10. (10÷40)×100 = 25%', difficulty: 2, knowledge: { questionTokens: ['finding-percentage-change'], correctToken: 'finding-percentage-change', incorrectTokens: ['absolute-change', 'wrong-base', null, 'wrong-calculation'] } },
+                { id: 'VCMNA276-004', question: 'What multiplier represents a 35% increase?', options: ['0.35', '1.35', '35', '0.65'], correctAnswer: 1, explanation: '100% + 35% = 135% = 1.35', difficulty: 1, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: ['percentage-only', null, 'not-decimal', 'decrease-multiplier'] } },
+                { id: 'VCMNA276-005', question: 'A population decreased from 5000 to 4000. Find the percentage decrease.', options: ['10%', '20%', '25%', '1000%'], correctAnswer: 1, explanation: 'Change=1000. (1000÷5000)×100 = 20%', difficulty: 2, knowledge: { questionTokens: ['finding-percentage-change'], correctToken: 'finding-percentage-change', incorrectTokens: ['wrong-calculation', null, 'wrong-base', 'absolute-change'] } },
+                { id: 'VCMNA276-006', question: 'Decrease 120 by 15%', options: ['102', '18', '105', '138'], correctAnswer: 0, explanation: '120 × 0.85 = 102', difficulty: 1, knowledge: { questionTokens: ['percentage-decrease'], correctToken: 'percentage-decrease', incorrectTokens: [null, 'decrease-only', 'wrong-calculation', 'added-instead'] } },
+                { id: 'VCMNA276-007', question: '10% increase then 10% decrease. Net effect?', options: ['No change', '1% decrease', '1% increase', '20% decrease'], correctAnswer: 1, explanation: '1.10 × 0.90 = 0.99 = 1% decrease', difficulty: 3, knowledge: { questionTokens: ['successive-percentages'], correctToken: 'successive-percentages', incorrectTokens: ['cancelled-out', null, 'reversed', 'added-percentages'] } },
+                { id: 'VCMNA276-008', question: 'A $200 item is reduced by 30%. What is the sale price?', options: ['$60', '$140', '$170', '$230'], correctAnswer: 1, explanation: '$200 × 0.70 = $140', difficulty: 1, knowledge: { questionTokens: ['percentage-decrease'], correctToken: 'percentage-decrease', incorrectTokens: ['reduction-only', null, 'wrong-percentage', 'added-instead'] } },
+                { id: 'VCMNA276-009', question: 'What multiplier represents a 45% decrease?', options: ['0.45', '1.45', '0.55', '45'], correctAnswer: 2, explanation: '100% - 45% = 55% = 0.55', difficulty: 1, knowledge: { questionTokens: ['percentage-decrease'], correctToken: 'percentage-decrease', incorrectTokens: ['percentage-only', 'increase-multiplier', null, 'not-decimal'] } },
+                { id: 'VCMNA276-010', question: 'House value increased from $400,000 to $480,000. Percentage increase?', options: ['8%', '20%', '80,000%', '16.7%'], correctAnswer: 1, explanation: 'Change=$80,000. (80000÷400000)×100 = 20%', difficulty: 2, knowledge: { questionTokens: ['finding-percentage-change'], correctToken: 'finding-percentage-change', incorrectTokens: ['wrong-calculation', null, 'absolute-change', 'wrong-base'] } },
+                { id: 'VCMNA276-011', question: 'After a 40% increase, a price is $84. What was the original?', options: ['$60', '$50.40', '$117.60', '$33.60'], correctAnswer: 0, explanation: 'Original × 1.40 = 84. Original = 84 ÷ 1.40 = $60', difficulty: 3, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: [null, 'decrease-from-84', 'increase-from-84', '40%-of-84'] } },
+                { id: 'VCMNA276-012', question: '20% increase followed by 25% increase. Combined percentage increase?', options: ['45%', '50%', '40%', '55%'], correctAnswer: 1, explanation: '1.20 × 1.25 = 1.50 = 50% increase', difficulty: 3, knowledge: { questionTokens: ['successive-percentages'], correctToken: 'successive-percentages', incorrectTokens: ['added-percentages', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMNA276-013', question: 'A $600 TV is discounted by 15%, then a further 10% off. Final price?', options: ['$459', '$450', '$510', '$525'], correctAnswer: 0, explanation: '$600 × 0.85 × 0.90 = $459', difficulty: 3, knowledge: { questionTokens: ['successive-percentages'], correctToken: 'successive-percentages', incorrectTokens: [null, 'added-discounts', 'one-discount', 'wrong-order'] } },
+                { id: 'VCMNA276-014', question: 'After a 20% decrease, a price is $64. What was the original?', options: ['$80', '$51.20', '$76.80', '$12.80'], correctAnswer: 0, explanation: 'Original × 0.80 = 64. Original = 64 ÷ 0.80 = $80', difficulty: 3, knowledge: { questionTokens: ['percentage-decrease'], correctToken: 'percentage-decrease', incorrectTokens: [null, 'decrease-from-64', 'increase-from-64', '20%-of-64'] } },
+                { id: 'VCMNA276-015', question: 'GST adds 10% to a price. A bill is $110 including GST. What was the pre-GST price?', options: ['$99', '$100', '$11', '$121'], correctAnswer: 1, explanation: 'Pre-GST × 1.10 = 110. Pre-GST = 110 ÷ 1.10 = $100', difficulty: 2, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: ['10%-off-110', null, 'gst-only', '10%-of-110'] } },
+                { id: 'VCMNA276-016', question: 'Shares fell 50% then rose 50%. Net change?', options: ['No change', '25% decrease', '25% increase', '50% decrease'], correctAnswer: 1, explanation: '1 × 0.50 × 1.50 = 0.75 = 25% decrease', difficulty: 3, knowledge: { questionTokens: ['successive-percentages'], correctToken: 'successive-percentages', incorrectTokens: ['cancelled-out', null, 'reversed', 'same-as-start'] } },
+                { id: 'VCMNA276-017', question: 'Increase 250 by 8%', options: ['20', '270', '258', '230'], correctAnswer: 1, explanation: '250 × 1.08 = 270', difficulty: 1, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: ['increase-only', null, 'wrong-calculation', 'subtracted'] } },
+                { id: 'VCMNA276-018', question: 'A salary of $52,000 gets a 5% raise. New salary?', options: ['$2,600', '$54,600', '$49,400', '$57,200'], correctAnswer: 1, explanation: '$52,000 × 1.05 = $54,600', difficulty: 1, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: ['raise-only', null, 'subtracted', 'wrong-percentage'] } },
+                { id: 'VCMNA276-019', question: 'To return to original after 25% decrease, what increase is needed?', options: ['25%', '33.3%', '20%', '75%'], correctAnswer: 1, explanation: 'After 25% decrease, value = 0.75. To return: 1÷0.75 = 1.333 = 33.3% increase', difficulty: 3, knowledge: { questionTokens: ['successive-percentages'], correctToken: 'successive-percentages', incorrectTokens: ['same-percentage', null, 'wrong-calculation', 'complement'] } },
+                { id: 'VCMNA276-020', question: 'Price increased by 60% to $96. Original price?', options: ['$60', '$57.60', '$153.60', '$36'], correctAnswer: 0, explanation: 'Original × 1.60 = 96. Original = 96 ÷ 1.60 = $60', difficulty: 2, knowledge: { questionTokens: ['percentage-increase'], correctToken: 'percentage-increase', incorrectTokens: [null, '60%-of-96', 'added-60%', '60%-off-96'] } },
+              ],
+            },
+            {
+              id: 'VCMNA277',
+              code: 'VCMNA277',
+              title: 'Simple Interest',
+              description: 'Solve problems involving simple interest',
+              content: `# Simple Interest
+
+Simple interest is calculated only on the original amount (principal).
+
+## The Formula
+**I = P × R × T**
+
+Where:
+- **I** = Interest earned
+- **P** = Principal (starting amount)
+- **R** = Rate (as a decimal)
+- **T** = Time (usually in years)
+
+## Example
+$1000 invested at 5% for 3 years:
+- I = 1000 × 0.05 × 3 = $150
+
+## Total Amount
+**A = P + I** or **A = P(1 + RT)**
+
+Total = $1000 + $150 = $1150
+
+## Finding Other Values
+- **Rate = I ÷ (P × T)**
+- **Time = I ÷ (P × R)**
+- **Principal = I ÷ (R × T)**`,
+              keyPoints: [
+                'Simple Interest: I = P × R × T',
+                'Rate must be as decimal (5% = 0.05)',
+                'Total Amount = Principal + Interest',
+                'Interest only calculated on original amount'
+              ],
+              knowledgeTokens: [
+                { id: 'simple-interest-formula', name: 'Simple Interest Formula', description: 'Applying I = PRT' },
+                { id: 'finding-total-amount', name: 'Finding Total Amount', description: 'Calculating A = P + I' },
+                { id: 'finding-rate', name: 'Finding Interest Rate', description: 'Rearranging to find R', prerequisites: ['simple-interest-formula'] },
+                { id: 'finding-time', name: 'Finding Time', description: 'Rearranging to find T', prerequisites: ['simple-interest-formula'] },
+              ],
+              examples: [
+                { problem: 'Find interest on $2000 at 4% for 2 years', solution: '$160', explanation: 'I = 2000 × 0.04 × 2 = $160' },
+                { problem: '$500 earns $75 interest in 3 years. Find the rate.', solution: '5%', explanation: 'R = 75 ÷ (500 × 3) = 0.05 = 5%' }
+              ],
+              questions: [
+                { id: 'VCMNA277-001', question: 'Find simple interest on $1000 at 5% for 2 years', options: ['$100', '$50', '$1100', '$10'], correctAnswer: 0, explanation: 'I = 1000 × 0.05 × 2 = $100', difficulty: 1, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'one-year-only', 'total-not-interest', 'wrong-rate'] } },
+                { id: 'VCMNA277-002', question: '$2000 at 3% for 4 years. Find the interest.', options: ['$240', '$60', '$2240', '$24'], correctAnswer: 0, explanation: 'I = 2000 × 0.03 × 4 = $240', difficulty: 1, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'one-year-only', 'total-not-interest', 'wrong-calculation'] } },
+                { id: 'VCMNA277-003', question: '$5000 invested at 6% for 3 years. What is the total amount?', options: ['$900', '$5900', '$5000', '$6500'], correctAnswer: 1, explanation: 'I = 5000 × 0.06 × 3 = $900. Total = 5000 + 900 = $5900', difficulty: 2, knowledge: { questionTokens: ['finding-total-amount'], correctToken: 'finding-total-amount', incorrectTokens: ['interest-only', null, 'no-interest', 'wrong-calculation'] } },
+                { id: 'VCMNA277-004', question: '$800 earns $96 interest in 4 years. What is the rate?', options: ['3%', '12%', '4%', '24%'], correctAnswer: 0, explanation: 'R = 96 ÷ (800 × 4) = 0.03 = 3%', difficulty: 2, knowledge: { questionTokens: ['finding-rate'], correctToken: 'finding-rate', incorrectTokens: [null, 'wrong-formula', 'confused-with-time', 'wrong-calculation'] } },
+                { id: 'VCMNA277-005', question: 'At 5% per year, how long for $1000 to earn $200 interest?', options: ['2 years', '4 years', '5 years', '20 years'], correctAnswer: 1, explanation: 'T = 200 ÷ (1000 × 0.05) = 4 years', difficulty: 2, knowledge: { questionTokens: ['finding-time'], correctToken: 'finding-time', incorrectTokens: ['wrong-calculation', null, 'wrong-formula', 'wrong-calculation'] } },
+                { id: 'VCMNA277-006', question: '$3000 at 4.5% for 2 years. Find the interest.', options: ['$270', '$135', '$3270', '$27'], correctAnswer: 0, explanation: 'I = 3000 × 0.045 × 2 = $270', difficulty: 2, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'one-year-only', 'total-not-interest', 'decimal-error'] } },
+                { id: 'VCMNA277-007', question: 'What principal earns $180 at 6% over 3 years?', options: ['$1000', '$3240', '$540', '$32.40'], correctAnswer: 0, explanation: 'P = 180 ÷ (0.06 × 3) = $1000', difficulty: 3, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'wrong-formula', 'wrong-calculation', 'decimal-error'] } },
+                { id: 'VCMNA277-008', question: '$4000 becomes $4480 after 2 years. Find the rate.', options: ['12%', '6%', '2%', '24%'], correctAnswer: 1, explanation: 'I = 480. R = 480 ÷ (4000 × 2) = 0.06 = 6%', difficulty: 3, knowledge: { questionTokens: ['finding-rate'], correctToken: 'finding-rate', incorrectTokens: ['wrong-calculation', null, 'wrong-calculation', 'wrong-formula'] } },
+                { id: 'VCMNA277-009', question: 'Simple interest at 8% for 6 months on $2000?', options: ['$80', '$960', '$160', '$40'], correctAnswer: 0, explanation: '6 months = 0.5 years. I = 2000 × 0.08 × 0.5 = $80', difficulty: 2, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'wrong-time', 'one-year', 'wrong-calculation'] } },
+                { id: 'VCMNA277-010', question: '$6000 at 7% for 5 years. Total amount?', options: ['$2100', '$8100', '$6000', '$6700'], correctAnswer: 1, explanation: 'I = 6000 × 0.07 × 5 = $2100. Total = 6000 + 2100 = $8100', difficulty: 2, knowledge: { questionTokens: ['finding-total-amount'], correctToken: 'finding-total-amount', incorrectTokens: ['interest-only', null, 'no-interest', 'one-year'] } },
+                { id: 'VCMNA277-011', question: 'How long for $2500 to earn $375 at 5%?', options: ['3 years', '5 years', '2.5 years', '7.5 years'], correctAnswer: 0, explanation: 'T = 375 ÷ (2500 × 0.05) = 3 years', difficulty: 2, knowledge: { questionTokens: ['finding-time'], correctToken: 'finding-time', incorrectTokens: [null, 'wrong-calculation', 'wrong-formula', 'wrong-calculation'] } },
+                { id: 'VCMNA277-012', question: '$1500 at 4% per year for 18 months. Interest?', options: ['$90', '$60', '$1590', '$108'], correctAnswer: 0, explanation: '18 months = 1.5 years. I = 1500 × 0.04 × 1.5 = $90', difficulty: 2, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'one-year', 'total-not-interest', 'two-years'] } },
+                { id: 'VCMNA277-013', question: 'Interest of $420 on $3500 over 2 years. Rate?', options: ['6%', '12%', '3%', '8%'], correctAnswer: 0, explanation: 'R = 420 ÷ (3500 × 2) = 0.06 = 6%', difficulty: 2, knowledge: { questionTokens: ['finding-rate'], correctToken: 'finding-rate', incorrectTokens: [null, 'wrong-formula', 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMNA277-014', question: 'Compare: A) $2000 at 5% for 4 years, B) $4000 at 5% for 2 years', options: ['A earns more', 'B earns more', 'Same interest', 'Cannot compare'], correctAnswer: 2, explanation: 'A: 2000×0.05×4=$400. B: 4000×0.05×2=$400. Same!', difficulty: 3, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: ['wrong-calculation', 'wrong-calculation', null, 'misunderstanding'] } },
+                { id: 'VCMNA277-015', question: '$10,000 deposit, 3.5% rate, 2 years. Total at end?', options: ['$700', '$10,700', '$10,350', '$735'], correctAnswer: 1, explanation: 'I = 10000 × 0.035 × 2 = $700. Total = $10,700', difficulty: 2, knowledge: { questionTokens: ['finding-total-amount'], correctToken: 'finding-total-amount', incorrectTokens: ['interest-only', null, 'one-year', 'wrong-rate'] } },
+                { id: 'VCMNA277-016', question: 'At what rate will $8000 earn $1200 in 3 years?', options: ['4%', '5%', '15%', '4.5%'], correctAnswer: 1, explanation: 'R = 1200 ÷ (8000 × 3) = 0.05 = 5%', difficulty: 2, knowledge: { questionTokens: ['finding-rate'], correctToken: 'finding-rate', incorrectTokens: ['wrong-calculation', null, 'percentage-error', 'wrong-formula'] } },
+                { id: 'VCMNA277-017', question: 'Principal that earns $225 at 4.5% over 2 years?', options: ['$2500', '$5000', '$1012.50', '$2025'], correctAnswer: 0, explanation: 'P = 225 ÷ (0.045 × 2) = $2500', difficulty: 3, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: [null, 'wrong-calculation', 'wrong-formula', 'wrong-calculation'] } },
+                { id: 'VCMNA277-018', question: '$7500 grows to $8625 in 3 years. What is the interest rate?', options: ['5%', '15%', '3.75%', '11.25%'], correctAnswer: 0, explanation: 'I = 1125. R = 1125 ÷ (7500 × 3) = 0.05 = 5%', difficulty: 3, knowledge: { questionTokens: ['finding-rate'], correctToken: 'finding-rate', incorrectTokens: [null, 'wrong-base', 'wrong-calculation', 'wrong-formula'] } },
+                { id: 'VCMNA277-019', question: 'Quarterly interest: $2000 at 8% p.a. for 3 months?', options: ['$160', '$40', '$480', '$20'], correctAnswer: 1, explanation: '3 months = 0.25 years. I = 2000 × 0.08 × 0.25 = $40', difficulty: 3, knowledge: { questionTokens: ['simple-interest-formula'], correctToken: 'simple-interest-formula', incorrectTokens: ['one-year', null, 'wrong-time', 'wrong-calculation'] } },
+                { id: 'VCMNA277-020', question: 'Loan of $15,000 at 9% for 4 years. Total repayment?', options: ['$5400', '$20,400', '$15,540', '$19,050'], correctAnswer: 1, explanation: 'I = 15000 × 0.09 × 4 = $5400. Total = $20,400', difficulty: 2, knowledge: { questionTokens: ['finding-total-amount'], correctToken: 'finding-total-amount', incorrectTokens: ['interest-only', null, 'wrong-calculation', 'wrong-rate'] } },
+              ],
+            },
           ],
         },
       ],
@@ -1990,6 +2209,83 @@ Convert percentage to decimal, then multiply:
       id: 'measurement-geometry',
       name: 'Measurement and Geometry',
       chapters: [
+        {
+          id: 'measurement',
+          title: 'Units and Measurement',
+          description: 'Area, perimeter, volume and surface area calculations',
+          sections: [
+            {
+              id: 'VCMMG286',
+              code: 'VCMMG286',
+              title: 'Area of Composite Shapes',
+              description: 'Find perimeters and areas of parallelograms, trapeziums, rhombuses and kites',
+              content: `# Area of Composite Shapes
+
+## Area Formulas Review
+
+| Shape | Area Formula |
+|-------|--------------|
+| Rectangle | A = length × width |
+| Triangle | A = ½ × base × height |
+| Parallelogram | A = base × height |
+| Trapezium | A = ½ × (a + b) × h |
+| Circle | A = πr² |
+
+## Parallelogram
+**Area = base × perpendicular height**
+
+The height must be perpendicular (at 90°) to the base.
+
+## Trapezium
+**Area = ½ × (sum of parallel sides) × height**
+A = ½ × (a + b) × h
+
+## Rhombus and Kite
+**Area = ½ × diagonal₁ × diagonal₂**
+
+## Composite Shapes
+Break the shape into simpler shapes, find each area, then add (or subtract) them.`,
+              keyPoints: [
+                'Parallelogram: A = base × height',
+                'Trapezium: A = ½(a+b) × h',
+                'Rhombus/Kite: A = ½ × d₁ × d₂',
+                'Composite shapes: break into simple shapes'
+              ],
+              knowledgeTokens: [
+                { id: 'parallelogram-area', name: 'Parallelogram Area', description: 'Calculating area of parallelograms' },
+                { id: 'trapezium-area', name: 'Trapezium Area', description: 'Calculating area of trapeziums' },
+                { id: 'rhombus-kite-area', name: 'Rhombus and Kite Area', description: 'Using diagonals for area' },
+                { id: 'composite-area', name: 'Composite Shape Area', description: 'Breaking shapes into parts', prerequisites: ['parallelogram-area', 'trapezium-area'] },
+              ],
+              examples: [
+                { problem: 'Find area of parallelogram: base 8cm, height 5cm', solution: '40 cm²', explanation: 'A = 8 × 5 = 40 cm²' },
+                { problem: 'Find area of trapezium: parallel sides 6cm and 10cm, height 4cm', solution: '32 cm²', explanation: 'A = ½ × (6+10) × 4 = ½ × 16 × 4 = 32 cm²' }
+              ],
+              questions: [
+                { id: 'VCMMG286-001', question: 'Area of parallelogram: base 10cm, height 6cm?', options: ['16 cm²', '60 cm²', '30 cm²', '40 cm²'], correctAnswer: 1, explanation: 'A = base × height = 10 × 6 = 60 cm²', difficulty: 1, knowledge: { questionTokens: ['parallelogram-area'], correctToken: 'parallelogram-area', incorrectTokens: ['added', null, 'halved', 'wrong-calculation'] } },
+                { id: 'VCMMG286-002', question: 'Area of trapezium: parallel sides 5cm, 9cm, height 4cm?', options: ['28 cm²', '36 cm²', '18 cm²', '56 cm²'], correctAnswer: 0, explanation: 'A = ½ × (5+9) × 4 = ½ × 14 × 4 = 28 cm²', difficulty: 2, knowledge: { questionTokens: ['trapezium-area'], correctToken: 'trapezium-area', incorrectTokens: [null, 'forgot-half', 'wrong-formula', 'doubled'] } },
+                { id: 'VCMMG286-003', question: 'Area of rhombus: diagonals 8cm and 6cm?', options: ['48 cm²', '24 cm²', '14 cm²', '96 cm²'], correctAnswer: 1, explanation: 'A = ½ × 8 × 6 = 24 cm²', difficulty: 1, knowledge: { questionTokens: ['rhombus-kite-area'], correctToken: 'rhombus-kite-area', incorrectTokens: ['forgot-half', null, 'added', 'doubled'] } },
+                { id: 'VCMMG286-004', question: 'A parallelogram has area 45 cm² and base 9cm. Find the height.', options: ['5 cm', '54 cm', '36 cm', '4 cm'], correctAnswer: 0, explanation: 'Height = Area ÷ Base = 45 ÷ 9 = 5 cm', difficulty: 2, knowledge: { questionTokens: ['parallelogram-area'], correctToken: 'parallelogram-area', incorrectTokens: [null, 'multiplied', 'subtracted', 'wrong-division'] } },
+                { id: 'VCMMG286-005', question: 'Area of kite: diagonals 10cm and 12cm?', options: ['22 cm²', '120 cm²', '60 cm²', '110 cm²'], correctAnswer: 2, explanation: 'A = ½ × 10 × 12 = 60 cm²', difficulty: 1, knowledge: { questionTokens: ['rhombus-kite-area'], correctToken: 'rhombus-kite-area', incorrectTokens: ['added', 'forgot-half', null, 'wrong-calculation'] } },
+                { id: 'VCMMG286-006', question: 'Trapezium: parallel sides 8m, 12m, height 5m. Area?', options: ['50 m²', '100 m²', '40 m²', '60 m²'], correctAnswer: 0, explanation: 'A = ½ × (8+12) × 5 = ½ × 20 × 5 = 50 m²', difficulty: 2, knowledge: { questionTokens: ['trapezium-area'], correctToken: 'trapezium-area', incorrectTokens: [null, 'forgot-half', 'one-side-only', 'wrong-formula'] } },
+                { id: 'VCMMG286-007', question: 'A shape is made of a rectangle (8×4) and a triangle (base 8, height 3). Total area?', options: ['44 cm²', '32 cm²', '56 cm²', '24 cm²'], correctAnswer: 0, explanation: 'Rectangle = 32, Triangle = ½×8×3 = 12. Total = 44 cm²', difficulty: 2, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: [null, 'rectangle-only', 'wrong-triangle', 'wrong-calculation'] } },
+                { id: 'VCMMG286-008', question: 'Parallelogram: base 15cm, height 8cm. Area?', options: ['23 cm²', '120 cm²', '60 cm²', '46 cm²'], correctAnswer: 1, explanation: 'A = 15 × 8 = 120 cm²', difficulty: 1, knowledge: { questionTokens: ['parallelogram-area'], correctToken: 'parallelogram-area', incorrectTokens: ['added', null, 'halved', 'perimeter'] } },
+                { id: 'VCMMG286-009', question: 'Rhombus with diagonals 14cm and 10cm. Area?', options: ['70 cm²', '140 cm²', '24 cm²', '35 cm²'], correctAnswer: 0, explanation: 'A = ½ × 14 × 10 = 70 cm²', difficulty: 1, knowledge: { questionTokens: ['rhombus-kite-area'], correctToken: 'rhombus-kite-area', incorrectTokens: [null, 'forgot-half', 'added', 'wrong-calculation'] } },
+                { id: 'VCMMG286-010', question: 'Trapezium has area 42 cm², parallel sides 6cm and 8cm. Find height.', options: ['6 cm', '3 cm', '7 cm', '21 cm'], correctAnswer: 0, explanation: '42 = ½ × 14 × h. h = 42 × 2 ÷ 14 = 6 cm', difficulty: 3, knowledge: { questionTokens: ['trapezium-area'], correctToken: 'trapezium-area', incorrectTokens: [null, 'wrong-rearrangement', 'forgot-2', 'wrong-calculation'] } },
+                { id: 'VCMMG286-011', question: 'L-shaped room: 6×4m and 3×2m attached. Total area?', options: ['30 m²', '24 m²', '6 m²', '36 m²'], correctAnswer: 0, explanation: '6×4 = 24 m², 3×2 = 6 m². Total = 30 m²', difficulty: 2, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: [null, 'one-part', 'subtracted', 'wrong-calculation'] } },
+                { id: 'VCMMG286-012', question: 'Parallelogram: area 72 cm², height 8cm. Find base.', options: ['9 cm', '64 cm', '80 cm', '576 cm'], correctAnswer: 0, explanation: 'Base = Area ÷ Height = 72 ÷ 8 = 9 cm', difficulty: 2, knowledge: { questionTokens: ['parallelogram-area'], correctToken: 'parallelogram-area', incorrectTokens: [null, 'subtracted', 'added', 'multiplied'] } },
+                { id: 'VCMMG286-013', question: 'Kite with one diagonal 16cm, area 80 cm². Find other diagonal.', options: ['5 cm', '10 cm', '64 cm', '1280 cm'], correctAnswer: 1, explanation: '80 = ½ × 16 × d. d = 80 × 2 ÷ 16 = 10 cm', difficulty: 3, knowledge: { questionTokens: ['rhombus-kite-area'], correctToken: 'rhombus-kite-area', incorrectTokens: ['forgot-multiply-2', null, 'subtracted', 'multiplied'] } },
+                { id: 'VCMMG286-014', question: 'A square has a triangle cut from one corner (base 4cm, height 4cm). Original square 10×10. Remaining area?', options: ['92 cm²', '100 cm²', '8 cm²', '108 cm²'], correctAnswer: 0, explanation: 'Square = 100 cm². Triangle = ½×4×4 = 8 cm². Remaining = 100-8 = 92 cm²', difficulty: 3, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: [null, 'no-subtraction', 'triangle-only', 'added'] } },
+                { id: 'VCMMG286-015', question: 'Trapezium with parallel sides 3x and 5x, height x. Area in terms of x?', options: ['4x² cm²', '8x² cm²', '4x cm²', '15x² cm²'], correctAnswer: 0, explanation: 'A = ½ × (3x+5x) × x = ½ × 8x × x = 4x²', difficulty: 3, knowledge: { questionTokens: ['trapezium-area'], correctToken: 'trapezium-area', incorrectTokens: [null, 'forgot-half', 'forgot-x²', 'multiplied-wrong'] } },
+                { id: 'VCMMG286-016', question: 'Two identical trapeziums form a parallelogram. Each trapezium: parallel sides 5cm, 9cm. What is the parallelogram base?', options: ['5 cm', '9 cm', '14 cm', '7 cm'], correctAnswer: 3, explanation: 'Parallelogram base = average of parallel sides = (5+9)÷2 = 7 cm', difficulty: 3, knowledge: { questionTokens: ['trapezium-area', 'parallelogram-area'], correctToken: 'trapezium-area', incorrectTokens: ['smaller-side', 'larger-side', 'sum', null] } },
+                { id: 'VCMMG286-017', question: 'Parallelogram ABCD has base 12cm. Slant height is 10cm, perpendicular height is 8cm. Area?', options: ['120 cm²', '96 cm²', '80 cm²', '160 cm²'], correctAnswer: 1, explanation: 'Use perpendicular height: A = 12 × 8 = 96 cm²', difficulty: 2, knowledge: { questionTokens: ['parallelogram-area'], correctToken: 'parallelogram-area', incorrectTokens: ['used-slant', null, 'wrong-calculation', 'doubled'] } },
+                { id: 'VCMMG286-018', question: 'Arrow shape: rectangle 6×2 plus triangle point (base 2, height 3). Total area?', options: ['12 cm²', '15 cm²', '9 cm²', '18 cm²'], correctAnswer: 1, explanation: 'Rectangle = 12, Triangle = ½×2×3 = 3. Total = 15 cm²', difficulty: 2, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: ['rectangle-only', null, 'subtracted', 'wrong-triangle'] } },
+                { id: 'VCMMG286-019', question: 'A rhombus has area 54 cm² and one diagonal 9cm. Find the other diagonal.', options: ['6 cm', '12 cm', '45 cm', '108 cm'], correctAnswer: 1, explanation: '54 = ½ × 9 × d. d = 54 × 2 ÷ 9 = 12 cm', difficulty: 2, knowledge: { questionTokens: ['rhombus-kite-area'], correctToken: 'rhombus-kite-area', incorrectTokens: ['forgot-multiply-2', null, 'subtracted', 'multiplied'] } },
+                { id: 'VCMMG286-020', question: 'Pool with main rectangle 10×6m and semicircular end (radius 3m). Total area? (π=3.14)', options: ['60 m²', '74.13 m²', '88.26 m²', '45.86 m²'], correctAnswer: 1, explanation: 'Rectangle = 60 m². Semicircle = ½×π×3² = 14.13 m². Total ≈ 74.13 m²', difficulty: 3, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: ['rectangle-only', null, 'full-circle', 'wrong-calculation'] } },
+              ],
+            },
+          ],
+        },
         {
           id: 'geometric-reasoning',
           title: 'Geometric Reasoning',
@@ -2157,6 +2453,87 @@ Outliers are values far from others. They affect the mean more than the median.`
                 { id: 'VCMSP297-018', question: 'Removing an outlier from data will typically...', options: ['Increase the mean', 'Have no effect', 'Bring mean and median closer', 'Increase the range'], correctAnswer: 2, explanation: 'Outliers pull the mean away from the median. Removing them brings these measures closer.', difficulty: 3, knowledge: { questionTokens: ['outlier-effects'], correctToken: 'outlier-effects', incorrectTokens: ['wrong-direction', 'no-effect-error', null, 'range-error'] } },
                 { id: 'VCMSP297-019', question: 'Find the median of 1, 3, 5, 7, 9, 11, 13, 15, 17', options: ['7', '8', '9', '81'], correctAnswer: 2, explanation: '9 values, median is the 5th value = 9', difficulty: 1, knowledge: { questionTokens: ['finding-median'], correctToken: 'finding-median', incorrectTokens: ['wrong-position', 'average-error', null, 'sum-error'] } },
                 { id: 'VCMSP297-020', question: 'Which measure is best for skewed data with outliers?', options: ['Mean', 'Mode', 'Median', 'Range'], correctAnswer: 2, explanation: 'Median is resistant to outliers and better represents typical values in skewed data', difficulty: 3, knowledge: { questionTokens: ['outlier-effects'], correctToken: 'outlier-effects', incorrectTokens: ['mean-preference', 'mode-preference', null, 'range-is-not-centre'] } },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'probability',
+          title: 'Probability',
+          description: 'Understanding chance and probability',
+          sections: [
+            {
+              id: 'VCMSP298',
+              code: 'VCMSP298',
+              title: 'Probability Concepts',
+              description: 'Identify complementary events and use the sum of probabilities to solve problems',
+              content: `# Probability
+
+Probability measures how likely an event is to happen, from 0 (impossible) to 1 (certain).
+
+## Probability Scale
+- **0** = Impossible
+- **0.5** = Even chance (50-50)
+- **1** = Certain
+
+## Calculating Probability
+P(event) = Number of favourable outcomes ÷ Total number of outcomes
+
+**Example:** Rolling a 6 on a die
+P(6) = 1/6 (one 6 out of 6 possible numbers)
+
+## Complementary Events
+Events that together cover all possibilities.
+P(A) + P(not A) = 1
+
+**Example:** P(rain) = 0.3, so P(no rain) = 1 - 0.3 = 0.7
+
+## Sample Space
+All possible outcomes listed.
+Coin: {Heads, Tails}
+Die: {1, 2, 3, 4, 5, 6}
+
+## Combined Events
+**AND** (both happen): Multiply probabilities
+**OR** (either happens): Add probabilities (if mutually exclusive)`,
+              keyPoints: [
+                'Probability ranges from 0 to 1',
+                'P(event) = favourable ÷ total outcomes',
+                'P(A) + P(not A) = 1',
+                'AND: multiply, OR: add (if exclusive)'
+              ],
+              knowledgeTokens: [
+                { id: 'probability-scale', name: 'Probability Scale', description: 'Understanding 0 to 1 range' },
+                { id: 'calculating-probability', name: 'Calculating Probability', description: 'Finding probability from outcomes' },
+                { id: 'complementary-events', name: 'Complementary Events', description: 'Events that sum to 1', prerequisites: ['calculating-probability'] },
+                { id: 'sample-space', name: 'Sample Space', description: 'Listing all possible outcomes' },
+                { id: 'combined-events', name: 'Combined Events', description: 'AND and OR probabilities', prerequisites: ['calculating-probability'] },
+              ],
+              examples: [
+                { problem: 'Find P(even number) when rolling a die', solution: '1/2 or 0.5', explanation: 'Even numbers: 2, 4, 6. That is 3 out of 6 = 1/2' },
+                { problem: 'P(winning) = 0.35. Find P(not winning)', solution: '0.65', explanation: 'P(not winning) = 1 - 0.35 = 0.65' }
+              ],
+              questions: [
+                { id: 'VCMSP298-001', question: 'A fair coin is flipped. What is P(heads)?', options: ['0', '1/2', '1', '1/4'], correctAnswer: 1, explanation: '1 head out of 2 outcomes = 1/2', difficulty: 1, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: ['impossible-error', null, 'certain-error', 'wrong-denominator'] } },
+                { id: 'VCMSP298-002', question: 'A die is rolled. What is P(rolling a 3)?', options: ['1/3', '1/6', '3/6', '1'], correctAnswer: 1, explanation: 'One 3 out of 6 possible outcomes = 1/6', difficulty: 1, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: ['wrong-denominator', null, 'wrong-numerator', 'certain-error'] } },
+                { id: 'VCMSP298-003', question: 'P(rain) = 0.4. What is P(no rain)?', options: ['0.4', '0.6', '0', '1.4'], correctAnswer: 1, explanation: 'P(no rain) = 1 - 0.4 = 0.6', difficulty: 1, knowledge: { questionTokens: ['complementary-events'], correctToken: 'complementary-events', incorrectTokens: ['same-probability', null, 'impossible-error', 'addition-error'] } },
+                { id: 'VCMSP298-004', question: 'What is P(rolling even) on a fair die?', options: ['1/6', '1/3', '1/2', '2/3'], correctAnswer: 2, explanation: 'Even: 2, 4, 6 = 3 outcomes out of 6 = 1/2', difficulty: 1, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: ['one-outcome', 'wrong-count', null, 'over-count'] } },
+                { id: 'VCMSP298-005', question: 'A bag has 3 red, 2 blue, 5 green balls. P(red)?', options: ['3/10', '3/5', '1/3', '3/7'], correctAnswer: 0, explanation: '3 red out of 10 total = 3/10', difficulty: 1, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: [null, 'wrong-denominator', 'wrong-calculation', 'wrong-denominator'] } },
+                { id: 'VCMSP298-006', question: 'If P(A) = 0.7, what is P(not A)?', options: ['0.7', '0.3', '1.7', '0'], correctAnswer: 1, explanation: 'P(not A) = 1 - 0.7 = 0.3', difficulty: 1, knowledge: { questionTokens: ['complementary-events'], correctToken: 'complementary-events', incorrectTokens: ['same-probability', null, 'addition-error', 'impossible-error'] } },
+                { id: 'VCMSP298-007', question: 'A spinner has 8 equal sections. P(landing on section 5)?', options: ['5/8', '1/8', '1/5', '8/5'], correctAnswer: 1, explanation: 'One section out of 8 = 1/8', difficulty: 1, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: ['label-as-numerator', null, 'inverted', 'inverted'] } },
+                { id: 'VCMSP298-008', question: 'Deck of 52 cards. P(drawing a heart)?', options: ['1/52', '1/4', '4/52', '13'], correctAnswer: 1, explanation: '13 hearts in 52 cards = 13/52 = 1/4', difficulty: 2, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: ['one-card', null, 'suit-confusion', 'no-simplify'] } },
+                { id: 'VCMSP298-009', question: 'Two coins flipped. Sample space size?', options: ['2', '3', '4', '8'], correctAnswer: 2, explanation: 'HH, HT, TH, TT = 4 outcomes', difficulty: 2, knowledge: { questionTokens: ['sample-space'], correctToken: 'sample-space', incorrectTokens: ['one-coin', 'forgot-one', null, 'three-coins'] } },
+                { id: 'VCMSP298-010', question: 'P(A) = 1/3. P(A happening twice in a row)?', options: ['2/3', '1/9', '1/6', '2/9'], correctAnswer: 1, explanation: 'P(A and A) = 1/3 × 1/3 = 1/9', difficulty: 3, knowledge: { questionTokens: ['combined-events'], correctToken: 'combined-events', incorrectTokens: ['added', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMSP298-011', question: 'Bag: 4 red, 6 blue. P(not red)?', options: ['4/10', '6/10', '10/4', '4/6'], correctAnswer: 1, explanation: 'P(not red) = P(blue) = 6/10', difficulty: 1, knowledge: { questionTokens: ['complementary-events'], correctToken: 'complementary-events', incorrectTokens: ['p-red', null, 'inverted', 'wrong-denominator'] } },
+                { id: 'VCMSP298-012', question: 'Which probability is impossible?', options: ['0', '0.5', '0.01', '0.99'], correctAnswer: 0, explanation: 'Probability 0 means the event cannot happen', difficulty: 1, knowledge: { questionTokens: ['probability-scale'], correctToken: 'probability-scale', incorrectTokens: [null, 'even-chance', 'unlikely-not-impossible', 'likely-not-certain'] } },
+                { id: 'VCMSP298-013', question: 'Die rolled. P(less than 5)?', options: ['4/6', '5/6', '1/5', '3/6'], correctAnswer: 0, explanation: 'Numbers < 5: 1,2,3,4 = 4 outcomes. P = 4/6 = 2/3', difficulty: 2, knowledge: { questionTokens: ['calculating-probability'], correctToken: 'calculating-probability', incorrectTokens: [null, 'included-5', 'inverted', 'excluded-4'] } },
+                { id: 'VCMSP298-014', question: 'P(A or B) if A and B are mutually exclusive: P(A)=0.3, P(B)=0.4', options: ['0.12', '0.7', '0.1', '1'], correctAnswer: 1, explanation: 'Mutually exclusive: P(A or B) = P(A) + P(B) = 0.7', difficulty: 2, knowledge: { questionTokens: ['combined-events'], correctToken: 'combined-events', incorrectTokens: ['multiplied', null, 'subtracted', 'wrong-formula'] } },
+                { id: 'VCMSP298-015', question: 'Coin flipped 3 times. P(all heads)?', options: ['1/3', '1/8', '3/8', '1/2'], correctAnswer: 1, explanation: 'P = 1/2 × 1/2 × 1/2 = 1/8', difficulty: 3, knowledge: { questionTokens: ['combined-events'], correctToken: 'combined-events', incorrectTokens: ['wrong-formula', null, 'wrong-formula', 'one-flip'] } },
+                { id: 'VCMSP298-016', question: 'Deck of cards. P(King or Queen)?', options: ['8/52', '2/52', '1/52', '16/52'], correctAnswer: 0, explanation: '4 Kings + 4 Queens = 8. P = 8/52', difficulty: 2, knowledge: { questionTokens: ['combined-events'], correctToken: 'combined-events', incorrectTokens: [null, 'only-one', 'only-one', 'doubled'] } },
+                { id: 'VCMSP298-017', question: 'A and B are complementary. P(A)=0.35. P(B)?', options: ['0.35', '0.65', '1.35', '0'], correctAnswer: 1, explanation: 'Complementary: P(A) + P(B) = 1. P(B) = 0.65', difficulty: 1, knowledge: { questionTokens: ['complementary-events'], correctToken: 'complementary-events', incorrectTokens: ['same-value', null, 'addition-error', 'impossible'] } },
+                { id: 'VCMSP298-018', question: 'P(at least one head in two flips)?', options: ['1/4', '1/2', '3/4', '1'], correctAnswer: 2, explanation: 'P(no heads) = 1/4 (TT only). P(at least one) = 1 - 1/4 = 3/4', difficulty: 3, knowledge: { questionTokens: ['complementary-events', 'combined-events'], correctToken: 'complementary-events', incorrectTokens: ['no-heads', 'one-only', null, 'certain'] } },
+                { id: 'VCMSP298-019', question: '5 red, 3 blue marbles. One taken, not replaced. Then another. P(both red)?', options: ['25/64', '20/56', '5/8', '2/8'], correctAnswer: 1, explanation: 'P(1st red) = 5/8, P(2nd red) = 4/7. P = 5/8 × 4/7 = 20/56', difficulty: 3, knowledge: { questionTokens: ['combined-events'], correctToken: 'combined-events', incorrectTokens: ['with-replacement', null, 'one-only', 'wrong-calculation'] } },
+                { id: 'VCMSP298-020', question: 'Which represents an even chance?', options: ['0', '0.25', '0.5', '1'], correctAnswer: 2, explanation: '0.5 = 50% chance = equally likely to happen or not', difficulty: 1, knowledge: { questionTokens: ['probability-scale'], correctToken: 'probability-scale', incorrectTokens: ['impossible', 'unlikely', null, 'certain'] } },
               ],
             },
           ],
