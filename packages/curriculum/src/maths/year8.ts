@@ -2519,6 +2519,181 @@ The value of y when x = 0. In y = 3x + 2, the y-intercept is 2.
                 { id: 'VCMNA280-020', question: 'Lines y = 2x + 3 and y = 2x - 1 are...', options: ['Parallel', 'Perpendicular', 'Intersecting', 'The same'], correctAnswer: 0, explanation: 'Same gradient (m = 2) but different y-intercepts = parallel lines', difficulty: 2, knowledge: { questionTokens: ['equation-of-line', 'understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: [null, 'perpendicular-error', 'same-gradient', 'identical'] } },
               ],
             },
+            {
+              id: 'VCMNA281',
+              code: 'VCMNA281',
+              title: 'Factorising Algebraic Expressions',
+              description: 'Factorise algebraic expressions by identifying numerical factors and common algebraic factors',
+              content: `# Factorising Algebraic Expressions
+
+Factorising is the reverse of expanding. We write an expression as a product of factors.
+
+## Highest Common Factor (HCF)
+Find the largest factor common to all terms.
+
+**Example:** 6x + 12
+- HCF of 6 and 12 is 6
+- 6x + 12 = 6(x + 2)
+
+## Factorising with Variables
+Look for common variables as well as numbers.
+
+**Example:** 4x² + 8x
+- HCF of coefficients: 4
+- HCF of variables: x (lowest power)
+- 4x² + 8x = 4x(x + 2)
+
+## Steps to Factorise
+1. Find the HCF of all terms
+2. Write the HCF outside the brackets
+3. Divide each term by the HCF to find what goes inside
+
+## Checking Your Answer
+Expand the brackets to verify you get the original expression.
+- 4x(x + 2) = 4x² + 8x ✓
+
+## Common Mistakes
+- Not taking out the highest common factor
+- Forgetting to include all terms
+- Sign errors with negative terms
+
+## Examples with Negatives
+- 3x - 6 = 3(x - 2)
+- -2x - 4 = -2(x + 2) or 2(-x - 2)
+- 5x² - 10x = 5x(x - 2)`,
+              keyPoints: [
+                'Factorising is the reverse of expanding',
+                'Find the HCF of all terms',
+                'Include both numbers and variables in the HCF',
+                'Always check by expanding back',
+              ],
+              knowledgeTokens: [
+                { id: 'hcf-numbers', name: 'HCF of Numbers', description: 'Finding highest common factor of coefficients' },
+                { id: 'hcf-variables', name: 'HCF of Variables', description: 'Finding common variable factors' },
+                { id: 'factorising-expressions', name: 'Factorising Expressions', description: 'Taking out common factors', prerequisites: ['hcf-numbers', 'hcf-variables'] },
+                { id: 'checking-factorisation', name: 'Checking Factorisation', description: 'Verifying by expanding' },
+              ],
+              examples: [
+                { problem: 'Factorise: 8x + 12', solution: '4(2x + 3)', explanation: 'HCF = 4. 8x ÷ 4 = 2x, 12 ÷ 4 = 3' },
+                { problem: 'Factorise: 6x² - 9x', solution: '3x(2x - 3)', explanation: 'HCF = 3x. 6x² ÷ 3x = 2x, -9x ÷ 3x = -3' },
+              ],
+              questions: [
+                { id: 'VCMNA281-001', question: 'Factorise: 4x + 8', options: ['4(x + 2)', '2(2x + 4)', '4(x + 8)', '8(x + 1)'], correctAnswer: 0, explanation: 'HCF = 4. 4x ÷ 4 = x, 8 ÷ 4 = 2', difficulty: 1, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'not-hcf', 'wrong-division', 'wrong-hcf'] } },
+                { id: 'VCMNA281-002', question: 'Factorise: 6x - 12', options: ['6(x - 2)', '3(2x - 4)', '6(x - 12)', '2(3x - 6)'], correctAnswer: 0, explanation: 'HCF = 6. 6x ÷ 6 = x, -12 ÷ 6 = -2', difficulty: 1, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'not-hcf', 'wrong-division', 'not-hcf'] } },
+                { id: 'VCMNA281-003', question: 'What is the HCF of 12 and 18?', options: ['2', '3', '6', '36'], correctAnswer: 2, explanation: '12 = 2×6, 18 = 3×6. HCF = 6', difficulty: 1, knowledge: { questionTokens: ['hcf-numbers'], correctToken: 'hcf-numbers', incorrectTokens: ['too-small', 'too-small', null, 'lcm'] } },
+                { id: 'VCMNA281-004', question: 'Factorise: 3x² + 6x', options: ['3(x² + 2x)', '3x(x + 2)', 'x(3x + 6)', '6x(x + 1)'], correctAnswer: 1, explanation: 'HCF = 3x. 3x² ÷ 3x = x, 6x ÷ 3x = 2', difficulty: 2, knowledge: { questionTokens: ['factorising-expressions', 'hcf-variables'], correctToken: 'factorising-expressions', incorrectTokens: ['missed-x', null, 'not-hcf', 'wrong-hcf'] } },
+                { id: 'VCMNA281-005', question: 'Factorise: 10x - 15', options: ['5(2x - 3)', '5(2x - 15)', '10(x - 1.5)', '15(x - 1)'], correctAnswer: 0, explanation: 'HCF = 5. 10x ÷ 5 = 2x, -15 ÷ 5 = -3', difficulty: 1, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'wrong-division', 'not-integer', 'wrong-hcf'] } },
+                { id: 'VCMNA281-006', question: 'Factorise: 8x² - 12x', options: ['4(2x² - 3x)', '4x(2x - 3)', '2x(4x - 6)', '8x(x - 1.5)'], correctAnswer: 1, explanation: 'HCF = 4x. 8x² ÷ 4x = 2x, -12x ÷ 4x = -3', difficulty: 2, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: ['missed-x', null, 'not-hcf', 'not-integer'] } },
+                { id: 'VCMNA281-007', question: 'What is the HCF of x² and x³?', options: ['x', 'x²', 'x³', 'x⁵'], correctAnswer: 1, explanation: 'Take the lowest power: x²', difficulty: 2, knowledge: { questionTokens: ['hcf-variables'], correctToken: 'hcf-variables', incorrectTokens: ['too-low', null, 'too-high', 'added'] } },
+                { id: 'VCMNA281-008', question: 'Factorise: 5a + 5b', options: ['5(a + b)', 'a(5 + b)', '5ab', '(a + b)'], correctAnswer: 0, explanation: 'HCF = 5. Common factor is 5', difficulty: 1, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'wrong-factor', 'multiplied', 'lost-5'] } },
+                { id: 'VCMNA281-009', question: 'Factorise: 2x² + 4x + 6', options: ['2(x² + 2x + 3)', '2x(x + 2 + 3)', '(2x² + 4x + 6)', '2(x² + 4x + 6)'], correctAnswer: 0, explanation: 'HCF = 2. Each term divided by 2', difficulty: 2, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'wrong-factor', 'not-factorised', 'wrong-division'] } },
+                { id: 'VCMNA281-010', question: 'Factorise: 9x³ - 6x²', options: ['3x(3x² - 2x)', '3x²(3x - 2)', '6x²(1.5x - 1)', '9x²(x - 2/3)'], correctAnswer: 1, explanation: 'HCF = 3x². 9x³ ÷ 3x² = 3x, -6x² ÷ 3x² = -2', difficulty: 2, knowledge: { questionTokens: ['factorising-expressions', 'hcf-variables'], correctToken: 'factorising-expressions', incorrectTokens: ['missed-x', null, 'not-hcf', 'not-integer'] } },
+                { id: 'VCMNA281-011', question: 'Expand 3(x + 4) to check if it equals 3x + 12', options: ['Yes', 'No, it equals 3x + 4', 'No, it equals x + 12', 'No, it equals 3x + 7'], correctAnswer: 0, explanation: '3(x + 4) = 3x + 12 ✓', difficulty: 1, knowledge: { questionTokens: ['checking-factorisation'], correctToken: 'checking-factorisation', incorrectTokens: [null, 'forgot-multiply', 'forgot-3', 'added'] } },
+                { id: 'VCMNA281-012', question: 'Factorise: 15xy + 10x', options: ['5(3xy + 2x)', '5x(3y + 2)', 'x(15y + 10)', '10x(1.5y + 1)'], correctAnswer: 1, explanation: 'HCF = 5x. 15xy ÷ 5x = 3y, 10x ÷ 5x = 2', difficulty: 2, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: ['missed-x', null, 'not-hcf', 'not-integer'] } },
+                { id: 'VCMNA281-013', question: 'Factorise: -4x - 8', options: ['-4(x + 2)', '4(-x - 2)', '-4(x - 2)', 'Both A and B'], correctAnswer: 3, explanation: '-4(x + 2) = -4x - 8 and 4(-x - 2) = -4x - 8', difficulty: 3, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: ['partial', 'partial', 'sign-error', null] } },
+                { id: 'VCMNA281-014', question: 'Factorise: 12a²b - 8ab²', options: ['4ab(3a - 2b)', '4a(3ab - 2b²)', '4b(3a² - 2ab)', '2ab(6a - 4b)'], correctAnswer: 0, explanation: 'HCF = 4ab. 12a²b ÷ 4ab = 3a, -8ab² ÷ 4ab = -2b', difficulty: 3, knowledge: { questionTokens: ['factorising-expressions', 'hcf-variables'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'missed-b', 'missed-a', 'not-hcf'] } },
+                { id: 'VCMNA281-015', question: 'What is the HCF of 6x²y and 9xy²?', options: ['3xy', 'xy', '3x²y²', '18x²y²'], correctAnswer: 0, explanation: 'HCF of 6,9 = 3. HCF of x²,x = x. HCF of y,y² = y. So 3xy', difficulty: 2, knowledge: { questionTokens: ['hcf-numbers', 'hcf-variables'], correctToken: 'hcf-variables', incorrectTokens: [null, 'missed-3', 'took-highest', 'lcm'] } },
+                { id: 'VCMNA281-016', question: 'Factorise: 7x + 14y - 21', options: ['7(x + 2y - 3)', '7(x + 14y - 21)', '(7x + 14y - 21)', '7x(1 + 2y - 3)'], correctAnswer: 0, explanation: 'HCF = 7. Each term divided by 7', difficulty: 2, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'wrong-division', 'not-factorised', 'wrong-factor'] } },
+                { id: 'VCMNA281-017', question: 'Factorise completely: 6x³ + 12x² + 18x', options: ['6(x³ + 2x² + 3x)', '6x(x² + 2x + 3)', '3x(2x² + 4x + 6)', '2x(3x² + 6x + 9)'], correctAnswer: 1, explanation: 'HCF = 6x (not just 6). Fully factorised', difficulty: 3, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: ['missed-x', null, 'not-hcf', 'not-hcf'] } },
+                { id: 'VCMNA281-018', question: 'Is 2(5x + 10) fully factorised?', options: ['Yes', 'No, should be 10(x + 2)', 'No, should be 2(5x + 10)', 'No, cannot factorise further'], correctAnswer: 1, explanation: '5x + 10 has common factor 5. Full: 2×5(x + 2) = 10(x + 2)', difficulty: 3, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: ['incomplete', null, 'same', 'wrong'] } },
+                { id: 'VCMNA281-019', question: 'Factorise: x(a + b) + 2(a + b)', options: ['(a + b)(x + 2)', 'x + 2(a + b)', '(a + b) + (x + 2)', 'Cannot factorise'], correctAnswer: 0, explanation: '(a + b) is common to both terms', difficulty: 3, knowledge: { questionTokens: ['factorising-expressions'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'wrong-grouping', 'wrong-operation', 'gave-up'] } },
+                { id: 'VCMNA281-020', question: 'Factorise: 20x²y³ - 15xy²', options: ['5xy²(4xy - 3)', '5xy(4xy² - 3y)', '5y²(4x²y - 3x)', '15xy²(4/3 xy - 1)'], correctAnswer: 0, explanation: 'HCF = 5xy². 20x²y³ ÷ 5xy² = 4xy, -15xy² ÷ 5xy² = -3', difficulty: 3, knowledge: { questionTokens: ['factorising-expressions', 'hcf-variables'], correctToken: 'factorising-expressions', incorrectTokens: [null, 'wrong-power', 'wrong-power', 'not-integer'] } },
+              ],
+            },
+            {
+              id: 'VCMNA285',
+              code: 'VCMNA285',
+              title: 'Solving Linear Inequalities',
+              description: 'Solve linear inequalities and graph their solutions on a number line',
+              content: `# Solving Linear Inequalities
+
+Inequalities are like equations, but instead of = we use <, >, ≤, or ≥.
+
+## Inequality Symbols
+
+| Symbol | Meaning | Example |
+|--------|---------|---------|
+| < | less than | x < 5 (x is less than 5) |
+| > | greater than | x > 3 (x is greater than 3) |
+| ≤ | less than or equal to | x ≤ 7 (x is at most 7) |
+| ≥ | greater than or equal to | x ≥ 2 (x is at least 2) |
+
+## Solving Inequalities
+
+Solve the same way as equations, with ONE important rule:
+
+**When you multiply or divide by a NEGATIVE number, REVERSE the inequality sign!**
+
+### Example 1: Simple inequality
+Solve: 2x + 3 < 11
+- 2x < 11 - 3
+- 2x < 8
+- x < 4
+
+### Example 2: Dividing by negative
+Solve: -3x ≥ 12
+- x ≤ 12 ÷ (-3)  [Sign reverses!]
+- x ≤ -4
+
+## Graphing on Number Line
+
+- **Open circle (○)**: < or > (not including the point)
+- **Closed circle (●)**: ≤ or ≥ (including the point)
+- **Arrow**: shows direction of solutions
+
+### Example: x > 2
+○────────→
+   2
+
+### Example: x ≤ 5
+←────────●
+         5
+
+## Compound Inequalities
+
+Sometimes we have two conditions:
+- 2 < x < 6 means x is between 2 and 6
+- x < 1 or x > 5 means x is less than 1 OR greater than 5`,
+              keyPoints: [
+                'Solve inequalities like equations',
+                'Reverse sign when multiplying/dividing by negative',
+                'Open circle for < and >, closed circle for ≤ and ≥',
+                'Arrow shows direction of solution set',
+              ],
+              knowledgeTokens: [
+                { id: 'inequality-symbols', name: 'Inequality Symbols', description: 'Understanding <, >, ≤, ≥' },
+                { id: 'solving-inequalities', name: 'Solving Inequalities', description: 'Using inverse operations on inequalities', prerequisites: ['inequality-symbols'] },
+                { id: 'negative-multiplication', name: 'Negative Multiplication Rule', description: 'Reversing sign when multiplying/dividing by negative', prerequisites: ['solving-inequalities'] },
+                { id: 'graphing-inequalities', name: 'Graphing Inequalities', description: 'Representing solutions on a number line', prerequisites: ['inequality-symbols'] },
+                { id: 'compound-inequalities', name: 'Compound Inequalities', description: 'Working with two inequality conditions', prerequisites: ['solving-inequalities'] },
+              ],
+              examples: [
+                { problem: 'Solve: 3x - 5 > 7', solution: 'x > 4', explanation: '3x > 12, so x > 4' },
+                { problem: 'Solve: -2x ≤ 8', solution: 'x ≥ -4', explanation: 'Divide by -2 and reverse: x ≥ -4' },
+              ],
+              questions: [
+                { id: 'VCMNA285-001', question: 'Which symbol means "less than or equal to"?', options: ['<', '>', '≤', '≥'], correctAnswer: 2, explanation: '≤ means less than or equal to', difficulty: 1, knowledge: { questionTokens: ['inequality-symbols'], correctToken: 'inequality-symbols', incorrectTokens: ['less-than', 'greater-than', null, 'greater-equal'] } },
+                { id: 'VCMNA285-002', question: 'Solve: x + 5 > 12', options: ['x > 7', 'x > 17', 'x < 7', 'x = 7'], correctAnswer: 0, explanation: 'x > 12 - 5 = 7', difficulty: 1, knowledge: { questionTokens: ['solving-inequalities'], correctToken: 'solving-inequalities', incorrectTokens: [null, 'added', 'wrong-sign', 'equation'] } },
+                { id: 'VCMNA285-003', question: 'Solve: 2x < 10', options: ['x < 5', 'x > 5', 'x < 20', 'x > 20'], correctAnswer: 0, explanation: 'x < 10 ÷ 2 = 5', difficulty: 1, knowledge: { questionTokens: ['solving-inequalities'], correctToken: 'solving-inequalities', incorrectTokens: [null, 'wrong-sign', 'multiplied', 'both-wrong'] } },
+                { id: 'VCMNA285-004', question: 'Solve: -x > 3', options: ['x > -3', 'x < -3', 'x > 3', 'x < 3'], correctAnswer: 1, explanation: 'Multiply by -1, reverse sign: x < -3', difficulty: 2, knowledge: { questionTokens: ['negative-multiplication'], correctToken: 'negative-multiplication', incorrectTokens: ['no-reverse', null, 'wrong-value', 'wrong-both'] } },
+                { id: 'VCMNA285-005', question: 'On a number line, x > 3 uses what type of circle at 3?', options: ['Closed circle ●', 'Open circle ○', 'No circle', 'Square'], correctAnswer: 1, explanation: '> means not including 3, so open circle', difficulty: 1, knowledge: { questionTokens: ['graphing-inequalities'], correctToken: 'graphing-inequalities', incorrectTokens: ['closed-error', null, 'no-marker', 'wrong-shape'] } },
+                { id: 'VCMNA285-006', question: 'Solve: 3x - 2 ≥ 10', options: ['x ≥ 4', 'x ≤ 4', 'x ≥ 8/3', 'x ≥ 2.67'], correctAnswer: 0, explanation: '3x ≥ 12, x ≥ 4', difficulty: 2, knowledge: { questionTokens: ['solving-inequalities'], correctToken: 'solving-inequalities', incorrectTokens: [null, 'wrong-sign', 'wrong-calculation', 'decimal-form'] } },
+                { id: 'VCMNA285-007', question: 'Solve: -4x ≤ 20', options: ['x ≤ -5', 'x ≥ -5', 'x ≤ 5', 'x ≥ 5'], correctAnswer: 1, explanation: 'Divide by -4, reverse: x ≥ -5', difficulty: 2, knowledge: { questionTokens: ['negative-multiplication'], correctToken: 'negative-multiplication', incorrectTokens: ['no-reverse', null, 'wrong-value', 'wrong-both'] } },
+                { id: 'VCMNA285-008', question: 'x ≤ 5 uses what type of circle?', options: ['Open circle ○', 'Closed circle ●', 'Arrow only', 'Two circles'], correctAnswer: 1, explanation: '≤ includes 5, so closed circle', difficulty: 1, knowledge: { questionTokens: ['graphing-inequalities'], correctToken: 'graphing-inequalities', incorrectTokens: ['open-error', null, 'missing-circle', 'wrong-answer'] } },
+                { id: 'VCMNA285-009', question: 'Which inequality represents "x is at least 7"?', options: ['x < 7', 'x > 7', 'x ≤ 7', 'x ≥ 7'], correctAnswer: 3, explanation: '"At least" means greater than or equal to', difficulty: 1, knowledge: { questionTokens: ['inequality-symbols'], correctToken: 'inequality-symbols', incorrectTokens: ['less-than', 'greater-not-equal', 'less-equal', null] } },
+                { id: 'VCMNA285-010', question: 'Solve: 5 - x < 3', options: ['x < 2', 'x > 2', 'x < -2', 'x > -2'], correctAnswer: 1, explanation: '-x < -2, multiply by -1 and reverse: x > 2', difficulty: 2, knowledge: { questionTokens: ['negative-multiplication'], correctToken: 'negative-multiplication', incorrectTokens: ['no-reverse', null, 'wrong-sign', 'wrong-value'] } },
+                { id: 'VCMNA285-011', question: 'What values satisfy 2 < x < 5?', options: ['x = 2 and x = 5', 'Numbers between 2 and 5', 'Numbers outside 2 and 5', 'x = 3.5 only'], correctAnswer: 1, explanation: 'Compound inequality means x is between 2 and 5 (not including)', difficulty: 2, knowledge: { questionTokens: ['compound-inequalities'], correctToken: 'compound-inequalities', incorrectTokens: ['endpoints', null, 'wrong-region', 'single-value'] } },
+                { id: 'VCMNA285-012', question: 'Solve: 2x + 3 ≤ x + 7', options: ['x ≤ 4', 'x ≥ 4', 'x ≤ 10', 'x ≤ 2'], correctAnswer: 0, explanation: '2x - x ≤ 7 - 3, x ≤ 4', difficulty: 2, knowledge: { questionTokens: ['solving-inequalities'], correctToken: 'solving-inequalities', incorrectTokens: [null, 'wrong-sign', 'wrong-calculation', 'wrong-subtraction'] } },
+                { id: 'VCMNA285-013', question: 'Solve: -2x + 5 > 11', options: ['x > -3', 'x < -3', 'x > 3', 'x < 3'], correctAnswer: 1, explanation: '-2x > 6, divide by -2 and reverse: x < -3', difficulty: 2, knowledge: { questionTokens: ['negative-multiplication'], correctToken: 'negative-multiplication', incorrectTokens: ['no-reverse', null, 'wrong-value', 'wrong-both'] } },
+                { id: 'VCMNA285-014', question: 'Which is x ≥ -2 on a number line?', options: ['Arrow left from open circle at -2', 'Arrow right from closed circle at -2', 'Arrow left from closed circle at -2', 'Arrow right from open circle at -2'], correctAnswer: 1, explanation: '≥ means closed circle, and greater means arrow to right', difficulty: 2, knowledge: { questionTokens: ['graphing-inequalities'], correctToken: 'graphing-inequalities', incorrectTokens: ['wrong-circle-direction', null, 'wrong-direction', 'wrong-circle'] } },
+                { id: 'VCMNA285-015', question: 'Solve: x/3 < 4', options: ['x < 12', 'x > 12', 'x < 4/3', 'x < 1'], correctAnswer: 0, explanation: 'Multiply both sides by 3: x < 12', difficulty: 1, knowledge: { questionTokens: ['solving-inequalities'], correctToken: 'solving-inequalities', incorrectTokens: [null, 'wrong-sign', 'divided', 'wrong-calculation'] } },
+                { id: 'VCMNA285-016', question: 'When do you reverse the inequality sign?', options: ['When adding a negative', 'When subtracting', 'When multiplying/dividing by a negative', 'Never'], correctAnswer: 2, explanation: 'Only reverse when multiplying or dividing by a negative number', difficulty: 2, knowledge: { questionTokens: ['negative-multiplication'], correctToken: 'negative-multiplication', incorrectTokens: ['wrong-operation', 'wrong-operation', null, 'wrong'] } },
+                { id: 'VCMNA285-017', question: 'Solve: 4x - 8 ≥ 2x + 2', options: ['x ≥ 5', 'x ≤ 5', 'x ≥ -3', 'x ≥ 3'], correctAnswer: 0, explanation: '2x ≥ 10, x ≥ 5', difficulty: 2, knowledge: { questionTokens: ['solving-inequalities'], correctToken: 'solving-inequalities', incorrectTokens: [null, 'wrong-sign', 'wrong-calculation', 'wrong-division'] } },
+                { id: 'VCMNA285-018', question: 'If x > -1 and x < 3, which is NOT a solution?', options: ['0', '2', '-1', '1'], correctAnswer: 2, explanation: 'x > -1 means -1 is not included', difficulty: 2, knowledge: { questionTokens: ['compound-inequalities'], correctToken: 'compound-inequalities', incorrectTokens: ['valid', 'valid', null, 'valid'] } },
+                { id: 'VCMNA285-019', question: 'Solve: -5x - 10 ≤ 15', options: ['x ≤ -5', 'x ≥ -5', 'x ≤ -1', 'x ≥ -1'], correctAnswer: 1, explanation: '-5x ≤ 25, divide by -5 and reverse: x ≥ -5', difficulty: 3, knowledge: { questionTokens: ['negative-multiplication'], correctToken: 'negative-multiplication', incorrectTokens: ['no-reverse', null, 'wrong-calculation', 'wrong-both'] } },
+                { id: 'VCMNA285-020', question: 'Which represents "all numbers greater than 2 OR less than -1"?', options: ['−1 < x < 2', 'x < −1 or x > 2', 'x ≤ −1 and x ≥ 2', '−1 ≤ x ≤ 2'], correctAnswer: 1, explanation: '"OR" means either condition: x < -1 or x > 2', difficulty: 3, knowledge: { questionTokens: ['compound-inequalities'], correctToken: 'compound-inequalities', incorrectTokens: ['between', null, 'and-error', 'between-inclusive'] } },
+              ],
+            },
           ],
         },
       ],
@@ -2942,6 +3117,267 @@ When a line crosses two parallel lines:
                 { id: 'VCMMG290-020', question: 'The ratio of two supplementary angles is 2:7. Find the smaller angle.', options: ['20°', '40°', '140°', '70°'], correctAnswer: 1, explanation: '2x + 7x = 180, so 9x = 180, x = 20. Smaller = 2×20 = 40°', difficulty: 3, knowledge: { questionTokens: ['supplementary-angles'], correctToken: 'supplementary-angles', incorrectTokens: ['found-x-only', null, 'found-larger', 'ratio-error'] } },
               ],
             },
+            {
+              id: 'VCMMG291',
+              code: 'VCMMG291',
+              title: 'Congruence and Similarity',
+              description: 'Define congruence of plane shapes using transformations and establish properties of congruent and similar triangles',
+              content: `# Congruence and Similarity
+
+## Congruent Shapes
+Shapes are **congruent** if they are exactly the same size and shape.
+- All corresponding sides are equal
+- All corresponding angles are equal
+- One can be transformed to the other by translation, rotation, or reflection
+
+## Congruent Triangles
+Two triangles are congruent if they satisfy one of these tests:
+
+### SSS (Side-Side-Side)
+All three pairs of corresponding sides are equal.
+
+### SAS (Side-Angle-Side)
+Two pairs of sides are equal AND the included angle is equal.
+
+### AAS (Angle-Angle-Side)
+Two pairs of angles are equal AND a corresponding side is equal.
+
+### RHS (Right-Hypotenuse-Side)
+Both triangles have a right angle, equal hypotenuses, and one other equal side.
+
+## Similar Shapes
+Shapes are **similar** if they have the same shape but different sizes.
+- All corresponding angles are equal
+- All corresponding sides are in the same ratio (scale factor)
+
+## Scale Factor
+Scale factor = new length ÷ original length
+
+If scale factor is 2, the similar shape is twice as large.
+If scale factor is 0.5, the similar shape is half the size.
+
+## Finding Missing Sides
+In similar triangles: corresponding sides are proportional.
+$$\\frac{a}{A} = \\frac{b}{B} = \\frac{c}{C}$$`,
+              keyPoints: [
+                'Congruent = same size and shape',
+                'Similar = same shape, different size',
+                'Congruence tests: SSS, SAS, AAS, RHS',
+                'Scale factor relates corresponding sides in similar figures',
+              ],
+              knowledgeTokens: [
+                { id: 'congruent-shapes', name: 'Congruent Shapes', description: 'Understanding congruence' },
+                { id: 'congruence-tests', name: 'Congruence Tests', description: 'SSS, SAS, AAS, RHS tests', prerequisites: ['congruent-shapes'] },
+                { id: 'similar-shapes', name: 'Similar Shapes', description: 'Understanding similarity' },
+                { id: 'scale-factor', name: 'Scale Factor', description: 'Calculating and using scale factors', prerequisites: ['similar-shapes'] },
+                { id: 'finding-missing-sides', name: 'Finding Missing Sides', description: 'Using proportion to find unknown lengths', prerequisites: ['scale-factor'] },
+              ],
+              examples: [
+                { problem: 'Triangle ABC has sides 3, 4, 5. Triangle DEF has sides 6, 8, 10. Are they similar?', solution: 'Yes, scale factor 2', explanation: '6÷3 = 8÷4 = 10÷5 = 2. All ratios equal, so similar.' },
+                { problem: 'Which congruence test: Two triangles have equal angles of 40°, 60°, 80° and one pair of equal sides.', solution: 'AAS', explanation: 'Two angles and a corresponding side = AAS' },
+              ],
+              questions: [
+                { id: 'VCMMG291-001', question: 'What does congruent mean?', options: ['Same shape, different size', 'Same size and shape', 'Different shape and size', 'Mirror image only'], correctAnswer: 1, explanation: 'Congruent means exactly the same size and shape', difficulty: 1, knowledge: { questionTokens: ['congruent-shapes'], correctToken: 'congruent-shapes', incorrectTokens: ['similar-confusion', null, 'neither', 'reflection-only'] } },
+                { id: 'VCMMG291-002', question: 'What does similar mean in geometry?', options: ['Exactly the same', 'Same shape, different size', 'Different shapes', 'Parallel'], correctAnswer: 1, explanation: 'Similar means same shape but possibly different size', difficulty: 1, knowledge: { questionTokens: ['similar-shapes'], correctToken: 'similar-shapes', incorrectTokens: ['congruent-confusion', null, 'wrong', 'wrong'] } },
+                { id: 'VCMMG291-003', question: 'Which is a congruence test?', options: ['AAA', 'SSS', 'SS', 'AA'], correctAnswer: 1, explanation: 'SSS (Side-Side-Side) is a valid congruence test', difficulty: 1, knowledge: { questionTokens: ['congruence-tests'], correctToken: 'congruence-tests', incorrectTokens: ['similarity-test', null, 'incomplete', 'similarity-test'] } },
+                { id: 'VCMMG291-004', question: 'Triangle A has sides 5, 7, 9. Triangle B has sides 10, 14, 18. Scale factor?', options: ['0.5', '2', '3', '5'], correctAnswer: 1, explanation: '10÷5 = 14÷7 = 18÷9 = 2', difficulty: 2, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['inverted', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMMG291-005', question: 'Two triangles have all angles equal. They must be...', options: ['Congruent', 'Similar', 'Neither', 'Identical'], correctAnswer: 1, explanation: 'AAA proves similarity, not congruence', difficulty: 2, knowledge: { questionTokens: ['similar-shapes'], correctToken: 'similar-shapes', incorrectTokens: ['congruent-error', null, 'wrong', 'same-as-congruent'] } },
+                { id: 'VCMMG291-006', question: 'SAS stands for...', options: ['Side-Angle-Angle', 'Side-Angle-Side', 'Same-And-Similar', 'Side-All-Side'], correctAnswer: 1, explanation: 'SAS = Side-Angle-Side (the angle is between the two sides)', difficulty: 1, knowledge: { questionTokens: ['congruence-tests'], correctToken: 'congruence-tests', incorrectTokens: ['wrong-expansion', null, 'made-up', 'wrong-expansion'] } },
+                { id: 'VCMMG291-007', question: 'Similar triangles: small has sides 3, 4, 5. Large has sides 9, 12, ?', options: ['13', '15', '17', '10'], correctAnswer: 1, explanation: 'Scale factor = 9÷3 = 3. Missing side = 5×3 = 15', difficulty: 2, knowledge: { questionTokens: ['finding-missing-sides'], correctToken: 'finding-missing-sides', incorrectTokens: ['wrong-calculation', null, 'wrong-calculation', 'wrong-scale'] } },
+                { id: 'VCMMG291-008', question: 'Which is NOT a valid congruence test?', options: ['SSS', 'SAS', 'AAA', 'AAS'], correctAnswer: 2, explanation: 'AAA only proves similarity, not congruence', difficulty: 2, knowledge: { questionTokens: ['congruence-tests'], correctToken: 'congruence-tests', incorrectTokens: ['valid', 'valid', null, 'valid'] } },
+                { id: 'VCMMG291-009', question: 'A photo is enlarged with scale factor 3. Original width 4cm. New width?', options: ['7 cm', '12 cm', '1.33 cm', '4 cm'], correctAnswer: 1, explanation: 'New = original × scale factor = 4 × 3 = 12 cm', difficulty: 1, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['added', null, 'divided', 'no-change'] } },
+                { id: 'VCMMG291-010', question: 'Two right triangles have equal hypotenuses and one equal leg. Test?', options: ['SSS', 'SAS', 'RHS', 'AAS'], correctAnswer: 2, explanation: 'Right angle + Hypotenuse + Side = RHS', difficulty: 2, knowledge: { questionTokens: ['congruence-tests'], correctToken: 'congruence-tests', incorrectTokens: ['wrong-test', 'wrong-test', null, 'wrong-test'] } },
+                { id: 'VCMMG291-011', question: 'Scale factor is 0.5. This means the similar shape is...', options: ['Half the size', 'Double the size', 'Same size', 'Congruent'], correctAnswer: 0, explanation: 'Scale factor < 1 means reduction. 0.5 = half', difficulty: 2, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: [null, 'wrong-direction', 'no-change', 'congruent-confusion'] } },
+                { id: 'VCMMG291-012', question: 'All squares are...', options: ['Congruent', 'Similar', 'Neither', 'Only if same size'], correctAnswer: 1, explanation: 'All squares have equal angles (90°), so they are all similar', difficulty: 2, knowledge: { questionTokens: ['similar-shapes'], correctToken: 'similar-shapes', incorrectTokens: ['congruent-error', null, 'wrong', 'incomplete'] } },
+                { id: 'VCMMG291-013', question: 'Two triangles: sides 4,5,6 and 8,10,12. Are they congruent?', options: ['Yes', 'No, but similar', 'No, not related', 'Cannot tell'], correctAnswer: 1, explanation: 'Not same size (not congruent), but scale factor 2 (similar)', difficulty: 2, knowledge: { questionTokens: ['congruent-shapes', 'similar-shapes'], correctToken: 'similar-shapes', incorrectTokens: ['congruent-error', null, 'missed-relationship', 'gave-up'] } },
+                { id: 'VCMMG291-014', question: 'In similar triangles with scale factor 4, if a side is 3cm, corresponding side is...', options: ['7 cm', '12 cm', '0.75 cm', '3 cm'], correctAnswer: 1, explanation: 'Corresponding side = 3 × 4 = 12 cm', difficulty: 1, knowledge: { questionTokens: ['finding-missing-sides'], correctToken: 'finding-missing-sides', incorrectTokens: ['added', null, 'divided', 'no-change'] } },
+                { id: 'VCMMG291-015', question: 'AAS test requires...', options: ['All angles equal', 'Two angles and included side', 'Two angles and any side', 'Three sides'], correctAnswer: 2, explanation: 'AAS = two Angles and Any corresponding Side', difficulty: 2, knowledge: { questionTokens: ['congruence-tests'], correctToken: 'congruence-tests', incorrectTokens: ['aaa', 'asa-confusion', null, 'sss'] } },
+                { id: 'VCMMG291-016', question: 'Scale factor from shape A to B is 3. Scale factor from B to A is...', options: ['3', '1/3', '-3', '6'], correctAnswer: 1, explanation: 'Reverse scale factor is the reciprocal: 1/3', difficulty: 2, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['same', null, 'negative', 'doubled'] } },
+                { id: 'VCMMG291-017', question: 'Two congruent triangles are placed together. Are they still congruent to the original?', options: ['Yes', 'No', 'Only if reflected', 'Only sometimes'], correctAnswer: 0, explanation: 'Congruent triangles remain congruent regardless of position', difficulty: 2, knowledge: { questionTokens: ['congruent-shapes'], correctToken: 'congruent-shapes', incorrectTokens: [null, 'position-error', 'transformation-confusion', 'uncertain'] } },
+                { id: 'VCMMG291-018', question: 'Similar triangles: one has sides 6, 8, 10. Other has sides 9, 12, x. Find x.', options: ['14', '15', '16', '18'], correctAnswer: 1, explanation: 'Scale factor = 9÷6 = 1.5. x = 10 × 1.5 = 15', difficulty: 2, knowledge: { questionTokens: ['finding-missing-sides'], correctToken: 'finding-missing-sides', incorrectTokens: ['wrong-calculation', null, 'wrong-calculation', 'wrong-scale'] } },
+                { id: 'VCMMG291-019', question: 'A map has scale 1:50000. A distance of 3cm on map represents...', options: ['150 m', '1500 m', '15000 m', '150000 m'], correctAnswer: 1, explanation: '3 × 50000 = 150000 cm = 1500 m', difficulty: 3, knowledge: { questionTokens: ['scale-factor'], correctToken: 'scale-factor', incorrectTokens: ['wrong-conversion', null, 'wrong-calculation', 'wrong-conversion'] } },
+                { id: 'VCMMG291-020', question: 'Which transformation does NOT preserve congruence?', options: ['Rotation', 'Reflection', 'Enlargement', 'Translation'], correctAnswer: 2, explanation: 'Enlargement changes size, so shapes are no longer congruent', difficulty: 2, knowledge: { questionTokens: ['congruent-shapes'], correctToken: 'congruent-shapes', incorrectTokens: ['rotation-error', 'reflection-error', null, 'translation-error'] } },
+              ],
+            },
+            {
+              id: 'VCMMG292',
+              code: 'VCMMG292',
+              title: 'Transformations',
+              description: 'Define and describe translations, reflections, rotations and dilations on the Cartesian plane',
+              content: `# Transformations
+
+Transformations change the position, size, or orientation of shapes.
+
+## Translation (Slide)
+Move every point the same distance in the same direction.
+- Described by a vector: (x, y) means move x units right and y units up
+- Negative values: left (for x) or down (for y)
+- Shape stays the same size and orientation
+
+**Example:** Translate by (3, -2) means move 3 right and 2 down.
+
+## Reflection (Flip)
+Mirror image across a line (the axis of reflection).
+- Common axes: x-axis, y-axis, or lines like y = x
+- Reflecting in y-axis: (x, y) → (-x, y)
+- Reflecting in x-axis: (x, y) → (x, -y)
+- Shape stays the same size, orientation is reversed
+
+## Rotation (Turn)
+Turn around a fixed point (centre of rotation).
+- Described by: centre, angle, direction (clockwise/anticlockwise)
+- 90° anticlockwise: (x, y) → (-y, x)
+- 180°: (x, y) → (-x, -y)
+- Shape stays the same size
+
+## Dilation (Enlargement)
+Make shape larger or smaller from a centre point.
+- Scale factor > 1: enlargement
+- Scale factor between 0 and 1: reduction
+- Scale factor of 1: no change
+- Shape changes size but angles stay same
+
+## Isometry
+Transformations that preserve size and shape:
+- Translation, Reflection, Rotation are isometries
+- Dilation is NOT an isometry (changes size)`,
+              keyPoints: [
+                'Translation: slide by a vector',
+                'Reflection: flip across a line',
+                'Rotation: turn around a point',
+                'Dilation: enlarge or reduce from a centre',
+                'Isometries preserve size and shape',
+              ],
+              knowledgeTokens: [
+                { id: 'translation', name: 'Translation', description: 'Moving shapes by a vector' },
+                { id: 'reflection', name: 'Reflection', description: 'Flipping across an axis' },
+                { id: 'rotation', name: 'Rotation', description: 'Turning around a centre point' },
+                { id: 'dilation', name: 'Dilation', description: 'Enlarging or reducing shapes' },
+                { id: 'transformation-rules', name: 'Transformation Rules', description: 'Coordinate rules for transformations', prerequisites: ['translation', 'reflection', 'rotation'] },
+              ],
+              examples: [
+                { problem: 'Point (2, 5) is translated by vector (3, -1). New coordinates?', solution: '(5, 4)', explanation: '(2+3, 5-1) = (5, 4)' },
+                { problem: 'Point (4, -2) is reflected in the y-axis. New coordinates?', solution: '(-4, -2)', explanation: 'Reflecting in y-axis changes sign of x: (4, -2) → (-4, -2)' },
+              ],
+              questions: [
+                { id: 'VCMMG292-001', question: 'Translate point (3, 4) by vector (2, 5). New coordinates?', options: ['(5, 9)', '(1, -1)', '(6, 20)', '(5, 4)'], correctAnswer: 0, explanation: '(3+2, 4+5) = (5, 9)', difficulty: 1, knowledge: { questionTokens: ['translation'], correctToken: 'translation', incorrectTokens: [null, 'subtracted', 'multiplied', 'wrong-calculation'] } },
+                { id: 'VCMMG292-002', question: 'Reflect point (5, 3) in the y-axis. New coordinates?', options: ['(5, -3)', '(-5, 3)', '(-5, -3)', '(3, 5)'], correctAnswer: 1, explanation: 'Reflecting in y-axis: (x, y) → (-x, y)', difficulty: 1, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['x-axis', null, 'both-axes', 'swapped'] } },
+                { id: 'VCMMG292-003', question: 'Reflect point (2, -4) in the x-axis. New coordinates?', options: ['(-2, -4)', '(2, 4)', '(-2, 4)', '(4, 2)'], correctAnswer: 1, explanation: 'Reflecting in x-axis: (x, y) → (x, -y)', difficulty: 1, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['y-axis', null, 'both-axes', 'swapped'] } },
+                { id: 'VCMMG292-004', question: 'Which transformation is a slide?', options: ['Rotation', 'Reflection', 'Translation', 'Dilation'], correctAnswer: 2, explanation: 'Translation is also called a slide', difficulty: 1, knowledge: { questionTokens: ['translation'], correctToken: 'translation', incorrectTokens: ['wrong-name', 'wrong-name', null, 'wrong-name'] } },
+                { id: 'VCMMG292-005', question: 'Rotate (1, 0) by 90° anticlockwise about origin. New coordinates?', options: ['(0, 1)', '(0, -1)', '(-1, 0)', '(1, 0)'], correctAnswer: 0, explanation: '90° anticlockwise: (x, y) → (-y, x). (1, 0) → (0, 1)', difficulty: 2, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: [null, 'clockwise', '180-degrees', 'no-change'] } },
+                { id: 'VCMMG292-006', question: 'Translate (−2, 3) by vector (5, −4). New coordinates?', options: ['(3, -1)', '(-7, 7)', '(3, 7)', '(-7, -1)'], correctAnswer: 0, explanation: '(-2+5, 3-4) = (3, -1)', difficulty: 1, knowledge: { questionTokens: ['translation'], correctToken: 'translation', incorrectTokens: [null, 'subtracted-both', 'wrong-y', 'wrong-both'] } },
+                { id: 'VCMMG292-007', question: 'Which transformation changes the size of a shape?', options: ['Translation', 'Reflection', 'Rotation', 'Dilation'], correctAnswer: 3, explanation: 'Dilation (enlargement) changes size', difficulty: 1, knowledge: { questionTokens: ['dilation'], correctToken: 'dilation', incorrectTokens: ['isometry', 'isometry', 'isometry', null] } },
+                { id: 'VCMMG292-008', question: 'Rotate (0, 3) by 180° about origin. New coordinates?', options: ['(0, -3)', '(3, 0)', '(-3, 0)', '(0, 3)'], correctAnswer: 0, explanation: '180°: (x, y) → (-x, -y). (0, 3) → (0, -3)', difficulty: 2, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: [null, 'swapped', 'wrong', 'no-change'] } },
+                { id: 'VCMMG292-009', question: 'Point (2, 6) is dilated with scale factor 3 from origin. New coordinates?', options: ['(6, 18)', '(5, 9)', '(6, 9)', '(2/3, 2)'], correctAnswer: 0, explanation: 'Multiply both coordinates by 3: (2×3, 6×3) = (6, 18)', difficulty: 2, knowledge: { questionTokens: ['dilation'], correctToken: 'dilation', incorrectTokens: [null, 'added', 'mixed-up', 'divided'] } },
+                { id: 'VCMMG292-010', question: 'Reflect (−3, 2) in the y-axis. New coordinates?', options: ['(-3, -2)', '(3, 2)', '(3, -2)', '(2, -3)'], correctAnswer: 1, explanation: 'Reflecting in y-axis changes sign of x: (-3, 2) → (3, 2)', difficulty: 1, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['x-axis', null, 'both', 'swapped'] } },
+                { id: 'VCMMG292-011', question: 'Which are isometries (preserve size)?', options: ['Translation only', 'Dilation only', 'Translation, Reflection, Rotation', 'All transformations'], correctAnswer: 2, explanation: 'Translation, Reflection, and Rotation preserve size. Dilation does not.', difficulty: 2, knowledge: { questionTokens: ['transformation-rules'], correctToken: 'transformation-rules', incorrectTokens: ['incomplete', 'wrong', null, 'too-broad'] } },
+                { id: 'VCMMG292-012', question: 'Rotate (4, 0) by 90° clockwise about origin. New coordinates?', options: ['(0, 4)', '(0, -4)', '(-4, 0)', '(4, 0)'], correctAnswer: 1, explanation: '90° clockwise: (x, y) → (y, -x). (4, 0) → (0, -4)', difficulty: 2, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: ['anticlockwise', null, '180-degrees', 'no-change'] } },
+                { id: 'VCMMG292-013', question: 'A shape is translated by (a, b) then by (c, d). Combined translation?', options: ['(a+c, b+d)', '(ac, bd)', '(a-c, b-d)', '(c, d)'], correctAnswer: 0, explanation: 'Translations add: total = (a+c, b+d)', difficulty: 2, knowledge: { questionTokens: ['translation'], correctToken: 'translation', incorrectTokens: [null, 'multiplied', 'subtracted', 'second-only'] } },
+                { id: 'VCMMG292-014', question: 'Dilate (8, 4) with scale factor 0.5 from origin. New coordinates?', options: ['(4, 2)', '(16, 8)', '(8.5, 4.5)', '(4, 8)'], correctAnswer: 0, explanation: 'Multiply by 0.5: (8×0.5, 4×0.5) = (4, 2)', difficulty: 2, knowledge: { questionTokens: ['dilation'], correctToken: 'dilation', incorrectTokens: [null, 'wrong-factor', 'added', 'swapped'] } },
+                { id: 'VCMMG292-015', question: 'Reflect (1, 1) in line y = x. New coordinates?', options: ['(-1, -1)', '(1, 1)', '(-1, 1)', '(1, 1)'], correctAnswer: 1, explanation: 'Reflecting in y = x swaps x and y. (1, 1) → (1, 1) - same point!', difficulty: 3, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['negated', null, 'wrong', 'different'] } },
+                { id: 'VCMMG292-016', question: 'Rotate (−2, 3) by 180° about origin. New coordinates?', options: ['(2, -3)', '(-2, -3)', '(3, -2)', '(-3, 2)'], correctAnswer: 0, explanation: '180°: (x, y) → (-x, -y). (-2, 3) → (2, -3)', difficulty: 2, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: [null, 'only-y', 'swapped', 'swapped-wrong'] } },
+                { id: 'VCMMG292-017', question: 'Reflect (5, −2) in the line y = 0 (x-axis). New coordinates?', options: ['(-5, -2)', '(5, 2)', '(-5, 2)', '(2, -5)'], correctAnswer: 1, explanation: 'y = 0 is the x-axis. Reflect: (5, -2) → (5, 2)', difficulty: 2, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: ['y-axis', null, 'both', 'swapped'] } },
+                { id: 'VCMMG292-018', question: 'A triangle is rotated 360° about a point. The result is...', options: ['A different triangle', 'Same position', 'Reflected triangle', 'Larger triangle'], correctAnswer: 1, explanation: '360° rotation returns shape to original position', difficulty: 1, knowledge: { questionTokens: ['rotation'], correctToken: 'rotation', incorrectTokens: ['changed', null, 'reflected', 'enlarged'] } },
+                { id: 'VCMMG292-019', question: 'Point (3, 4) undergoes dilation with centre origin and scale factor 2. Distance from origin?', options: ['5', '10', '7', '14'], correctAnswer: 1, explanation: 'Original distance = √(9+16) = 5. New distance = 5 × 2 = 10', difficulty: 3, knowledge: { questionTokens: ['dilation'], correctToken: 'dilation', incorrectTokens: ['original', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMMG292-020', question: 'Reflect (2, 5) in line y = x. New coordinates?', options: ['(5, 2)', '(-2, -5)', '(2, -5)', '(-5, -2)'], correctAnswer: 0, explanation: 'Reflecting in y = x swaps x and y: (2, 5) → (5, 2)', difficulty: 2, knowledge: { questionTokens: ['reflection'], correctToken: 'reflection', incorrectTokens: [null, 'negated', 'wrong-axis', 'both-wrong'] } },
+              ],
+            },
+            {
+              id: 'VCMMG293',
+              code: 'VCMMG293',
+              title: 'Time Zones and Duration',
+              description: 'Solve problems involving duration, including using 12- and 24-hour time within a single time zone',
+              content: `# Time Zones and Duration
+
+Understanding time involves calculations with hours, minutes, and seconds, as well as different time zones.
+
+## 12-Hour and 24-Hour Time
+
+### 12-Hour Time
+- Uses AM (midnight to noon) and PM (noon to midnight)
+- Examples: 9:30 AM, 2:15 PM
+
+### 24-Hour Time
+- Uses 00:00 to 23:59
+- No AM/PM needed
+- Examples: 09:30 (9:30 AM), 14:15 (2:15 PM)
+
+### Converting Between Formats
+- AM times: Same number (but add leading 0 if needed)
+- PM times: Add 12 to the hour
+- 12:00 PM = 12:00, 12:00 AM = 00:00
+- 2:30 PM = 14:30, 8:45 PM = 20:45
+
+## Calculating Duration
+
+### Finding Time Elapsed
+Method 1: Count on
+- From 9:45 to 11:20
+- 9:45 → 10:00 (15 min) → 11:00 (60 min) → 11:20 (20 min)
+- Total: 1 hour 35 minutes
+
+Method 2: Subtract (with borrowing)
+- 11:20 - 9:45 (borrow 60 minutes)
+- 10:80 - 9:45 = 1:35
+
+## Time Zones
+
+### Australian Time Zones
+- AEST (Australian Eastern Standard Time): NSW, VIC, QLD, TAS, ACT
+- ACST (Australian Central Standard Time): SA, NT - 30 min behind AEST
+- AWST (Australian Western Standard Time): WA - 2 hours behind AEST
+
+### Daylight Saving
+- Clocks go forward 1 hour in summer
+- AEDT, ACDT are daylight saving versions
+- QLD, WA, NT don't observe daylight saving
+
+### International Time Zones
+- Based on UTC (Coordinated Universal Time)
+- Australia is UTC+8 to UTC+11
+- Moving East: time increases
+- Moving West: time decreases`,
+              keyPoints: [
+                '24-hour time: add 12 to PM hours',
+                'Calculate duration by counting on or subtracting',
+                'Australia has 3 main time zones',
+                'Moving East gains time, moving West loses time',
+                'Daylight saving adds 1 hour in summer',
+              ],
+              knowledgeTokens: [
+                { id: 'time-formats', name: 'Time Formats', description: 'Converting between 12-hour and 24-hour time' },
+                { id: 'calculating-duration', name: 'Calculating Duration', description: 'Finding time elapsed between two times' },
+                { id: 'australian-time-zones', name: 'Australian Time Zones', description: 'AEST, ACST, AWST and differences' },
+                { id: 'international-time-zones', name: 'International Time Zones', description: 'UTC and time zone calculations', prerequisites: ['australian-time-zones'] },
+                { id: 'daylight-saving', name: 'Daylight Saving', description: 'Understanding DST adjustments', prerequisites: ['australian-time-zones'] },
+              ],
+              examples: [
+                { problem: 'Convert 3:45 PM to 24-hour time', solution: '15:45', explanation: '3 + 12 = 15, so 3:45 PM = 15:45' },
+                { problem: 'It is 2:00 PM in Sydney (AEST). What time is it in Perth (AWST)?', solution: '12:00 PM', explanation: 'Perth is 2 hours behind Sydney: 2:00 PM - 2 hours = 12:00 PM' },
+              ],
+              questions: [
+                { id: 'VCMMG293-001', question: 'Convert 2:30 PM to 24-hour time', options: ['2:30', '14:30', '12:30', '24:30'], correctAnswer: 1, explanation: '2 + 12 = 14, so 2:30 PM = 14:30', difficulty: 1, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['no-conversion', null, 'wrong-addition', 'impossible-time'] } },
+                { id: 'VCMMG293-002', question: 'Convert 17:45 to 12-hour time', options: ['7:45 AM', '7:45 PM', '5:45 PM', '5:45 AM'], correctAnswer: 2, explanation: '17 - 12 = 5, so 17:45 = 5:45 PM', difficulty: 1, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['wrong-calculation', 'wrong-subtraction', null, 'wrong-period'] } },
+                { id: 'VCMMG293-003', question: 'What is 12:00 AM in 24-hour time?', options: ['12:00', '24:00', '00:00', '0:00 AM'], correctAnswer: 2, explanation: '12:00 AM (midnight) = 00:00 in 24-hour time', difficulty: 2, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['noon-confusion', 'impossible-time', null, 'wrong-format'] } },
+                { id: 'VCMMG293-004', question: 'How long from 9:30 AM to 2:15 PM?', options: ['4 hours 45 minutes', '5 hours 15 minutes', '4 hours 15 minutes', '5 hours 45 minutes'], correctAnswer: 0, explanation: '9:30 → 2:30 = 5 hours. 2:30 → 2:15 = -15 min. Total = 4h 45min', difficulty: 2, knowledge: { questionTokens: ['calculating-duration'], correctToken: 'calculating-duration', incorrectTokens: [null, 'wrong-calculation', 'subtracted-wrong', 'added-wrong'] } },
+                { id: 'VCMMG293-005', question: 'Convert 8:20 AM to 24-hour time', options: ['8:20', '08:20', '20:20', '20:08'], correctAnswer: 1, explanation: 'AM times stay the same but need leading zero: 08:20', difficulty: 1, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['no-leading-zero', null, 'added-12', 'reversed'] } },
+                { id: 'VCMMG293-006', question: 'A movie starts at 19:30 and goes for 2 hours 15 minutes. When does it end?', options: ['21:45', '21:15', '22:45', '17:15'], correctAnswer: 0, explanation: '19:30 + 2:15 = 21:45', difficulty: 2, knowledge: { questionTokens: ['calculating-duration'], correctToken: 'calculating-duration', incorrectTokens: [null, 'forgot-minutes', 'wrong-addition', 'subtracted'] } },
+                { id: 'VCMMG293-007', question: 'It is 3:00 PM in Sydney (AEST). What time is it in Adelaide (ACST)?', options: ['2:00 PM', '2:30 PM', '3:30 PM', '1:00 PM'], correctAnswer: 1, explanation: 'Adelaide is 30 minutes behind Sydney: 3:00 PM - 30 min = 2:30 PM', difficulty: 2, knowledge: { questionTokens: ['australian-time-zones'], correctToken: 'australian-time-zones', incorrectTokens: ['wrong-difference', null, 'added-instead', 'wrong-hours'] } },
+                { id: 'VCMMG293-008', question: 'Convert 23:15 to 12-hour time', options: ['11:15 AM', '11:15 PM', '1:15 AM', '1:15 PM'], correctAnswer: 1, explanation: '23 - 12 = 11, and it\'s after noon so PM: 11:15 PM', difficulty: 1, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['wrong-period', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMMG293-009', question: 'How many hours difference between Perth (AWST) and Sydney (AEST)?', options: ['1 hour', '2 hours', '3 hours', '30 minutes'], correctAnswer: 1, explanation: 'AWST is 2 hours behind AEST', difficulty: 1, knowledge: { questionTokens: ['australian-time-zones'], correctToken: 'australian-time-zones', incorrectTokens: ['wrong-difference', null, 'wrong-difference', 'adelaide-confusion'] } },
+                { id: 'VCMMG293-010', question: 'A flight leaves at 10:45 and takes 3 hours 40 minutes. Arrival time?', options: ['14:25', '13:85', '14:85', '13:25'], correctAnswer: 0, explanation: '10:45 + 3:40 = 13:85 = 14:25 (85 min = 1h 25min)', difficulty: 2, knowledge: { questionTokens: ['calculating-duration'], correctToken: 'calculating-duration', incorrectTokens: [null, 'no-conversion', 'no-conversion', 'wrong-addition'] } },
+                { id: 'VCMMG293-011', question: 'What is 12:00 PM in 24-hour time?', options: ['00:00', '12:00', '24:00', '12:00 PM'], correctAnswer: 1, explanation: '12:00 PM (noon) = 12:00 in 24-hour time', difficulty: 1, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['midnight-confusion', null, 'impossible-time', 'wrong-format'] } },
+                { id: 'VCMMG293-012', question: 'A train leaves at 08:45 and arrives at 11:20. Journey time?', options: ['2 hours 35 minutes', '3 hours 25 minutes', '2 hours 25 minutes', '3 hours 35 minutes'], correctAnswer: 0, explanation: '11:20 - 08:45 = 10:80 - 08:45 = 2h 35min', difficulty: 2, knowledge: { questionTokens: ['calculating-duration'], correctToken: 'calculating-duration', incorrectTokens: [null, 'wrong-borrow', 'wrong-subtraction', 'added'] } },
+                { id: 'VCMMG293-013', question: 'It is 9:00 AM in Melbourne. What time is it in Perth?', options: ['7:00 AM', '11:00 AM', '9:30 AM', '6:30 AM'], correctAnswer: 0, explanation: 'Perth is 2 hours behind Melbourne: 9:00 AM - 2 = 7:00 AM', difficulty: 2, knowledge: { questionTokens: ['australian-time-zones'], correctToken: 'australian-time-zones', incorrectTokens: [null, 'added-instead', 'adelaide-time', 'wrong-difference'] } },
+                { id: 'VCMMG293-014', question: 'During daylight saving, if AEST is 2:00 PM, what is AEDT?', options: ['1:00 PM', '2:00 PM', '3:00 PM', '12:00 PM'], correctAnswer: 2, explanation: 'AEDT is 1 hour ahead of AEST: 2:00 PM + 1 = 3:00 PM', difficulty: 2, knowledge: { questionTokens: ['daylight-saving'], correctToken: 'daylight-saving', incorrectTokens: ['subtracted', 'no-change', null, 'wrong-calculation'] } },
+                { id: 'VCMMG293-015', question: 'Convert 00:30 to 12-hour time', options: ['12:30 PM', '12:30 AM', '0:30 AM', '24:30'], correctAnswer: 1, explanation: '00:30 is 30 minutes past midnight = 12:30 AM', difficulty: 2, knowledge: { questionTokens: ['time-formats'], correctToken: 'time-formats', incorrectTokens: ['noon-confusion', null, 'wrong-format', 'impossible-time'] } },
+                { id: 'VCMMG293-016', question: 'A meeting runs from 14:30 to 16:45. How long is it?', options: ['2 hours 15 minutes', '2 hours 45 minutes', '1 hour 45 minutes', '2 hours 25 minutes'], correctAnswer: 0, explanation: '16:45 - 14:30 = 2:15', difficulty: 1, knowledge: { questionTokens: ['calculating-duration'], correctToken: 'calculating-duration', incorrectTokens: [null, 'wrong-subtraction', 'wrong-calculation', 'wrong-subtraction'] } },
+                { id: 'VCMMG293-017', question: 'If it is 5:00 PM Tuesday in Sydney, what time is it in Perth?', options: ['3:00 PM Tuesday', '7:00 PM Tuesday', '5:00 PM Wednesday', '3:00 PM Wednesday'], correctAnswer: 0, explanation: 'Perth is 2 hours behind: 5:00 PM - 2 = 3:00 PM, same day', difficulty: 2, knowledge: { questionTokens: ['australian-time-zones'], correctToken: 'australian-time-zones', incorrectTokens: [null, 'added-instead', 'wrong-day', 'both-wrong'] } },
+                { id: 'VCMMG293-018', question: 'Which Australian state does NOT observe daylight saving?', options: ['Victoria', 'New South Wales', 'Queensland', 'Tasmania'], correctAnswer: 2, explanation: 'Queensland, WA, and NT do not observe daylight saving', difficulty: 2, knowledge: { questionTokens: ['daylight-saving'], correctToken: 'daylight-saving', incorrectTokens: ['wrong', 'wrong', null, 'wrong'] } },
+                { id: 'VCMMG293-019', question: 'A plane leaves Sydney at 11:00 AM and arrives in Perth at 1:30 PM (Perth time). Flight duration?', options: ['2 hours 30 minutes', '4 hours 30 minutes', '3 hours 30 minutes', '5 hours 30 minutes'], correctAnswer: 1, explanation: '11:00 AM Sydney = 9:00 AM Perth. 9:00 AM to 1:30 PM = 4h 30min', difficulty: 3, knowledge: { questionTokens: ['australian-time-zones', 'calculating-duration'], correctToken: 'calculating-duration', incorrectTokens: ['no-timezone', null, 'wrong-conversion', 'added-instead'] } },
+                { id: 'VCMMG293-020', question: 'If UTC time is 10:00, what time is it in Sydney (UTC+11)?', options: ['21:00', '23:00', '01:00', '10:00'], correctAnswer: 0, explanation: 'Sydney is UTC+11, so 10:00 + 11 = 21:00', difficulty: 3, knowledge: { questionTokens: ['international-time-zones'], correctToken: 'international-time-zones', incorrectTokens: [null, 'wrong-addition', 'wrong-direction', 'no-calculation'] } },
+              ],
+            },
           ],
         },
       ],
@@ -3280,6 +3716,102 @@ Different types of graphs are suited to different types of data.
                 { id: 'VCMSP300-018', question: 'What does a downward trend on a scatter plot indicate?', options: ['Positive correlation', 'Negative correlation', 'No correlation', 'Perfect correlation'], correctAnswer: 1, explanation: 'Downward trend = as one variable increases, other decreases = negative', difficulty: 2, knowledge: { questionTokens: ['scatter-plots'], correctToken: 'scatter-plots', incorrectTokens: ['positive-confusion', null, 'no-pattern', 'perfect-confusion'] } },
                 { id: 'VCMSP300-019', question: 'Survey results show: 20 prefer A, 15 prefer B, 25 prefer C. Total degrees for A in pie chart?', options: ['20°', '120°', '72°', '100°'], correctAnswer: 1, explanation: 'Total = 60. A = 20/60 = 1/3. Angle = 360 × 1/3 = 120°', difficulty: 3, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['count-as-angle', null, 'wrong-calculation', 'wrong-calculation'] } },
                 { id: 'VCMSP300-020', question: 'Which statement about outliers in a scatter plot is TRUE?', options: ['They should be removed', 'They are points far from the pattern', 'They prove correlation', 'They always indicate errors'], correctAnswer: 1, explanation: 'Outliers are points far from the general pattern - they may or may not be errors', difficulty: 2, knowledge: { questionTokens: ['scatter-plots'], correctToken: 'scatter-plots', incorrectTokens: ['remove-assumption', null, 'prove-error', 'error-assumption'] } },
+              ],
+            },
+            {
+              id: 'VCMSP301',
+              code: 'VCMSP301',
+              title: 'Sampling and Surveys',
+              description: 'Investigate techniques for collecting data, including census, sampling and observation',
+              content: `# Sampling and Surveys
+
+Data collection methods affect the reliability and usefulness of results.
+
+## Census vs Sample
+
+### Census
+- Collects data from **every** member of a population
+- Accurate but expensive and time-consuming
+- Example: National census every 5 years
+
+### Sample
+- Collects data from a **subset** of the population
+- Quicker and cheaper
+- Must be representative of the population
+
+## Sampling Methods
+
+### Random Sampling
+- Each member has equal chance of selection
+- Removes bias
+- Example: Draw names from a hat
+
+### Systematic Sampling
+- Select every nth member
+- Example: Every 10th student on a roll
+
+### Stratified Sampling
+- Population divided into groups (strata)
+- Sample proportionally from each group
+- Example: Sample same % of boys and girls
+
+### Convenience Sampling
+- Choose whoever is available
+- Quick but often biased
+- Example: Survey people in a mall
+
+## Sources of Bias
+
+- **Selection bias**: Sample not representative
+- **Question bias**: Leading or confusing questions
+- **Response bias**: People don't answer truthfully
+- **Non-response bias**: Some people don't respond
+
+## Designing Good Surveys
+- Use clear, neutral questions
+- Avoid leading questions
+- Include all relevant options
+- Test survey before using
+- Ensure sample is representative`,
+              keyPoints: [
+                'Census: every member; Sample: subset of population',
+                'Random sampling gives everyone equal chance',
+                'Stratified sampling ensures proportional representation',
+                'Bias can affect data collection reliability',
+                'Good survey design uses neutral, clear questions',
+              ],
+              knowledgeTokens: [
+                { id: 'census-vs-sample', name: 'Census vs Sample', description: 'Understanding when to use each method' },
+                { id: 'random-sampling', name: 'Random Sampling', description: 'Equal chance selection method' },
+                { id: 'stratified-sampling', name: 'Stratified Sampling', description: 'Proportional sampling from groups' },
+                { id: 'sampling-bias', name: 'Sampling Bias', description: 'Sources of error in data collection', prerequisites: ['census-vs-sample'] },
+                { id: 'survey-design', name: 'Survey Design', description: 'Creating effective questionnaires', prerequisites: ['sampling-bias'] },
+              ],
+              examples: [
+                { problem: 'A school has 400 boys and 600 girls. For a stratified sample of 50 students, how many boys?', solution: '20 boys', explanation: 'Boys = 400/1000 = 40%. So 40% of 50 = 20 boys' },
+                { problem: 'Is "Don\'t you agree exercise is important?" a good survey question?', solution: 'No - it\'s a leading question', explanation: 'The question pushes respondents toward "yes"' },
+              ],
+              questions: [
+                { id: 'VCMSP301-001', question: 'A census collects data from...', options: ['A random sample', 'Every member of the population', 'Only volunteers', 'The largest group'], correctAnswer: 1, explanation: 'Census = data from every member of the population', difficulty: 1, knowledge: { questionTokens: ['census-vs-sample'], correctToken: 'census-vs-sample', incorrectTokens: ['sample-confusion', null, 'volunteer-error', 'largest-error'] } },
+                { id: 'VCMSP301-002', question: 'Which sampling method gives everyone equal chance of selection?', options: ['Convenience', 'Random', 'Stratified', 'Systematic'], correctAnswer: 1, explanation: 'Random sampling gives each member equal probability', difficulty: 1, knowledge: { questionTokens: ['random-sampling'], correctToken: 'random-sampling', incorrectTokens: ['convenience-error', null, 'stratified-error', 'systematic-error'] } },
+                { id: 'VCMSP301-003', question: 'Surveying only your friends about favourite music is likely to have...', options: ['No bias', 'Selection bias', 'Response bias', 'Perfect accuracy'], correctAnswer: 1, explanation: 'Friends may have similar tastes - not representative of wider population', difficulty: 2, knowledge: { questionTokens: ['sampling-bias'], correctToken: 'sampling-bias', incorrectTokens: ['no-bias', null, 'response-confusion', 'accuracy-error'] } },
+                { id: 'VCMSP301-004', question: 'A population has 60% adults and 40% children. A stratified sample of 100 should have how many children?', options: ['40', '50', '60', '100'], correctAnswer: 0, explanation: '40% of 100 = 40 children', difficulty: 2, knowledge: { questionTokens: ['stratified-sampling'], correctToken: 'stratified-sampling', incorrectTokens: [null, 'half-error', 'adults', 'whole-error'] } },
+                { id: 'VCMSP301-005', question: 'Which is an advantage of using a sample instead of a census?', options: ['More accurate', 'Faster and cheaper', 'No bias', 'Includes everyone'], correctAnswer: 1, explanation: 'Samples are faster and cheaper than surveying everyone', difficulty: 1, knowledge: { questionTokens: ['census-vs-sample'], correctToken: 'census-vs-sample', incorrectTokens: ['accuracy-confusion', null, 'bias-error', 'census-description'] } },
+                { id: 'VCMSP301-006', question: '"Do you agree our amazing new product is the best?" This question has...', options: ['No issues', 'Question bias', 'Good neutrality', 'Random sampling'], correctAnswer: 1, explanation: 'Words like "amazing" and "best" are leading and biased', difficulty: 2, knowledge: { questionTokens: ['survey-design'], correctToken: 'survey-design', incorrectTokens: ['no-issue-error', null, 'neutral-error', 'sampling-confusion'] } },
+                { id: 'VCMSP301-007', question: 'Selecting every 5th person from a list is called...', options: ['Random sampling', 'Convenience sampling', 'Systematic sampling', 'Stratified sampling'], correctAnswer: 2, explanation: 'Selecting every nth item is systematic sampling', difficulty: 1, knowledge: { questionTokens: ['random-sampling'], correctToken: 'random-sampling', incorrectTokens: ['random-confusion', 'convenience-error', null, 'stratified-error'] } },
+                { id: 'VCMSP301-008', question: 'A sample is biased if...', options: ['It is too small', 'It is not representative of the population', 'It uses random selection', 'It includes everyone'], correctAnswer: 1, explanation: 'Bias means the sample doesn\'t represent the population well', difficulty: 2, knowledge: { questionTokens: ['sampling-bias'], correctToken: 'sampling-bias', incorrectTokens: ['size-error', null, 'random-error', 'census-confusion'] } },
+                { id: 'VCMSP301-009', question: 'Why might a census be impractical for counting fish in a lake?', options: ['Fish can\'t read surveys', 'Impossible to catch every fish', 'Census is too accurate', 'Fish don\'t have opinions'], correctAnswer: 1, explanation: 'You cannot realistically count every single fish', difficulty: 2, knowledge: { questionTokens: ['census-vs-sample'], correctToken: 'census-vs-sample', incorrectTokens: ['silly-answer', null, 'accuracy-confusion', 'opinion-error'] } },
+                { id: 'VCMSP301-010', question: 'For a school with Years 7-12, which ensures each year level is represented?', options: ['Random sampling', 'Convenience sampling', 'Stratified sampling', 'Voluntary response'], correctAnswer: 2, explanation: 'Stratified sampling ensures each group (year level) is represented', difficulty: 2, knowledge: { questionTokens: ['stratified-sampling'], correctToken: 'stratified-sampling', incorrectTokens: ['random-error', 'convenience-error', null, 'voluntary-error'] } },
+                { id: 'VCMSP301-011', question: 'Survey response rate is 20%. This could cause...', options: ['Selection bias', 'Non-response bias', 'Question bias', 'No bias at all'], correctAnswer: 1, explanation: 'Low response rate means non-responders might differ from responders', difficulty: 2, knowledge: { questionTokens: ['sampling-bias'], correctToken: 'sampling-bias', incorrectTokens: ['selection-confusion', null, 'question-confusion', 'no-bias-error'] } },
+                { id: 'VCMSP301-012', question: 'Which question is neutral and unbiased?', options: ['Don\'t you think homework is too much?', 'Do you hate or love homework?', 'How do you feel about the amount of homework assigned?', 'Homework is great, right?'], correctAnswer: 2, explanation: 'This question is neutral and doesn\'t suggest an answer', difficulty: 2, knowledge: { questionTokens: ['survey-design'], correctToken: 'survey-design', incorrectTokens: ['leading-negative', 'extreme-options', null, 'leading-positive'] } },
+                { id: 'VCMSP301-013', question: 'A town has 30,000 residents. A sample of 300 is selected. What percentage is sampled?', options: ['1%', '10%', '0.1%', '100%'], correctAnswer: 0, explanation: '300/30,000 = 0.01 = 1%', difficulty: 2, knowledge: { questionTokens: ['census-vs-sample'], correctToken: 'census-vs-sample', incorrectTokens: [null, 'calculation-error', 'decimal-error', 'census-confusion'] } },
+                { id: 'VCMSP301-014', question: 'Surveying people at a gym about exercise habits would likely produce...', options: ['Unbiased results', 'Results biased toward more exercise', 'Random results', 'Census data'], correctAnswer: 1, explanation: 'Gym-goers exercise more than average - sample is biased', difficulty: 2, knowledge: { questionTokens: ['sampling-bias'], correctToken: 'sampling-bias', incorrectTokens: ['unbiased-error', null, 'random-error', 'census-confusion'] } },
+                { id: 'VCMSP301-015', question: 'Population: 200 seniors, 300 juniors. Stratified sample of 50. How many seniors?', options: ['20', '25', '30', '50'], correctAnswer: 0, explanation: 'Seniors = 200/500 = 40%. 40% of 50 = 20', difficulty: 3, knowledge: { questionTokens: ['stratified-sampling'], correctToken: 'stratified-sampling', incorrectTokens: [null, 'half-error', 'juniors', 'all-error'] } },
+                { id: 'VCMSP301-016', question: 'Which is a disadvantage of a census?', options: ['Not accurate', 'Too expensive and time-consuming', 'Sample is too small', 'Results are biased'], correctAnswer: 1, explanation: 'Census requires surveying everyone - very expensive and slow', difficulty: 1, knowledge: { questionTokens: ['census-vs-sample'], correctToken: 'census-vs-sample', incorrectTokens: ['accuracy-error', null, 'sample-confusion', 'bias-error'] } },
+                { id: 'VCMSP301-017', question: 'To avoid response bias, surveys should...', options: ['Use leading questions', 'Be anonymous when possible', 'Only ask friends', 'Ignore some answers'], correctAnswer: 1, explanation: 'Anonymous surveys encourage honest responses', difficulty: 2, knowledge: { questionTokens: ['survey-design'], correctToken: 'survey-design', incorrectTokens: ['leading-error', null, 'selection-error', 'ignore-error'] } },
+                { id: 'VCMSP301-018', question: 'A random number generator selects student IDs for a survey. This is...', options: ['Convenience sampling', 'Stratified sampling', 'Random sampling', 'Systematic sampling'], correctAnswer: 2, explanation: 'Random number generator gives each student equal chance', difficulty: 1, knowledge: { questionTokens: ['random-sampling'], correctToken: 'random-sampling', incorrectTokens: ['convenience-error', 'stratified-error', null, 'systematic-error'] } },
+                { id: 'VCMSP301-019', question: 'Why might stratified sampling be better than simple random sampling for a school survey?', options: ['It\'s faster', 'It ensures all year levels are represented', 'It requires fewer people', 'It\'s more random'], correctAnswer: 1, explanation: 'Stratified sampling guarantees representation from each group', difficulty: 3, knowledge: { questionTokens: ['stratified-sampling'], correctToken: 'stratified-sampling', incorrectTokens: ['speed-error', null, 'size-error', 'random-error'] } },
+                { id: 'VCMSP301-020', question: 'A survey option reads: "Excellent, Very Good, Good, Fair, Poor". This is a...', options: ['Biased scale', 'Balanced rating scale', 'Leading question', 'Yes/no question'], correctAnswer: 0, explanation: 'Three positive options (Excellent, Very Good, Good) vs two neutral/negative is unbalanced', difficulty: 3, knowledge: { questionTokens: ['survey-design'], correctToken: 'survey-design', incorrectTokens: [null, 'balanced-error', 'leading-confusion', 'type-error'] } },
               ],
             },
           ],
