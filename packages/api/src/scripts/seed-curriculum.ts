@@ -250,20 +250,24 @@ async function main() {
 ====================================
 Table: ${TABLE_NAME}
 Mode: ${cleanMode ? 'Clean & Re-seed' : 'Seed/Update'}
-Years: ${specificYear ? `Year ${specificYear} only` : 'All (3, 4, 5, 6)'}
+Years: ${specificYear ? `Year ${specificYear} only` : 'All (1, 3, 4, 5, 6, 8)'}
   `);
 
   // Import all curriculum data
+  const { year1Maths } = await import('../../../curriculum/src/maths/year1');
   const { year3Maths } = await import('../../../curriculum/src/maths/year3');
   const { year4Maths } = await import('../../../curriculum/src/maths/year4');
   const { year5Maths } = await import('../../../curriculum/src/maths/year5');
   const { year6Maths } = await import('../../../curriculum/src/maths/year6');
+  const { year8Maths } = await import('../../../curriculum/src/maths/year8');
 
   const allYears: YearCurriculum[] = [
+    year1Maths as YearCurriculum,
     year3Maths as YearCurriculum,
     year4Maths as YearCurriculum,
     year5Maths as YearCurriculum,
     year6Maths as YearCurriculum,
+    year8Maths as YearCurriculum,
   ];
 
   const yearsToSeed = specificYear
