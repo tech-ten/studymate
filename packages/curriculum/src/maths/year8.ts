@@ -2694,6 +2694,188 @@ Sometimes we have two conditions:
                 { id: 'VCMNA285-020', question: 'Which represents "all numbers greater than 2 OR less than -1"?', options: ['−1 < x < 2', 'x < −1 or x > 2', 'x ≤ −1 and x ≥ 2', '−1 ≤ x ≤ 2'], correctAnswer: 1, explanation: '"OR" means either condition: x < -1 or x > 2', difficulty: 3, knowledge: { questionTokens: ['compound-inequalities'], correctToken: 'compound-inequalities', incorrectTokens: ['between', null, 'and-error', 'between-inclusive'] } },
               ],
             },
+            {
+              id: 'VCMNA283',
+              code: 'VCMNA283',
+              title: 'Equations with Fractions',
+              description: 'Solve linear equations involving simple algebraic fractions',
+              content: `# Equations with Fractions
+
+Solving equations with fractions requires clearing denominators or working with algebraic fractions.
+
+## Method 1: Clear the Denominator
+
+Multiply both sides by the denominator to eliminate the fraction.
+
+### Example: x/3 = 5
+- Multiply both sides by 3
+- x = 15
+
+### Example: (x + 2)/4 = 3
+- Multiply both sides by 4
+- x + 2 = 12
+- x = 10
+
+## Method 2: Cross-Multiplication
+
+For equations like a/b = c/d, cross-multiply: ad = bc
+
+### Example: x/3 = 4/6
+- Cross-multiply: 6x = 12
+- x = 2
+
+## Equations with Multiple Fractions
+
+Find the LCM of denominators and multiply through.
+
+### Example: x/2 + x/3 = 5
+- LCM of 2 and 3 is 6
+- Multiply all terms by 6: 3x + 2x = 30
+- 5x = 30
+- x = 6
+
+## Fractions on Both Sides
+
+### Example: (x + 1)/2 = (x - 3)/4
+- Cross-multiply: 4(x + 1) = 2(x - 3)
+- 4x + 4 = 2x - 6
+- 2x = -10
+- x = -5
+
+## Checking Solutions
+
+Always substitute back to verify your answer works in the original equation.`,
+              keyPoints: [
+                'Multiply both sides by denominator to clear fractions',
+                'Cross-multiply when fraction equals fraction',
+                'Find LCM when adding/subtracting fractions',
+                'Always check solution by substituting back',
+              ],
+              knowledgeTokens: [
+                { id: 'clearing-denominators', name: 'Clearing Denominators', description: 'Multiplying to remove fractions' },
+                { id: 'cross-multiplication', name: 'Cross-Multiplication', description: 'Solving a/b = c/d equations' },
+                { id: 'lcm-fractions', name: 'LCM for Fractions', description: 'Finding common denominators', prerequisites: ['clearing-denominators'] },
+                { id: 'fraction-both-sides', name: 'Fractions Both Sides', description: 'Solving complex fraction equations', prerequisites: ['cross-multiplication'] },
+              ],
+              examples: [
+                { problem: 'Solve: x/5 = 4', solution: 'x = 20', explanation: 'Multiply both sides by 5: x = 20' },
+                { problem: 'Solve: x/2 + x/4 = 6', solution: 'x = 8', explanation: 'LCM = 4: 2x + x = 24, 3x = 24, x = 8' },
+              ],
+              questions: [
+                { id: 'VCMNA283-001', question: 'Solve: x/4 = 3', options: ['x = 12', 'x = 7', 'x = 3/4', 'x = 0.75'], correctAnswer: 0, explanation: 'Multiply both sides by 4: x = 12', difficulty: 1, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: [null, 'added', 'divided', 'decimal-error'] } },
+                { id: 'VCMNA283-002', question: 'Solve: x/6 = 2', options: ['x = 3', 'x = 8', 'x = 12', 'x = 1/3'], correctAnswer: 2, explanation: 'Multiply both sides by 6: x = 12', difficulty: 1, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: ['divided', 'added', null, 'inverted'] } },
+                { id: 'VCMNA283-003', question: 'Solve: (x + 1)/3 = 4', options: ['x = 11', 'x = 13', 'x = 12', 'x = 3'], correctAnswer: 0, explanation: 'x + 1 = 12, so x = 11', difficulty: 1, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: [null, 'forgot-subtract', 'no-subtract', 'wrong-calculation'] } },
+                { id: 'VCMNA283-004', question: 'Solve: x/2 = 3/6', options: ['x = 1', 'x = 9', 'x = 1/2', 'x = 6'], correctAnswer: 0, explanation: 'Cross-multiply: 6x = 6, x = 1', difficulty: 2, knowledge: { questionTokens: ['cross-multiplication'], correctToken: 'cross-multiplication', incorrectTokens: [null, 'wrong-calculation', 'fraction-form', 'wrong-operation'] } },
+                { id: 'VCMNA283-005', question: 'Solve: 2x/5 = 4', options: ['x = 10', 'x = 20', 'x = 8/5', 'x = 2'], correctAnswer: 0, explanation: '2x = 20, x = 10', difficulty: 1, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: [null, 'forgot-divide', 'no-simplify', 'wrong-division'] } },
+                { id: 'VCMNA283-006', question: 'Solve: x/3 + x/3 = 8', options: ['x = 12', 'x = 8', 'x = 24', 'x = 4'], correctAnswer: 0, explanation: '2x/3 = 8, 2x = 24, x = 12', difficulty: 2, knowledge: { questionTokens: ['lcm-fractions'], correctToken: 'lcm-fractions', incorrectTokens: [null, 'forgot-add', 'wrong-multiplication', 'halved'] } },
+                { id: 'VCMNA283-007', question: 'Solve: x/2 + x/4 = 9', options: ['x = 12', 'x = 18', 'x = 6', 'x = 36'], correctAnswer: 0, explanation: 'LCM=4: 2x + x = 36, 3x = 36, x = 12', difficulty: 2, knowledge: { questionTokens: ['lcm-fractions'], correctToken: 'lcm-fractions', incorrectTokens: [null, 'wrong-lcm', 'divided-instead', 'no-simplify'] } },
+                { id: 'VCMNA283-008', question: 'Solve: (x - 2)/5 = 3', options: ['x = 17', 'x = 13', 'x = 15', 'x = 1'], correctAnswer: 0, explanation: 'x - 2 = 15, x = 17', difficulty: 1, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: [null, 'forgot-add', 'no-add', 'wrong-sign'] } },
+                { id: 'VCMNA283-009', question: 'Solve: 3/x = 1/4', options: ['x = 12', 'x = 3/4', 'x = 4/3', 'x = 7'], correctAnswer: 0, explanation: 'Cross-multiply: x = 12', difficulty: 2, knowledge: { questionTokens: ['cross-multiplication'], correctToken: 'cross-multiplication', incorrectTokens: [null, 'wrong-order', 'inverted', 'added'] } },
+                { id: 'VCMNA283-010', question: 'Solve: x/3 - x/6 = 2', options: ['x = 12', 'x = 6', 'x = 4', 'x = 24'], correctAnswer: 0, explanation: 'LCM=6: 2x - x = 12, x = 12', difficulty: 2, knowledge: { questionTokens: ['lcm-fractions'], correctToken: 'lcm-fractions', incorrectTokens: [null, 'half', 'wrong-subtraction', 'doubled'] } },
+                { id: 'VCMNA283-011', question: 'Solve: (2x + 1)/3 = 5', options: ['x = 7', 'x = 8', 'x = 14', 'x = 2'], correctAnswer: 0, explanation: '2x + 1 = 15, 2x = 14, x = 7', difficulty: 2, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: [null, 'forgot-subtract', 'forgot-divide', 'wrong-calculation'] } },
+                { id: 'VCMNA283-012', question: 'Solve: x/4 = (x + 2)/6', options: ['x = 4', 'x = 2', 'x = 6', 'x = 8'], correctAnswer: 0, explanation: 'Cross-multiply: 6x = 4x + 8, 2x = 8, x = 4', difficulty: 3, knowledge: { questionTokens: ['fraction-both-sides'], correctToken: 'fraction-both-sides', incorrectTokens: [null, 'wrong-cross', 'wrong-subtraction', 'wrong-calculation'] } },
+                { id: 'VCMNA283-013', question: 'Solve: 5/x = 10/6', options: ['x = 3', 'x = 12', 'x = 2', 'x = 5'], correctAnswer: 0, explanation: 'Cross-multiply: 30 = 10x, x = 3', difficulty: 2, knowledge: { questionTokens: ['cross-multiplication'], correctToken: 'cross-multiplication', incorrectTokens: [null, 'wrong-operation', 'wrong-division', 'wrong-value'] } },
+                { id: 'VCMNA283-014', question: 'Solve: x/2 + x/3 + x/6 = 6', options: ['x = 6', 'x = 3', 'x = 12', 'x = 36'], correctAnswer: 0, explanation: 'LCM=6: 3x + 2x + x = 36, 6x = 36, x = 6', difficulty: 3, knowledge: { questionTokens: ['lcm-fractions'], correctToken: 'lcm-fractions', incorrectTokens: [null, 'wrong-lcm', 'wrong-addition', 'no-simplify'] } },
+                { id: 'VCMNA283-015', question: 'Solve: (x - 1)/2 = (x + 1)/4', options: ['x = 3', 'x = 1', 'x = 5', 'x = -1'], correctAnswer: 0, explanation: 'Cross: 4(x-1) = 2(x+1), 4x-4 = 2x+2, 2x = 6, x = 3', difficulty: 3, knowledge: { questionTokens: ['fraction-both-sides'], correctToken: 'fraction-both-sides', incorrectTokens: [null, 'wrong-expand', 'wrong-solve', 'sign-error'] } },
+                { id: 'VCMNA283-016', question: 'What is the LCM of 4 and 6?', options: ['2', '10', '12', '24'], correctAnswer: 2, explanation: 'LCM of 4 and 6 is 12', difficulty: 1, knowledge: { questionTokens: ['lcm-fractions'], correctToken: 'lcm-fractions', incorrectTokens: ['hcf', 'added', null, 'multiplied'] } },
+                { id: 'VCMNA283-017', question: 'Solve: 4/x = 2/5', options: ['x = 10', 'x = 8/5', 'x = 2.5', 'x = 20'], correctAnswer: 0, explanation: 'Cross-multiply: 20 = 2x, x = 10', difficulty: 2, knowledge: { questionTokens: ['cross-multiplication'], correctToken: 'cross-multiplication', incorrectTokens: [null, 'wrong-cross', 'wrong-division', 'wrong-order'] } },
+                { id: 'VCMNA283-018', question: 'Solve: (3x - 2)/4 = (x + 2)/2', options: ['x = 6', 'x = 4', 'x = 2', 'x = 8'], correctAnswer: 0, explanation: '2(3x-2) = 4(x+2), 6x-4 = 4x+8, 2x = 12, x = 6', difficulty: 3, knowledge: { questionTokens: ['fraction-both-sides'], correctToken: 'fraction-both-sides', incorrectTokens: [null, 'wrong-expand', 'wrong-simplify', 'wrong-solve'] } },
+                { id: 'VCMNA283-019', question: 'Solve: x/5 - 1 = 2', options: ['x = 15', 'x = 5', 'x = 10', 'x = 1'], correctAnswer: 0, explanation: 'x/5 = 3, x = 15', difficulty: 1, knowledge: { questionTokens: ['clearing-denominators'], correctToken: 'clearing-denominators', incorrectTokens: [null, 'forgot-add', 'wrong-multiplication', 'divided'] } },
+                { id: 'VCMNA283-020', question: 'Solve: 2/(x+1) = 1/3', options: ['x = 5', 'x = 6', 'x = 7', 'x = 4'], correctAnswer: 0, explanation: 'Cross-multiply: 6 = x + 1, x = 5', difficulty: 3, knowledge: { questionTokens: ['cross-multiplication'], correctToken: 'cross-multiplication', incorrectTokens: [null, 'wrong-cross', 'forgot-subtract', 'wrong-value'] } },
+              ],
+            },
+            {
+              id: 'VCMNA286',
+              code: 'VCMNA286',
+              title: 'Introduction to Quadratic Expressions',
+              description: 'Expand binomial products and factorise monic quadratic expressions',
+              content: `# Introduction to Quadratic Expressions
+
+A quadratic expression has a variable raised to the power of 2.
+
+## Expanding Binomial Products
+
+**(a + b)(c + d) = ac + ad + bc + bd**
+
+Use FOIL: First, Outer, Inner, Last
+
+### Example: (x + 3)(x + 2)
+- First: x × x = x²
+- Outer: x × 2 = 2x
+- Inner: 3 × x = 3x
+- Last: 3 × 2 = 6
+- Result: x² + 2x + 3x + 6 = x² + 5x + 6
+
+## Perfect Squares
+
+**(a + b)² = a² + 2ab + b²**
+**(a - b)² = a² - 2ab + b²**
+
+### Example: (x + 4)²
+= x² + 2(x)(4) + 4²
+= x² + 8x + 16
+
+## Difference of Two Squares
+
+**(a + b)(a - b) = a² - b²**
+
+### Example: (x + 5)(x - 5)
+= x² - 25
+
+## Factorising Quadratics (Monic)
+
+For x² + bx + c, find two numbers that:
+- Multiply to give c
+- Add to give b
+
+### Example: Factorise x² + 7x + 12
+- Need numbers that multiply to 12 and add to 7
+- 3 × 4 = 12 and 3 + 4 = 7 ✓
+- x² + 7x + 12 = (x + 3)(x + 4)
+
+### Example: Factorise x² - 2x - 15
+- Need numbers that multiply to -15 and add to -2
+- (-5) × 3 = -15 and -5 + 3 = -2 ✓
+- x² - 2x - 15 = (x - 5)(x + 3)`,
+              keyPoints: [
+                'FOIL: First, Outer, Inner, Last for expanding',
+                '(a + b)² = a² + 2ab + b²',
+                '(a + b)(a - b) = a² - b²',
+                'To factorise: find two numbers that multiply to c and add to b',
+              ],
+              knowledgeTokens: [
+                { id: 'foil-method', name: 'FOIL Method', description: 'Expanding binomial products' },
+                { id: 'perfect-squares', name: 'Perfect Squares', description: 'Expanding (a+b)² and (a-b)²', prerequisites: ['foil-method'] },
+                { id: 'difference-of-squares', name: 'Difference of Squares', description: 'Expanding and factorising a²-b²', prerequisites: ['foil-method'] },
+                { id: 'factorising-quadratics', name: 'Factorising Quadratics', description: 'Finding factors of monic quadratics', prerequisites: ['foil-method'] },
+              ],
+              examples: [
+                { problem: 'Expand: (x + 2)(x + 5)', solution: 'x² + 7x + 10', explanation: 'FOIL: x² + 5x + 2x + 10 = x² + 7x + 10' },
+                { problem: 'Factorise: x² + 8x + 15', solution: '(x + 3)(x + 5)', explanation: '3 × 5 = 15, 3 + 5 = 8' },
+              ],
+              questions: [
+                { id: 'VCMNA286-001', question: 'Expand: (x + 1)(x + 2)', options: ['x² + 3x + 2', 'x² + 2x + 2', 'x² + 3x + 3', '2x² + 3x + 2'], correctAnswer: 0, explanation: 'FOIL: x² + 2x + x + 2 = x² + 3x + 2', difficulty: 1, knowledge: { questionTokens: ['foil-method'], correctToken: 'foil-method', incorrectTokens: [null, 'wrong-middle', 'wrong-constant', 'wrong-leading'] } },
+                { id: 'VCMNA286-002', question: 'Expand: (x + 3)(x + 4)', options: ['x² + 7x + 12', 'x² + 12x + 7', 'x² + 7x + 7', 'x² + 12'], correctAnswer: 0, explanation: 'FOIL: x² + 4x + 3x + 12 = x² + 7x + 12', difficulty: 1, knowledge: { questionTokens: ['foil-method'], correctToken: 'foil-method', incorrectTokens: [null, 'swapped', 'wrong-constant', 'no-middle'] } },
+                { id: 'VCMNA286-003', question: 'Expand: (x + 5)²', options: ['x² + 25', 'x² + 10x + 25', 'x² + 5x + 25', '2x² + 10x + 25'], correctAnswer: 1, explanation: '(x+5)² = x² + 2(5)x + 25 = x² + 10x + 25', difficulty: 1, knowledge: { questionTokens: ['perfect-squares'], correctToken: 'perfect-squares', incorrectTokens: ['no-middle', null, 'wrong-middle', 'wrong-leading'] } },
+                { id: 'VCMNA286-004', question: 'Expand: (x - 3)²', options: ['x² - 9', 'x² - 6x + 9', 'x² + 6x + 9', 'x² - 6x - 9'], correctAnswer: 1, explanation: '(x-3)² = x² - 2(3)x + 9 = x² - 6x + 9', difficulty: 1, knowledge: { questionTokens: ['perfect-squares'], correctToken: 'perfect-squares', incorrectTokens: ['no-middle', null, 'wrong-sign', 'wrong-constant'] } },
+                { id: 'VCMNA286-005', question: 'Expand: (x + 4)(x - 4)', options: ['x² - 16', 'x² + 16', 'x² - 8x - 16', 'x² - 8'], correctAnswer: 0, explanation: 'Difference of squares: x² - 16', difficulty: 1, knowledge: { questionTokens: ['difference-of-squares'], correctToken: 'difference-of-squares', incorrectTokens: [null, 'wrong-sign', 'not-simplified', 'wrong-value'] } },
+                { id: 'VCMNA286-006', question: 'Factorise: x² + 5x + 6', options: ['(x + 2)(x + 3)', '(x + 1)(x + 6)', '(x + 5)(x + 1)', '(x - 2)(x - 3)'], correctAnswer: 0, explanation: '2 × 3 = 6, 2 + 3 = 5', difficulty: 1, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-pair', 'wrong-pair', 'wrong-signs'] } },
+                { id: 'VCMNA286-007', question: 'Factorise: x² + 9x + 20', options: ['(x + 4)(x + 5)', '(x + 2)(x + 10)', '(x + 1)(x + 20)', '(x + 9)(x + 20)'], correctAnswer: 0, explanation: '4 × 5 = 20, 4 + 5 = 9', difficulty: 1, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-pair', 'wrong-pair', 'wrong-method'] } },
+                { id: 'VCMNA286-008', question: 'Expand: (x + 2)(x - 5)', options: ['x² - 3x - 10', 'x² + 3x - 10', 'x² - 3x + 10', 'x² - 7x - 10'], correctAnswer: 0, explanation: 'FOIL: x² - 5x + 2x - 10 = x² - 3x - 10', difficulty: 2, knowledge: { questionTokens: ['foil-method'], correctToken: 'foil-method', incorrectTokens: [null, 'wrong-sign', 'wrong-constant', 'wrong-middle'] } },
+                { id: 'VCMNA286-009', question: 'Factorise: x² - 9', options: ['(x + 3)(x - 3)', '(x - 3)(x - 3)', '(x + 9)(x - 1)', 'Cannot factorise'], correctAnswer: 0, explanation: 'Difference of squares: x² - 9 = (x+3)(x-3)', difficulty: 1, knowledge: { questionTokens: ['difference-of-squares'], correctToken: 'difference-of-squares', incorrectTokens: [null, 'perfect-square', 'wrong-values', 'gave-up'] } },
+                { id: 'VCMNA286-010', question: 'Factorise: x² - 5x + 6', options: ['(x - 2)(x - 3)', '(x + 2)(x + 3)', '(x - 1)(x - 6)', '(x - 5)(x - 1)'], correctAnswer: 0, explanation: '(-2) × (-3) = 6, (-2) + (-3) = -5', difficulty: 2, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-signs', 'wrong-pair', 'wrong-pair'] } },
+                { id: 'VCMNA286-011', question: 'Expand: (x - 1)(x - 4)', options: ['x² - 5x + 4', 'x² - 5x - 4', 'x² + 5x + 4', 'x² - 3x - 4'], correctAnswer: 0, explanation: 'FOIL: x² - 4x - x + 4 = x² - 5x + 4', difficulty: 2, knowledge: { questionTokens: ['foil-method'], correctToken: 'foil-method', incorrectTokens: [null, 'wrong-constant', 'wrong-signs', 'wrong-middle'] } },
+                { id: 'VCMNA286-012', question: 'Factorise: x² + x - 12', options: ['(x + 4)(x - 3)', '(x - 4)(x + 3)', '(x + 6)(x - 2)', '(x + 12)(x - 1)'], correctAnswer: 0, explanation: '4 × (-3) = -12, 4 + (-3) = 1', difficulty: 2, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-signs', 'wrong-pair', 'wrong-pair'] } },
+                { id: 'VCMNA286-013', question: 'Expand: (x + 6)²', options: ['x² + 36', 'x² + 12x + 36', 'x² + 6x + 36', '2x² + 12x + 36'], correctAnswer: 1, explanation: 'x² + 2(6)x + 36 = x² + 12x + 36', difficulty: 1, knowledge: { questionTokens: ['perfect-squares'], correctToken: 'perfect-squares', incorrectTokens: ['no-middle', null, 'wrong-middle', 'wrong-leading'] } },
+                { id: 'VCMNA286-014', question: 'Factorise: x² - 25', options: ['(x + 5)(x - 5)', '(x - 5)²', '(x + 25)(x - 1)', 'Cannot factorise'], correctAnswer: 0, explanation: 'Difference of squares: x² - 25 = (x+5)(x-5)', difficulty: 1, knowledge: { questionTokens: ['difference-of-squares'], correctToken: 'difference-of-squares', incorrectTokens: [null, 'perfect-square', 'wrong-values', 'gave-up'] } },
+                { id: 'VCMNA286-015', question: 'Factorise: x² - 7x + 10', options: ['(x - 2)(x - 5)', '(x + 2)(x + 5)', '(x - 1)(x - 10)', '(x - 7)(x - 10)'], correctAnswer: 0, explanation: '(-2) × (-5) = 10, (-2) + (-5) = -7', difficulty: 2, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-signs', 'wrong-pair', 'wrong-method'] } },
+                { id: 'VCMNA286-016', question: 'Expand: (x - 2)(x + 7)', options: ['x² + 5x - 14', 'x² - 5x - 14', 'x² + 5x + 14', 'x² - 9x - 14'], correctAnswer: 0, explanation: 'FOIL: x² + 7x - 2x - 14 = x² + 5x - 14', difficulty: 2, knowledge: { questionTokens: ['foil-method'], correctToken: 'foil-method', incorrectTokens: [null, 'wrong-sign', 'wrong-constant', 'wrong-middle'] } },
+                { id: 'VCMNA286-017', question: 'Factorise: x² - x - 20', options: ['(x - 5)(x + 4)', '(x + 5)(x - 4)', '(x - 10)(x + 2)', '(x + 10)(x - 2)'], correctAnswer: 0, explanation: '(-5) × 4 = -20, (-5) + 4 = -1', difficulty: 2, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-signs', 'wrong-pair', 'wrong-pair'] } },
+                { id: 'VCMNA286-018', question: 'Expand: (2x + 1)(x + 3)', options: ['2x² + 7x + 3', '2x² + 6x + 3', '2x² + 7x + 4', '3x² + 7x + 3'], correctAnswer: 0, explanation: 'FOIL: 2x² + 6x + x + 3 = 2x² + 7x + 3', difficulty: 2, knowledge: { questionTokens: ['foil-method'], correctToken: 'foil-method', incorrectTokens: [null, 'wrong-middle', 'wrong-constant', 'wrong-leading'] } },
+                { id: 'VCMNA286-019', question: 'Factorise: x² + 2x - 15', options: ['(x + 5)(x - 3)', '(x - 5)(x + 3)', '(x + 15)(x - 1)', '(x - 15)(x + 1)'], correctAnswer: 0, explanation: '5 × (-3) = -15, 5 + (-3) = 2', difficulty: 2, knowledge: { questionTokens: ['factorising-quadratics'], correctToken: 'factorising-quadratics', incorrectTokens: [null, 'wrong-signs', 'wrong-pair', 'wrong-pair'] } },
+                { id: 'VCMNA286-020', question: 'Expand: (x - 7)²', options: ['x² - 49', 'x² - 14x + 49', 'x² + 14x + 49', 'x² - 7x + 49'], correctAnswer: 1, explanation: '(x-7)² = x² - 14x + 49', difficulty: 2, knowledge: { questionTokens: ['perfect-squares'], correctToken: 'perfect-squares', incorrectTokens: ['no-middle', null, 'wrong-sign', 'wrong-middle'] } },
+              ],
+            },
           ],
         },
       ],
@@ -3378,6 +3560,101 @@ Method 2: Subtract (with borrowing)
                 { id: 'VCMMG293-020', question: 'If UTC time is 10:00, what time is it in Sydney (UTC+11)?', options: ['21:00', '23:00', '01:00', '10:00'], correctAnswer: 0, explanation: 'Sydney is UTC+11, so 10:00 + 11 = 21:00', difficulty: 3, knowledge: { questionTokens: ['international-time-zones'], correctToken: 'international-time-zones', incorrectTokens: [null, 'wrong-addition', 'wrong-direction', 'no-calculation'] } },
               ],
             },
+            {
+              id: 'VCMMG294',
+              code: 'VCMMG294',
+              title: 'Surface Area of Prisms and Cylinders',
+              description: 'Develop formulas for volumes and surface areas of rectangular and triangular prisms and cylinders',
+              content: `# Surface Area of Prisms and Cylinders
+
+Surface area is the total area of all faces (the outside) of a 3D shape.
+
+## Surface Area of a Rectangular Prism (Box)
+
+A rectangular prism has 6 faces: top, bottom, front, back, left, right.
+
+**SA = 2lw + 2lh + 2wh**
+
+Or: SA = 2(lw + lh + wh)
+
+### Example: l = 5cm, w = 3cm, h = 4cm
+SA = 2(5×3 + 5×4 + 3×4)
+SA = 2(15 + 20 + 12)
+SA = 2 × 47 = 94 cm²
+
+## Surface Area of a Cube
+
+All 6 faces are identical squares.
+
+**SA = 6s²**
+
+### Example: s = 4cm
+SA = 6 × 4² = 6 × 16 = 96 cm²
+
+## Surface Area of a Triangular Prism
+
+- 2 triangular ends
+- 3 rectangular faces
+
+**SA = 2 × (triangle area) + (perimeter of triangle × length)**
+
+### Example: Triangle base 6cm, height 4cm, sides 5cm each, prism length 10cm
+- Triangle area = ½ × 6 × 4 = 12 cm²
+- Two triangles = 24 cm²
+- Rectangles = (6 + 5 + 5) × 10 = 160 cm²
+- Total SA = 24 + 160 = 184 cm²
+
+## Surface Area of a Cylinder
+
+A cylinder has:
+- 2 circular ends: 2πr²
+- 1 curved surface (rectangle when unrolled): 2πrh
+
+**SA = 2πr² + 2πrh = 2πr(r + h)**
+
+### Example: r = 3cm, h = 10cm (π = 3.14)
+SA = 2 × 3.14 × 3 × (3 + 10)
+SA = 6.28 × 3 × 13
+SA = 244.92 cm²`,
+              keyPoints: [
+                'Rectangular prism: SA = 2(lw + lh + wh)',
+                'Cube: SA = 6s²',
+                'Cylinder: SA = 2πr² + 2πrh',
+                'Surface area is always in square units',
+              ],
+              knowledgeTokens: [
+                { id: 'rectangular-prism-sa', name: 'Rectangular Prism SA', description: 'Surface area of boxes' },
+                { id: 'cube-sa', name: 'Cube Surface Area', description: 'SA = 6s²' },
+                { id: 'triangular-prism-sa', name: 'Triangular Prism SA', description: 'Two triangles plus three rectangles', prerequisites: ['rectangular-prism-sa'] },
+                { id: 'cylinder-sa', name: 'Cylinder Surface Area', description: 'SA = 2πr² + 2πrh', prerequisites: ['rectangular-prism-sa'] },
+              ],
+              examples: [
+                { problem: 'Find SA of cube with side 5cm', solution: '150 cm²', explanation: 'SA = 6 × 5² = 6 × 25 = 150 cm²' },
+                { problem: 'Find SA of cylinder: r=2cm, h=8cm (π=3.14)', solution: '125.6 cm²', explanation: 'SA = 2π(2)(2+8) = 2×3.14×2×10 = 125.6 cm²' },
+              ],
+              questions: [
+                { id: 'VCMMG294-001', question: 'Surface area of cube with side 3cm?', options: ['27 cm²', '54 cm²', '18 cm²', '9 cm²'], correctAnswer: 1, explanation: 'SA = 6 × 3² = 6 × 9 = 54 cm²', difficulty: 1, knowledge: { questionTokens: ['cube-sa'], correctToken: 'cube-sa', incorrectTokens: ['volume', null, 'one-face', 'forgot-6'] } },
+                { id: 'VCMMG294-002', question: 'How many faces does a rectangular prism have?', options: ['4', '5', '6', '8'], correctAnswer: 2, explanation: 'A rectangular prism has 6 faces', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: ['wrong-count', 'wrong-count', null, 'wrong-count'] } },
+                { id: 'VCMMG294-003', question: 'SA of rectangular prism: 4cm × 3cm × 2cm?', options: ['24 cm²', '52 cm²', '26 cm²', '48 cm²'], correctAnswer: 1, explanation: 'SA = 2(4×3 + 4×2 + 3×2) = 2(12+8+6) = 2×26 = 52 cm²', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: ['volume', null, 'forgot-2', 'wrong-calculation'] } },
+                { id: 'VCMMG294-004', question: 'A cube has SA = 96 cm². What is the side length?', options: ['4 cm', '16 cm', '6 cm', '8 cm'], correctAnswer: 0, explanation: '6s² = 96, s² = 16, s = 4 cm', difficulty: 2, knowledge: { questionTokens: ['cube-sa'], correctToken: 'cube-sa', incorrectTokens: [null, 's-squared', 'wrong-division', 'wrong-calculation'] } },
+                { id: 'VCMMG294-005', question: 'Curved surface area of cylinder: r=5cm, h=10cm (π=3.14)?', options: ['314 cm²', '157 cm²', '785 cm²', '628 cm²'], correctAnswer: 0, explanation: 'Curved SA = 2πrh = 2×3.14×5×10 = 314 cm²', difficulty: 2, knowledge: { questionTokens: ['cylinder-sa'], correctToken: 'cylinder-sa', incorrectTokens: [null, 'forgot-2', 'total-sa', 'wrong-calculation'] } },
+                { id: 'VCMMG294-006', question: 'SA of cube with side 6cm?', options: ['216 cm²', '36 cm²', '216 cm³', '36 cm³'], correctAnswer: 0, explanation: 'SA = 6 × 6² = 6 × 36 = 216 cm²', difficulty: 1, knowledge: { questionTokens: ['cube-sa'], correctToken: 'cube-sa', incorrectTokens: [null, 'one-face', 'volume', 'wrong-units'] } },
+                { id: 'VCMMG294-007', question: 'Area of one circular end of cylinder with r=4cm (π=3.14)?', options: ['50.24 cm²', '25.12 cm²', '12.56 cm²', '100.48 cm²'], correctAnswer: 0, explanation: 'Area = πr² = 3.14 × 16 = 50.24 cm²', difficulty: 1, knowledge: { questionTokens: ['cylinder-sa'], correctToken: 'cylinder-sa', incorrectTokens: [null, 'circumference', 'wrong-formula', 'doubled'] } },
+                { id: 'VCMMG294-008', question: 'Total SA of cylinder: r=3cm, h=7cm (π=3.14)?', options: ['188.4 cm²', '131.88 cm²', '56.52 cm²', '150 cm²'], correctAnswer: 0, explanation: 'SA = 2πr(r+h) = 2×3.14×3×10 = 188.4 cm²', difficulty: 2, knowledge: { questionTokens: ['cylinder-sa'], correctToken: 'cylinder-sa', incorrectTokens: [null, 'curved-only', 'ends-only', 'wrong-calculation'] } },
+                { id: 'VCMMG294-009', question: 'A box is 10×8×5 cm. Which pair of faces has the largest area?', options: ['10×8 faces', '10×5 faces', '8×5 faces', 'All same'], correctAnswer: 0, explanation: '10×8=80, 10×5=50, 8×5=40. The 10×8 faces are largest.', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: [null, 'wrong-comparison', 'wrong-comparison', 'no-comparison'] } },
+                { id: 'VCMMG294-010', question: 'How many rectangular faces does a triangular prism have?', options: ['2', '3', '4', '5'], correctAnswer: 1, explanation: 'A triangular prism has 3 rectangular faces and 2 triangular ends', difficulty: 1, knowledge: { questionTokens: ['triangular-prism-sa'], correctToken: 'triangular-prism-sa', incorrectTokens: ['triangles', null, 'wrong-count', 'total-faces'] } },
+                { id: 'VCMMG294-011', question: 'SA of rectangular prism: 6×4×3 cm?', options: ['72 cm²', '108 cm²', '54 cm²', '144 cm²'], correctAnswer: 1, explanation: 'SA = 2(6×4 + 6×3 + 4×3) = 2(24+18+12) = 2×54 = 108 cm²', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: ['volume', null, 'forgot-2', 'doubled'] } },
+                { id: 'VCMMG294-012', question: 'If you double the side of a cube, SA becomes...', options: ['Double', 'Quadruple', 'Triple', 'Same'], correctAnswer: 1, explanation: 'SA = 6s². If s doubles, SA = 6(2s)² = 6×4s² = 4 times original', difficulty: 3, knowledge: { questionTokens: ['cube-sa'], correctToken: 'cube-sa', incorrectTokens: ['linear', null, 'wrong-factor', 'no-change'] } },
+                { id: 'VCMMG294-013', question: 'Triangular prism: triangle base 8cm, height 6cm, prism length 12cm. Area of both triangular ends?', options: ['48 cm²', '24 cm²', '96 cm²', '72 cm²'], correctAnswer: 0, explanation: 'One triangle = ½×8×6 = 24. Two triangles = 48 cm²', difficulty: 2, knowledge: { questionTokens: ['triangular-prism-sa'], correctToken: 'triangular-prism-sa', incorrectTokens: [null, 'one-only', 'rectangle-confusion', 'wrong-calculation'] } },
+                { id: 'VCMMG294-014', question: 'A cylinder has no curved surface (open). SA with r=2cm (π=3.14)?', options: ['12.56 cm²', '25.12 cm²', '50.24 cm²', '6.28 cm²'], correctAnswer: 1, explanation: 'Only two circular ends: SA = 2πr² = 2×3.14×4 = 25.12 cm²', difficulty: 2, knowledge: { questionTokens: ['cylinder-sa'], correctToken: 'cylinder-sa', incorrectTokens: ['one-end', null, 'included-curved', 'circumference'] } },
+                { id: 'VCMMG294-015', question: 'Box: 5×5×10 cm. Find SA.', options: ['200 cm²', '250 cm²', '300 cm²', '150 cm²'], correctAnswer: 1, explanation: 'SA = 2(5×5 + 5×10 + 5×10) = 2(25+50+50) = 250 cm²', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: ['wrong-calculation', null, 'wrong-calculation', 'forgot-2'] } },
+                { id: 'VCMMG294-016', question: 'Which has greater SA: cube side 5cm or box 6×4×4cm?', options: ['Cube', 'Box', 'Same', 'Cannot compare'], correctAnswer: 0, explanation: 'Cube: 6×25=150. Box: 2(24+24+16)=128. Cube is larger.', difficulty: 3, knowledge: { questionTokens: ['cube-sa', 'rectangular-prism-sa'], correctToken: 'cube-sa', incorrectTokens: [null, 'wrong-calculation', 'no-calculation', 'confused'] } },
+                { id: 'VCMMG294-017', question: 'Open-top box 8×6×4 cm. SA (no lid)?', options: ['152 cm²', '200 cm²', '104 cm²', '160 cm²'], correctAnswer: 0, explanation: 'Bottom + 4 sides = 48 + 2(32) + 2(24) = 48 + 64 + 40 = 152 cm²', difficulty: 3, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: [null, 'full-box', 'missed-sides', 'wrong-calculation'] } },
+                { id: 'VCMMG294-018', question: 'Cylinder: diameter 10cm, height 8cm. Total SA? (π=3.14)', options: ['408.2 cm²', '251.2 cm²', '314 cm²', '157 cm²'], correctAnswer: 0, explanation: 'r=5. SA = 2πr(r+h) = 2×3.14×5×13 = 408.2 cm²', difficulty: 2, knowledge: { questionTokens: ['cylinder-sa'], correctToken: 'cylinder-sa', incorrectTokens: [null, 'curved-only', 'wrong-radius', 'ends-only'] } },
+                { id: 'VCMMG294-019', question: 'Paint covers 10m² per litre. Box 2×1×0.5m needs how much paint?', options: ['0.7 L', '7 L', '1 L', '0.07 L'], correctAnswer: 0, explanation: 'SA = 2(2+1+0.5) = 7 m². Paint = 7÷10 = 0.7 L', difficulty: 3, knowledge: { questionTokens: ['rectangular-prism-sa'], correctToken: 'rectangular-prism-sa', incorrectTokens: [null, 'no-conversion', 'volume', 'wrong-division'] } },
+                { id: 'VCMMG294-020', question: 'Triangular prism: right triangle legs 3cm, 4cm (hypotenuse 5cm), length 10cm. Total SA?', options: ['132 cm²', '120 cm²', '72 cm²', '144 cm²'], correctAnswer: 0, explanation: '2 triangles = 2×½×3×4 = 12. 3 rectangles = 30+40+50 = 120. Total = 132 cm²', difficulty: 3, knowledge: { questionTokens: ['triangular-prism-sa'], correctToken: 'triangular-prism-sa', incorrectTokens: [null, 'rectangles-only', 'triangles-only', 'wrong-calculation'] } },
+              ],
+            },
           ],
         },
       ],
@@ -3812,6 +4089,106 @@ Data collection methods affect the reliability and usefulness of results.
                 { id: 'VCMSP301-018', question: 'A random number generator selects student IDs for a survey. This is...', options: ['Convenience sampling', 'Stratified sampling', 'Random sampling', 'Systematic sampling'], correctAnswer: 2, explanation: 'Random number generator gives each student equal chance', difficulty: 1, knowledge: { questionTokens: ['random-sampling'], correctToken: 'random-sampling', incorrectTokens: ['convenience-error', 'stratified-error', null, 'systematic-error'] } },
                 { id: 'VCMSP301-019', question: 'Why might stratified sampling be better than simple random sampling for a school survey?', options: ['It\'s faster', 'It ensures all year levels are represented', 'It requires fewer people', 'It\'s more random'], correctAnswer: 1, explanation: 'Stratified sampling guarantees representation from each group', difficulty: 3, knowledge: { questionTokens: ['stratified-sampling'], correctToken: 'stratified-sampling', incorrectTokens: ['speed-error', null, 'size-error', 'random-error'] } },
                 { id: 'VCMSP301-020', question: 'A survey option reads: "Excellent, Very Good, Good, Fair, Poor". This is a...', options: ['Biased scale', 'Balanced rating scale', 'Leading question', 'Yes/no question'], correctAnswer: 0, explanation: 'Three positive options (Excellent, Very Good, Good) vs two neutral/negative is unbalanced', difficulty: 3, knowledge: { questionTokens: ['survey-design'], correctToken: 'survey-design', incorrectTokens: [null, 'balanced-error', 'leading-confusion', 'type-error'] } },
+              ],
+            },
+            {
+              id: 'VCMSP302',
+              code: 'VCMSP302',
+              title: 'Probability and Tree Diagrams',
+              description: 'Identify complementary events and use sum of probabilities to solve problems',
+              content: `# Probability and Tree Diagrams
+
+Tree diagrams help us visualise and calculate probabilities for multi-stage events.
+
+## Tree Diagram Basics
+
+Each branch represents a possible outcome with its probability.
+
+### Example: Two coin flips
+         Start
+        /     \\
+     H(½)     T(½)
+    /   \\    /   \\
+  H(½) T(½) H(½) T(½)
+
+Outcomes: HH, HT, TH, TT (each with probability ¼)
+
+## Calculating Probabilities
+
+**Multiply along branches** to find probability of a path.
+
+P(HH) = ½ × ½ = ¼
+
+**Add probabilities** for "OR" situations.
+
+P(exactly one head) = P(HT) + P(TH) = ¼ + ¼ = ½
+
+## With Replacement vs Without
+
+### With Replacement
+- Probabilities stay the same
+- Events are independent
+
+### Without Replacement
+- Probabilities change after each selection
+- Events are dependent
+
+**Example:** Bag with 3 red, 2 blue balls. Pick two without replacement.
+
+First pick: P(red) = 3/5
+Second pick (if first was red): P(red) = 2/4 = ½
+
+## Complementary Events
+
+P(A) + P(not A) = 1
+
+P(at least one head) = 1 - P(no heads) = 1 - ¼ = ¾
+
+## Expected Frequency
+
+Expected frequency = Probability × Number of trials
+
+If P(heads) = 0.5 and we flip 100 times:
+Expected heads = 0.5 × 100 = 50`,
+              keyPoints: [
+                'Multiply along branches for AND',
+                'Add branches for OR',
+                'With replacement: probabilities unchanged',
+                'Without replacement: probabilities change',
+                'P(A) + P(not A) = 1',
+              ],
+              knowledgeTokens: [
+                { id: 'tree-diagrams', name: 'Tree Diagrams', description: 'Drawing probability trees' },
+                { id: 'multiply-branches', name: 'Multiplying Branches', description: 'Finding probability of a path' },
+                { id: 'with-without-replacement', name: 'With/Without Replacement', description: 'How selection affects probability' },
+                { id: 'complementary-probability', name: 'Complementary Events', description: 'P(A) + P(not A) = 1', prerequisites: ['multiply-branches'] },
+                { id: 'expected-frequency', name: 'Expected Frequency', description: 'Probability × trials', prerequisites: ['multiply-branches'] },
+              ],
+              examples: [
+                { problem: 'Coin flipped twice. P(two heads)?', solution: '1/4', explanation: 'P(HH) = ½ × ½ = ¼' },
+                { problem: 'Bag: 4 red, 6 blue. Two picks with replacement. P(both red)?', solution: '4/25', explanation: 'P(R then R) = 4/10 × 4/10 = 16/100 = 4/25' },
+              ],
+              questions: [
+                { id: 'VCMSP302-001', question: 'A coin is flipped twice. How many possible outcomes?', options: ['2', '3', '4', '8'], correctAnswer: 2, explanation: 'HH, HT, TH, TT = 4 outcomes', difficulty: 1, knowledge: { questionTokens: ['tree-diagrams'], correctToken: 'tree-diagrams', incorrectTokens: ['one-flip', 'wrong-count', null, 'three-flips'] } },
+                { id: 'VCMSP302-002', question: 'P(heads then heads) for two fair coin flips?', options: ['1/2', '1/4', '1/8', '1'], correctAnswer: 1, explanation: 'P(HH) = ½ × ½ = ¼', difficulty: 1, knowledge: { questionTokens: ['multiply-branches'], correctToken: 'multiply-branches', incorrectTokens: ['one-flip', null, 'three-flips', 'certain'] } },
+                { id: 'VCMSP302-003', question: 'If P(rain) = 0.3, what is P(no rain)?', options: ['0.3', '0.7', '1.3', '0'], correctAnswer: 1, explanation: 'P(no rain) = 1 - 0.3 = 0.7', difficulty: 1, knowledge: { questionTokens: ['complementary-probability'], correctToken: 'complementary-probability', incorrectTokens: ['same', null, 'added', 'impossible'] } },
+                { id: 'VCMSP302-004', question: 'Bag has 5 red, 5 blue. Pick with replacement. P(red then blue)?', options: ['1/2', '1/4', '5/9', '1/10'], correctAnswer: 1, explanation: 'P(R) = 5/10 = ½, P(B) = ½. P(RB) = ½ × ½ = ¼', difficulty: 2, knowledge: { questionTokens: ['multiply-branches'], correctToken: 'multiply-branches', incorrectTokens: ['one-pick', null, 'no-replacement', 'wrong-calculation'] } },
+                { id: 'VCMSP302-005', question: 'Bag has 3 red, 2 blue. First pick is red (without replacement). P(second is red)?', options: ['3/5', '2/4', '2/5', '3/4'], correctAnswer: 1, explanation: 'After removing 1 red: 2 red left, 4 total. P = 2/4 = 1/2', difficulty: 2, knowledge: { questionTokens: ['with-without-replacement'], correctToken: 'with-without-replacement', incorrectTokens: ['with-replacement', null, 'wrong-total', 'wrong-red'] } },
+                { id: 'VCMSP302-006', question: 'Two dice rolled. P(both show 6)?', options: ['1/6', '1/12', '1/36', '2/6'], correctAnswer: 2, explanation: 'P(6 then 6) = 1/6 × 1/6 = 1/36', difficulty: 2, knowledge: { questionTokens: ['multiply-branches'], correctToken: 'multiply-branches', incorrectTokens: ['one-die', 'added', null, 'simplified-wrong'] } },
+                { id: 'VCMSP302-007', question: 'P(at least one head in two flips)?', options: ['1/4', '1/2', '3/4', '1'], correctAnswer: 2, explanation: 'P(at least one H) = 1 - P(TT) = 1 - ¼ = ¾', difficulty: 2, knowledge: { questionTokens: ['complementary-probability'], correctToken: 'complementary-probability', incorrectTokens: ['P(HH)', 'P(one-H)', null, 'certain'] } },
+                { id: 'VCMSP302-008', question: 'With replacement means...', options: ['Item removed permanently', 'Item put back before next pick', 'Same item picked twice', 'No items left'], correctAnswer: 1, explanation: 'With replacement: put item back, probabilities stay same', difficulty: 1, knowledge: { questionTokens: ['with-without-replacement'], correctToken: 'with-without-replacement', incorrectTokens: ['without', null, 'confused', 'wrong'] } },
+                { id: 'VCMSP302-009', question: 'Coin flipped 200 times. Expected heads?', options: ['50', '100', '200', '150'], correctAnswer: 1, explanation: 'Expected = P(H) × trials = 0.5 × 200 = 100', difficulty: 1, knowledge: { questionTokens: ['expected-frequency'], correctToken: 'expected-frequency', incorrectTokens: ['quarter', null, 'all', 'three-quarter'] } },
+                { id: 'VCMSP302-010', question: 'Spinner: P(red)=0.4. Spun 50 times. Expected red?', options: ['20', '40', '4', '10'], correctAnswer: 0, explanation: 'Expected = 0.4 × 50 = 20', difficulty: 1, knowledge: { questionTokens: ['expected-frequency'], correctToken: 'expected-frequency', incorrectTokens: [null, 'no-multiply', 'divided', 'wrong-calculation'] } },
+                { id: 'VCMSP302-011', question: 'P(A) = 0.6, P(B) = 0.3. A and B independent. P(A and B)?', options: ['0.9', '0.18', '0.3', '0.6'], correctAnswer: 1, explanation: 'Independent: P(A and B) = P(A) × P(B) = 0.6 × 0.3 = 0.18', difficulty: 2, knowledge: { questionTokens: ['multiply-branches'], correctToken: 'multiply-branches', incorrectTokens: ['added', null, 'just-B', 'just-A'] } },
+                { id: 'VCMSP302-012', question: 'Bag: 4 red, 6 green. Two picks without replacement. P(both green)?', options: ['36/100', '30/90', '6/10', '9/25'], correctAnswer: 1, explanation: 'P(G then G) = 6/10 × 5/9 = 30/90 = 1/3', difficulty: 2, knowledge: { questionTokens: ['with-without-replacement'], correctToken: 'with-without-replacement', incorrectTokens: ['with-replacement', null, 'one-pick', 'wrong-simplify'] } },
+                { id: 'VCMSP302-013', question: 'Three coins flipped. P(all heads)?', options: ['1/2', '1/4', '1/8', '3/8'], correctAnswer: 2, explanation: 'P(HHH) = ½ × ½ × ½ = 1/8', difficulty: 2, knowledge: { questionTokens: ['multiply-branches'], correctToken: 'multiply-branches', incorrectTokens: ['one-flip', 'two-flips', null, 'added'] } },
+                { id: 'VCMSP302-014', question: 'P(event A) = 0. Event A is...', options: ['Certain', 'Likely', 'Impossible', 'Unlikely'], correctAnswer: 2, explanation: 'P = 0 means impossible (will never happen)', difficulty: 1, knowledge: { questionTokens: ['complementary-probability'], correctToken: 'complementary-probability', incorrectTokens: ['p-equals-1', 'p-high', null, 'p-low'] } },
+                { id: 'VCMSP302-015', question: 'Die rolled 60 times. Expected number of 5s?', options: ['5', '10', '12', '30'], correctAnswer: 1, explanation: 'Expected = 1/6 × 60 = 10', difficulty: 1, knowledge: { questionTokens: ['expected-frequency'], correctToken: 'expected-frequency', incorrectTokens: ['confused', null, 'wrong-calculation', 'half'] } },
+                { id: 'VCMSP302-016', question: 'Two coin flips. P(exactly one head)?', options: ['1/4', '1/2', '3/4', '1'], correctAnswer: 1, explanation: 'P(HT or TH) = ¼ + ¼ = ½', difficulty: 2, knowledge: { questionTokens: ['tree-diagrams'], correctToken: 'tree-diagrams', incorrectTokens: ['two-heads', null, 'at-least-one', 'certain'] } },
+                { id: 'VCMSP302-017', question: 'Bag: 2 red, 3 blue. P(red then blue) without replacement?', options: ['6/25', '6/20', '5/20', '2/5'], correctAnswer: 1, explanation: 'P(R) = 2/5, P(B|R) = 3/4. P(RB) = 2/5 × 3/4 = 6/20', difficulty: 3, knowledge: { questionTokens: ['with-without-replacement'], correctToken: 'with-without-replacement', incorrectTokens: ['with-replacement', null, 'wrong-second', 'forgot-multiply'] } },
+                { id: 'VCMSP302-018', question: 'P(A or B) when A and B cannot both happen?', options: ['P(A) × P(B)', 'P(A) + P(B)', 'P(A) - P(B)', 'P(A) ÷ P(B)'], correctAnswer: 1, explanation: 'Mutually exclusive events: P(A or B) = P(A) + P(B)', difficulty: 2, knowledge: { questionTokens: ['tree-diagrams'], correctToken: 'tree-diagrams', incorrectTokens: ['multiply', null, 'subtract', 'divide'] } },
+                { id: 'VCMSP302-019', question: 'Spinner P(blue)=0.25. How many blues expected in 80 spins?', options: ['25', '20', '40', '10'], correctAnswer: 1, explanation: 'Expected = 0.25 × 80 = 20', difficulty: 2, knowledge: { questionTokens: ['expected-frequency'], correctToken: 'expected-frequency', incorrectTokens: ['percent-confusion', null, 'half', 'wrong-calculation'] } },
+                { id: 'VCMSP302-020', question: 'Two dice. P(sum is 7)?', options: ['1/6', '7/36', '6/36', '2/12'], correctAnswer: 2, explanation: '6 ways to make 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1). P = 6/36 = 1/6', difficulty: 3, knowledge: { questionTokens: ['tree-diagrams'], correctToken: 'tree-diagrams', incorrectTokens: [null, 'wrong-count', null, 'wrong-simplify'] } },
               ],
             },
           ],
