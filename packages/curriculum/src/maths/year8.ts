@@ -2201,6 +2201,324 @@ Total = $1000 + $150 = $1150
                 { id: 'VCMNA277-020', question: 'Loan of $15,000 at 9% for 4 years. Total repayment?', options: ['$5400', '$20,400', '$15,540', '$19,050'], correctAnswer: 1, explanation: 'I = 15000 × 0.09 × 4 = $5400. Total = $20,400', difficulty: 2, knowledge: { questionTokens: ['finding-total-amount'], correctToken: 'finding-total-amount', incorrectTokens: ['interest-only', null, 'wrong-calculation', 'wrong-rate'] } },
               ],
             },
+            {
+              id: 'VCMNA282',
+              code: 'VCMNA282',
+              title: 'Index Laws',
+              description: 'Extend and apply the index laws to variables, using positive integer indices',
+              content: `# Index Laws
+
+Index notation is a shorthand for repeated multiplication.
+
+## Basic Concept
+aⁿ means a multiplied by itself n times
+- 2³ = 2 × 2 × 2 = 8
+- x⁴ = x × x × x × x
+
+## Index Law 1: Multiplication
+**aᵐ × aⁿ = aᵐ⁺ⁿ**
+When multiplying same bases, ADD the indices.
+- x³ × x⁴ = x⁷
+- 2² × 2⁵ = 2⁷
+
+## Index Law 2: Division
+**aᵐ ÷ aⁿ = aᵐ⁻ⁿ**
+When dividing same bases, SUBTRACT the indices.
+- x⁶ ÷ x² = x⁴
+- 3⁵ ÷ 3² = 3³
+
+## Index Law 3: Power of a Power
+**(aᵐ)ⁿ = aᵐˣⁿ**
+For a power of a power, MULTIPLY the indices.
+- (x²)³ = x⁶
+- (2³)² = 2⁶
+
+## Index Law 4: Zero Index
+**a⁰ = 1** (where a ≠ 0)
+Any number to the power of 0 equals 1.`,
+              keyPoints: [
+                'Multiplication: add indices (aᵐ × aⁿ = aᵐ⁺ⁿ)',
+                'Division: subtract indices (aᵐ ÷ aⁿ = aᵐ⁻ⁿ)',
+                'Power of power: multiply indices ((aᵐ)ⁿ = aᵐˣⁿ)',
+                'Zero index: a⁰ = 1'
+              ],
+              knowledgeTokens: [
+                { id: 'multiplication-law', name: 'Multiplication Index Law', description: 'Adding indices when multiplying' },
+                { id: 'division-law', name: 'Division Index Law', description: 'Subtracting indices when dividing' },
+                { id: 'power-of-power', name: 'Power of a Power', description: 'Multiplying indices for nested powers' },
+                { id: 'zero-index', name: 'Zero Index', description: 'Any base to power 0 equals 1' },
+              ],
+              examples: [
+                { problem: 'Simplify: x⁵ × x³', solution: 'x⁸', explanation: 'Add indices: 5 + 3 = 8' },
+                { problem: 'Simplify: (y²)⁴', solution: 'y⁸', explanation: 'Multiply indices: 2 × 4 = 8' }
+              ],
+              questions: [
+                { id: 'VCMNA282-001', question: 'Simplify: x³ × x²', options: ['x⁵', 'x⁶', 'x¹', '2x⁵'], correctAnswer: 0, explanation: 'Add indices: 3 + 2 = 5', difficulty: 1, knowledge: { questionTokens: ['multiplication-law'], correctToken: 'multiplication-law', incorrectTokens: [null, 'multiplied-indices', 'subtracted', 'wrong-base'] } },
+                { id: 'VCMNA282-002', question: 'Simplify: y⁷ ÷ y³', options: ['y⁴', 'y¹⁰', 'y²¹', 'y⁻⁴'], correctAnswer: 0, explanation: 'Subtract indices: 7 - 3 = 4', difficulty: 1, knowledge: { questionTokens: ['division-law'], correctToken: 'division-law', incorrectTokens: [null, 'added-indices', 'multiplied', 'wrong-sign'] } },
+                { id: 'VCMNA282-003', question: 'Simplify: (a²)³', options: ['a⁵', 'a⁶', 'a⁸', '2a³'], correctAnswer: 1, explanation: 'Multiply indices: 2 × 3 = 6', difficulty: 1, knowledge: { questionTokens: ['power-of-power'], correctToken: 'power-of-power', incorrectTokens: ['added-indices', null, 'wrong-calculation', 'wrong-base'] } },
+                { id: 'VCMNA282-004', question: 'What is 5⁰?', options: ['0', '5', '1', '50'], correctAnswer: 2, explanation: 'Any number to power 0 = 1', difficulty: 1, knowledge: { questionTokens: ['zero-index'], correctToken: 'zero-index', incorrectTokens: ['zero-confusion', 'base-confusion', null, 'concatenation'] } },
+                { id: 'VCMNA282-005', question: 'Simplify: 2³ × 2⁴', options: ['2⁷', '2¹²', '4⁷', '2¹'], correctAnswer: 0, explanation: 'Add indices: 3 + 4 = 7. Answer: 2⁷', difficulty: 1, knowledge: { questionTokens: ['multiplication-law'], correctToken: 'multiplication-law', incorrectTokens: [null, 'multiplied-indices', 'bases-multiplied', 'subtracted'] } },
+                { id: 'VCMNA282-006', question: 'Simplify: m⁸ ÷ m⁵', options: ['m³', 'm¹³', 'm⁴⁰', 'm'], correctAnswer: 0, explanation: 'Subtract indices: 8 - 5 = 3', difficulty: 1, knowledge: { questionTokens: ['division-law'], correctToken: 'division-law', incorrectTokens: [null, 'added-indices', 'multiplied', 'wrong-calculation'] } },
+                { id: 'VCMNA282-007', question: 'Simplify: (x³)⁴', options: ['x⁷', 'x¹²', 'x⁸¹', '4x³'], correctAnswer: 1, explanation: 'Multiply indices: 3 × 4 = 12', difficulty: 1, knowledge: { questionTokens: ['power-of-power'], correctToken: 'power-of-power', incorrectTokens: ['added-indices', null, 'wrong-operation', 'wrong-base'] } },
+                { id: 'VCMNA282-008', question: 'Simplify: x⁴ × x⁴', options: ['x⁸', 'x¹⁶', '2x⁴', 'x⁰'], correctAnswer: 0, explanation: 'Add indices: 4 + 4 = 8', difficulty: 1, knowledge: { questionTokens: ['multiplication-law'], correctToken: 'multiplication-law', incorrectTokens: [null, 'multiplied-indices', 'bases-added', 'subtracted'] } },
+                { id: 'VCMNA282-009', question: 'Simplify: 10⁶ ÷ 10²', options: ['10⁴', '10⁸', '10³', '10¹²'], correctAnswer: 0, explanation: 'Subtract indices: 6 - 2 = 4', difficulty: 1, knowledge: { questionTokens: ['division-law'], correctToken: 'division-law', incorrectTokens: [null, 'added-indices', 'wrong-subtraction', 'multiplied'] } },
+                { id: 'VCMNA282-010', question: 'Simplify: (2²)⁵', options: ['2⁷', '2¹⁰', '4⁵', '2³²'], correctAnswer: 1, explanation: 'Multiply indices: 2 × 5 = 10', difficulty: 2, knowledge: { questionTokens: ['power-of-power'], correctToken: 'power-of-power', incorrectTokens: ['added-indices', null, 'base-squared', 'power-confusion'] } },
+                { id: 'VCMNA282-011', question: 'Simplify: a² × a³ × a', options: ['a⁵', 'a⁶', 'a⁷', '3a⁶'], correctAnswer: 1, explanation: 'a = a¹. Add: 2 + 3 + 1 = 6', difficulty: 2, knowledge: { questionTokens: ['multiplication-law'], correctToken: 'multiplication-law', incorrectTokens: ['missed-a', null, 'extra-count', 'coefficients-added'] } },
+                { id: 'VCMNA282-012', question: 'Simplify: x¹⁰ ÷ x¹⁰', options: ['x⁰', '1', 'x²⁰', '0'], correctAnswer: 1, explanation: 'x¹⁰ ÷ x¹⁰ = x⁰ = 1', difficulty: 2, knowledge: { questionTokens: ['division-law', 'zero-index'], correctToken: 'zero-index', incorrectTokens: ['stopped-at-x⁰', null, 'added-indices', 'zero-confusion'] } },
+                { id: 'VCMNA282-013', question: 'Simplify: (y⁴)² × y³', options: ['y⁹', 'y¹¹', 'y²⁴', 'y⁸'], correctAnswer: 1, explanation: '(y⁴)² = y⁸. Then y⁸ × y³ = y¹¹', difficulty: 3, knowledge: { questionTokens: ['power-of-power', 'multiplication-law'], correctToken: 'multiplication-law', incorrectTokens: ['wrong-calculation', null, 'all-multiplied', 'forgot-y³'] } },
+                { id: 'VCMNA282-014', question: 'Simplify: (3x²)²', options: ['3x⁴', '6x⁴', '9x⁴', '9x²'], correctAnswer: 2, explanation: '(3x²)² = 3² × (x²)² = 9x⁴', difficulty: 2, knowledge: { questionTokens: ['power-of-power'], correctToken: 'power-of-power', incorrectTokens: ['forgot-3', 'added-3', null, 'only-x'] } },
+                { id: 'VCMNA282-015', question: 'Simplify: 2x³ × 3x²', options: ['5x⁵', '6x⁵', '6x⁶', '5x⁶'], correctAnswer: 1, explanation: '2×3 = 6, x³ × x² = x⁵. Answer: 6x⁵', difficulty: 2, knowledge: { questionTokens: ['multiplication-law'], correctToken: 'multiplication-law', incorrectTokens: ['added-coefficients', null, 'multiplied-indices', 'both-wrong'] } },
+                { id: 'VCMNA282-016', question: 'Simplify: 12a⁶ ÷ 4a²', options: ['3a⁴', '8a⁴', '3a³', '3a⁸'], correctAnswer: 0, explanation: '12÷4 = 3, a⁶ ÷ a² = a⁴. Answer: 3a⁴', difficulty: 2, knowledge: { questionTokens: ['division-law'], correctToken: 'division-law', incorrectTokens: [null, 'subtracted-coefficients', 'wrong-index', 'added-indices'] } },
+                { id: 'VCMNA282-017', question: 'Simplify: (2a³b²)²', options: ['4a⁶b⁴', '2a⁶b⁴', '4a⁵b⁴', '4a⁹b⁴'], correctAnswer: 0, explanation: '2² = 4, (a³)² = a⁶, (b²)² = b⁴', difficulty: 3, knowledge: { questionTokens: ['power-of-power'], correctToken: 'power-of-power', incorrectTokens: [null, 'forgot-2', 'added-indices', 'wrong-b'] } },
+                { id: 'VCMNA282-018', question: 'Simplify: x⁵ × x² ÷ x³', options: ['x⁴', 'x⁰', 'x¹⁰', 'x⁶'], correctAnswer: 0, explanation: 'x⁵ × x² = x⁷. x⁷ ÷ x³ = x⁴', difficulty: 2, knowledge: { questionTokens: ['multiplication-law', 'division-law'], correctToken: 'division-law', incorrectTokens: [null, 'wrong-order', 'all-multiplied', 'wrong-subtraction'] } },
+                { id: 'VCMNA282-019', question: 'What is (x²y³)⁴?', options: ['x⁶y⁷', 'x⁸y¹²', 'x²y¹²', '4x²y³'], correctAnswer: 1, explanation: '(x²)⁴ = x⁸, (y³)⁴ = y¹²', difficulty: 2, knowledge: { questionTokens: ['power-of-power'], correctToken: 'power-of-power', incorrectTokens: ['added-indices', null, 'forgot-x', 'coefficient-error'] } },
+                { id: 'VCMNA282-020', question: 'Simplify: 15x⁸y⁴ ÷ 5x³y²', options: ['3x⁵y²', '10x⁵y²', '3x¹¹y⁶', '3x⁵y⁶'], correctAnswer: 0, explanation: '15÷5=3, x⁸÷x³=x⁵, y⁴÷y²=y²', difficulty: 3, knowledge: { questionTokens: ['division-law'], correctToken: 'division-law', incorrectTokens: [null, 'subtracted-coeff', 'added-indices', 'wrong-y'] } },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'algebraic-expressions',
+          title: 'Algebraic Expressions',
+          description: 'Simplifying and expanding algebraic expressions',
+          sections: [
+            {
+              id: 'VCMNA278',
+              code: 'VCMNA278',
+              title: 'Simplifying Algebraic Expressions',
+              description: 'Extend and apply the distributive law to the expansion of algebraic expressions',
+              content: `# Simplifying Algebraic Expressions
+
+Algebra uses letters (variables) to represent unknown numbers.
+
+## Terms and Like Terms
+- **Term**: A number, variable, or product (e.g., 3x, 5, -2y²)
+- **Like terms**: Terms with the same variable and power (e.g., 3x and 5x, but not 3x and 3x²)
+
+## Collecting Like Terms
+Only like terms can be added or subtracted.
+- 3x + 5x = 8x
+- 4a² + 2a² = 6a²
+- 3x + 2y stays as 3x + 2y (unlike terms)
+
+## Multiplying Terms
+Multiply coefficients, add powers of like variables.
+- 3x × 4x = 12x²
+- 2a × 5b = 10ab
+- 4x² × 3x = 12x³
+
+## The Distributive Law
+**a(b + c) = ab + ac**
+
+Multiply the term outside by each term inside the brackets.
+- 3(x + 4) = 3x + 12
+- 2(3a - 5) = 6a - 10
+- x(x + 3) = x² + 3x
+- -2(y - 4) = -2y + 8
+
+## Expanding and Simplifying
+Expand brackets first, then collect like terms.
+- 2(x + 3) + 4(x - 1) = 2x + 6 + 4x - 4 = 6x + 2`,
+              keyPoints: [
+                'Like terms have the same variable and power',
+                'Only like terms can be combined',
+                'Distributive law: a(b + c) = ab + ac',
+                'Expand brackets before collecting like terms',
+              ],
+              knowledgeTokens: [
+                { id: 'identifying-like-terms', name: 'Identifying Like Terms', description: 'Recognising terms that can be combined' },
+                { id: 'collecting-like-terms', name: 'Collecting Like Terms', description: 'Adding and subtracting like terms', prerequisites: ['identifying-like-terms'] },
+                { id: 'multiplying-terms', name: 'Multiplying Terms', description: 'Multiplying algebraic terms together' },
+                { id: 'distributive-law', name: 'Distributive Law', description: 'Expanding brackets using a(b+c) = ab + ac', prerequisites: ['multiplying-terms'] },
+                { id: 'expand-simplify', name: 'Expand and Simplify', description: 'Expanding then collecting like terms', prerequisites: ['distributive-law', 'collecting-like-terms'] },
+              ],
+              examples: [
+                { problem: 'Simplify: 5x + 3x - 2x', solution: '6x', explanation: 'All are like terms: 5 + 3 - 2 = 6, so 6x' },
+                { problem: 'Expand: 4(2x - 3)', solution: '8x - 12', explanation: '4 × 2x = 8x, 4 × (-3) = -12' },
+              ],
+              questions: [
+                { id: 'VCMNA278-001', question: 'Simplify: 3x + 5x', options: ['8x', '8x²', '15x', '8'], correctAnswer: 0, explanation: '3x + 5x = 8x (add coefficients)', difficulty: 1, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: [null, 'multiplied', 'wrong-operation', 'lost-variable'] } },
+                { id: 'VCMNA278-002', question: 'Simplify: 7a - 4a', options: ['11a', '3a', '-3a', '3'], correctAnswer: 1, explanation: '7a - 4a = 3a (subtract coefficients)', difficulty: 1, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: ['added', null, 'wrong-sign', 'lost-variable'] } },
+                { id: 'VCMNA278-003', question: 'Which are like terms?', options: ['3x and 3y', '4a² and 5a²', '2x and 2x²', '5 and 5x'], correctAnswer: 1, explanation: 'Like terms have same variable AND same power. 4a² and 5a² both have a²', difficulty: 1, knowledge: { questionTokens: ['identifying-like-terms'], correctToken: 'identifying-like-terms', incorrectTokens: ['different-variables', null, 'different-powers', 'number-vs-variable'] } },
+                { id: 'VCMNA278-004', question: 'Expand: 3(x + 2)', options: ['3x + 2', '3x + 6', 'x + 6', '3x + 5'], correctAnswer: 1, explanation: '3 × x = 3x, 3 × 2 = 6. So 3x + 6', difficulty: 1, knowledge: { questionTokens: ['distributive-law'], correctToken: 'distributive-law', incorrectTokens: ['forgot-2nd', null, 'forgot-x', 'wrong-calculation'] } },
+                { id: 'VCMNA278-005', question: 'Simplify: 2x + 3y + 4x', options: ['9xy', '6x + 3y', '9x', '2x + 7y'], correctAnswer: 1, explanation: '2x + 4x = 6x, 3y stays. Answer: 6x + 3y', difficulty: 1, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: ['combined-unlike', null, 'forgot-y', 'wrong-addition'] } },
+                { id: 'VCMNA278-006', question: 'Expand: 5(2a - 4)', options: ['10a - 4', '10a - 20', '7a - 4', '10a + 20'], correctAnswer: 1, explanation: '5 × 2a = 10a, 5 × (-4) = -20', difficulty: 1, knowledge: { questionTokens: ['distributive-law'], correctToken: 'distributive-law', incorrectTokens: ['forgot-multiply-4', null, 'added-instead', 'wrong-sign'] } },
+                { id: 'VCMNA278-007', question: 'Simplify: 4x² + 3x + 2x²', options: ['9x²', '6x² + 3x', '9x³', '4x² + 5x'], correctAnswer: 1, explanation: '4x² + 2x² = 6x², 3x cannot combine with x². Answer: 6x² + 3x', difficulty: 2, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: ['combined-all', null, 'added-powers', 'wrong-coefficient'] } },
+                { id: 'VCMNA278-008', question: 'What is 3a × 4a?', options: ['7a', '12a', '12a²', '7a²'], correctAnswer: 2, explanation: '3 × 4 = 12, a × a = a². Answer: 12a²', difficulty: 2, knowledge: { questionTokens: ['multiplying-terms'], correctToken: 'multiplying-terms', incorrectTokens: ['added-coefficients', 'forgot-square', null, 'added-both'] } },
+                { id: 'VCMNA278-009', question: 'Expand: x(x + 5)', options: ['x + 5x', 'x² + 5x', '2x + 5', 'x² + 5'], correctAnswer: 1, explanation: 'x × x = x², x × 5 = 5x. Answer: x² + 5x', difficulty: 2, knowledge: { questionTokens: ['distributive-law'], correctToken: 'distributive-law', incorrectTokens: ['forgot-square', null, 'wrong-calculation', 'forgot-5x'] } },
+                { id: 'VCMNA278-010', question: 'Expand: -2(y - 3)', options: ['-2y - 3', '-2y + 6', '-2y - 6', '2y - 6'], correctAnswer: 1, explanation: '-2 × y = -2y, -2 × (-3) = +6', difficulty: 2, knowledge: { questionTokens: ['distributive-law'], correctToken: 'distributive-law', incorrectTokens: ['forgot-sign', null, 'both-negative', 'wrong-sign'] } },
+                { id: 'VCMNA278-011', question: 'Simplify: 5xy + 3xy - 2xy', options: ['6xy', '6x²y²', '10xy', '6'], correctAnswer: 0, explanation: '5 + 3 - 2 = 6, so 6xy', difficulty: 2, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: [null, 'added-powers', 'wrong-calculation', 'lost-variables'] } },
+                { id: 'VCMNA278-012', question: 'Expand and simplify: 2(x + 3) + 3(x + 1)', options: ['5x + 4', '5x + 9', '5x + 6', '6x + 6'], correctAnswer: 1, explanation: '2x + 6 + 3x + 3 = 5x + 9', difficulty: 2, knowledge: { questionTokens: ['expand-simplify'], correctToken: 'expand-simplify', incorrectTokens: ['wrong-calculation', null, 'missed-term', 'coefficients'] } },
+                { id: 'VCMNA278-013', question: 'What is 2x × 3y?', options: ['5xy', '6xy', '6x²y', '5x + 5y'], correctAnswer: 1, explanation: '2 × 3 = 6, x × y = xy. Answer: 6xy', difficulty: 1, knowledge: { questionTokens: ['multiplying-terms'], correctToken: 'multiplying-terms', incorrectTokens: ['added-coefficients', null, 'extra-power', 'added-terms'] } },
+                { id: 'VCMNA278-014', question: 'Expand: a(2a + 3b)', options: ['2a² + 3b', '2a² + 3ab', '2a + 3ab', '5a²b'], correctAnswer: 1, explanation: 'a × 2a = 2a², a × 3b = 3ab', difficulty: 2, knowledge: { questionTokens: ['distributive-law'], correctToken: 'distributive-law', incorrectTokens: ['forgot-a-in-2nd', null, 'forgot-square', 'combined'] } },
+                { id: 'VCMNA278-015', question: 'Simplify: 8p - 3p + 2p - p', options: ['6p', '4p', '8p', '14p'], correctAnswer: 0, explanation: '8 - 3 + 2 - 1 = 6, so 6p', difficulty: 2, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: [null, 'missed-term', 'wrong-signs', 'added-all'] } },
+                { id: 'VCMNA278-016', question: 'Expand and simplify: 4(x - 2) - 2(x + 3)', options: ['2x - 2', '2x - 14', '6x - 14', '2x + 2'], correctAnswer: 1, explanation: '4x - 8 - 2x - 6 = 2x - 14', difficulty: 3, knowledge: { questionTokens: ['expand-simplify'], correctToken: 'expand-simplify', incorrectTokens: ['wrong-subtraction', null, 'wrong-signs', 'sign-error'] } },
+                { id: 'VCMNA278-017', question: 'What is 3x² × 2x?', options: ['6x²', '6x³', '5x³', '5x²'], correctAnswer: 1, explanation: '3 × 2 = 6, x² × x = x³. Answer: 6x³', difficulty: 2, knowledge: { questionTokens: ['multiplying-terms'], correctToken: 'multiplying-terms', incorrectTokens: ['forgot-add-powers', null, 'added-coefficients', 'wrong-power'] } },
+                { id: 'VCMNA278-018', question: 'Expand: -3(2x - 5y + 1)', options: ['-6x + 15y - 3', '-6x - 15y - 3', '-6x + 15y + 1', '6x - 15y + 3'], correctAnswer: 0, explanation: '-3×2x = -6x, -3×(-5y) = +15y, -3×1 = -3', difficulty: 3, knowledge: { questionTokens: ['distributive-law'], correctToken: 'distributive-law', incorrectTokens: [null, 'wrong-sign-y', 'missed-last', 'all-wrong-signs'] } },
+                { id: 'VCMNA278-019', question: 'Simplify: 3a + 2b - a + 4b - 2a', options: ['6b', '6a + 6b', '6b', '6ab'], correctAnswer: 0, explanation: '3a - a - 2a = 0a, 2b + 4b = 6b. Answer: 6b', difficulty: 3, knowledge: { questionTokens: ['collecting-like-terms'], correctToken: 'collecting-like-terms', incorrectTokens: [null, 'wrong-a', 'correct', 'combined'] } },
+                { id: 'VCMNA278-020', question: 'Expand and simplify: x(x + 2) + 2(x + 3)', options: ['x² + 4x + 6', 'x² + 2x + 6', '3x² + 6', 'x² + 4x + 3'], correctAnswer: 0, explanation: 'x² + 2x + 2x + 6 = x² + 4x + 6', difficulty: 3, knowledge: { questionTokens: ['expand-simplify'], correctToken: 'expand-simplify', incorrectTokens: [null, 'missed-2x', 'combined-x²', 'wrong-constant'] } },
+              ],
+            },
+            {
+              id: 'VCMNA279',
+              code: 'VCMNA279',
+              title: 'Solving Linear Equations',
+              description: 'Solve linear equations using algebraic and graphical techniques. Verify solutions by substitution',
+              content: `# Solving Linear Equations
+
+A linear equation has a variable (like x) raised to the power of 1.
+
+## What is an Equation?
+An equation states that two expressions are equal.
+- 3x + 5 = 14 is an equation
+- The solution is the value that makes it true
+
+## Solving One-Step Equations
+Do the opposite (inverse) operation to both sides.
+- x + 5 = 12 → x = 12 - 5 = 7
+- x - 3 = 8 → x = 8 + 3 = 11
+- 4x = 20 → x = 20 ÷ 4 = 5
+- x/3 = 6 → x = 6 × 3 = 18
+
+## Solving Two-Step Equations
+1. Deal with addition/subtraction first
+2. Then deal with multiplication/division
+
+**Example:** 2x + 3 = 11
+- 2x + 3 - 3 = 11 - 3 → 2x = 8
+- 2x ÷ 2 = 8 ÷ 2 → x = 4
+
+## Equations with Variables on Both Sides
+Move all variables to one side.
+
+**Example:** 5x - 2 = 3x + 6
+- 5x - 3x - 2 = 6
+- 2x - 2 = 6
+- 2x = 8
+- x = 4
+
+## Verifying Solutions
+Substitute back to check: 5(4) - 2 = 18, 3(4) + 6 = 18 ✓`,
+              keyPoints: [
+                'Do the same operation to both sides',
+                'Undo operations in reverse order (BODMAS backwards)',
+                'Move all variables to one side',
+                'Always verify by substituting back',
+              ],
+              knowledgeTokens: [
+                { id: 'one-step-equations', name: 'One-Step Equations', description: 'Solving equations with one operation' },
+                { id: 'two-step-equations', name: 'Two-Step Equations', description: 'Solving equations with two operations', prerequisites: ['one-step-equations'] },
+                { id: 'variables-both-sides', name: 'Variables on Both Sides', description: 'Moving variables to one side', prerequisites: ['two-step-equations'] },
+                { id: 'verifying-solutions', name: 'Verifying Solutions', description: 'Checking answers by substitution' },
+                { id: 'equations-with-brackets', name: 'Equations with Brackets', description: 'Expanding before solving', prerequisites: ['two-step-equations'] },
+              ],
+              examples: [
+                { problem: 'Solve: 3x - 7 = 14', solution: 'x = 7', explanation: '3x = 14 + 7 = 21, x = 21 ÷ 3 = 7' },
+                { problem: 'Solve: 4x + 5 = 2x + 13', solution: 'x = 4', explanation: '4x - 2x = 13 - 5, 2x = 8, x = 4' },
+              ],
+              questions: [
+                { id: 'VCMNA279-001', question: 'Solve: x + 7 = 12', options: ['x = 5', 'x = 19', 'x = -5', 'x = 7'], correctAnswer: 0, explanation: 'x = 12 - 7 = 5', difficulty: 1, knowledge: { questionTokens: ['one-step-equations'], correctToken: 'one-step-equations', incorrectTokens: [null, 'added-instead', 'wrong-sign', 'wrong-value'] } },
+                { id: 'VCMNA279-002', question: 'Solve: x - 4 = 9', options: ['x = 5', 'x = 13', 'x = -13', 'x = 36'], correctAnswer: 1, explanation: 'x = 9 + 4 = 13', difficulty: 1, knowledge: { questionTokens: ['one-step-equations'], correctToken: 'one-step-equations', incorrectTokens: ['subtracted', null, 'wrong-sign', 'multiplied'] } },
+                { id: 'VCMNA279-003', question: 'Solve: 5x = 35', options: ['x = 30', 'x = 7', 'x = 40', 'x = 175'], correctAnswer: 1, explanation: 'x = 35 ÷ 5 = 7', difficulty: 1, knowledge: { questionTokens: ['one-step-equations'], correctToken: 'one-step-equations', incorrectTokens: ['subtracted', null, 'added', 'multiplied'] } },
+                { id: 'VCMNA279-004', question: 'Solve: x/4 = 6', options: ['x = 2', 'x = 10', 'x = 24', 'x = 1.5'], correctAnswer: 2, explanation: 'x = 6 × 4 = 24', difficulty: 1, knowledge: { questionTokens: ['one-step-equations'], correctToken: 'one-step-equations', incorrectTokens: ['divided', 'added', null, 'divided'] } },
+                { id: 'VCMNA279-005', question: 'Solve: 2x + 5 = 13', options: ['x = 9', 'x = 4', 'x = 8', 'x = 6'], correctAnswer: 1, explanation: '2x = 13 - 5 = 8, x = 8 ÷ 2 = 4', difficulty: 1, knowledge: { questionTokens: ['two-step-equations'], correctToken: 'two-step-equations', incorrectTokens: ['forgot-subtract', null, 'forgot-divide', 'wrong-order'] } },
+                { id: 'VCMNA279-006', question: 'Solve: 3x - 2 = 10', options: ['x = 4', 'x = 6', 'x = 8', 'x = 2.67'], correctAnswer: 0, explanation: '3x = 10 + 2 = 12, x = 12 ÷ 3 = 4', difficulty: 1, knowledge: { questionTokens: ['two-step-equations'], correctToken: 'two-step-equations', incorrectTokens: [null, 'wrong-calculation', 'forgot-divide', 'divided-first'] } },
+                { id: 'VCMNA279-007', question: 'Solve: 4x + 3 = 3x + 7', options: ['x = 4', 'x = 10', 'x = 1', 'x = -4'], correctAnswer: 0, explanation: '4x - 3x = 7 - 3, x = 4', difficulty: 2, knowledge: { questionTokens: ['variables-both-sides'], correctToken: 'variables-both-sides', incorrectTokens: [null, 'added-xs', 'wrong-calculation', 'wrong-sign'] } },
+                { id: 'VCMNA279-008', question: 'Solve: 5x - 3 = 2x + 9', options: ['x = 2', 'x = 4', 'x = 6', 'x = 3'], correctAnswer: 1, explanation: '5x - 2x = 9 + 3, 3x = 12, x = 4', difficulty: 2, knowledge: { questionTokens: ['variables-both-sides'], correctToken: 'variables-both-sides', incorrectTokens: ['wrong-calculation', null, 'wrong-division', 'wrong-subtraction'] } },
+                { id: 'VCMNA279-009', question: 'Solve: 2(x + 3) = 14', options: ['x = 4', 'x = 5.5', 'x = 7', 'x = 8'], correctAnswer: 0, explanation: '2x + 6 = 14, 2x = 8, x = 4', difficulty: 2, knowledge: { questionTokens: ['equations-with-brackets'], correctToken: 'equations-with-brackets', incorrectTokens: [null, 'no-expand', 'wrong-expand', 'wrong-calculation'] } },
+                { id: 'VCMNA279-010', question: 'Verify: Is x = 3 a solution to 2x + 5 = 11?', options: ['Yes', 'No', 'Cannot tell', 'Only if negative'], correctAnswer: 0, explanation: '2(3) + 5 = 6 + 5 = 11 ✓', difficulty: 1, knowledge: { questionTokens: ['verifying-solutions'], correctToken: 'verifying-solutions', incorrectTokens: [null, 'wrong-calculation', 'no-substitution', 'sign-error'] } },
+                { id: 'VCMNA279-011', question: 'Solve: 7x - 4 = 3x + 12', options: ['x = 2', 'x = 4', 'x = 8', 'x = -4'], correctAnswer: 1, explanation: '7x - 3x = 12 + 4, 4x = 16, x = 4', difficulty: 2, knowledge: { questionTokens: ['variables-both-sides'], correctToken: 'variables-both-sides', incorrectTokens: ['wrong-combination', null, 'forgot-divide', 'wrong-sign'] } },
+                { id: 'VCMNA279-012', question: 'Solve: x/5 + 2 = 7', options: ['x = 25', 'x = 9', 'x = 45', 'x = 1'], correctAnswer: 0, explanation: 'x/5 = 5, x = 25', difficulty: 2, knowledge: { questionTokens: ['two-step-equations'], correctToken: 'two-step-equations', incorrectTokens: [null, 'forgot-multiply', 'wrong-order', 'divided'] } },
+                { id: 'VCMNA279-013', question: 'Solve: 3(x - 2) = 15', options: ['x = 7', 'x = 5', 'x = 11', 'x = 3'], correctAnswer: 0, explanation: '3x - 6 = 15, 3x = 21, x = 7', difficulty: 2, knowledge: { questionTokens: ['equations-with-brackets'], correctToken: 'equations-with-brackets', incorrectTokens: [null, 'no-expand', 'wrong-calculation', 'wrong-division'] } },
+                { id: 'VCMNA279-014', question: 'Solve: 6x = 2x + 20', options: ['x = 5', 'x = 2.5', 'x = 10', 'x = 4'], correctAnswer: 0, explanation: '6x - 2x = 20, 4x = 20, x = 5', difficulty: 2, knowledge: { questionTokens: ['variables-both-sides'], correctToken: 'variables-both-sides', incorrectTokens: [null, 'divided-by-8', 'forgot-divide', 'wrong-subtraction'] } },
+                { id: 'VCMNA279-015', question: 'Solve: 4(x + 1) = 2(x + 7)', options: ['x = 5', 'x = 6', 'x = 4', 'x = 3'], correctAnswer: 0, explanation: '4x + 4 = 2x + 14, 2x = 10, x = 5', difficulty: 3, knowledge: { questionTokens: ['equations-with-brackets', 'variables-both-sides'], correctToken: 'variables-both-sides', incorrectTokens: [null, 'expand-error', 'calculation-error', 'sign-error'] } },
+                { id: 'VCMNA279-016', question: 'Solve: 5 - 2x = 11', options: ['x = 3', 'x = -3', 'x = 8', 'x = -8'], correctAnswer: 1, explanation: '-2x = 11 - 5 = 6, x = 6 ÷ (-2) = -3', difficulty: 2, knowledge: { questionTokens: ['two-step-equations'], correctToken: 'two-step-equations', incorrectTokens: ['wrong-sign', null, 'forgot-negative', 'wrong-calculation'] } },
+                { id: 'VCMNA279-017', question: 'Solve: 2x/3 = 8', options: ['x = 12', 'x = 16/3', 'x = 24', 'x = 4'], correctAnswer: 0, explanation: '2x = 24, x = 12', difficulty: 2, knowledge: { questionTokens: ['two-step-equations'], correctToken: 'two-step-equations', incorrectTokens: [null, 'divided-by-2', 'wrong-order', 'divided-by-6'] } },
+                { id: 'VCMNA279-018', question: 'Solve: 3(2x - 1) = 4x + 5', options: ['x = 4', 'x = 2', 'x = 8', 'x = 1'], correctAnswer: 0, explanation: '6x - 3 = 4x + 5, 2x = 8, x = 4', difficulty: 3, knowledge: { questionTokens: ['equations-with-brackets', 'variables-both-sides'], correctToken: 'variables-both-sides', incorrectTokens: [null, 'expand-error', 'calculation-error', 'wrong-division'] } },
+                { id: 'VCMNA279-019', question: 'Solve: (x + 5)/2 = 9', options: ['x = 13', 'x = 7', 'x = 4', 'x = 23'], correctAnswer: 0, explanation: 'x + 5 = 18, x = 13', difficulty: 2, knowledge: { questionTokens: ['two-step-equations'], correctToken: 'two-step-equations', incorrectTokens: [null, 'divided-instead', 'wrong-order', 'wrong-subtraction'] } },
+                { id: 'VCMNA279-020', question: 'Solve: 8 - 3(x - 2) = 2', options: ['x = 4', 'x = 0', 'x = 2', 'x = 6'], correctAnswer: 0, explanation: '8 - 3x + 6 = 2, 14 - 3x = 2, 3x = 12, x = 4', difficulty: 3, knowledge: { questionTokens: ['equations-with-brackets'], correctToken: 'equations-with-brackets', incorrectTokens: [null, 'expand-error', 'sign-error', 'wrong-calculation'] } },
+              ],
+            },
+            {
+              id: 'VCMNA280',
+              code: 'VCMNA280',
+              title: 'Linear Graphs',
+              description: 'Plot linear relationships on the Cartesian plane with and without the use of digital technologies',
+              content: `# Linear Graphs
+
+A linear graph is a straight line on the coordinate plane.
+
+## The Coordinate Plane
+- **x-axis**: Horizontal line
+- **y-axis**: Vertical line
+- **Origin**: The point (0, 0)
+- Points are written as (x, y)
+
+## Plotting Points
+For point (3, 2): move 3 right and 2 up from the origin.
+
+## Linear Relationships
+The equation y = mx + c gives a straight line.
+- **m** = gradient (slope) - how steep the line is
+- **c** = y-intercept - where the line crosses the y-axis
+
+## Gradient (Slope)
+Gradient = rise ÷ run = (change in y) ÷ (change in x)
+- Positive gradient: line goes up from left to right ↗
+- Negative gradient: line goes down from left to right ↘
+- Zero gradient: horizontal line →
+
+## Finding Gradient
+Between points (x₁, y₁) and (x₂, y₂):
+**m = (y₂ - y₁) ÷ (x₂ - x₁)**
+
+## The Y-Intercept
+The value of y when x = 0. In y = 3x + 2, the y-intercept is 2.
+
+## Graphing from Equation
+1. Find the y-intercept (set x = 0)
+2. Use gradient to find another point
+3. Draw the line through both points`,
+              keyPoints: [
+                'Linear graphs are straight lines',
+                'y = mx + c: m is gradient, c is y-intercept',
+                'Gradient = rise ÷ run',
+                'Y-intercept is where line crosses y-axis (x = 0)',
+              ],
+              knowledgeTokens: [
+                { id: 'plotting-points', name: 'Plotting Points', description: 'Locating points on the coordinate plane' },
+                { id: 'understanding-gradient', name: 'Understanding Gradient', description: 'Recognising slope of a line' },
+                { id: 'calculating-gradient', name: 'Calculating Gradient', description: 'Finding gradient from two points', prerequisites: ['understanding-gradient'] },
+                { id: 'y-intercept', name: 'Y-Intercept', description: 'Finding where line crosses y-axis' },
+                { id: 'equation-of-line', name: 'Equation of Line', description: 'Using y = mx + c form', prerequisites: ['understanding-gradient', 'y-intercept'] },
+              ],
+              examples: [
+                { problem: 'Find the gradient of line through (1, 3) and (4, 9)', solution: 'm = 2', explanation: 'm = (9-3)/(4-1) = 6/3 = 2' },
+                { problem: 'State the gradient and y-intercept of y = 4x - 3', solution: 'm = 4, c = -3', explanation: 'Comparing with y = mx + c: m = 4, c = -3' },
+              ],
+              questions: [
+                { id: 'VCMNA280-001', question: 'What is the y-intercept of y = 2x + 5?', options: ['2', '5', '0', '7'], correctAnswer: 1, explanation: 'In y = mx + c, c is the y-intercept. Here c = 5', difficulty: 1, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'origin-confusion', 'added'] } },
+                { id: 'VCMNA280-002', question: 'What is the gradient of y = 3x - 2?', options: ['-2', '3', '1', '6'], correctAnswer: 1, explanation: 'In y = mx + c, m is the gradient. Here m = 3', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['y-intercept-confusion', null, 'wrong-value', 'multiplied'] } },
+                { id: 'VCMNA280-003', question: 'A line goes through (0, 4) and (2, 10). What is the gradient?', options: ['2', '3', '7', '14'], correctAnswer: 1, explanation: 'm = (10-4)/(2-0) = 6/2 = 3', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: ['wrong-calculation', null, 'added', 'multiplied'] } },
+                { id: 'VCMNA280-004', question: 'Which point lies on the y-axis?', options: ['(2, 0)', '(0, 5)', '(3, 3)', '(1, 1)'], correctAnswer: 1, explanation: 'Points on the y-axis have x = 0', difficulty: 1, knowledge: { questionTokens: ['plotting-points'], correctToken: 'plotting-points', incorrectTokens: ['x-axis', null, 'neither-axis', 'neither-axis'] } },
+                { id: 'VCMNA280-005', question: 'What is the gradient between (1, 2) and (3, 8)?', options: ['2', '3', '5', '6'], correctAnswer: 1, explanation: 'm = (8-2)/(3-1) = 6/2 = 3', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: ['divided-wrong', null, 'added-coords', 'subtracted-wrong'] } },
+                { id: 'VCMNA280-006', question: 'A horizontal line has gradient...', options: ['1', 'undefined', '0', '-1'], correctAnswer: 2, explanation: 'Horizontal lines have zero rise, so gradient = 0', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['confused', 'vertical', null, 'confused'] } },
+                { id: 'VCMNA280-007', question: 'What is the y-intercept of y = -x + 7?', options: ['-1', '7', '0', '-7'], correctAnswer: 1, explanation: 'In y = mx + c, c = 7 is the y-intercept', difficulty: 1, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'origin', 'wrong-sign'] } },
+                { id: 'VCMNA280-008', question: 'Line through (2, 5) and (6, 13). Find gradient.', options: ['2', '8', '4', '18'], correctAnswer: 0, explanation: 'm = (13-5)/(6-2) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'numerator-only', 'wrong-division', 'added-all'] } },
+                { id: 'VCMNA280-009', question: 'Which equation has a negative gradient?', options: ['y = 2x + 1', 'y = x', 'y = -3x + 5', 'y = 5'], correctAnswer: 2, explanation: 'y = -3x + 5 has m = -3, which is negative', difficulty: 1, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['positive', 'positive', null, 'zero'] } },
+                { id: 'VCMNA280-010', question: 'If y = 4x, what is the y-intercept?', options: ['4', '0', '1', 'undefined'], correctAnswer: 1, explanation: 'y = 4x can be written as y = 4x + 0, so c = 0', difficulty: 2, knowledge: { questionTokens: ['y-intercept'], correctToken: 'y-intercept', incorrectTokens: ['gradient-confusion', null, 'confused', 'no-intercept'] } },
+                { id: 'VCMNA280-011', question: 'Point (4, -2) is in which quadrant?', options: ['I', 'II', 'III', 'IV'], correctAnswer: 3, explanation: 'x positive, y negative = Quadrant IV', difficulty: 2, knowledge: { questionTokens: ['plotting-points'], correctToken: 'plotting-points', incorrectTokens: ['wrong-quadrant', 'wrong-quadrant', 'wrong-quadrant', null] } },
+                { id: 'VCMNA280-012', question: 'Find gradient: (0, -3) to (4, 5)', options: ['2', '8', '-2', '0.5'], correctAnswer: 0, explanation: 'm = (5-(-3))/(4-0) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'numerator-only', 'wrong-sign', 'inverted'] } },
+                { id: 'VCMNA280-013', question: 'What is the equation of a line with gradient 2 and y-intercept 3?', options: ['y = 3x + 2', 'y = 2x + 3', 'y = 2x - 3', 'y = 5x'], correctAnswer: 1, explanation: 'y = mx + c with m = 2, c = 3 gives y = 2x + 3', difficulty: 1, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['swapped', null, 'wrong-sign', 'added'] } },
+                { id: 'VCMNA280-014', question: 'A line passes through origin with gradient 5. Its equation is...', options: ['y = 5', 'x = 5', 'y = 5x', 'y = x + 5'], correctAnswer: 2, explanation: 'Through origin means c = 0. With m = 5: y = 5x', difficulty: 2, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['horizontal', 'vertical', null, 'added-intercept'] } },
+                { id: 'VCMNA280-015', question: 'Line y = 2x + 4. When x = 3, what is y?', options: ['6', '10', '7', '9'], correctAnswer: 1, explanation: 'y = 2(3) + 4 = 6 + 4 = 10', difficulty: 1, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: ['forgot-4', null, 'wrong-calculation', 'wrong-multiplication'] } },
+                { id: 'VCMNA280-016', question: 'Gradient between (-2, 1) and (2, 9)?', options: ['2', '4', '8', '10'], correctAnswer: 0, explanation: 'm = (9-1)/(2-(-2)) = 8/4 = 2', difficulty: 2, knowledge: { questionTokens: ['calculating-gradient'], correctToken: 'calculating-gradient', incorrectTokens: [null, 'wrong-denominator', 'numerator-only', 'added'] } },
+                { id: 'VCMNA280-017', question: 'Which line is steeper: y = 3x + 1 or y = 5x - 2?', options: ['y = 3x + 1', 'y = 5x - 2', 'Same steepness', 'Cannot tell'], correctAnswer: 1, explanation: 'Gradient of 5 is steeper than gradient of 3', difficulty: 2, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['wrong', null, 'same', 'no-comparison'] } },
+                { id: 'VCMNA280-018', question: 'A vertical line has gradient...', options: ['0', '1', 'undefined', '-1'], correctAnswer: 2, explanation: 'Vertical lines have undefined gradient (divide by zero)', difficulty: 2, knowledge: { questionTokens: ['understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: ['horizontal', 'confused', null, 'confused'] } },
+                { id: 'VCMNA280-019', question: 'Line passes through (3, 7) with gradient 2. What is y when x = 5?', options: ['11', '9', '13', '7'], correctAnswer: 0, explanation: 'y = 2x + c. At (3,7): 7 = 6 + c, c = 1. When x = 5: y = 10 + 1 = 11', difficulty: 3, knowledge: { questionTokens: ['equation-of-line'], correctToken: 'equation-of-line', incorrectTokens: [null, 'wrong-c', 'wrong-calculation', 'no-change'] } },
+                { id: 'VCMNA280-020', question: 'Lines y = 2x + 3 and y = 2x - 1 are...', options: ['Parallel', 'Perpendicular', 'Intersecting', 'The same'], correctAnswer: 0, explanation: 'Same gradient (m = 2) but different y-intercepts = parallel lines', difficulty: 2, knowledge: { questionTokens: ['equation-of-line', 'understanding-gradient'], correctToken: 'understanding-gradient', incorrectTokens: [null, 'perpendicular-error', 'same-gradient', 'identical'] } },
+              ],
+            },
           ],
         },
       ],
@@ -2282,6 +2600,260 @@ Break the shape into simpler shapes, find each area, then add (or subtract) them
                 { id: 'VCMMG286-018', question: 'Arrow shape: rectangle 6×2 plus triangle point (base 2, height 3). Total area?', options: ['12 cm²', '15 cm²', '9 cm²', '18 cm²'], correctAnswer: 1, explanation: 'Rectangle = 12, Triangle = ½×2×3 = 3. Total = 15 cm²', difficulty: 2, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: ['rectangle-only', null, 'subtracted', 'wrong-triangle'] } },
                 { id: 'VCMMG286-019', question: 'A rhombus has area 54 cm² and one diagonal 9cm. Find the other diagonal.', options: ['6 cm', '12 cm', '45 cm', '108 cm'], correctAnswer: 1, explanation: '54 = ½ × 9 × d. d = 54 × 2 ÷ 9 = 12 cm', difficulty: 2, knowledge: { questionTokens: ['rhombus-kite-area'], correctToken: 'rhombus-kite-area', incorrectTokens: ['forgot-multiply-2', null, 'subtracted', 'multiplied'] } },
                 { id: 'VCMMG286-020', question: 'Pool with main rectangle 10×6m and semicircular end (radius 3m). Total area? (π=3.14)', options: ['60 m²', '74.13 m²', '88.26 m²', '45.86 m²'], correctAnswer: 1, explanation: 'Rectangle = 60 m². Semicircle = ½×π×3² = 14.13 m². Total ≈ 74.13 m²', difficulty: 3, knowledge: { questionTokens: ['composite-area'], correctToken: 'composite-area', incorrectTokens: ['rectangle-only', null, 'full-circle', 'wrong-calculation'] } },
+              ],
+            },
+            {
+              id: 'VCMMG287',
+              code: 'VCMMG287',
+              title: 'Volume of Prisms and Cylinders',
+              description: 'Develop the formulas for volumes of rectangular and triangular prisms and prisms in general. Use formulas to solve problems involving volume',
+              content: `# Volume of Prisms and Cylinders
+
+Volume measures the space inside a 3D shape.
+
+## Prism Volume Formula
+**Volume = Base Area × Height**
+
+This works for ANY prism (rectangular, triangular, etc.)
+
+## Rectangular Prism (Cuboid)
+V = length × width × height
+V = l × w × h
+
+## Cube
+V = side³ = s³
+
+## Triangular Prism
+V = (½ × base × height of triangle) × length
+
+## Cylinder
+V = πr²h
+- π ≈ 3.14
+- r = radius
+- h = height
+
+## Units
+- Length in cm → Volume in cm³
+- Length in m → Volume in m³
+- 1 cm³ = 1 mL
+- 1000 cm³ = 1 L`,
+              keyPoints: [
+                'Prism volume = Base area × Height',
+                'Rectangular prism: V = l × w × h',
+                'Cylinder: V = πr²h',
+                '1000 cm³ = 1 litre'
+              ],
+              knowledgeTokens: [
+                { id: 'rectangular-prism-volume', name: 'Rectangular Prism Volume', description: 'V = l × w × h' },
+                { id: 'triangular-prism-volume', name: 'Triangular Prism Volume', description: 'V = base area × length' },
+                { id: 'cylinder-volume', name: 'Cylinder Volume', description: 'V = πr²h' },
+                { id: 'volume-units', name: 'Volume Units', description: 'Converting between volume and capacity' },
+              ],
+              examples: [
+                { problem: 'Find volume of box: 5cm × 4cm × 3cm', solution: '60 cm³', explanation: 'V = 5 × 4 × 3 = 60 cm³' },
+                { problem: 'Cylinder: radius 3cm, height 10cm. Find volume (π=3.14)', solution: '282.6 cm³', explanation: 'V = π × 3² × 10 = 3.14 × 9 × 10 = 282.6 cm³' }
+              ],
+              questions: [
+                { id: 'VCMMG287-001', question: 'Volume of rectangular prism: 6cm × 4cm × 5cm?', options: ['120 cm³', '15 cm³', '60 cm³', '240 cm³'], correctAnswer: 0, explanation: 'V = 6 × 4 × 5 = 120 cm³', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'added', 'two-sides', 'doubled'] } },
+                { id: 'VCMMG287-002', question: 'Volume of cube with side 4cm?', options: ['12 cm³', '16 cm³', '64 cm³', '48 cm³'], correctAnswer: 2, explanation: 'V = 4³ = 64 cm³', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: ['added', 'squared', null, 'perimeter'] } },
+                { id: 'VCMMG287-003', question: 'Cylinder: radius 2cm, height 7cm. Volume? (π=3.14)', options: ['87.92 cm³', '43.96 cm³', '28 cm³', '14 cm³'], correctAnswer: 0, explanation: 'V = 3.14 × 2² × 7 = 87.92 cm³', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'forgot-square', 'forgot-pi', 'wrong-formula'] } },
+                { id: 'VCMMG287-004', question: 'A box holds 2000 cm³. How many litres?', options: ['2 L', '20 L', '0.2 L', '200 L'], correctAnswer: 0, explanation: '2000 ÷ 1000 = 2 litres', difficulty: 1, knowledge: { questionTokens: ['volume-units'], correctToken: 'volume-units', incorrectTokens: [null, 'wrong-conversion', 'wrong-direction', 'extra-zero'] } },
+                { id: 'VCMMG287-005', question: 'Triangular prism: triangle base 6cm, height 4cm, prism length 10cm. Volume?', options: ['120 cm³', '240 cm³', '60 cm³', '24 cm³'], correctAnswer: 0, explanation: 'Triangle area = ½×6×4 = 12. V = 12 × 10 = 120 cm³', difficulty: 2, knowledge: { questionTokens: ['triangular-prism-volume'], correctToken: 'triangular-prism-volume', incorrectTokens: [null, 'forgot-half', 'triangle-only', 'wrong-calculation'] } },
+                { id: 'VCMMG287-006', question: 'Rectangular prism: 8m × 5m × 3m. Volume?', options: ['120 m³', '16 m³', '240 m³', '40 m³'], correctAnswer: 0, explanation: 'V = 8 × 5 × 3 = 120 m³', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'added', 'doubled', 'two-sides'] } },
+                { id: 'VCMMG287-007', question: 'Cylinder: diameter 10cm, height 6cm. Volume? (π=3.14)', options: ['188.4 cm³', '471 cm³', '94.2 cm³', '1884 cm³'], correctAnswer: 1, explanation: 'r = 5. V = 3.14 × 5² × 6 = 471 cm³', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: ['used-diameter', null, 'forgot-square', 'wrong-calculation'] } },
+                { id: 'VCMMG287-008', question: 'A tank holds 5 L. Volume in cm³?', options: ['5 cm³', '500 cm³', '5000 cm³', '50 cm³'], correctAnswer: 2, explanation: '5 × 1000 = 5000 cm³', difficulty: 1, knowledge: { questionTokens: ['volume-units'], correctToken: 'volume-units', incorrectTokens: ['no-conversion', 'wrong-factor', null, 'wrong-factor'] } },
+                { id: 'VCMMG287-009', question: 'Cube has volume 27 cm³. What is the side length?', options: ['9 cm', '3 cm', '27 cm', '13.5 cm'], correctAnswer: 1, explanation: '³√27 = 3 cm', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: ['divided-by-3', null, 'no-root', 'square-root'] } },
+                { id: 'VCMMG287-010', question: 'Rectangular prism: base 12 cm², height 8cm. Volume?', options: ['20 cm³', '96 cm³', '1.5 cm³', '4 cm³'], correctAnswer: 1, explanation: 'V = base area × height = 12 × 8 = 96 cm³', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: ['added', null, 'divided', 'wrong-operation'] } },
+                { id: 'VCMMG287-011', question: 'Cylinder: r=4cm, h=10cm. Volume? (π=3.14)', options: ['125.6 cm³', '502.4 cm³', '251.2 cm³', '40 cm³'], correctAnswer: 1, explanation: 'V = 3.14 × 16 × 10 = 502.4 cm³', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: ['forgot-square', null, 'forgot-h', 'forgot-pi'] } },
+                { id: 'VCMMG287-012', question: 'Prism with hexagonal base area 24 cm², length 15cm. Volume?', options: ['360 cm³', '39 cm³', '1.6 cm³', '180 cm³'], correctAnswer: 0, explanation: 'V = base area × height = 24 × 15 = 360 cm³', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'added', 'divided', 'halved'] } },
+                { id: 'VCMMG287-013', question: 'Box: 20cm × 15cm × 10cm. Capacity in litres?', options: ['3 L', '30 L', '0.3 L', '300 L'], correctAnswer: 0, explanation: 'V = 3000 cm³ = 3 L', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-volume', 'volume-units'], correctToken: 'volume-units', incorrectTokens: [null, 'forgot-conversion', 'wrong-direction', 'extra-zeros'] } },
+                { id: 'VCMMG287-014', question: 'Triangular prism: right triangle legs 5cm and 12cm, length 8cm. Volume?', options: ['480 cm³', '240 cm³', '120 cm³', '60 cm³'], correctAnswer: 1, explanation: 'Triangle = ½×5×12 = 30. V = 30 × 8 = 240 cm³', difficulty: 2, knowledge: { questionTokens: ['triangular-prism-volume'], correctToken: 'triangular-prism-volume', incorrectTokens: ['forgot-half', null, 'wrong-calculation', 'triangle-only'] } },
+                { id: 'VCMMG287-015', question: 'Cylinder has volume 314 cm³ and height 4cm. Find radius. (π=3.14)', options: ['5 cm', '25 cm', '10 cm', '2.5 cm'], correctAnswer: 0, explanation: '314 = 3.14 × r² × 4. r² = 25, r = 5 cm', difficulty: 3, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'forgot-root', 'wrong-rearrangement', 'halved'] } },
+                { id: 'VCMMG287-016', question: 'Rectangular prism volume 180 cm³, base 6×5. Find height.', options: ['6 cm', '30 cm', '150 cm', '3 cm'], correctAnswer: 0, explanation: '180 = 30 × h. h = 6 cm', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'base-only', 'subtracted', 'wrong-division'] } },
+                { id: 'VCMMG287-017', question: 'Compare: Cube (5cm side) vs Cylinder (r=3cm, h=5cm). Which is larger? (π=3.14)', options: ['Cube', 'Cylinder', 'Equal', 'Cannot compare'], correctAnswer: 0, explanation: 'Cube = 125 cm³. Cylinder = 3.14×9×5 = 141.3 cm³. Cylinder larger!', difficulty: 3, knowledge: { questionTokens: ['rectangular-prism-volume', 'cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'calculation-error', 'no-calculation', 'confused'] } },
+                { id: 'VCMMG287-018', question: 'A pipe is cylindrical: outer radius 5cm, inner radius 3cm, length 20cm. Volume of material? (π=3.14)', options: ['1004.8 cm³', '565.2 cm³', '502.4 cm³', '2009.6 cm³'], correctAnswer: 0, explanation: 'V = π×(5²-3²)×20 = 3.14×16×20 = 1004.8 cm³', difficulty: 3, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'inner-only', 'outer-only', 'added-radii'] } },
+                { id: 'VCMMG287-019', question: 'Swimming pool: 25m × 10m × 2m. Capacity in kilolitres?', options: ['500 kL', '50 kL', '5000 kL', '5 kL'], correctAnswer: 0, explanation: 'V = 500 m³ = 500 kL (1 m³ = 1 kL)', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-volume', 'volume-units'], correctToken: 'volume-units', incorrectTokens: [null, 'wrong-conversion', 'extra-zero', 'wrong-units'] } },
+                { id: 'VCMMG287-020', question: 'Cylinder doubles in height. Volume becomes...', options: ['Double', 'Quadruple', 'Same', 'Triple'], correctAnswer: 0, explanation: 'V = πr²h. If h doubles, V doubles.', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'r-squared-confusion', 'no-change', 'wrong-factor'] } },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'pythagoras',
+          title: 'Pythagoras Theorem',
+          description: 'Using Pythagoras theorem to find sides of right-angled triangles',
+          sections: [
+            {
+              id: 'VCMMG288',
+              code: 'VCMMG288',
+              title: 'Pythagoras Theorem',
+              description: 'Investigate Pythagoras theorem and its application to solving simple problems involving right angled triangles',
+              content: `# Pythagoras' Theorem
+
+Pythagoras' Theorem is one of the most important relationships in geometry. It connects the three sides of a right-angled triangle.
+
+## The Theorem
+In a right-angled triangle:
+**a² + b² = c²**
+
+Where:
+- **c** = hypotenuse (longest side, opposite the right angle)
+- **a** and **b** = the other two sides (legs)
+
+## Finding the Hypotenuse
+If you know the two shorter sides, find the hypotenuse:
+- c² = a² + b²
+- c = √(a² + b²)
+
+**Example:** Sides are 3 cm and 4 cm
+- c² = 3² + 4² = 9 + 16 = 25
+- c = √25 = 5 cm
+
+## Finding a Shorter Side
+If you know the hypotenuse and one side:
+- a² = c² - b²
+- a = √(c² - b²)
+
+**Example:** Hypotenuse = 13 cm, one side = 5 cm
+- a² = 13² - 5² = 169 - 25 = 144
+- a = √144 = 12 cm
+
+## Pythagorean Triples
+Common sets of whole numbers that work:
+- 3, 4, 5
+- 5, 12, 13
+- 8, 15, 17
+- 7, 24, 25
+
+## Real-World Applications
+- Finding diagonal distances
+- Checking if corners are square
+- Calculating heights and distances`,
+              keyPoints: [
+                'a² + b² = c² in right-angled triangles',
+                'The hypotenuse is always the longest side',
+                'To find a side, rearrange and use square roots',
+                'Pythagorean triples are whole number solutions',
+              ],
+              knowledgeTokens: [
+                { id: 'pythagoras-theorem', name: 'Pythagoras Theorem', description: 'Understanding a² + b² = c²' },
+                { id: 'finding-hypotenuse', name: 'Finding Hypotenuse', description: 'Using c = √(a² + b²)', prerequisites: ['pythagoras-theorem'] },
+                { id: 'finding-shorter-side', name: 'Finding Shorter Side', description: 'Using a = √(c² - b²)', prerequisites: ['pythagoras-theorem'] },
+                { id: 'pythagorean-triples', name: 'Pythagorean Triples', description: 'Recognising common whole number solutions' },
+                { id: 'pythagoras-applications', name: 'Pythagoras Applications', description: 'Real-world problem solving', prerequisites: ['finding-hypotenuse', 'finding-shorter-side'] },
+              ],
+              examples: [
+                { problem: 'Find the hypotenuse of a right triangle with legs 6 cm and 8 cm', solution: '10 cm', explanation: 'c² = 6² + 8² = 36 + 64 = 100, c = √100 = 10 cm' },
+                { problem: 'A ladder 10 m long leans against a wall, base is 6 m from wall. How high up the wall?', solution: '8 m', explanation: 'h² = 10² - 6² = 100 - 36 = 64, h = √64 = 8 m' },
+              ],
+              questions: [
+                { id: 'VCMMG288-001', question: 'In a right triangle, the two shorter sides are 3 cm and 4 cm. Find the hypotenuse.', options: ['5 cm', '7 cm', '12 cm', '25 cm'], correctAnswer: 0, explanation: 'c² = 3² + 4² = 9 + 16 = 25, c = √25 = 5 cm', difficulty: 1, knowledge: { questionTokens: ['finding-hypotenuse'], correctToken: 'finding-hypotenuse', incorrectTokens: [null, 'added-sides', 'multiplied', 'no-root'] } },
+                { id: 'VCMMG288-002', question: 'Find the hypotenuse: legs are 5 cm and 12 cm.', options: ['17 cm', '13 cm', '169 cm', '7 cm'], correctAnswer: 1, explanation: 'c² = 5² + 12² = 25 + 144 = 169, c = √169 = 13 cm', difficulty: 1, knowledge: { questionTokens: ['finding-hypotenuse'], correctToken: 'finding-hypotenuse', incorrectTokens: ['added-sides', null, 'no-root', 'subtracted'] } },
+                { id: 'VCMMG288-003', question: 'Hypotenuse is 10 cm, one leg is 6 cm. Find the other leg.', options: ['4 cm', '8 cm', '16 cm', '64 cm'], correctAnswer: 1, explanation: 'a² = 10² - 6² = 100 - 36 = 64, a = √64 = 8 cm', difficulty: 2, knowledge: { questionTokens: ['finding-shorter-side'], correctToken: 'finding-shorter-side', incorrectTokens: ['wrong-operation', null, 'wrong-calculation', 'no-root'] } },
+                { id: 'VCMMG288-004', question: 'Which is a Pythagorean triple?', options: ['2, 3, 4', '3, 4, 5', '4, 5, 6', '5, 6, 7'], correctAnswer: 1, explanation: '3² + 4² = 9 + 16 = 25 = 5². The others do not satisfy a² + b² = c²', difficulty: 1, knowledge: { questionTokens: ['pythagorean-triples'], correctToken: 'pythagorean-triples', incorrectTokens: ['not-verified', null, 'not-verified', 'not-verified'] } },
+                { id: 'VCMMG288-005', question: 'A rectangle is 8 m by 6 m. Find the diagonal length.', options: ['14 m', '10 m', '48 m', '100 m'], correctAnswer: 1, explanation: 'd² = 8² + 6² = 64 + 36 = 100, d = √100 = 10 m', difficulty: 2, knowledge: { questionTokens: ['pythagoras-applications', 'finding-hypotenuse'], correctToken: 'pythagoras-applications', incorrectTokens: ['added-sides', null, 'multiplied', 'no-root'] } },
+                { id: 'VCMMG288-006', question: 'Find the hypotenuse: legs 8 cm and 15 cm.', options: ['17 cm', '23 cm', '289 cm', '7 cm'], correctAnswer: 0, explanation: 'c² = 8² + 15² = 64 + 225 = 289, c = √289 = 17 cm', difficulty: 2, knowledge: { questionTokens: ['finding-hypotenuse'], correctToken: 'finding-hypotenuse', incorrectTokens: [null, 'added-sides', 'no-root', 'subtracted'] } },
+                { id: 'VCMMG288-007', question: 'Hypotenuse = 25 cm, one leg = 7 cm. Find the other leg.', options: ['18 cm', '24 cm', '32 cm', '576 cm'], correctAnswer: 1, explanation: 'a² = 25² - 7² = 625 - 49 = 576, a = √576 = 24 cm', difficulty: 2, knowledge: { questionTokens: ['finding-shorter-side'], correctToken: 'finding-shorter-side', incorrectTokens: ['subtracted-sides', null, 'wrong-calculation', 'no-root'] } },
+                { id: 'VCMMG288-008', question: 'A ladder 13 m long reaches 12 m up a wall. How far is the base from the wall?', options: ['1 m', '5 m', '25 m', '√313 m'], correctAnswer: 1, explanation: 'x² = 13² - 12² = 169 - 144 = 25, x = √25 = 5 m', difficulty: 2, knowledge: { questionTokens: ['pythagoras-applications', 'finding-shorter-side'], correctToken: 'pythagoras-applications', incorrectTokens: ['subtracted', null, 'added', 'no-root'] } },
+                { id: 'VCMMG288-009', question: 'Is a triangle with sides 6, 8, 10 a right triangle?', options: ['Yes', 'No', 'Cannot tell', 'Only if one angle is marked'], correctAnswer: 0, explanation: '6² + 8² = 36 + 64 = 100 = 10². Yes, it satisfies Pythagoras.', difficulty: 2, knowledge: { questionTokens: ['pythagoras-theorem'], correctToken: 'pythagoras-theorem', incorrectTokens: [null, 'wrong-check', 'needs-info', 'visual-only'] } },
+                { id: 'VCMMG288-010', question: 'Find the hypotenuse: legs 9 cm and 12 cm.', options: ['15 cm', '21 cm', '225 cm', '3 cm'], correctAnswer: 0, explanation: 'c² = 9² + 12² = 81 + 144 = 225, c = √225 = 15 cm', difficulty: 1, knowledge: { questionTokens: ['finding-hypotenuse'], correctToken: 'finding-hypotenuse', incorrectTokens: [null, 'added-sides', 'no-root', 'subtracted'] } },
+                { id: 'VCMMG288-011', question: 'A TV screen is 48 cm wide and 36 cm tall. Find the diagonal.', options: ['84 cm', '60 cm', '1728 cm', '12 cm'], correctAnswer: 1, explanation: 'd² = 48² + 36² = 2304 + 1296 = 3600, d = √3600 = 60 cm', difficulty: 2, knowledge: { questionTokens: ['pythagoras-applications'], correctToken: 'pythagoras-applications', incorrectTokens: ['added-sides', null, 'area', 'gcd'] } },
+                { id: 'VCMMG288-012', question: 'Hypotenuse = 17 cm, one leg = 8 cm. Find the other leg.', options: ['9 cm', '15 cm', '25 cm', '225 cm'], correctAnswer: 1, explanation: 'a² = 17² - 8² = 289 - 64 = 225, a = √225 = 15 cm', difficulty: 2, knowledge: { questionTokens: ['finding-shorter-side'], correctToken: 'finding-shorter-side', incorrectTokens: ['subtracted-sides', null, 'added', 'no-root'] } },
+                { id: 'VCMMG288-013', question: 'Two legs of a right triangle are equal and the hypotenuse is 10 cm. Find each leg (to 1 dp).', options: ['5 cm', '7.1 cm', '50 cm', '√50 cm'], correctAnswer: 1, explanation: '2a² = 100, a² = 50, a = √50 ≈ 7.07 ≈ 7.1 cm', difficulty: 3, knowledge: { questionTokens: ['finding-shorter-side'], correctToken: 'finding-shorter-side', incorrectTokens: ['halved-hyp', null, 'no-root', 'exact-only'] } },
+                { id: 'VCMMG288-014', question: 'A ship sails 30 km east then 40 km north. How far from the start?', options: ['70 km', '50 km', '10 km', '2500 km'], correctAnswer: 1, explanation: 'd² = 30² + 40² = 900 + 1600 = 2500, d = √2500 = 50 km', difficulty: 2, knowledge: { questionTokens: ['pythagoras-applications'], correctToken: 'pythagoras-applications', incorrectTokens: ['added-distances', null, 'subtracted', 'no-root'] } },
+                { id: 'VCMMG288-015', question: 'Is 5, 12, 13 a Pythagorean triple?', options: ['Yes', 'No', 'Only approximately', 'Need more info'], correctAnswer: 0, explanation: '5² + 12² = 25 + 144 = 169 = 13². Yes!', difficulty: 1, knowledge: { questionTokens: ['pythagorean-triples'], correctToken: 'pythagorean-triples', incorrectTokens: [null, 'wrong-check', 'not-whole', 'no-calculation'] } },
+                { id: 'VCMMG288-016', question: 'Find the height of an isosceles triangle with base 16 cm and equal sides 10 cm.', options: ['6 cm', '8 cm', '26 cm', '36 cm'], correctAnswer: 0, explanation: 'Height splits base: h² = 10² - 8² = 100 - 64 = 36, h = 6 cm', difficulty: 3, knowledge: { questionTokens: ['pythagoras-applications', 'finding-shorter-side'], correctToken: 'pythagoras-applications', incorrectTokens: [null, 'wrong-split', 'added', 'no-root'] } },
+                { id: 'VCMMG288-017', question: 'A ramp is 15 m long and rises 9 m vertically. What is the horizontal distance?', options: ['6 m', '12 m', '24 m', '144 m'], correctAnswer: 1, explanation: 'h² = 15² - 9² = 225 - 81 = 144, h = √144 = 12 m', difficulty: 2, knowledge: { questionTokens: ['finding-shorter-side', 'pythagoras-applications'], correctToken: 'finding-shorter-side', incorrectTokens: ['subtracted', null, 'added', 'no-root'] } },
+                { id: 'VCMMG288-018', question: 'In a right triangle, one leg is 24 cm and the hypotenuse is 25 cm. Find the other leg.', options: ['1 cm', '7 cm', '49 cm', '√49 cm'], correctAnswer: 1, explanation: 'a² = 25² - 24² = 625 - 576 = 49, a = √49 = 7 cm', difficulty: 2, knowledge: { questionTokens: ['finding-shorter-side'], correctToken: 'finding-shorter-side', incorrectTokens: ['subtracted', null, 'no-root', 'exact-only'] } },
+                { id: 'VCMMG288-019', question: 'A rectangular park is 120 m by 50 m. What is the shortest path diagonally across?', options: ['170 m', '130 m', '6000 m', '70 m'], correctAnswer: 1, explanation: 'd² = 120² + 50² = 14400 + 2500 = 16900, d = √16900 = 130 m', difficulty: 2, knowledge: { questionTokens: ['pythagoras-applications'], correctToken: 'pythagoras-applications', incorrectTokens: ['added', null, 'area', 'subtracted'] } },
+                { id: 'VCMMG288-020', question: 'Which set of numbers is NOT a Pythagorean triple?', options: ['3, 4, 5', '6, 8, 10', '5, 12, 13', '4, 5, 6'], correctAnswer: 3, explanation: '4² + 5² = 16 + 25 = 41 ≠ 36 = 6². The others all satisfy a² + b² = c²', difficulty: 2, knowledge: { questionTokens: ['pythagorean-triples'], correctToken: 'pythagorean-triples', incorrectTokens: ['valid-triple', 'valid-triple', 'valid-triple', null] } },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'circles',
+          title: 'Circles',
+          description: 'Properties and measurements of circles',
+          sections: [
+            {
+              id: 'VCMMG289',
+              code: 'VCMMG289',
+              title: 'Circle Properties',
+              description: 'Investigate the relationship between features of circles such as circumference, area, radius and diameter. Use formulas to solve problems',
+              content: `# Circle Properties
+
+Circles are special shapes with many useful properties.
+
+## Parts of a Circle
+- **Centre**: The middle point
+- **Radius (r)**: Distance from centre to edge
+- **Diameter (d)**: Distance across through centre = 2r
+- **Circumference (C)**: Distance around the circle
+- **Area (A)**: Space inside the circle
+
+## Pi (π)
+Pi is a special number ≈ 3.14159...
+It relates circumference to diameter: π = C ÷ d
+
+## Circumference Formulas
+**C = πd** (using diameter)
+**C = 2πr** (using radius)
+
+**Example:** Circle with radius 7 cm
+C = 2 × π × 7 = 14π ≈ 43.98 cm
+
+## Area Formula
+**A = πr²**
+
+**Example:** Circle with radius 5 cm
+A = π × 5² = 25π ≈ 78.54 cm²
+
+## Semicircles and Quadrants
+- **Semicircle**: Half a circle
+  - Perimeter = πr + 2r (curved part + diameter)
+  - Area = ½πr²
+
+- **Quadrant**: Quarter of a circle
+  - Perimeter = ½πr + 2r (curved part + two radii)
+  - Area = ¼πr²`,
+              keyPoints: [
+                'Diameter = 2 × radius',
+                'Circumference = πd = 2πr',
+                'Area = πr²',
+                'π ≈ 3.14 or 22/7',
+              ],
+              knowledgeTokens: [
+                { id: 'circle-parts', name: 'Circle Parts', description: 'Understanding radius, diameter, circumference' },
+                { id: 'circumference-formula', name: 'Circumference Formula', description: 'Using C = πd or C = 2πr', prerequisites: ['circle-parts'] },
+                { id: 'circle-area', name: 'Circle Area', description: 'Using A = πr²', prerequisites: ['circle-parts'] },
+                { id: 'semicircle-quadrant', name: 'Semicircle and Quadrant', description: 'Calculating parts of circles', prerequisites: ['circumference-formula', 'circle-area'] },
+              ],
+              examples: [
+                { problem: 'Find the circumference of a circle with diameter 10 cm (π = 3.14)', solution: '31.4 cm', explanation: 'C = πd = 3.14 × 10 = 31.4 cm' },
+                { problem: 'Find the area of a circle with radius 4 cm (π = 3.14)', solution: '50.24 cm²', explanation: 'A = πr² = 3.14 × 4² = 3.14 × 16 = 50.24 cm²' },
+              ],
+              questions: [
+                { id: 'VCMMG289-001', question: 'A circle has radius 5 cm. What is the diameter?', options: ['2.5 cm', '5 cm', '10 cm', '25 cm'], correctAnswer: 2, explanation: 'Diameter = 2 × radius = 2 × 5 = 10 cm', difficulty: 1, knowledge: { questionTokens: ['circle-parts'], correctToken: 'circle-parts', incorrectTokens: ['halved', 'same-as-radius', null, 'squared'] } },
+                { id: 'VCMMG289-002', question: 'Find the circumference of a circle with diameter 14 cm. (π = 22/7)', options: ['44 cm', '22 cm', '88 cm', '154 cm²'], correctAnswer: 0, explanation: 'C = πd = 22/7 × 14 = 44 cm', difficulty: 1, knowledge: { questionTokens: ['circumference-formula'], correctToken: 'circumference-formula', incorrectTokens: [null, 'used-radius', 'doubled', 'area-confusion'] } },
+                { id: 'VCMMG289-003', question: 'Find the area of a circle with radius 7 cm. (π = 22/7)', options: ['44 cm²', '22 cm²', '154 cm²', '49 cm²'], correctAnswer: 2, explanation: 'A = πr² = 22/7 × 49 = 154 cm²', difficulty: 1, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: ['circumference', 'halved', null, 'forgot-pi'] } },
+                { id: 'VCMMG289-004', question: 'A circle has diameter 20 cm. What is the radius?', options: ['10 cm', '20 cm', '40 cm', '5 cm'], correctAnswer: 0, explanation: 'Radius = diameter ÷ 2 = 20 ÷ 2 = 10 cm', difficulty: 1, knowledge: { questionTokens: ['circle-parts'], correctToken: 'circle-parts', incorrectTokens: [null, 'no-calculation', 'doubled', 'halved-twice'] } },
+                { id: 'VCMMG289-005', question: 'Find circumference: radius = 6 cm (π = 3.14)', options: ['18.84 cm', '37.68 cm', '113.04 cm', '6.28 cm'], correctAnswer: 1, explanation: 'C = 2πr = 2 × 3.14 × 6 = 37.68 cm', difficulty: 2, knowledge: { questionTokens: ['circumference-formula'], correctToken: 'circumference-formula', incorrectTokens: ['forgot-2', null, 'area', 'forgot-radius'] } },
+                { id: 'VCMMG289-006', question: 'Find area: radius = 10 cm (π = 3.14)', options: ['31.4 cm²', '62.8 cm²', '314 cm²', '100 cm²'], correctAnswer: 2, explanation: 'A = πr² = 3.14 × 100 = 314 cm²', difficulty: 1, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: ['circumference', 'circumference', null, 'forgot-pi'] } },
+                { id: 'VCMMG289-007', question: 'A wheel has circumference 62.8 cm. Find the diameter. (π = 3.14)', options: ['10 cm', '20 cm', '5 cm', '100 cm'], correctAnswer: 1, explanation: 'd = C ÷ π = 62.8 ÷ 3.14 = 20 cm', difficulty: 2, knowledge: { questionTokens: ['circumference-formula'], correctToken: 'circumference-formula', incorrectTokens: ['halved', null, 'radius', 'squared'] } },
+                { id: 'VCMMG289-008', question: 'Find area of semicircle: radius = 8 cm (π = 3.14)', options: ['100.48 cm²', '200.96 cm²', '50.24 cm²', '25.12 cm²'], correctAnswer: 0, explanation: 'A = ½πr² = ½ × 3.14 × 64 = 100.48 cm²', difficulty: 2, knowledge: { questionTokens: ['semicircle-quadrant'], correctToken: 'semicircle-quadrant', incorrectTokens: [null, 'full-circle', 'quarter', 'wrong-calculation'] } },
+                { id: 'VCMMG289-009', question: 'A circular pool has diameter 12 m. Find the area. (π = 3.14)', options: ['113.04 m²', '452.16 m²', '37.68 m²', '144 m²'], correctAnswer: 0, explanation: 'r = 6. A = πr² = 3.14 × 36 = 113.04 m²', difficulty: 2, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: [null, 'used-diameter', 'circumference', 'forgot-pi'] } },
+                { id: 'VCMMG289-010', question: 'Perimeter of semicircle: radius = 7 cm (π = 22/7)', options: ['22 cm', '36 cm', '11 cm', '14 cm'], correctAnswer: 1, explanation: 'P = πr + 2r = 22 + 14 = 36 cm', difficulty: 2, knowledge: { questionTokens: ['semicircle-quadrant'], correctToken: 'semicircle-quadrant', incorrectTokens: ['arc-only', null, 'halved-arc', 'diameter-only'] } },
+                { id: 'VCMMG289-011', question: 'A circle has area 78.5 cm². Find the radius. (π = 3.14)', options: ['5 cm', '25 cm', '10 cm', '2.5 cm'], correctAnswer: 0, explanation: 'r² = 78.5 ÷ 3.14 = 25, r = 5 cm', difficulty: 3, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: [null, 'no-root', 'doubled', 'halved'] } },
+                { id: 'VCMMG289-012', question: 'A wheel turns 10 complete rotations. If radius = 35 cm, total distance? (π = 22/7)', options: ['220 cm', '2200 cm', '22 cm', '22000 cm'], correctAnswer: 1, explanation: 'C = 2πr = 220 cm. Distance = 10 × 220 = 2200 cm', difficulty: 2, knowledge: { questionTokens: ['circumference-formula'], correctToken: 'circumference-formula', incorrectTokens: ['one-rotation', null, 'forgot-rotations', 'area'] } },
+                { id: 'VCMMG289-013', question: 'Find area of quadrant: radius = 10 cm (π = 3.14)', options: ['78.5 cm²', '157 cm²', '314 cm²', '31.4 cm²'], correctAnswer: 0, explanation: 'A = ¼πr² = ¼ × 3.14 × 100 = 78.5 cm²', difficulty: 2, knowledge: { questionTokens: ['semicircle-quadrant'], correctToken: 'semicircle-quadrant', incorrectTokens: [null, 'half-circle', 'full-circle', 'arc-not-area'] } },
+                { id: 'VCMMG289-014', question: 'A pizza has diameter 30 cm. Find area. (π = 3.14)', options: ['706.5 cm²', '94.2 cm²', '2826 cm²', '225 cm²'], correctAnswer: 0, explanation: 'r = 15. A = πr² = 3.14 × 225 = 706.5 cm²', difficulty: 2, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: [null, 'circumference', 'used-diameter', 'forgot-pi'] } },
+                { id: 'VCMMG289-015', question: 'Circumference is 44 cm. Find radius. (π = 22/7)', options: ['7 cm', '14 cm', '22 cm', '2 cm'], correctAnswer: 0, explanation: 'r = C ÷ (2π) = 44 ÷ (2 × 22/7) = 44 × 7/44 = 7 cm', difficulty: 3, knowledge: { questionTokens: ['circumference-formula'], correctToken: 'circumference-formula', incorrectTokens: [null, 'diameter', 'wrong-calculation', 'halved-wrong'] } },
+                { id: 'VCMMG289-016', question: 'Compare: Circle A (r=4cm) and Circle B (r=8cm). How many times larger is area B?', options: ['2 times', '4 times', '8 times', '16 times'], correctAnswer: 1, explanation: 'A_A = π(16), A_B = π(64). Ratio = 64/16 = 4 times', difficulty: 3, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: ['radius-ratio', null, 'circumference-ratio', 'diameter-ratio'] } },
+                { id: 'VCMMG289-017', question: 'Perimeter of quadrant: radius = 14 cm (π = 22/7)', options: ['22 cm', '50 cm', '28 cm', '44 cm'], correctAnswer: 1, explanation: 'P = ¼(2πr) + 2r = 22 + 28 = 50 cm', difficulty: 3, knowledge: { questionTokens: ['semicircle-quadrant'], correctToken: 'semicircle-quadrant', incorrectTokens: ['arc-only', null, 'radii-only', 'semicircle'] } },
+                { id: 'VCMMG289-018', question: 'A circular garden (r=5m) has a path 1m wide around it. Find area of path. (π=3.14)', options: ['34.54 m²', '78.5 m²', '113.04 m²', '28.26 m²'], correctAnswer: 0, explanation: 'Outer r = 6m. Path = π(36) - π(25) = 11π ≈ 34.54 m²', difficulty: 3, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: [null, 'inner-only', 'outer-only', 'circumference'] } },
+                { id: 'VCMMG289-019', question: 'A CD has outer radius 6 cm and inner radius 1 cm. Find area. (π = 3.14)', options: ['109.9 cm²', '113.04 cm²', '3.14 cm²', '37.68 cm²'], correctAnswer: 0, explanation: 'A = π(36) - π(1) = 35π ≈ 109.9 cm²', difficulty: 3, knowledge: { questionTokens: ['circle-area'], correctToken: 'circle-area', incorrectTokens: [null, 'outer-only', 'inner-only', 'circumference'] } },
+                { id: 'VCMMG289-020', question: 'If you double the radius, the circumference...', options: ['Stays same', 'Doubles', 'Quadruples', 'Halves'], correctAnswer: 1, explanation: 'C = 2πr. If r doubles, C doubles.', difficulty: 2, knowledge: { questionTokens: ['circumference-formula'], correctToken: 'circumference-formula', incorrectTokens: ['no-relationship', null, 'area-confusion', 'wrong-direction'] } },
               ],
             },
           ],
@@ -2534,6 +3106,180 @@ Die: {1, 2, 3, 4, 5, 6}
                 { id: 'VCMSP298-018', question: 'P(at least one head in two flips)?', options: ['1/4', '1/2', '3/4', '1'], correctAnswer: 2, explanation: 'P(no heads) = 1/4 (TT only). P(at least one) = 1 - 1/4 = 3/4', difficulty: 3, knowledge: { questionTokens: ['complementary-events', 'combined-events'], correctToken: 'complementary-events', incorrectTokens: ['no-heads', 'one-only', null, 'certain'] } },
                 { id: 'VCMSP298-019', question: '5 red, 3 blue marbles. One taken, not replaced. Then another. P(both red)?', options: ['25/64', '20/56', '5/8', '2/8'], correctAnswer: 1, explanation: 'P(1st red) = 5/8, P(2nd red) = 4/7. P = 5/8 × 4/7 = 20/56', difficulty: 3, knowledge: { questionTokens: ['combined-events'], correctToken: 'combined-events', incorrectTokens: ['with-replacement', null, 'one-only', 'wrong-calculation'] } },
                 { id: 'VCMSP298-020', question: 'Which represents an even chance?', options: ['0', '0.25', '0.5', '1'], correctAnswer: 2, explanation: '0.5 = 50% chance = equally likely to happen or not', difficulty: 1, knowledge: { questionTokens: ['probability-scale'], correctToken: 'probability-scale', incorrectTokens: ['impossible', 'unlikely', null, 'certain'] } },
+              ],
+            },
+            {
+              id: 'VCMSP299',
+              code: 'VCMSP299',
+              title: 'Two-Way Tables and Venn Diagrams',
+              description: 'Represent events in two-way tables and Venn diagrams and solve related problems',
+              content: `# Two-Way Tables and Venn Diagrams
+
+These tools help us organise and analyse data involving two categories or overlapping groups.
+
+## Two-Way Tables
+A two-way table shows data classified by two different categories.
+
+**Example:** Students' sport and gender preferences
+|          | Soccer | Tennis | Total |
+|----------|--------|--------|-------|
+| Boys     | 15     | 10     | 25    |
+| Girls    | 12     | 18     | 30    |
+| Total    | 27     | 28     | 55    |
+
+From this table we can find:
+- P(Boy) = 25/55
+- P(Soccer) = 27/55
+- P(Boy AND Soccer) = 15/55
+- P(Soccer | Boy) = 15/25 (given they're a boy)
+
+## Venn Diagrams
+Venn diagrams use overlapping circles to show relationships between sets.
+
+**Key regions:**
+- Inside circle A only: elements in A but not B
+- Inside circle B only: elements in B but not A
+- Overlap (A ∩ B): elements in both A and B
+- Outside both: elements in neither A nor B
+
+## Set Notation
+- A ∪ B (union): elements in A OR B (or both)
+- A ∩ B (intersection): elements in BOTH A AND B
+- A' (complement): elements NOT in A
+
+## The Addition Rule
+P(A or B) = P(A) + P(B) - P(A and B)
+
+We subtract the overlap to avoid counting it twice.`,
+              keyPoints: [
+                'Two-way tables organise data by two categories',
+                'Venn diagrams show overlapping groups',
+                'Intersection (∩) means both/and',
+                'Union (∪) means either/or',
+                'P(A or B) = P(A) + P(B) - P(A and B)',
+              ],
+              knowledgeTokens: [
+                { id: 'two-way-tables', name: 'Two-Way Tables', description: 'Reading and creating two-way tables' },
+                { id: 'venn-diagrams', name: 'Venn Diagrams', description: 'Representing sets with overlapping circles' },
+                { id: 'set-notation', name: 'Set Notation', description: 'Understanding ∪, ∩, and complement' },
+                { id: 'addition-rule', name: 'Addition Rule', description: 'P(A or B) = P(A) + P(B) - P(A and B)', prerequisites: ['venn-diagrams'] },
+              ],
+              examples: [
+                { problem: 'In a class: 12 play football, 8 play basketball, 5 play both. How many play at least one sport?', solution: '15', explanation: '12 + 8 - 5 = 15 (subtract overlap)' },
+                { problem: 'From a two-way table: 20 boys, 15 girls, 10 boys like maths. P(maths|boy)?', solution: '10/20 = 1/2', explanation: 'Given boy, probability of maths = 10/20' },
+              ],
+              questions: [
+                { id: 'VCMSP299-001', question: 'In a Venn diagram, the overlap of circles A and B represents...', options: ['A only', 'B only', 'A and B', 'A or B'], correctAnswer: 2, explanation: 'The overlap shows elements in both sets (intersection)', difficulty: 1, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['a-only', 'b-only', null, 'union-confusion'] } },
+                { id: 'VCMSP299-002', question: 'Set A has 10 elements, set B has 8 elements, overlap has 3. How many in A ∪ B?', options: ['18', '15', '21', '3'], correctAnswer: 1, explanation: '10 + 8 - 3 = 15 (union = A + B - overlap)', difficulty: 2, knowledge: { questionTokens: ['addition-rule'], correctToken: 'addition-rule', incorrectTokens: ['just-added', null, 'added-overlap', 'only-overlap'] } },
+                { id: 'VCMSP299-003', question: 'What does A ∩ B mean?', options: ['A or B', 'A and B', 'Not A', 'Not B'], correctAnswer: 1, explanation: '∩ (intersection) means elements in both A AND B', difficulty: 1, knowledge: { questionTokens: ['set-notation'], correctToken: 'set-notation', incorrectTokens: ['union-confusion', null, 'complement-confusion', 'complement-confusion'] } },
+                { id: 'VCMSP299-004', question: 'Two-way table: 15 boys like pizza, 10 boys like pasta, 20 girls like pizza, 15 girls like pasta. Total students?', options: ['60', '45', '35', '50'], correctAnswer: 0, explanation: '15 + 10 + 20 + 15 = 60', difficulty: 1, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: [null, 'missed-one', 'boys-only', 'wrong-addition'] } },
+                { id: 'VCMSP299-005', question: 'From Q4: P(boy)?', options: ['25/60', '35/60', '15/60', '1/2'], correctAnswer: 0, explanation: 'Boys = 15 + 10 = 25. P(boy) = 25/60', difficulty: 2, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: [null, 'girls', 'pizza-boys', 'simplified-wrong'] } },
+                { id: 'VCMSP299-006', question: 'What does A ∪ B mean?', options: ['A and B', 'A or B', 'Not A', 'A minus B'], correctAnswer: 1, explanation: '∪ (union) means elements in A OR B (or both)', difficulty: 1, knowledge: { questionTokens: ['set-notation'], correctToken: 'set-notation', incorrectTokens: ['intersection-confusion', null, 'complement-confusion', 'difference'] } },
+                { id: 'VCMSP299-007', question: '40 students: 25 play sport, 20 play music, 10 play both. How many play neither?', options: ['5', '10', '15', '0'], correctAnswer: 0, explanation: 'At least one = 25 + 20 - 10 = 35. Neither = 40 - 35 = 5', difficulty: 2, knowledge: { questionTokens: ['addition-rule', 'venn-diagrams'], correctToken: 'addition-rule', incorrectTokens: [null, 'forgot-subtract', 'wrong-calculation', 'forgot-neither'] } },
+                { id: 'VCMSP299-008', question: 'In a Venn diagram, what is outside both circles?', options: ['Intersection', 'Union', 'Complement of union', 'Empty set'], correctAnswer: 2, explanation: 'Outside both circles = elements in neither A nor B', difficulty: 2, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['intersection', 'union', null, 'empty'] } },
+                { id: 'VCMSP299-009', question: 'P(A) = 0.5, P(B) = 0.4, P(A ∩ B) = 0.2. Find P(A ∪ B).', options: ['0.9', '0.7', '0.1', '0.3'], correctAnswer: 1, explanation: 'P(A ∪ B) = 0.5 + 0.4 - 0.2 = 0.7', difficulty: 2, knowledge: { questionTokens: ['addition-rule'], correctToken: 'addition-rule', incorrectTokens: ['just-added', null, 'just-overlap', 'wrong-subtraction'] } },
+                { id: 'VCMSP299-010', question: 'Two-way table: 30 passed maths, 25 passed English, 20 passed both. How many passed at least one?', options: ['75', '35', '55', '20'], correctAnswer: 1, explanation: '30 + 25 - 20 = 35', difficulty: 2, knowledge: { questionTokens: ['addition-rule'], correctToken: 'addition-rule', incorrectTokens: ['added-all', null, 'wrong-calculation', 'only-both'] } },
+                { id: 'VCMSP299-011', question: 'If A and B are mutually exclusive, what is A ∩ B?', options: ['A', 'B', 'Empty set', 'A ∪ B'], correctAnswer: 2, explanation: 'Mutually exclusive means no overlap, so intersection is empty', difficulty: 2, knowledge: { questionTokens: ['set-notation', 'venn-diagrams'], correctToken: 'set-notation', incorrectTokens: ['wrong', 'wrong', null, 'union'] } },
+                { id: 'VCMSP299-012', question: 'Class of 50: 30 like apples, 35 like bananas. Minimum who like both?', options: ['0', '15', '5', '30'], correctAnswer: 1, explanation: '30 + 35 = 65, but only 50 students. Minimum overlap = 65 - 50 = 15', difficulty: 3, knowledge: { questionTokens: ['addition-rule'], correctToken: 'addition-rule', incorrectTokens: ['no-overlap', null, 'wrong-calculation', 'wrong-thinking'] } },
+                { id: 'VCMSP299-013', question: 'From two-way table: 40 students total, 15 are boys who play sport. P(boy and sport)?', options: ['15/40', '15/25', '25/40', '1/2'], correctAnswer: 0, explanation: 'P(boy AND sport) = 15/40', difficulty: 1, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: [null, 'conditional', 'wrong-value', 'simplified'] } },
+                { id: 'VCMSP299-014', question: 'What is A\' (A complement)?', options: ['Elements in A', 'Elements in B', 'Elements not in A', 'A and B'], correctAnswer: 2, explanation: 'Complement means everything NOT in the set', difficulty: 1, knowledge: { questionTokens: ['set-notation'], correctToken: 'set-notation', incorrectTokens: ['no-complement', 'wrong-set', null, 'intersection'] } },
+                { id: 'VCMSP299-015', question: '100 people: 60 drink tea, 50 drink coffee, 20 drink both. P(tea or coffee)?', options: ['0.9', '0.7', '1.1', '0.2'], correctAnswer: 0, explanation: 'P = (60 + 50 - 20)/100 = 90/100 = 0.9', difficulty: 2, knowledge: { questionTokens: ['addition-rule'], correctToken: 'addition-rule', incorrectTokens: [null, 'forgot-both', 'impossible', 'only-both'] } },
+                { id: 'VCMSP299-016', question: 'Venn diagram: Circle A has 15 (only A), overlap has 8, circle B has 12 (only B). Total in A?', options: ['15', '23', '8', '35'], correctAnswer: 1, explanation: 'Total in A = only A + overlap = 15 + 8 = 23', difficulty: 2, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['only-a', null, 'just-overlap', 'all'] } },
+                { id: 'VCMSP299-017', question: 'If P(A) = 0.6 and P(A\') = ?', options: ['0.6', '0.4', '1.6', '0'], correctAnswer: 1, explanation: 'P(A\') = 1 - P(A) = 1 - 0.6 = 0.4', difficulty: 1, knowledge: { questionTokens: ['set-notation'], correctToken: 'set-notation', incorrectTokens: ['same', null, 'added', 'zero'] } },
+                { id: 'VCMSP299-018', question: 'Two-way table shows 12 boys passed, 8 boys failed, 15 girls passed, 5 girls failed. P(pass|girl)?', options: ['15/40', '15/20', '27/40', '3/4'], correctAnswer: 3, explanation: 'Girls = 20. Girls who passed = 15. P = 15/20 = 3/4', difficulty: 3, knowledge: { questionTokens: ['two-way-tables'], correctToken: 'two-way-tables', incorrectTokens: ['wrong-denominator', 'unsimplified', 'all-passes', null] } },
+                { id: 'VCMSP299-019', question: 'A ∪ B has 50 elements. A has 30, B has 35. How many in A ∩ B?', options: ['15', '65', '20', '85'], correctAnswer: 0, explanation: '50 = 30 + 35 - overlap. Overlap = 15', difficulty: 3, knowledge: { questionTokens: ['addition-rule'], correctToken: 'addition-rule', incorrectTokens: [null, 'just-added', 'wrong-calculation', 'wrong-operation'] } },
+                { id: 'VCMSP299-020', question: 'In a Venn diagram with two circles, how many regions are there?', options: ['2', '3', '4', '5'], correctAnswer: 2, explanation: 'Only A, Only B, Both (overlap), Neither (outside) = 4 regions', difficulty: 2, knowledge: { questionTokens: ['venn-diagrams'], correctToken: 'venn-diagrams', incorrectTokens: ['circles-only', 'forgot-neither', null, 'wrong-count'] } },
+              ],
+            },
+            {
+              id: 'VCMSP300',
+              code: 'VCMSP300',
+              title: 'Data Displays and Analysis',
+              description: 'Explore the practicalities and implications of obtaining data through sampling using a variety of investigative processes',
+              content: `# Data Displays and Analysis
+
+Different types of graphs are suited to different types of data.
+
+## Types of Data
+- **Categorical**: Data in categories (colours, types, names)
+- **Numerical - Discrete**: Counted values (number of students, goals scored)
+- **Numerical - Continuous**: Measured values (height, weight, time)
+
+## Common Graph Types
+
+### Column/Bar Graphs
+- Best for comparing categorical data
+- Bars can be horizontal or vertical
+- Gaps between bars
+
+### Histograms
+- For continuous numerical data
+- Bars touch (no gaps)
+- Shows frequency distribution
+
+### Line Graphs
+- Show change over time
+- Points connected by lines
+- Good for trends
+
+### Pie Charts
+- Show parts of a whole
+- Each sector is a proportion
+- Total = 360°
+
+### Scatter Plots
+- Show relationship between two variables
+- Each point represents one data item
+- Look for patterns/correlations
+
+### Stem-and-Leaf Plots
+- Organise numerical data
+- Stem = tens digit, leaf = units
+- Keeps original values visible
+
+## Analysing Data
+- Look for clusters, gaps, outliers
+- Identify trends and patterns
+- Compare using mean, median, mode, range`,
+              keyPoints: [
+                'Choose graph type based on data type',
+                'Histograms for continuous data (no gaps)',
+                'Bar graphs for categorical data (with gaps)',
+                'Scatter plots show relationships between variables',
+                'Always label axes and give titles',
+              ],
+              knowledgeTokens: [
+                { id: 'data-types', name: 'Data Types', description: 'Categorical, discrete, continuous' },
+                { id: 'bar-graphs', name: 'Bar Graphs', description: 'Displaying categorical data' },
+                { id: 'histograms', name: 'Histograms', description: 'Displaying continuous data', prerequisites: ['data-types'] },
+                { id: 'scatter-plots', name: 'Scatter Plots', description: 'Showing relationships between variables' },
+                { id: 'interpreting-graphs', name: 'Interpreting Graphs', description: 'Reading and analysing data displays', prerequisites: ['bar-graphs', 'histograms'] },
+              ],
+              examples: [
+                { problem: 'What type of graph shows favourite colours of students?', solution: 'Bar graph (or pie chart)', explanation: 'Favourite colour is categorical data - use bar graph or pie chart' },
+                { problem: 'What graph would show relationship between study time and test scores?', solution: 'Scatter plot', explanation: 'Scatter plots show relationships between two numerical variables' },
+              ],
+              questions: [
+                { id: 'VCMSP300-001', question: 'Which graph is best for showing favourite sports of students?', options: ['Histogram', 'Bar graph', 'Line graph', 'Scatter plot'], correctAnswer: 1, explanation: 'Favourite sport is categorical data - use a bar graph', difficulty: 1, knowledge: { questionTokens: ['bar-graphs'], correctToken: 'bar-graphs', incorrectTokens: ['histogram-error', null, 'line-error', 'scatter-error'] } },
+                { id: 'VCMSP300-002', question: 'What is the main difference between a bar graph and histogram?', options: ['Colours used', 'Gaps between bars', 'Size of bars', 'Number of bars'], correctAnswer: 1, explanation: 'Histograms have no gaps (continuous data), bar graphs have gaps (categorical)', difficulty: 2, knowledge: { questionTokens: ['bar-graphs', 'histograms'], correctToken: 'histograms', incorrectTokens: ['irrelevant', null, 'irrelevant', 'irrelevant'] } },
+                { id: 'VCMSP300-003', question: 'Number of siblings is what type of data?', options: ['Categorical', 'Discrete numerical', 'Continuous numerical', 'None'], correctAnswer: 1, explanation: 'Number of siblings is counted (0, 1, 2...) - discrete numerical', difficulty: 1, knowledge: { questionTokens: ['data-types'], correctToken: 'data-types', incorrectTokens: ['categorical-error', null, 'continuous-error', 'confused'] } },
+                { id: 'VCMSP300-004', question: 'Height of students is what type of data?', options: ['Categorical', 'Discrete numerical', 'Continuous numerical', 'None'], correctAnswer: 2, explanation: 'Height is measured - continuous numerical data', difficulty: 1, knowledge: { questionTokens: ['data-types'], correctToken: 'data-types', incorrectTokens: ['categorical-error', 'discrete-error', null, 'confused'] } },
+                { id: 'VCMSP300-005', question: 'Which graph shows change over time best?', options: ['Pie chart', 'Bar graph', 'Line graph', 'Histogram'], correctAnswer: 2, explanation: 'Line graphs show trends and changes over time', difficulty: 1, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['pie-error', 'bar-error', null, 'histogram-error'] } },
+                { id: 'VCMSP300-006', question: 'A scatter plot shows relationship between height and weight. Points go up from left to right. This is...', options: ['No correlation', 'Negative correlation', 'Positive correlation', 'Perfect correlation'], correctAnswer: 2, explanation: 'Points going up from left to right = positive correlation', difficulty: 2, knowledge: { questionTokens: ['scatter-plots'], correctToken: 'scatter-plots', incorrectTokens: ['no-pattern', 'wrong-direction', null, 'too-strong'] } },
+                { id: 'VCMSP300-007', question: 'In a stem-and-leaf plot, the number 47 has stem...', options: ['4', '7', '47', '74'], correctAnswer: 0, explanation: 'Stem = tens digit = 4, Leaf = units = 7', difficulty: 1, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: [null, 'leaf-confusion', 'whole-number', 'reversed'] } },
+                { id: 'VCMSP300-008', question: 'A pie chart has a sector of 90°. What fraction of the total is this?', options: ['1/2', '1/4', '1/3', '1/6'], correctAnswer: 1, explanation: '90° out of 360° = 90/360 = 1/4', difficulty: 2, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['wrong-calculation', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMSP300-009', question: 'Eye colour is what type of data?', options: ['Categorical', 'Discrete', 'Continuous', 'Numerical'], correctAnswer: 0, explanation: 'Eye colour is a category, not a number', difficulty: 1, knowledge: { questionTokens: ['data-types'], correctToken: 'data-types', incorrectTokens: [null, 'discrete-error', 'continuous-error', 'numerical-error'] } },
+                { id: 'VCMSP300-010', question: 'A histogram showing heights has bars for 150-160, 160-170, 170-180. A height of 160cm goes in which bar?', options: ['150-160', '160-170', 'Either', 'Neither'], correctAnswer: 1, explanation: 'Typically, endpoints go in the higher interval (160-170)', difficulty: 2, knowledge: { questionTokens: ['histograms'], correctToken: 'histograms', incorrectTokens: ['wrong-interval', null, 'unclear', 'excluded'] } },
+                { id: 'VCMSP300-011', question: 'Which graph would show the proportion of budget spent on different categories?', options: ['Line graph', 'Scatter plot', 'Pie chart', 'Histogram'], correctAnswer: 2, explanation: 'Pie charts show parts of a whole - perfect for budget proportions', difficulty: 1, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['line-error', 'scatter-error', null, 'histogram-error'] } },
+                { id: 'VCMSP300-012', question: 'A scatter plot shows no clear pattern. This suggests...', options: ['Positive correlation', 'Negative correlation', 'No correlation', 'Error in data'], correctAnswer: 2, explanation: 'No clear pattern = no correlation between variables', difficulty: 2, knowledge: { questionTokens: ['scatter-plots'], correctToken: 'scatter-plots', incorrectTokens: ['positive-error', 'negative-error', null, 'error-assumption'] } },
+                { id: 'VCMSP300-013', question: 'Stem-and-leaf: 3|2 5 7 means...', options: ['3, 2, 5, 7', '32, 35, 37', '23, 53, 73', '3.2, 3.5, 3.7'], correctAnswer: 1, explanation: 'Stem 3 with leaves 2, 5, 7 = 32, 35, 37', difficulty: 2, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['separate-numbers', null, 'reversed', 'decimal-error'] } },
+                { id: 'VCMSP300-014', question: 'Which is NOT suitable for showing monthly sales over a year?', options: ['Line graph', 'Bar graph', 'Pie chart', 'Both A and B are suitable'], correctAnswer: 2, explanation: 'Pie chart shows parts of a whole, not change over time', difficulty: 2, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['line-wrong', 'bar-wrong', null, 'both-wrong'] } },
+                { id: 'VCMSP300-015', question: 'In a histogram, what does the height of a bar represent?', options: ['The data value', 'The frequency', 'The mean', 'The range'], correctAnswer: 1, explanation: 'Bar height shows frequency (how many in that interval)', difficulty: 1, knowledge: { questionTokens: ['histograms'], correctToken: 'histograms', incorrectTokens: ['value-confusion', null, 'mean-confusion', 'range-confusion'] } },
+                { id: 'VCMSP300-016', question: 'A pie chart has 25% for "Other". What angle is this sector?', options: ['25°', '90°', '45°', '100°'], correctAnswer: 1, explanation: '25% of 360° = 0.25 × 360 = 90°', difficulty: 2, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['percentage-as-angle', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMSP300-017', question: 'Temperature throughout a day is best shown by...', options: ['Pie chart', 'Bar graph', 'Line graph', 'Stem-and-leaf'], correctAnswer: 2, explanation: 'Line graph shows continuous change over time', difficulty: 1, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['pie-error', 'bar-error', null, 'stem-error'] } },
+                { id: 'VCMSP300-018', question: 'What does a downward trend on a scatter plot indicate?', options: ['Positive correlation', 'Negative correlation', 'No correlation', 'Perfect correlation'], correctAnswer: 1, explanation: 'Downward trend = as one variable increases, other decreases = negative', difficulty: 2, knowledge: { questionTokens: ['scatter-plots'], correctToken: 'scatter-plots', incorrectTokens: ['positive-confusion', null, 'no-pattern', 'perfect-confusion'] } },
+                { id: 'VCMSP300-019', question: 'Survey results show: 20 prefer A, 15 prefer B, 25 prefer C. Total degrees for A in pie chart?', options: ['20°', '120°', '72°', '100°'], correctAnswer: 1, explanation: 'Total = 60. A = 20/60 = 1/3. Angle = 360 × 1/3 = 120°', difficulty: 3, knowledge: { questionTokens: ['interpreting-graphs'], correctToken: 'interpreting-graphs', incorrectTokens: ['count-as-angle', null, 'wrong-calculation', 'wrong-calculation'] } },
+                { id: 'VCMSP300-020', question: 'Which statement about outliers in a scatter plot is TRUE?', options: ['They should be removed', 'They are points far from the pattern', 'They prove correlation', 'They always indicate errors'], correctAnswer: 1, explanation: 'Outliers are points far from the general pattern - they may or may not be errors', difficulty: 2, knowledge: { questionTokens: ['scatter-plots'], correctToken: 'scatter-plots', incorrectTokens: ['remove-assumption', null, 'prove-error', 'error-assumption'] } },
               ],
             },
           ],
