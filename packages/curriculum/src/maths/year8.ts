@@ -3655,6 +3655,104 @@ SA = 244.92 cm²`,
                 { id: 'VCMMG294-020', question: 'Triangular prism: right triangle legs 3cm, 4cm (hypotenuse 5cm), length 10cm. Total SA?', options: ['132 cm²', '120 cm²', '72 cm²', '144 cm²'], correctAnswer: 0, explanation: '2 triangles = 2×½×3×4 = 12. 3 rectangles = 30+40+50 = 120. Total = 132 cm²', difficulty: 3, knowledge: { questionTokens: ['triangular-prism-sa'], correctToken: 'triangular-prism-sa', incorrectTokens: [null, 'rectangles-only', 'triangles-only', 'wrong-calculation'] } },
               ],
             },
+            {
+              id: 'VCMMG295',
+              code: 'VCMMG295',
+              title: 'Volume of Prisms and Cylinders',
+              description: 'Develop formulas for volumes of rectangular and triangular prisms and cylinders',
+              content: `# Volume of Prisms and Cylinders
+
+Volume measures the space inside a 3D shape, always in cubic units (cm³, m³).
+
+## General Formula for Prisms
+
+**Volume = Base Area × Height**
+
+This works for ALL prisms - the base can be any shape.
+
+## Volume of a Rectangular Prism (Cuboid)
+
+**V = length × width × height = lwh**
+
+### Example: l = 5cm, w = 4cm, h = 3cm
+V = 5 × 4 × 3 = 60 cm³
+
+## Volume of a Cube
+
+All sides equal, so:
+
+**V = s³**
+
+### Example: s = 4cm
+V = 4³ = 64 cm³
+
+## Volume of a Triangular Prism
+
+Base is a triangle: Area = ½ × base × height
+
+**V = ½ × b × h × length**
+
+### Example: Triangle base 6cm, height 4cm, prism length 10cm
+V = ½ × 6 × 4 × 10 = 120 cm³
+
+## Volume of a Cylinder
+
+Base is a circle: Area = πr²
+
+**V = πr²h**
+
+### Example: r = 3cm, h = 10cm (π = 3.14)
+V = 3.14 × 3² × 10
+V = 3.14 × 9 × 10
+V = 282.6 cm³
+
+## Capacity and Volume
+
+- 1 cm³ = 1 mL
+- 1000 cm³ = 1 L
+- 1 m³ = 1000 L`,
+              keyPoints: [
+                'Volume = Base Area × Height for all prisms',
+                'Rectangular prism: V = lwh',
+                'Cube: V = s³',
+                'Cylinder: V = πr²h',
+                '1 cm³ = 1 mL, 1000 cm³ = 1 L',
+              ],
+              knowledgeTokens: [
+                { id: 'prism-volume-formula', name: 'Prism Volume Formula', description: 'V = Base Area × Height' },
+                { id: 'rectangular-prism-volume', name: 'Rectangular Prism Volume', description: 'V = lwh' },
+                { id: 'cube-volume', name: 'Cube Volume', description: 'V = s³' },
+                { id: 'triangular-prism-volume', name: 'Triangular Prism Volume', description: 'V = ½bhl', prerequisites: ['prism-volume-formula'] },
+                { id: 'cylinder-volume', name: 'Cylinder Volume', description: 'V = πr²h', prerequisites: ['prism-volume-formula'] },
+                { id: 'volume-capacity', name: 'Volume and Capacity', description: 'Converting between cm³ and L' },
+              ],
+              examples: [
+                { problem: 'Volume of box: 8×5×4 cm', solution: '160 cm³', explanation: 'V = 8 × 5 × 4 = 160 cm³' },
+                { problem: 'Volume of cylinder: r=5cm, h=10cm (π=3.14)', solution: '785 cm³', explanation: 'V = 3.14 × 25 × 10 = 785 cm³' },
+              ],
+              questions: [
+                { id: 'VCMMG295-001', question: 'Volume of cube with side 5cm?', options: ['25 cm³', '125 cm³', '150 cm³', '15 cm³'], correctAnswer: 1, explanation: 'V = 5³ = 125 cm³', difficulty: 1, knowledge: { questionTokens: ['cube-volume'], correctToken: 'cube-volume', incorrectTokens: ['squared', null, 'surface-area', 'added'] } },
+                { id: 'VCMMG295-002', question: 'Volume of box: 6×4×3 cm?', options: ['72 cm³', '13 cm³', '72 cm²', '48 cm³'], correctAnswer: 0, explanation: 'V = 6 × 4 × 3 = 72 cm³', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'added', 'wrong-units', 'forgot-dimension'] } },
+                { id: 'VCMMG295-003', question: 'Volume of cylinder: r=2cm, h=7cm (π=3.14)?', options: ['87.92 cm³', '43.96 cm³', '28 cm³', '44 cm³'], correctAnswer: 0, explanation: 'V = πr²h = 3.14 × 4 × 7 = 87.92 cm³', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'forgot-square', 'no-pi', 'wrong-calculation'] } },
+                { id: 'VCMMG295-004', question: 'How many mL in 500 cm³?', options: ['5 mL', '50 mL', '500 mL', '5000 mL'], correctAnswer: 2, explanation: '1 cm³ = 1 mL, so 500 cm³ = 500 mL', difficulty: 1, knowledge: { questionTokens: ['volume-capacity'], correctToken: 'volume-capacity', incorrectTokens: ['divided', 'divided', null, 'multiplied'] } },
+                { id: 'VCMMG295-005', question: 'Triangular prism: triangle base 8cm, height 6cm, length 10cm. Volume?', options: ['480 cm³', '240 cm³', '120 cm³', '48 cm³'], correctAnswer: 1, explanation: 'V = ½ × 8 × 6 × 10 = 240 cm³', difficulty: 2, knowledge: { questionTokens: ['triangular-prism-volume'], correctToken: 'triangular-prism-volume', incorrectTokens: ['forgot-half', null, 'forgot-length', 'triangle-only'] } },
+                { id: 'VCMMG295-006', question: 'A cube has volume 64 cm³. What is the side length?', options: ['8 cm', '4 cm', '16 cm', '32 cm'], correctAnswer: 1, explanation: 's³ = 64, so s = ∛64 = 4 cm', difficulty: 2, knowledge: { questionTokens: ['cube-volume'], correctToken: 'cube-volume', incorrectTokens: ['squared', null, 'wrong-root', 'halved'] } },
+                { id: 'VCMMG295-007', question: 'How many litres in 3000 cm³?', options: ['3 L', '30 L', '300 L', '0.3 L'], correctAnswer: 0, explanation: '3000 cm³ ÷ 1000 = 3 L', difficulty: 1, knowledge: { questionTokens: ['volume-capacity'], correctToken: 'volume-capacity', incorrectTokens: [null, 'wrong-division', 'multiplied', 'wrong-division'] } },
+                { id: 'VCMMG295-008', question: 'Cylinder: diameter 8cm, height 10cm (π=3.14). Volume?', options: ['502.4 cm³', '2009.6 cm³', '251.2 cm³', '200.96 cm³'], correctAnswer: 0, explanation: 'r = 4. V = 3.14 × 16 × 10 = 502.4 cm³', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'used-diameter', 'forgot-square', 'wrong-calculation'] } },
+                { id: 'VCMMG295-009', question: 'Volume = Base Area × Height. If base area is 25 cm² and height is 8 cm, volume is...', options: ['200 cm³', '33 cm³', '200 cm²', '25 cm³'], correctAnswer: 0, explanation: 'V = 25 × 8 = 200 cm³', difficulty: 1, knowledge: { questionTokens: ['prism-volume-formula'], correctToken: 'prism-volume-formula', incorrectTokens: [null, 'added', 'wrong-units', 'forgot-height'] } },
+                { id: 'VCMMG295-010', question: 'Box holds 2 litres. What is its volume in cm³?', options: ['2 cm³', '200 cm³', '2000 cm³', '20 cm³'], correctAnswer: 2, explanation: '2 L = 2 × 1000 = 2000 cm³', difficulty: 1, knowledge: { questionTokens: ['volume-capacity'], correctToken: 'volume-capacity', incorrectTokens: ['no-conversion', 'wrong-factor', null, 'wrong-factor'] } },
+                { id: 'VCMMG295-011', question: 'Cube volume is 27 cm³. What is the side?', options: ['9 cm', '3 cm', '27 cm', '13.5 cm'], correctAnswer: 1, explanation: 's³ = 27, s = 3 cm', difficulty: 2, knowledge: { questionTokens: ['cube-volume'], correctToken: 'cube-volume', incorrectTokens: ['divided-by-3', null, 'no-root', 'halved'] } },
+                { id: 'VCMMG295-012', question: 'Volume of box: 10×10×5 cm?', options: ['500 cm³', '25 cm³', '250 cm³', '100 cm³'], correctAnswer: 0, explanation: 'V = 10 × 10 × 5 = 500 cm³', difficulty: 1, knowledge: { questionTokens: ['rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'added', 'forgot-one', 'two-dimensions'] } },
+                { id: 'VCMMG295-013', question: 'If you double all dimensions of a cube, volume becomes...', options: ['Double', 'Quadruple', '8 times', '6 times'], correctAnswer: 2, explanation: 'V = s³. If s doubles: (2s)³ = 8s³ = 8 times original', difficulty: 3, knowledge: { questionTokens: ['cube-volume'], correctToken: 'cube-volume', incorrectTokens: ['linear', 'squared', null, 'surface-area'] } },
+                { id: 'VCMMG295-014', question: 'Cylinder: r=4cm, h=5cm (π=3.14). Volume?', options: ['251.2 cm³', '125.6 cm³', '62.8 cm³', '80 cm³'], correctAnswer: 0, explanation: 'V = 3.14 × 16 × 5 = 251.2 cm³', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'forgot-square', 'circumference', 'no-pi'] } },
+                { id: 'VCMMG295-015', question: 'Triangular prism: triangle base 10cm, height 8cm, length 15cm. Volume?', options: ['1200 cm³', '600 cm³', '300 cm³', '800 cm³'], correctAnswer: 1, explanation: 'V = ½ × 10 × 8 × 15 = 600 cm³', difficulty: 2, knowledge: { questionTokens: ['triangular-prism-volume'], correctToken: 'triangular-prism-volume', incorrectTokens: ['forgot-half', null, 'forgot-length', 'wrong-calculation'] } },
+                { id: 'VCMMG295-016', question: 'Fish tank is 60×30×40 cm. How many litres does it hold?', options: ['72 L', '720 L', '7.2 L', '7200 L'], correctAnswer: 0, explanation: 'V = 60×30×40 = 72000 cm³ = 72 L', difficulty: 2, knowledge: { questionTokens: ['rectangular-prism-volume', 'volume-capacity'], correctToken: 'volume-capacity', incorrectTokens: [null, 'no-conversion', 'wrong-factor', 'wrong-conversion'] } },
+                { id: 'VCMMG295-017', question: 'Cylinder holds 1 litre. If r=5cm (π=3.14), what is height?', options: ['12.7 cm', '40 cm', '6.4 cm', '20 cm'], correctAnswer: 0, explanation: '1000 = 3.14 × 25 × h. h = 1000/78.5 ≈ 12.7 cm', difficulty: 3, knowledge: { questionTokens: ['cylinder-volume'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'wrong-rearrange', 'wrong-calculation', 'no-conversion'] } },
+                { id: 'VCMMG295-018', question: 'Which has greater volume: cube side 6cm or box 7×5×5cm?', options: ['Cube', 'Box', 'Same', 'Cannot tell'], correctAnswer: 0, explanation: 'Cube: 216 cm³. Box: 175 cm³. Cube is larger.', difficulty: 2, knowledge: { questionTokens: ['cube-volume', 'rectangular-prism-volume'], correctToken: 'rectangular-prism-volume', incorrectTokens: [null, 'wrong-calculation', 'no-calculation', 'confused'] } },
+                { id: 'VCMMG295-019', question: 'Pool is 25m × 10m × 2m. Volume in litres?', options: ['500 L', '5000 L', '50000 L', '500000 L'], correctAnswer: 3, explanation: 'V = 500 m³ = 500 × 1000 = 500000 L', difficulty: 3, knowledge: { questionTokens: ['rectangular-prism-volume', 'volume-capacity'], correctToken: 'volume-capacity', incorrectTokens: ['cm-confusion', 'wrong-factor', 'wrong-factor', null] } },
+                { id: 'VCMMG295-020', question: 'Cylinder: r=3cm, h=12cm (π=3.14). Volume in mL?', options: ['339.12 mL', '113.04 mL', '339.12 L', '1017.36 mL'], correctAnswer: 0, explanation: 'V = 3.14 × 9 × 12 = 339.12 cm³ = 339.12 mL', difficulty: 2, knowledge: { questionTokens: ['cylinder-volume', 'volume-capacity'], correctToken: 'cylinder-volume', incorrectTokens: [null, 'forgot-height', 'wrong-units', 'wrong-calculation'] } },
+              ],
+            },
           ],
         },
       ],
