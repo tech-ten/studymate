@@ -523,6 +523,71 @@ aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 
 ---
 
+## AI Integration
+
+### Overview
+StudyMate uses Groq's LLaMA 3.3 70B model for AI tutoring with **year-level-specific prompt engineering** to ensure age-appropriate responses.
+
+**📖 Full Documentation:** See [AI_PROMPT_ENGINEERING.md](./AI_PROMPT_ENGINEERING.md) for complete details on:
+- Year-level-specific prompting strategies
+- Token limits by age group
+- Explanation vs Chat endpoint differences
+- Caching and rate limiting
+- Examples for Year 1, Year 5, and Year 8
+
+### Quick Reference
+
+#### Year-Level Tiers
+| Year Level | Max Tokens (Explain) | Max Tokens (Chat) | Response Style |
+|-----------|---------------------|------------------|----------------|
+| 1-3       | 150                 | 100              | Very short, simple words |
+| 4-6       | 250                 | 200              | Concise, age-appropriate |
+| 7+        | 300                 | 400              | Full explanations allowed |
+
+#### API Endpoints
+
+**POST /ai/explain** - Explain why answer was wrong
+```typescript
+{
+  childId: string;
+  questionId: string;
+  question: string;
+  options: string[];
+  userAnswer: number;
+  correctAnswer: number;
+  subject: string;
+  yearLevel: number;  // Critical for age-appropriate response
+  topic?: string;
+}
+```
+
+**POST /ai/chat** - Free-form tutoring conversation
+```typescript
+{
+  childId: string;
+  message: string;
+  subject: string;
+  yearLevel: number;  // Critical for age-appropriate response
+  context?: string;
+  topic?: string;
+}
+```
+
+#### Rate Limits
+- **Free tier:** 10 AI calls per day
+- **Explorer ($0.99/mo):** 1000 AI calls per day
+- **Scholar ($5/mo):** 1000 AI calls per day
+- **Achiever ($12/mo):** 1000 AI calls per day
+
+Rate limits are enforced per parent account, tracked via `aiCalls_YYYY-MM-DD` attribute on user record.
+
+#### Caching
+- Explanation responses are cached for 30 days
+- Cache key: MD5 hash of `questionId:userAnswer:correctAnswer`
+- Chat responses are NOT cached (conversational context varies)
+
+---
+
 ## Resources
 
 - **AWS CDK**: https://docs.aws.amazon.com/cdk/
@@ -530,3 +595,4 @@ aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 - **Stripe**: https://stripe.com/docs
 - **Next.js**: https://nextjs.org/docs
 - **DynamoDB**: https://docs.aws.amazon.com/dynamodb/
+- **AI Prompt Engineering**: [./AI_PROMPT_ENGINEERING.md](./AI_PROMPT_ENGINEERING.md)

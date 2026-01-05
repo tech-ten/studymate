@@ -16,6 +16,7 @@ StudyMate is an AI-powered tutoring platform for Australian primary school stude
 | `PHASE2_PLAN.md` | AWS resources, API docs, development tasks |
 | `docs/INVESTOR_DECK.md` | Business overview, competitive analysis, roadmap |
 | `docs/DEVELOPER_GUIDE.md` | Architecture, API reference, deployment guide |
+| `docs/AI_PROMPT_ENGINEERING.md` | ⭐ AI prompt strategies, year-level customization, token limits |
 | `docs/PARENT_GUIDE.md` | User guide for parents |
 | `docs/STUDENT_GUIDE.md` | User guide for children |
 | `docs/LEGAL_COMPLIANCE.md` | Privacy Act, data protection |
@@ -25,10 +26,12 @@ StudyMate is an AI-powered tutoring platform for Australian primary school stude
 |------|---------|
 | `infrastructure/cdk/src/stacks/api-stack.ts` | Lambda functions, API Gateway, environment variables |
 | `packages/api/src/handlers/payment.ts` | Stripe webhook handler, subscription management |
-| `packages/api/src/handlers/ai.ts` | Groq AI integration |
+| `packages/api/src/handlers/ai.ts` | ⭐ Groq AI integration with year-level prompting |
+| `packages/api/src/handlers/curriculum.ts` | Curriculum API with multi-year fallback logic |
 | `apps/web/src/lib/api.ts` | Frontend API client |
 | `apps/web/src/lib/auth.ts` | Cognito authentication |
-| `apps/web/src/app/(student)/curriculum/` | Victorian curriculum data (Year 3-6) |
+| `apps/web/src/app/(student)/learn/page.tsx` | ⭐ Main learning interface with quiz scroll fix |
+| `packages/curriculum/src/maths/` | Victorian curriculum data (Year 1, 3-6, 8) |
 
 ---
 
