@@ -46,7 +46,7 @@ export default function Home() {
                 Check Their Level Free
               </Button>
             </Link>
-            <Link href="#features">
+            <Link href="/sample-report">
               <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base">
                 See Sample Report
               </Button>
