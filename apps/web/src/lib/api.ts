@@ -426,6 +426,7 @@ export interface ChildLoginResponse {
   yearLevel: number;
   avatar: string;
   parentId: string;
+  tier: string; // Parent's subscription tier for feature gating (free/explorer/scholar/achiever)
 }
 
 export interface ChildLoginRequest {
