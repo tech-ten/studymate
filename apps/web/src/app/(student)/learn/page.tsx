@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { getSelectedChild, isAuthenticatedSync, getChildProfile } from '@/lib/auth'
+import { getSelectedChild, isAuthenticatedSync, getChildProfile, type ChildProfile } from '@/lib/auth'
 import {
   getProgress,
   submitAnswer,
@@ -110,13 +110,6 @@ function buildCurriculumHierarchy(sections: CurriculumSectionSummary[], yearLeve
   };
 }
 
-interface ChildProfile {
-  id: string
-  name: string
-  avatar?: string
-  yearLevel?: number
-}
-
 // Track quiz results per question (use API type)
 type QuizAnswer = ApiQuizAnswer
 
@@ -129,6 +122,9 @@ export default function LearnPage() {
   const [childId, setChildId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Check if user is on free tier (solutions are locked)
+  const isFreeTier = childProfile?.tier === 'free'
 
   // Curriculum state
   const [curriculum, setCurriculum] = useState<YearLevelCurriculum | null>(null)
@@ -784,9 +780,16 @@ export default function LearnPage() {
                                   Your answer: {String.fromCharCode(65 + answer.userAnswer)}. {answer.options[answer.userAnswer]}
                                 </div>
                                 {!answer.isCorrect && (
-                                  <div className="text-green-700">
-                                    Correct answer: {String.fromCharCode(65 + answer.correctAnswer)}. {answer.options[answer.correctAnswer]}
-                                  </div>
+                                  isFreeTier ? (
+                                    <div className="flex items-center gap-2 text-neutral-600 text-xs mt-2">
+                                      <span>🔒</span>
+                                      <span>Solution locked - upgrade to see correct answer</span>
+                                    </div>
+                                  ) : (
+                                    <div className="text-green-700">
+                                      Correct answer: {String.fromCharCode(65 + answer.correctAnswer)}. {answer.options[answer.correctAnswer]}
+                                    </div>
+                                  )
                                 )}
                               </div>
                             </div>
@@ -913,17 +916,37 @@ export default function LearnPage() {
                             ? 'Correct! 🎉'
                             : 'Not quite right'}
                         </div>
-                        <div className={`text-sm ${
-                          selectedAnswer === currentQuestion.correctAnswer
-                            ? 'text-green-600'
-                            : 'text-red-600'
-                        }`}>
-                          {currentQuestion.explanation}
-                        </div>
+                        {isFreeTier && selectedAnswer !== currentQuestion.correctAnswer ? (
+                          // Locked solution for free tier
+                          <div className="text-sm">
+                            <div className="flex items-center gap-2 p-4 bg-neutral-50 border border-neutral-200 rounded-lg">
+                              <span className="text-lg">🔒</span>
+                              <div className="flex-1">
+                                <div className="font-medium text-neutral-700 mb-1">Solution locked</div>
+                                <div className="text-xs text-neutral-500">
+                                  Upgrade to see worked solutions
+                                </div>
+                              </div>
+                              <Link href="/pricing">
+                                <Button size="sm" className="rounded-full">
+                                  Upgrade
+                                </Button>
+                              </Link>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className={`text-sm ${
+                            selectedAnswer === currentQuestion.correctAnswer
+                              ? 'text-green-600'
+                              : 'text-red-600'
+                          }`}>
+                            {currentQuestion.explanation}
+                          </div>
+                        )}
                       </div>
 
-                      {/* AI Explanation for wrong answers */}
-                      {selectedAnswer !== currentQuestion.correctAnswer && (
+                      {/* AI Explanation for wrong answers - also locked for free tier */}
+                      {selectedAnswer !== currentQuestion.correctAnswer && !isFreeTier && (
                         <div className="space-y-3">
                           {aiExplanation ? (
                             <div className="p-6 rounded-xl bg-blue-50 border border-blue-100">

@@ -89,6 +89,7 @@ export interface ChildProfile {
   yearLevel?: number;
   username?: string;
   parentId: string;
+  tier?: string; // Parent's subscription tier for feature gating
 }
 
 export function setChildProfile(profile: ChildProfile): void {

@@ -95,6 +95,14 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         return forbidden('Wrong PIN. Try again!');
       }
 
+      // Get parent's tier for frontend enforcement
+      const parentUser = await db.send(new GetCommand({
+        TableName: TABLE_NAME,
+        Key: keys.user(parentId),
+      }));
+
+      const parentTier = parentUser.Item?.tier || 'free';
+
       // Return child info (no token - child sessions use parent's auth)
       return success({
         id: childResult.Item.childId,
@@ -103,6 +111,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         avatar: childResult.Item.avatar,
         username: childResult.Item.username,
         parentId: parentId,
+        tier: parentTier, // Include parent's tier for feature gating
       });
     }
 
