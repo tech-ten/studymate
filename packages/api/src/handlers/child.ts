@@ -149,14 +149,13 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       }));
       const tier = userResult.Item?.tier || 'free';
 
-      // Child limits per tier
+      // Child limits per tier (aligned with 2026 pricing strategy)
       const CHILD_LIMITS: Record<string, number> = {
-        free: 2,
-        explorer: 2,
-        scholar: 5,
-        achiever: 10,
+        free: 1,      // Single child squeeze
+        scholar: 1,   // Single child squeeze - forces upgrade to Achiever for 2nd child
+        achiever: 6,  // 6 children = $2 per child
       };
-      const maxChildren = CHILD_LIMITS[tier] || 2;
+      const maxChildren = CHILD_LIMITS[tier] || 1;
 
       // Count existing children
       const existingChildren = await db.send(new QueryCommand({

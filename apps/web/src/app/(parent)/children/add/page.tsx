@@ -19,6 +19,11 @@ export default function AddChildPage() {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [tierLimit, setTierLimit] = useState<{
+    limit: number
+    current: number
+    tier: string
+  } | null>(null)
 
   useEffect(() => {
     if (!isAuthenticatedSync()) {
@@ -34,6 +39,7 @@ export default function AddChildPage() {
     e.preventDefault()
     setLoading(true)
     setError(null)
+    setTierLimit(null)
 
     try {
       const child = await createChild({
@@ -45,9 +51,24 @@ export default function AddChildPage() {
 
       setSelectedChild(child.id)
       router.push(`/benchmark?subject=maths&child=${child.id}`)
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to create child:', err)
-      setError(err instanceof Error ? err.message : 'Failed to create child. Please try again.')
+
+      // Check if it's a tier limit error
+      const errorMessage = err instanceof Error ? err.message : String(err)
+      if (errorMessage.includes('maximum') && errorMessage.includes('plan')) {
+        // Extract tier info from error message if possible
+        const tierMatch = errorMessage.match(/(\w+) plan/)
+        const tier = tierMatch ? tierMatch[1] : 'current'
+
+        // Parse limit/current from message like "maximum of 1 children"
+        const limitMatch = errorMessage.match(/maximum of (\d+)/)
+        const limit = limitMatch ? parseInt(limitMatch[1]) : 1
+
+        setTierLimit({ limit, current: limit, tier })
+      } else {
+        setError(errorMessage)
+      }
       setLoading(false)
     }
   }
@@ -69,7 +90,40 @@ export default function AddChildPage() {
       <div className="max-w-md mx-auto px-6 py-12">
         <h1 className="text-2xl font-semibold mb-8 text-center">Add a child</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Tier Limit Reached - Upgrade Prompt */}
+        {tierLimit && (
+          <div className="mb-8 p-6 bg-neutral-50 border border-neutral-200 rounded-2xl">
+            <div className="text-center mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-black text-white rounded-full mb-3">
+                🔒
+              </div>
+              <h2 className="text-lg font-semibold mb-1">
+                {tierLimit.tier === 'free' ? 'Ready for more?' : 'Need more child profiles?'}
+              </h2>
+              <p className="text-sm text-neutral-600">
+                {tierLimit.tier === 'free'
+                  ? `Your Explorer plan includes ${tierLimit.limit} child profile. To add more children, upgrade to Scholar ($5/mo) or Achiever ($12/mo for 6 children).`
+                  : tierLimit.tier === 'scholar'
+                  ? `Your Scholar plan includes ${tierLimit.limit} child profile. To add more children, upgrade to Achiever for just $12/mo (6 child profiles - just $2 per child).`
+                  : `You've reached your plan limit of ${tierLimit.limit} children.`}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <Link href="/pricing">
+                <Button className="w-full rounded-full">
+                  {tierLimit.tier === 'free' ? 'See Plans' : 'Upgrade to Achiever'}
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button variant="outline" className="w-full rounded-full">
+                  Back to Dashboard
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6" style={tierLimit ? { opacity: 0.5, pointerEvents: 'none' } : {}}>
           {/* Avatar Selection */}
           <div>
             <label className="block text-sm font-medium mb-3">

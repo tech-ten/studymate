@@ -3,6 +3,13 @@ import { GetCommand, QueryCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { db, TABLE_NAME, keys, getUserIdFromEvent, verifyChildOwnership } from '../lib/db';
 import { success, badRequest, forbidden, notFound, serverError } from '../lib/response';
 
+// Tier limits (aligned with 2026 pricing strategy)
+const TIER_LIMITS: Record<string, { dailyQuestions: number }> = {
+  free: { dailyQuestions: 5 },      // 5 questions per day
+  scholar: { dailyQuestions: -1 },  // Unlimited
+  achiever: { dailyQuestions: -1 }, // Unlimited
+};
+
 // Types for section quiz results
 interface QuizAnswer {
   questionIndex: number;
@@ -59,6 +66,61 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
       if (!body.sectionId || body.score === undefined || !body.totalQuestions) {
         return badRequest('sectionId, score, and totalQuestions are required');
+      }
+
+      // Get child's parent to check tier limits
+      const childProfile = await db.send(new GetCommand({
+        TableName: TABLE_NAME,
+        Key: keys.childProfile(childId),
+      }));
+
+      if (!childProfile.Item) {
+        return notFound('Child not found');
+      }
+
+      const parentId = childProfile.Item.parentId;
+
+      // Get parent's tier
+      const parentResult = await db.send(new GetCommand({
+        TableName: TABLE_NAME,
+        Key: keys.user(parentId),
+      }));
+
+      const tier = parentResult.Item?.tier || 'free';
+      const limits = TIER_LIMITS[tier] || TIER_LIMITS.free;
+
+      // Check daily question limit (only for paid tiers with limits)
+      if (limits.dailyQuestions > 0) {
+        // Get today's quiz count
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+        const todayQuizzes = await db.send(new QueryCommand({
+          TableName: TABLE_NAME,
+          KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
+          ExpressionAttributeValues: {
+            ':pk': `CHILD#${childId}`,
+            ':sk': 'QUIZ#',
+          },
+        }));
+
+        // Count questions answered today
+        const questionsToday = (todayQuizzes.Items || [])
+          .filter(item => item.lastAttempt.startsWith(today))
+          .reduce((sum, item) => sum + (item.totalQuestions || 0), 0);
+
+        // Check if adding this quiz would exceed the limit
+        if (questionsToday + body.totalQuestions > limits.dailyQuestions) {
+          return {
+            statusCode: 403,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              error: `Daily question limit reached. Your ${tier} plan allows ${limits.dailyQuestions} questions per day.`,
+              limit: limits.dailyQuestions,
+              used: questionsToday,
+              tier,
+              upgradeUrl: '/pricing',
+            }),
+          };
+        }
       }
 
       await db.send(new PutCommand({
