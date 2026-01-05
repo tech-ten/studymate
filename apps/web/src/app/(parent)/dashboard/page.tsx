@@ -38,10 +38,12 @@ export default function DashboardPage() {
       const status = await getSubscriptionStatus()
       setSubscription(status)
 
-      // If user has no subscription (free tier with no subscriptionId), redirect to pricing
-      // Users need to at least start a trial/subscription to access dashboard
-      // Support both 'free' and 'explorer' for backward compatibility
-      if ((status.tier === 'free' || status.tier === 'explorer') && !status.subscriptionId) {
+      // Free/Explorer tier users don't need a subscription - they can use dashboard immediately
+      // Only paid tier users (scholar/achiever) without a subscription should be redirected
+      const isFreeOrExplorer = status.tier === 'free' || status.tier === 'explorer';
+      const isPaidTierWithoutSub = !isFreeOrExplorer && !status.subscriptionId;
+
+      if (isPaidTierWithoutSub) {
         router.push('/pricing')
         return
       }
