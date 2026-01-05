@@ -37,6 +37,24 @@ StudyMate (branded as "Grade My Child") is an AI-powered curriculum grading plat
 
 ## AWS Infrastructure
 
+### CRITICAL: API CORS Configuration
+**IMPORTANT**: API calls can ONLY be made from approved URLs configured in API Gateway CORS settings.
+
+**Current Approved Origins** (infrastructure/cdk/src/stacks/api-stack.ts:37-44):
+- `http://localhost:3000` (local development)
+- `https://agentsform.ai`
+- `https://agentsform.com`
+- `https://tutor.agentsform.ai` (legacy domain)
+- `https://grademychild.com.au` (primary domain)
+- `https://www.grademychild.com.au`
+
+**When Adding New Domains**:
+1. Update `allowOrigins` array in api-stack.ts
+2. Run `source .env && cd infrastructure/cdk && npx cdk deploy AgentsFormApi`
+3. Test API calls from new domain immediately
+
+**Symptom of CORS Block**: Users get infinite redirect to /pricing page because API calls fail silently, triggering error handlers.
+
 ### Architecture Diagram
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -152,30 +170,37 @@ aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 
 ## PITFALLS TO AVOID
 
-### 1. Losing API Keys on Deploy
+### 1. CORS Blocking New Domains ⚠️ MOST COMMON
+**Problem**: New domain works for static site but all API calls fail silently with CORS errors
+**Symptom**: Users stuck in infinite redirect to /pricing, dashboard won't load
+**Solution**: Add new domain to API Gateway CORS allowOrigins in api-stack.ts
+**Verification**: Open browser console, check for CORS errors in Network tab
+**Example**: When adding grademychild.com.au, must add to allowOrigins or ALL API calls fail
+
+### 2. Losing API Keys on Deploy
 **Problem**: CDK reads from `process.env` which is empty if `.env` not sourced
 **Solution**: ALWAYS run `source .env` before `npx cdk deploy`
 **Verification**: After deploy, test AI endpoint to confirm keys work
 
-### 2. Stripe Customer ID Not Saved
+### 3. Stripe Customer ID Not Saved
 **Problem**: Billing portal fails because `stripeCustomerId` is null
 **Solution**: Already fixed in `payment.ts` - extracts `session.customer` on checkout.session.completed
 **Location**: `packages/api/src/handlers/payment.ts:50-60`
 
-### 3. Child Endpoints Using Auth
+### 4. Child Endpoints Using Auth
 **Problem**: Children don't have Cognito tokens - API calls fail
 **Solution**: Child endpoints use direct `fetch()` without auth headers
 **Rule**: NEVER use `apiFetch()` for child session endpoints
 **Location**: `apps/web/src/lib/api.ts`
 
-### 4. CloudFront Cache
+### 5. CloudFront Cache
 **Problem**: Frontend changes not visible after deploy
 **Solution**: Always invalidate CloudFront cache after S3 sync
 ```bash
 aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 ```
 
-### 5. Static Export Routing
+### 6. Static Export Routing
 **Problem**: Direct page access returns 403/404
 **Solution**: CloudFront error pages configured to return index.html
 **Already configured**: 403 and 404 → /index.html with 200 response
