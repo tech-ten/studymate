@@ -40,10 +40,8 @@ export default function DashboardPage() {
 
       // Free/Explorer tier users don't need a subscription - they can use dashboard immediately
       // Only paid tier users (scholar/achiever) without a subscription should be redirected
-      const isFreeOrExplorer = status.tier === 'free' || status.tier === 'explorer';
-      const isPaidTierWithoutSub = !isFreeOrExplorer && !status.subscriptionId;
-
-      if (isPaidTierWithoutSub) {
+      // Explicit logic to prevent minifier optimization bugs
+      if (status.tier !== 'free' && status.tier !== 'explorer' && !status.subscriptionId) {
         router.push('/pricing')
         return
       }
