@@ -156,50 +156,44 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Explorer */}
+            {/* Explorer (Free) */}
             <div className="border border-neutral-200 rounded-2xl p-8">
               <h3 className="text-lg font-semibold mb-1">Explorer</h3>
               <p className="text-sm text-neutral-500 mb-6">Perfect for getting started</p>
               <div className="mb-6">
-                <span className="text-4xl font-semibold">$0.99</span>
-                <span className="text-neutral-500">/month</span>
-                <span className="text-green-600 block text-sm mt-1 font-medium">
-                  21-day free trial
+                <span className="text-3xl font-semibold">Always Free</span>
+                <span className="text-neutral-600 block text-sm mt-2">
+                  No credit card required
                 </span>
               </div>
               <ul className="space-y-3 mb-8 text-sm">
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  2 child profiles
+                  1 child profile
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  20 questions per day
+                  Limited (5 questions)
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  10 worked solutions per day
+                  Solutions locked 🔒
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  Basic progress tracking
+                  Basic score only
                 </li>
               </ul>
               <Link href="/get-started" className="block">
                 <Button variant="outline" className="w-full rounded-full">
-                  Start Free Trial
+                  Start Free
                 </Button>
               </Link>
-              <p className="text-xs text-neutral-400 text-center mt-3">
-                Limited to 60 days after free trial ends.
-                <br />
-                Upgrade to Scholar required to continue.
-              </p>
             </div>
 
             {/* Scholar */}
-            <div className="border-2 border-black rounded-2xl p-8 relative">
-              <div className="absolute -top-3 left-6 bg-black text-white text-xs px-3 py-1 rounded-full">
+            <div className="border-2 border-black rounded-2xl p-8 relative shadow-lg">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-3 py-1 rounded-full whitespace-nowrap">
                 Most popular
               </div>
               <h3 className="text-lg font-semibold mb-1">Scholar</h3>
@@ -207,14 +201,14 @@ export default function Home() {
               <div className="mb-6">
                 <span className="text-4xl font-semibold">$5</span>
                 <span className="text-neutral-500">/month</span>
-                <span className="text-green-600 block text-sm mt-1 font-medium">
-                  14-day free trial
+                <span className="text-neutral-600 block text-sm mt-2 font-medium">
+                  3-day free trial
                 </span>
               </div>
               <ul className="space-y-3 mb-8 text-sm">
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  5 child profiles
+                  1 child profile
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
@@ -226,16 +220,12 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  Weekly progress reports
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1 h-1 bg-black rounded-full" />
-                  Concept mastery tracking
+                  Progress snapshots
                 </li>
               </ul>
               <Link href="/get-started" className="block">
                 <Button className="w-full rounded-full">
-                  Start free trial
+                  Start Free Trial
                 </Button>
               </Link>
             </div>
@@ -247,26 +237,30 @@ export default function Home() {
               <div className="mb-6">
                 <span className="text-4xl font-semibold">$12</span>
                 <span className="text-neutral-500">/month</span>
-                <span className="text-green-600 block text-sm mt-1 font-medium">
-                  14-day free trial
+                <span className="text-neutral-600 block text-sm mt-2 font-medium">
+                  3-day free trial
                 </span>
               </div>
               <ul className="space-y-3 mb-8 text-sm">
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  10 child profiles
+                  6 child profiles
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  Everything in Scholar
+                  Unlimited questions
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  Detailed PDF reports
+                  Unlimited worked solutions
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  Curriculum alignment insights
+                  Detailed reports with drill down
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1 h-1 bg-black rounded-full" />
+                  Concept mastery tracking
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
@@ -275,7 +269,7 @@ export default function Home() {
               </ul>
               <Link href="/get-started" className="block">
                 <Button variant="outline" className="w-full rounded-full">
-                  Start free trial
+                  Start Free Trial
                 </Button>
               </Link>
             </div>
