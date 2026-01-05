@@ -8,8 +8,9 @@ export default function Home() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center gap-3">
             <Image src="/logo.png" alt="10/10 Good" width={120} height={40} className="h-8 w-auto" />
+            <span className="text-lg font-semibold">Grade My Child</span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link href="#features" className="text-sm text-neutral-600 hover:text-black transition-colors">
