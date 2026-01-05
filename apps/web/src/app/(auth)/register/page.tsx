@@ -69,13 +69,13 @@ function RegisterForm() {
   }
 
   const planNames: Record<string, string> = {
-    explorer: 'Explorer',
+    free: 'Explorer',
     scholar: 'Scholar',
     achiever: 'Achiever',
   }
 
   const planPrices: Record<string, string> = {
-    explorer: '$0.99/month',
+    free: 'Always Free',
     scholar: '$5/month',
     achiever: '$12/month',
   }

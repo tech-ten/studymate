@@ -45,9 +45,15 @@ function VerifyForm() {
       const selectedPlan = plan || sessionStorage.getItem('signup_plan') || 'scholar'
 
       setTimeout(() => {
-        // Redirect to login with checkout=true param
-        // This tells login to go directly to checkout after auth
-        router.push(`/login?checkout=${selectedPlan}&email=${encodeURIComponent(email)}`)
+        // Free users skip checkout, paid users go through Stripe
+        if (selectedPlan === 'free') {
+          // Free tier: go directly to dashboard
+          router.push(`/login?email=${encodeURIComponent(email)}`)
+        } else {
+          // Paid tiers: redirect to login with checkout param
+          // This tells login to go directly to Stripe checkout after auth
+          router.push(`/login?checkout=${selectedPlan}&email=${encodeURIComponent(email)}`)
+        }
       }, 1500)
     } catch (err) {
       console.error('Verification failed:', err)
@@ -73,7 +79,7 @@ function VerifyForm() {
   }
 
   const planNames: Record<string, string> = {
-    explorer: 'Explorer',
+    free: 'Explorer',
     scholar: 'Scholar',
     achiever: 'Achiever',
   }

@@ -28,35 +28,26 @@ const PRICE_IDS: Record<string, string> = {
 
 // Trial periods per plan (in days)
 const TRIAL_DAYS: Record<string, number> = {
-  explorer: 21, // 21-day free trial, then $0.99/month
-  scholar: 14,
-  achiever: 14,
+  scholar: 3,   // 3-day free trial
+  achiever: 3,  // 3-day free trial
 };
 
-// Days before Explorer users must upgrade to Scholar/Achiever
-const EXPLORER_UPGRADE_DAYS = 60;
-
-// Tier limits configuration
+// Tier limits configuration (aligned with 2026 pricing strategy)
 const TIER_LIMITS = {
   free: {
-    maxChildren: 2,
-    dailyQuestions: 20,
-    dailyAiCalls: 10,
-  },
-  explorer: {
-    maxChildren: 2,
-    dailyQuestions: 20,
-    dailyAiCalls: 10,
+    maxChildren: 1,        // Single child squeeze
+    dailyQuestions: 5,     // Limited questions to create upgrade pressure
+    dailyAiCalls: -1,      // Unlimited AI calls BUT solutions are locked (handled in frontend)
   },
   scholar: {
-    maxChildren: 5,
-    dailyQuestions: -1, // unlimited
-    dailyAiCalls: -1,
+    maxChildren: 1,        // Single child squeeze - forces upgrade to Achiever for 2nd child
+    dailyQuestions: -1,    // Unlimited
+    dailyAiCalls: -1,      // Unlimited
   },
   achiever: {
-    maxChildren: 10,
-    dailyQuestions: -1,
-    dailyAiCalls: -1,
+    maxChildren: 6,        // 6 children = $2 per child
+    dailyQuestions: -1,    // Unlimited
+    dailyAiCalls: -1,      // Unlimited
   },
 };
 
@@ -75,8 +66,8 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const body = JSON.parse(event.body || '{}');
       const { plan } = body;
 
-      if (!plan || !['explorer', 'scholar', 'achiever'].includes(plan)) {
-        return badRequest('Invalid plan. Must be "explorer", "scholar", or "achiever"');
+      if (!plan || !['scholar', 'achiever'].includes(plan)) {
+        return badRequest('Invalid plan. Must be "scholar" or "achiever"');
       }
 
       // Get user email for pre-filling
