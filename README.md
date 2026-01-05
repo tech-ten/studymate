@@ -1,16 +1,17 @@
-# StudyMate - AI-Powered Learning Platform
+# Grade My Child - AI-Powered Learning Platform
 
-[![Live](https://img.shields.io/badge/Live-tutor.agentsform.ai-blue)](https://tutor.agentsform.ai)
+[![Live](https://img.shields.io/badge/Live-grademychild.com.au-blue)](https://grademychild.com.au)
 [![AWS](https://img.shields.io/badge/AWS-Serverless-orange)](https://aws.amazon.com)
 [![AI](https://img.shields.io/badge/AI-LLaMA%203.3%2070B-green)](https://groq.com)
 
-> **Production SaaS platform** helping Australian primary school students (Years 3-6) master the Victorian curriculum through AI-powered, personalised learning.
+> **Production SaaS platform** helping Australian primary school students (Years 3-6) master the Victorian curriculum through AI-powered, personalised learning. Branded as **Grade My Child**, providing instant curriculum checking and grading against the Australian Curriculum V9.0.
 
 ---
 
 ## Live Demo
 
-**Website**: [tutor.agentsform.ai](https://tutor.agentsform.ai)
+**Primary Website**: [grademychild.com.au](https://grademychild.com.au)
+**Legacy URL**: [tutor.agentsform.ai](https://tutor.agentsform.ai)
 
 ---
 
@@ -19,7 +20,8 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      CLOUDFRONT CDN                          │
-│                   tutor.agentsform.ai                        │
+│              grademychild.com.au (primary)                   │
+│              tutor.agentsform.ai (legacy)                    │
 └─────────────────────────────────────────────────────────────┘
                             │
          ┌──────────────────┴──────────────────┐
@@ -211,4 +213,4 @@ Proprietary - All rights reserved
 
 ---
 
-*Built with AWS, Next.js, and LLaMA 3.3 | Live at [tutor.agentsform.ai](https://tutor.agentsform.ai)*
+*Built with AWS, Next.js, and LLaMA 3.3 | Live at [grademychild.com.au](https://grademychild.com.au)*

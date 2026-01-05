@@ -1,6 +1,7 @@
-# StudyMate - AI-Powered Learning Platform for Australian Students
+# Grade My Child - AI-Powered Learning Platform for Australian Students
 
-**Live**: https://tutor.agentsform.ai
+**Live**: https://grademychild.com.au
+**Legacy URL**: https://tutor.agentsform.ai
 **Target Market**: Australian families with children in Years 3-6
 **Status**: Production-ready with payment infrastructure
 
@@ -34,8 +35,8 @@
 
 A fair question. Here's the difference:
 
-| Feature | Free ChatGPT | StudyMate |
-|---------|-------------|-----------|
+| Feature | Free ChatGPT | Grade My Child |
+|---------|-------------|----------------|
 | Curriculum alignment | Generic knowledge | Victorian VCAA codes |
 | Progress tracking | None | Per-child, per-section |
 | Structured learning | Random Q&A | Strands → Chapters → Sections |
@@ -46,7 +47,7 @@ A fair question. Here's the difference:
 | Safety | Minimal | Child-safe, guardrailed |
 | Data residency | US servers | Sydney, Privacy Act compliant |
 
-**ChatGPT is a tool. StudyMate is a learning system.**
+**ChatGPT is a tool. Grade My Child is a learning system.**
 
 ### What Parents Actually Pay For
 
@@ -66,7 +67,7 @@ A fair question. Here's the difference:
 | **James An College** | $200-400 | No | Yes | Group pace |
 | **Cluey Learning** | $300+ | No | Yes | Tutor-paced |
 | **Khan Academy** | Free | Limited | US-focused | Yes |
-| **StudyMate** | $5-12 | Yes | Victorian | Yes |
+| **Grade My Child** | $5-12 | Yes | Victorian | Yes |
 
 **Our position**: Premium AI features at commodity pricing
 
@@ -107,7 +108,7 @@ A fair question. Here's the difference:
    └─ School newsletter
 
 2. SIGN UP (2 min)
-   └─ tutor.agentsform.ai/register
+   └─ grademychild.com.au/get-started
    └─ Email + password
    └─ Email verification
 
@@ -143,8 +144,8 @@ A fair question. Here's the difference:
 
 ```
 1. LOGIN
-   └─ tutor.agentsform.ai/child-login
-   └─ Enter username + 4-digit PIN
+   └─ grademychild.com.au/child-login
+   └─ Enter parent email + child name + PIN
    └─ See their avatar and name
 
 2. HOME SCREEN
@@ -187,7 +188,7 @@ A fair question. Here's the difference:
 
 ```
 1. ACCESS
-   └─ tutor.agentsform.ai/admin
+   └─ grademychild.com.au/admin
    └─ Enter admin key
    └─ (Separate from parent accounts)
 
@@ -277,7 +278,7 @@ A fair question. Here's the difference:
 ┌─────────────────────────────────────────────────────────┐
 │                    FRONTEND                              │
 │         Next.js 14 (Static Export on CloudFront)        │
-│              tutor.agentsform.ai                        │
+│              grademychild.com.au                        │
 └─────────────────────────────────────────────────────────┘
                           │
                           ▼
@@ -368,6 +369,7 @@ At $5/month subscription = **125x margin** on infrastructure.
 
 ## Contact
 
-- **Product**: tutor.agentsform.ai
-- **Admin**: tutor.agentsform.ai/admin
+- **Product**: grademychild.com.au
+- **Admin**: grademychild.com.au/admin
+- **Legacy URL**: tutor.agentsform.ai
 - **Support**: (via AgentsForm)
