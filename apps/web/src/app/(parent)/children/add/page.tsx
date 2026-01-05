@@ -98,10 +98,10 @@ export default function AddChildPage() {
                 🔒
               </div>
               <h2 className="text-lg font-semibold mb-1">
-                {tierLimit.tier === 'free' ? 'Ready for more?' : 'Need more child profiles?'}
+                {(tierLimit.tier === 'free' || tierLimit.tier === 'explorer') ? 'Ready for more?' : 'Need more child profiles?'}
               </h2>
               <p className="text-sm text-neutral-600">
-                {tierLimit.tier === 'free'
+                {(tierLimit.tier === 'free' || tierLimit.tier === 'explorer')
                   ? `Your Explorer plan includes ${tierLimit.limit} child profile. To add more children, upgrade to Scholar ($5/mo) or Achiever ($12/mo for 6 children).`
                   : tierLimit.tier === 'scholar'
                   ? `Your Scholar plan includes ${tierLimit.limit} child profile. To add more children, upgrade to Achiever for just $12/mo (6 child profiles - just $2 per child).`
@@ -111,7 +111,7 @@ export default function AddChildPage() {
             <div className="space-y-2">
               <Link href="/pricing">
                 <Button className="w-full rounded-full">
-                  {tierLimit.tier === 'free' ? 'See Plans' : 'Upgrade to Achiever'}
+                  {(tierLimit.tier === 'free' || tierLimit.tier === 'explorer') ? 'See Plans' : 'Upgrade to Achiever'}
                 </Button>
               </Link>
               <Link href="/dashboard">

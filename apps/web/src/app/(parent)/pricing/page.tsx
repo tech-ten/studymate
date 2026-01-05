@@ -102,7 +102,8 @@ function PricingContent() {
   }
 
   const handleUpgrade = async (planId: string) => {
-    if (planId === 'free') return // Free tier can't be "upgraded" to
+    // Free tier (both 'free' and 'explorer') can't be "upgraded" to
+    if (planId === 'free' || planId === 'explorer') return
 
     setUpgrading(planId)
     try {
@@ -129,7 +130,8 @@ function PricingContent() {
     signOut()
   }
 
-  const currentTier = status?.tier || 'free'
+  // Normalize tier: treat 'explorer' as 'free' for backward compatibility
+  const currentTier = status?.tier === 'explorer' ? 'free' : (status?.tier || 'free')
 
   return (
     <main className="min-h-screen bg-white">

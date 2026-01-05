@@ -40,7 +40,8 @@ export default function DashboardPage() {
 
       // If user has no subscription (free tier with no subscriptionId), redirect to pricing
       // Users need to at least start a trial/subscription to access dashboard
-      if (status.tier === 'free' && !status.subscriptionId) {
+      // Support both 'free' and 'explorer' for backward compatibility
+      if ((status.tier === 'free' || status.tier === 'explorer') && !status.subscriptionId) {
         router.push('/pricing')
         return
       }
@@ -122,14 +123,14 @@ export default function DashboardPage() {
             Grade My Child
           </Link>
           <div className="flex items-center gap-4">
-            {subscription && subscription.tier === 'free' && (
+            {subscription && (subscription.tier === 'free' || subscription.tier === 'explorer') && (
               <Link href="/pricing">
                 <Button size="sm" variant="outline" className="rounded-full border-amber-400 text-amber-600 hover:bg-amber-50">
                   Upgrade
                 </Button>
               </Link>
             )}
-            {subscription && subscription.tier !== 'free' && (
+            {subscription && (subscription.tier !== 'free' && subscription.tier !== 'explorer') && (
               <div className="flex items-center gap-2">
                 <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full capitalize">
                   {subscription.tier}

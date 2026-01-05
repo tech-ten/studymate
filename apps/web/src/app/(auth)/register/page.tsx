@@ -70,12 +70,14 @@ function RegisterForm() {
 
   const planNames: Record<string, string> = {
     free: 'Explorer',
+    explorer: 'Explorer', // Backward compatibility
     scholar: 'Scholar',
     achiever: 'Achiever',
   }
 
   const planPrices: Record<string, string> = {
     free: 'Always Free',
+    explorer: 'Always Free', // Backward compatibility
     scholar: '$5/month',
     achiever: '$12/month',
   }

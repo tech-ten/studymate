@@ -151,6 +151,7 @@ function AnalyticsContent() {
     return <div className="text-center py-12 text-neutral-400">Loading...</div>
   }
 
+  // Premium gate: only scholar and achiever tiers (not free/explorer)
   const hasPremium = subscription && (subscription.tier === 'scholar' || subscription.tier === 'achiever')
 
   // Premium gate - clean minimalist design

@@ -124,7 +124,8 @@ export default function LearnPage() {
   const [error, setError] = useState<string | null>(null)
 
   // Check if user is on free tier (solutions are locked)
-  const isFreeTier = childProfile?.tier === 'free'
+  // Support both 'free' and 'explorer' for backward compatibility
+  const isFreeTier = childProfile?.tier === 'free' || childProfile?.tier === 'explorer'
 
   // Curriculum state
   const [curriculum, setCurriculum] = useState<YearLevelCurriculum | null>(null)

@@ -619,7 +619,7 @@ export default function AdminDashboard() {
                             </td>
                             <td className="px-4 py-3 text-sm">{user.aiCallsToday}</td>
                             <td className="px-4 py-3 text-sm text-neutral-400">
-                              {user.tier === 'free' || !user.tier ? '$0.00' : 'See subscription'}
+                              {user.tier === 'free' || user.tier === 'explorer' || !user.tier ? '$0.00' : 'See subscription'}
                             </td>
                           </tr>
                         ))}
