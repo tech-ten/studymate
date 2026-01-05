@@ -33,21 +33,20 @@ export default function Home() {
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-black mb-6 text-balance">
-            AI tutoring that adapts to your child
+            Is your child on track to pass their Year Level?
           </h1>
           <p className="text-xl text-neutral-500 mb-10 max-w-2xl mx-auto text-balance">
-            Personalised learning for Australian students from Prep to Year 12.
-            Instant feedback, adaptive difficulty, and explanations that make sense.
+            Don't wait for the school report card. Get an instant, independent check of your child's knowledge against the Australian Curriculum.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/get-started">
               <Button size="lg" className="rounded-full px-8 h-12 text-base">
-                Start free trial
+                Check Their Level Free
               </Button>
             </Link>
             <Link href="#features">
               <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base">
-                Learn more
+                See Sample Report
               </Button>
             </Link>
           </div>
