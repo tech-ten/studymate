@@ -34,7 +34,14 @@ export class ApiStack extends cdk.Stack {
     this.api = new apigatewayv2.HttpApi(this, 'AgentsFormApi', {
       apiName: 'agentsform-api',
       corsPreflight: {
-        allowOrigins: ['http://localhost:3000', 'https://agentsform.ai', 'https://agentsform.com', 'https://tutor.agentsform.ai'],
+        allowOrigins: [
+          'http://localhost:3000',
+          'https://agentsform.ai',
+          'https://agentsform.com',
+          'https://tutor.agentsform.ai',
+          'https://grademychild.com.au',
+          'https://www.grademychild.com.au',
+        ],
         allowMethods: [
           apigatewayv2.CorsHttpMethod.GET,
           apigatewayv2.CorsHttpMethod.POST,
