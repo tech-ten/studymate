@@ -36,7 +36,7 @@ export default function Home() {
             Is your child on track to pass their Year Level?
           </h1>
           <p className="text-xl text-neutral-500 mb-10 max-w-2xl mx-auto text-balance">
-            Don't wait for the school report card. Get an instant, independent check of your child's knowledge against the Australian Curriculum.
+            Instantly mark your child's homework against the Australian Curriculum (V9.0). Get a clear grade and a plan to fix the gaps.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/get-started">
@@ -84,20 +84,20 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'Adaptive Learning',
-                description: 'Questions automatically adjust to match your child\'s ability. No more too-easy or too-hard problems.',
+                title: 'Instant Grading',
+                description: 'Questions matched to your child\'s year level. See their exact grade against the Australian Curriculum.',
               },
               {
-                title: 'AI Explanations',
-                description: 'Stuck on a problem? Get clear, step-by-step explanations tailored to how your child learns best.',
+                title: 'Clear Explanations',
+                description: 'Stuck on a problem? Get step-by-step worked solutions that make sense.',
               },
               {
                 title: 'Progress Tracking',
                 description: 'See exactly where your child excels and where they need more practice. Real data, not guesswork.',
               },
               {
-                title: 'Australian Curriculum',
-                description: 'Aligned with what Australian schools teach. From Prep to Year 12, Maths and English.',
+                title: 'Australian Curriculum V9.0',
+                description: 'Fully aligned with what Australian schools teach. From Prep to Year 12, Maths and English.',
               },
               {
                 title: 'Engaging Experience',
@@ -176,7 +176,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  10 AI explanations per day
+                  10 worked solutions per day
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
@@ -220,7 +220,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
-                  Unlimited AI tutor help
+                  Unlimited worked solutions
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-1 h-1 bg-black rounded-full" />
@@ -306,8 +306,8 @@ export default function Home() {
             <div className="md:col-span-2">
               <h3 className="text-lg font-semibold mb-4">StudyMate</h3>
               <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
-                AI-powered tutoring for Australian students. Personalised learning
-                aligned with the Australian curriculum from Prep to Year 12.
+                Instant curriculum grading for Australian students. Mark your child's homework
+                against the Australian Curriculum V9.0 from Prep to Year 12.
               </p>
               <div className="text-sm text-neutral-500 space-y-1">
                 <p><strong>Enhanced Software Systems</strong></p>

@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'StudyMate - AI-Powered Tutoring',
-  description: 'Best-in-class tutoring for Australian students from Prep to Year 12',
+  title: 'Grade My Child | Free Australian Curriculum Check',
+  description: 'Instantly mark your child\'s homework against the Australian Curriculum (V9.0). Get a clear grade and a plan to fix the gaps.',
 }
 
 export default function RootLayout({
