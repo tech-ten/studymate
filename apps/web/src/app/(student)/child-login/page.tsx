@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { childLogin } from '@/lib/api'
 import { setChildProfile } from '@/lib/auth'
@@ -89,8 +90,9 @@ function ChildLoginContent() {
     return (
       <div className="w-full max-w-xs px-6">
         <div className="text-center mb-10">
-          <Link href="/" className="text-lg font-semibold">
-            Grade My Child
+          <Link href="/" className="inline-flex items-center gap-3">
+            <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+            <span className="text-lg font-semibold">Grade My Child</span>
           </Link>
           <div className="mt-6 mb-6">
             <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">
@@ -141,8 +143,9 @@ function ChildLoginContent() {
     return (
       <div className="w-full max-w-xs px-6">
         <div className="text-center mb-10">
-          <Link href="/" className="text-lg font-semibold">
-            Grade My Child
+          <Link href="/" className="inline-flex items-center gap-3">
+            <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+            <span className="text-lg font-semibold">Grade My Child</span>
           </Link>
           <div className="mt-6 mb-6">
             <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">
@@ -199,8 +202,9 @@ function ChildLoginContent() {
   return (
     <div className="w-full max-w-xs px-6">
       <div className="text-center mb-10">
-        <Link href="/" className="text-lg font-semibold">
-          Grade My Child
+        <Link href="/" className="inline-flex items-center gap-3">
+          <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+          <span className="text-lg font-semibold">Grade My Child</span>
         </Link>
         <div className="mt-6 mb-6">
           <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">

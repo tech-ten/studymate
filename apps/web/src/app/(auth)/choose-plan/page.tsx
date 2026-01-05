@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
@@ -89,8 +90,9 @@ export default function ChoosePlanPage() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <Link href="/" className="text-lg font-semibold">
-            Grade My Child
+          <Link href="/" className="inline-flex items-center gap-3">
+            <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+            <span className="text-lg font-semibold">Grade My Child</span>
           </Link>
           <div className="mt-6 mb-2">
             <span className="inline-block px-3 py-1 text-xs bg-neutral-100 text-neutral-600 rounded-full">

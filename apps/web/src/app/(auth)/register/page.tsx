@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { signUp } from '@/lib/auth'
@@ -82,8 +83,9 @@ function RegisterForm() {
   return (
     <div className="w-full max-w-sm">
       <div className="text-center mb-10">
-        <Link href="/" className="text-lg font-semibold">
-          Grade My Child
+        <Link href="/" className="inline-flex items-center gap-3">
+          <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+          <span className="text-lg font-semibold">Grade My Child</span>
         </Link>
         <div className="mt-6 mb-2">
           <span className="inline-block px-3 py-1 text-xs bg-neutral-100 text-neutral-600 rounded-full">

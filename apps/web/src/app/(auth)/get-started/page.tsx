@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
@@ -32,8 +33,9 @@ export default function GetStartedPage() {
     <main className="min-h-screen flex items-center justify-center bg-white px-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <Link href="/" className="text-lg font-semibold">
-            Grade My Child
+          <Link href="/" className="inline-flex items-center gap-3">
+            <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+            <span className="text-lg font-semibold">Grade My Child</span>
           </Link>
           <h1 className="text-2xl font-semibold mt-8 mb-2">Get started</h1>
           <p className="text-neutral-500">

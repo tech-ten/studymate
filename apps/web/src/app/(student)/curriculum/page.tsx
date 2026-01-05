@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getChildProfile, getSelectedChild, isAuthenticatedSync } from '@/lib/auth'
 import ReactMarkdown from 'react-markdown'
@@ -374,8 +375,9 @@ function CurriculumContent() {
     <main className="min-h-screen bg-white">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-6 h-14 flex justify-between items-center">
-          <Link href="/" className="text-lg font-semibold">
-            Grade My Child
+          <Link href="/" className="inline-flex items-center gap-3">
+            <Image src="/icon.png" alt="Grade My Child" width={40} height={40} className="w-10 h-10" />
+            <span className="text-lg font-semibold">Grade My Child</span>
           </Link>
           <div className="flex items-center gap-4">
             {childProfile && (
