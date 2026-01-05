@@ -194,35 +194,80 @@ function DetailedProgressContent() {
                             <div key={section.id}>
                               <button
                                 onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                                className="w-full px-5 py-4 flex items-center justify-between hover:bg-neutral-50 transition-colors text-left"
+                                className="w-full px-5 py-4 hover:bg-neutral-50 transition-colors text-left"
                               >
-                                <div>
-                                  <div className="font-medium">{section.title}</div>
-                                  <div className="text-sm text-neutral-500">
-                                    {chapter.title} • {new Date(progress.lastAttempt).toLocaleDateString()}
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-4">
-                                  {/* Achievement Level Indicator */}
-                                  <div className="flex items-center gap-3">
-                                    <div className={`w-3 h-3 rounded-full ${scoreData.achievement.dotColor}`} title={scoreData.achievement.description} />
-                                    <div className="text-right">
-                                      <div className={`text-lg font-semibold ${scoreData.achievement.color}`}>
-                                        {progress.score}/{progress.totalQuestions}
-                                      </div>
-                                      <div className="text-xs text-neutral-500">
-                                        {scoreData.achievement.label}
-                                      </div>
+                                <div className="flex items-center justify-between mb-3">
+                                  <div>
+                                    <div className="font-medium">{section.title}</div>
+                                    <div className="text-sm text-neutral-500">
+                                      {chapter.title} • {new Date(progress.lastAttempt).toLocaleDateString()}
                                     </div>
                                   </div>
-                                  <svg
-                                    className={`w-5 h-5 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                  </svg>
+                                  <div className="flex items-center gap-4">
+                                    {/* Achievement Level Indicator */}
+                                    <div className="flex items-center gap-3">
+                                      <div className={`w-3 h-3 rounded-full ${scoreData.achievement.dotColor}`} title={scoreData.achievement.description} />
+                                      <div className="text-right">
+                                        <div className={`text-lg font-semibold ${scoreData.achievement.color}`}>
+                                          {progress.score}/{progress.totalQuestions}
+                                        </div>
+                                        <div className="text-xs text-neutral-500">
+                                          {scoreData.achievement.label}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <svg
+                                      className={`w-5 h-5 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                  </div>
+                                </div>
+
+                                {/* Progress bar with achievement level markers */}
+                                <div className="relative pr-10">
+                                  {/* Background bar */}
+                                  <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                    {/* Filled progress */}
+                                    <div
+                                      className={`h-full ${scoreData.achievement.dotColor} transition-all`}
+                                      style={{ width: `${scoreData.percentage}%` }}
+                                    />
+                                  </div>
+
+                                  {/* Achievement level markers */}
+                                  <div className="absolute top-0 left-0 right-10 h-2 flex items-center">
+                                    {/* Emerging threshold (0%) */}
+                                    <div className="absolute" style={{ left: '0%' }}>
+                                      <div className="w-0.5 h-3 bg-neutral-300" />
+                                    </div>
+
+                                    {/* Developing threshold (45%) */}
+                                    <div className="absolute" style={{ left: '45%' }}>
+                                      <div className="w-0.5 h-3 bg-neutral-400" />
+                                    </div>
+
+                                    {/* Achieving threshold (65%) */}
+                                    <div className="absolute" style={{ left: '65%' }}>
+                                      <div className="w-0.5 h-3 bg-neutral-500" />
+                                    </div>
+
+                                    {/* Exceeding threshold (85%) */}
+                                    <div className="absolute" style={{ left: '85%' }}>
+                                      <div className="w-0.5 h-3 bg-neutral-600" />
+                                    </div>
+                                  </div>
+
+                                  {/* Level labels */}
+                                  <div className="flex justify-between mt-1 text-[10px] text-neutral-400 pr-10">
+                                    <span>Emerging</span>
+                                    <span>Developing</span>
+                                    <span>Achieving</span>
+                                    <span>Exceeding</span>
+                                  </div>
                                 </div>
                               </button>
 

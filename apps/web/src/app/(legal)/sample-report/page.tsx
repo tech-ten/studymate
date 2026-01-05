@@ -160,25 +160,71 @@ export default function SampleReportPage() {
                 <div className="divide-y divide-neutral-100">
                   {strand.sections.map((section, sectionIdx) => {
                     const scoreData = formatScoreWithLevel(section.score, section.total)
+                    const percentage = scoreData.percentage
 
                     return (
-                      <div key={sectionIdx} className="px-5 py-4 flex items-center justify-between">
-                        <div>
-                          <div className="font-medium">{section.title}</div>
-                          <div className="text-sm text-neutral-500">
-                            {section.chapter} • {new Date(section.date).toLocaleDateString()}
+                      <div key={sectionIdx} className="px-5 py-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div>
+                            <div className="font-medium">{section.title}</div>
+                            <div className="text-sm text-neutral-500">
+                              {section.chapter} • {new Date(section.date).toLocaleDateString()}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className={`w-3 h-3 rounded-full ${scoreData.achievement.dotColor}`}
+                                 title={scoreData.achievement.description} />
+                            <div className="text-right">
+                              <div className={`text-lg font-semibold ${scoreData.achievement.color}`}>
+                                {section.score}/{section.total}
+                              </div>
+                              <div className="text-xs text-neutral-500">
+                                {scoreData.achievement.label}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <div className={`w-3 h-3 rounded-full ${scoreData.achievement.dotColor}`}
-                               title={scoreData.achievement.description} />
-                          <div className="text-right">
-                            <div className={`text-lg font-semibold ${scoreData.achievement.color}`}>
-                              {section.score}/{section.total}
+
+                        {/* Progress bar with achievement level markers */}
+                        <div className="relative">
+                          {/* Background bar */}
+                          <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            {/* Filled progress */}
+                            <div
+                              className={`h-full ${scoreData.achievement.dotColor.replace('bg-', 'bg-')} transition-all`}
+                              style={{ width: `${percentage}%` }}
+                            />
+                          </div>
+
+                          {/* Achievement level markers */}
+                          <div className="absolute top-0 left-0 right-0 h-2 flex items-center">
+                            {/* Emerging threshold (0%) */}
+                            <div className="absolute" style={{ left: '0%' }}>
+                              <div className="w-0.5 h-3 bg-neutral-300" />
                             </div>
-                            <div className="text-xs text-neutral-500">
-                              {scoreData.achievement.label}
+
+                            {/* Developing threshold (45%) */}
+                            <div className="absolute" style={{ left: '45%' }}>
+                              <div className="w-0.5 h-3 bg-neutral-400" />
                             </div>
+
+                            {/* Achieving threshold (65%) */}
+                            <div className="absolute" style={{ left: '65%' }}>
+                              <div className="w-0.5 h-3 bg-neutral-500" />
+                            </div>
+
+                            {/* Exceeding threshold (85%) */}
+                            <div className="absolute" style={{ left: '85%' }}>
+                              <div className="w-0.5 h-3 bg-neutral-600" />
+                            </div>
+                          </div>
+
+                          {/* Level labels */}
+                          <div className="flex justify-between mt-1 text-[10px] text-neutral-400">
+                            <span>Emerging</span>
+                            <span>Developing</span>
+                            <span>Achieving</span>
+                            <span>Exceeding</span>
                           </div>
                         </div>
                       </div>
