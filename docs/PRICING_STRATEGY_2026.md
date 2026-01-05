@@ -432,6 +432,148 @@ This pricing model is:
 **The shift from "selling features" to "selling relief" fundamentally changes the value equation.**
 
 We're not competing on how many features we have.
+
+---
+
+## Implementation Details (January 6, 2026)
+
+### Backend Enforcement
+
+**File: `packages/api/src/handlers/child.ts`**
+```typescript
+// Child limits per tier (aligned with 2026 pricing strategy)
+const CHILD_LIMITS: Record<string, number> = {
+  free: 1,      // Single child squeeze
+  scholar: 1,   // Single child squeeze - forces upgrade to Achiever for 2nd child
+  achiever: 6,  // 6 children = $2 per child
+};
+```
+- Enforces 1 child limit for free and scholar tiers
+- Returns structured error with tier info and upgrade URL
+- Returns parent's tier in child login response for frontend gating
+
+**File: `packages/api/src/handlers/progress.ts`**
+```typescript
+// Tier limits (aligned with 2026 pricing strategy)
+const TIER_LIMITS: Record<string, { dailyQuestions: number }> = {
+  free: { dailyQuestions: 5 },      // 5 questions per day
+  scholar: { dailyQuestions: -1 },  // Unlimited
+  achiever: { dailyQuestions: -1 }, // Unlimited
+};
+```
+- Enforces 5 questions/day for free tier
+- Tracks daily usage via DynamoDB quiz records
+- Returns 403 with upgrade prompt when limit exceeded
+
+**File: `packages/api/src/handlers/payment.ts`**
+```typescript
+// Trial periods per plan (in days)
+const TRIAL_DAYS: Record<string, number> = {
+  scholar: 3,   // 3-day free trial
+  achiever: 3,  // 3-day free trial
+};
+
+// Checkout validation
+if (!plan || !['scholar', 'achiever'].includes(plan)) {
+  return badRequest('Invalid plan. Must be "scholar" or "achiever"');
+}
+```
+- Free tier excluded from Stripe checkout
+- 3-day trials for paid tiers (down from 14/21 days)
+- Stripe price IDs preserved: STRIPE_PRICE_SCHOLAR, STRIPE_PRICE_ACHIEVER
+
+### Frontend Gating
+
+**File: `apps/web/src/app/(student)/learn/page.tsx`**
+- **Locked Solutions**: Free tier users see 🔒 lock instead of explanations for wrong answers
+- **Locked AI**: "Explain this to me" button hidden for free tier
+- **Locked Quiz Results**: Correct answers hidden in quiz results breakdown
+- Tier stored in `childProfile.tier` from login response
+
+**File: `apps/web/src/app/(parent)/progress/page.tsx`**
+- **Locked Drill-down**: Scholar users cannot expand quiz results to see individual questions
+- Shows 🔒 icon instead of dropdown arrow
+- Displays upgrade prompt: "Upgrade to Achiever to see individual question breakdowns"
+- Achiever-only feature clearly indicated
+
+**File: `apps/web/src/app/(parent)/children/add/page.tsx`**
+- Graceful tier limit error handling
+- Compelling upgrade prompts when child limit reached
+- Different messaging for free vs scholar tiers
+- Form disabled with opacity when limit reached
+
+### User Flow Changes
+
+**Registration Flow** (No Credit Card for Free):
+```
+1. /get-started → Email capture
+2. /choose-plan → Select plan (Explorer/Scholar/Achiever)
+3. /register?plan=free → Create account
+4. /verify → Email verification
+5. /login → Direct to dashboard (no Stripe for free tier)
+```
+
+**Paid Registration Flow**:
+```
+1. /get-started → Email capture
+2. /choose-plan → Select plan (Scholar/Achiever)
+3. /register?plan=scholar → Create account
+4. /verify → Email verification
+5. /login?checkout=scholar → Redirects to Stripe checkout
+6. Stripe checkout → 3-day trial, then $5 or $12/mo
+7. /dashboard → Access to full features
+```
+
+**Upgrade Triggers**:
+1. **Free → Scholar**: Locked solutions, 5 question limit, 2nd child attempt
+2. **Scholar → Achiever**: 2nd child attempt, locked progress drill-down
+
+### Database Schema
+
+**ChildProfile Type** (localStorage):
+```typescript
+interface ChildProfile {
+  id: string;
+  name: string;
+  avatar?: string;
+  yearLevel?: number;
+  username?: string;
+  parentId: string;
+  tier?: string; // NEW: Parent's subscription tier for feature gating
+}
+```
+
+**Quiz Record** (DynamoDB):
+```
+PK: CHILD#{childId}
+SK: QUIZ#{sectionId}
+- lastAttempt: ISO timestamp (used for daily limit tracking)
+- totalQuestions: number (counted for daily limit)
+```
+
+### Deployment Checklist
+
+- [x] Backend built and tested (TypeScript compilation successful)
+- [x] Frontend built (Next.js static export)
+- [x] S3 deployment (onceoffresourcesstack-techxbucket00f18e48-h7seokhaha6q)
+- [x] CloudFront invalidation (E1WZZKB5A9CWD6)
+- [x] Stripe configuration verified (price codes intact)
+- [x] AI configuration verified (Groq API intact)
+- [x] Git commits pushed to main branch
+
+### Migration Notes
+
+**Existing Users**:
+- Users on old "explorer" tier ($0.99) → Automatically treated as "free" tier
+- Existing subscriptions continue unchanged
+- No data migration required
+
+**Backward Compatibility**:
+- Old STRIPE_PRICE_EXPLORER environment variable kept but unused
+- Frontend gracefully handles missing tier (defaults to "free")
+- Backend validates tier on every request
+
+---
 We're competing on how much anxiety we remove.
 
 ---

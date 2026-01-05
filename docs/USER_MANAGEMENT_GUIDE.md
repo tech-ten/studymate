@@ -257,41 +257,60 @@ This prevents the scenario where two children named "Thomas" from different fami
 
 ## Subscription Tiers
 
-### Tier Configuration
+### Tier Configuration (2026 Pricing Strategy)
 
-| Tier | Price | Trial | Max Children | Daily Questions | Daily AI Calls | Duration Limit |
-|------|-------|-------|--------------|-----------------|----------------|----------------|
-| Free | $0 | - | 2 | 20 | 10 | - |
-| Explorer | $0.99/mo | 21 days | 2 | 20 | 10 | 60 days max |
-| Scholar | $5/mo | 14 days | 5 | Unlimited | Unlimited | - |
-| Achiever | $12/mo | 14 days | 10 | Unlimited | Unlimited | - |
+| Tier | Price | Trial | Max Children | Daily Questions | Solutions | Drill-Down | Features Locked |
+|------|-------|-------|--------------|-----------------|-----------|------------|-----------------|
+| **Explorer (Free)** | $0 | - | 1 | 5 | Locked 🔒 | Locked 🔒 | Solutions, AI explanations, quiz results |
+| **Scholar** | $5/mo | 3 days | 1 | Unlimited | Unlocked | Locked 🔒 | Detailed progress drill-down |
+| **Achiever** | $12/mo | 3 days | 6 | Unlimited | Unlocked | Unlocked | None - full access |
 
-### Explorer → Scholar Upgrade Funnel
+**Key Changes from Previous Strategy:**
+- **No credit card for free tier**: Explorer users signup without payment info
+- **Single child squeeze**: Both Explorer and Scholar limited to 1 child forces $5→$12 upgrade (2.4x revenue)
+- **Shorter trials**: 3 days (down from 14/21) creates urgency
+- **Removed Explorer upgrade timer**: No time-based complexity, operational sanity
+- **Value-based locks**: Solutions locked at moment of frustration (wrong answer)
 
+### Upgrade Triggers (2026 Strategy)
+
+**Explorer (Free) → Scholar ($5/mo):**
 ```
-Day 0-21:     Free trial (no charge)
-Day 21-51:    First $0.99 payment
-Day 51-60:    Second $0.99 period begins
-Day 60+:      MUST upgrade to Scholar/Achiever or lose access
+Trigger 1: Daily question limit (5 questions)
+  └─ User completes 5 questions
+  └─ Backend returns 403 with upgrade prompt
+  └─ Frontend shows "Daily limit reached" + upgrade button
+
+Trigger 2: Locked solutions
+  └─ User answers question wrong
+  └─ Frontend shows locked solution with 🔒 icon
+  └─ Upgrade button at moment of frustration
+
+Trigger 3: Second child attempt
+  └─ User tries to add 2nd child
+  └─ Backend returns 403 with tier limit info
+  └─ Frontend shows upgrade UI with disabled form
 ```
 
-**Backend Implementation:** `packages/api/src/handlers/payment.ts`
-```typescript
-const EXPLORER_UPGRADE_DAYS = 60;
+**Scholar ($5/mo) → Achiever ($12/mo):**
+```
+Trigger 1: Second child attempt
+  └─ User tries to add 2nd child
+  └─ Backend returns 403 with tier limit info
+  └─ Frontend shows "Upgrade to Achiever for 6 children - just $2 per child"
 
-// In /payments/status endpoint:
-if (tier === 'explorer' && subscription.created) {
-  const daysSinceStart = Math.floor((now - subscriptionStart) / (1000 * 60 * 60 * 24));
-  explorerDaysLeft = Math.max(0, EXPLORER_UPGRADE_DAYS - daysSinceStart);
-  if (daysSinceStart >= EXPLORER_UPGRADE_DAYS) {
-    requiresUpgrade = true;
-  }
-}
+Trigger 2: Locked drill-down
+  └─ User clicks to expand question details in progress reports
+  └─ Frontend shows locked drill-down with upgrade prompt
+  └─ "Upgrade to Achiever to see individual question breakdowns"
 ```
 
-**Frontend Implementation:** `apps/web/src/app/(parent)/dashboard/page.tsx`
-- Shows countdown banner when `explorerDaysLeft <= 14`
-- Shows blocking modal when `requiresUpgrade === true`
+**Backend Implementation:** `packages/api/src/handlers/child.ts`, `packages/api/src/handlers/progress.ts`
+
+**Frontend Implementation:**
+- `apps/web/src/app/(parent)/children/add/page.tsx` - Child limit enforcement
+- `apps/web/src/app/(student)/learn/page.tsx` - Locked solutions
+- `apps/web/src/app/(parent)/progress/page.tsx` - Locked drill-down
 
 ---
 
@@ -300,6 +319,8 @@ if (tier === 'explorer' && subscription.created) {
 ### Journey 1: New User Registration → First Learning Session (Netflix-Style Funnel)
 
 This is the optimized conversion funnel that captures email first, then guides users through plan selection before account creation.
+
+**Updated for 2026 Pricing Strategy**: Free tier users skip Stripe checkout entirely.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -326,8 +347,10 @@ This is the optimized conversion funnel that captures email first, then guides u
 │ STEP 3: Plan Selection (Public, No Auth Required)                           │
 │ Page: /choose-plan                                                          │
 │ Check: Retrieves email from sessionStorage                                  │
-│ Display: Three plan cards (Explorer, Scholar, Achiever)                     │
-│         Scholar highlighted as "Most popular"                               │
+│ Display: Three plan cards:                                                  │
+│   - Explorer (Free): "Always Free", "No credit card required"               │
+│   - Scholar ($5/mo): "Most popular", "3-day free trial"                     │
+│   - Achiever ($12/mo): "3-day free trial"                                   │
 │ Action: Click "Select [Plan]"                                               │
 │ Storage: sessionStorage.setItem('signup_plan', plan)                        │
 │ Destination: /register?plan={plan}&email={email}                            │
@@ -370,15 +393,18 @@ This is the optimized conversion funnel that captures email first, then guides u
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 6: Login with Checkout Flow                                            │
-│ Page: /login?checkout=scholar&email=user@example.com                        │
-│ Display: Email pre-filled, password input, "Continue to payment" button    │
+│ STEP 6: Login with Conditional Checkout Flow                                │
+│ Page: /login?checkout=scholar&email=user@example.com (paid tiers)           │
+│       OR /login?email=user@example.com (free tier)                          │
+│ Display: Email pre-filled, password input                                   │
 │ Action: Enter password, click submit                                        │
 │ API: signIn(email, password) → Get tokens                                   │
-│      IF checkout param exists:                                              │
+│      IF plan === 'free':                                                    │
+│        Redirect directly to /dashboard (no Stripe)                          │
+│      ELSE IF checkout param exists (scholar/achiever):                      │
 │        createCheckoutSession(plan) → Get Stripe URL                         │
 │        window.location.href = stripeUrl (same tab)                          │
-│ Destination: Stripe Checkout (same tab for better conversion)               │
+│ Destination: /dashboard (free) OR Stripe Checkout (paid)                    │
 │                                                                             │
 │ DB Update: NONE (just authentication)                                       │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -510,15 +536,19 @@ This is the optimized conversion funnel that captures email first, then guides u
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Journey 4: Explorer Upgrade Prompt
+### Journey 4: Free User Hits Daily Question Limit
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 1: Dashboard (Explorer user, day 50)                                   │
-│ Page: /dashboard                                                             │
-│ Check: explorerDaysLeft = 10, requiresUpgrade = false                       │
-│ Display: Warning banner "10 days left on Explorer"                          │
-│ Action: Click "Upgrade Now"                                                 │
+│ STEP 1: Learning Session (5th Question Submitted)                           │
+│ Page: /learn                                                                 │
+│ Action: Child submits 5th quiz today                                        │
+│ API: POST /progress/{childId}/quiz                                          │
+│      Backend counts today's questions: 5 >= 5 (limit)                       │
+│      Returns: 403 with upgrade prompt                                       │
+│ Display: "Daily question limit reached. Your free plan allows 5             │
+│          questions per day."                                                │
+│ Action: Click "Upgrade" button                                              │
 │ Destination: /pricing                                                       │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
@@ -526,23 +556,80 @@ This is the optimized conversion funnel that captures email first, then guides u
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ STEP 2: Pricing Page                                                        │
 │ Page: /pricing                                                               │
-│ Display: Current plan badge on Explorer, Scholar/Achiever upgrade options   │
-│ Action: Click "Upgrade Now" on Scholar                                      │
+│ Display: Current plan badge on Explorer (Free)                              │
+│          Scholar/Achiever upgrade options with "Start Free Trial" CTA       │
+│ Action: Click "Start Free Trial" on Scholar                                 │
 │ API: createCheckoutSession('scholar')                                       │
-│ Destination: Stripe Checkout                                                │
+│ Destination: Stripe Checkout (3-day trial)                                  │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Journey 5: Forced Upgrade (Explorer after 60 days)
+### Journey 5: Free User Tries to View Solution After Wrong Answer
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ STEP 1: Dashboard (Explorer user, day 61+)                                  │
-│ Page: /dashboard                                                             │
-│ Check: requiresUpgrade = true                                               │
-│ Display: BLOCKING MODAL - "Time to Upgrade!"                                │
-│ User cannot access dashboard features until upgraded                        │
-│ Action: Click "Upgrade to Scholar - $5/month"                               │
+│ STEP 1: Learning Session (Wrong Answer)                                     │
+│ Page: /learn                                                                 │
+│ State: childProfile.tier === 'free'                                         │
+│ Action: Child answers question incorrectly                                  │
+│ Display: Instead of solution, shows:                                        │
+│   ┌──────────────────────────────────────────────┐                         │
+│   │ 🔒 Solution locked                            │                         │
+│   │ Upgrade to see worked solutions               │                         │
+│   │ [Upgrade] button                              │                         │
+│   └──────────────────────────────────────────────┘                         │
+│ Psychology: Moment of frustration + curiosity = high conversion             │
+│ Action: Click "Upgrade"                                                     │
+│ Destination: /pricing                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Journey 6: Scholar User Tries to Add Second Child
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ STEP 1: Add Child Form                                                      │
+│ Page: /children/add                                                          │
+│ State: User on Scholar tier, already has 1 child                            │
+│ Action: Submit form to add 2nd child                                        │
+│ API: POST /children → Backend checks tier limit                             │
+│      Returns: 403 "You've reached the maximum of 1 children for your        │
+│               scholar plan"                                                 │
+│ Display: Form disabled with upgrade UI:                                     │
+│   ┌──────────────────────────────────────────────┐                         │
+│   │ 🔒 Need more child profiles?                  │                         │
+│   │ Your Scholar plan includes 1 child profile.   │                         │
+│   │ To add more children, upgrade to Achiever     │                         │
+│   │ for just $12/mo (6 child profiles - just      │                         │
+│   │ $2 per child).                                │                         │
+│   │                                               │                         │
+│   │ [Upgrade to Achiever] button                  │                         │
+│   │ [Back to Dashboard] button                    │                         │
+│   └──────────────────────────────────────────────┘                         │
+│ Psychology: Single child squeeze forces $5→$12 upgrade (2.4x revenue)       │
+│ Action: Click "Upgrade to Achiever"                                         │
+│ Destination: /pricing                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Journey 7: Scholar User Tries to View Detailed Progress Drill-Down
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ STEP 1: Progress Report Page                                                │
+│ Page: /progress                                                              │
+│ State: User on Scholar tier                                                 │
+│ Display: Section quiz results with expand arrows                            │
+│ Action: Click to expand section and see individual question breakdown       │
+│ Display: Instead of questions, shows:                                       │
+│   ┌──────────────────────────────────────────────┐                         │
+│   │ 🔒 Drill-down locked                          │                         │
+│   │ Upgrade to Achiever to see individual         │                         │
+│   │ question breakdowns and detailed reports.     │                         │
+│   │ [Upgrade to Achiever] button                  │                         │
+│   └──────────────────────────────────────────────┘                         │
+│ Psychology: Parent wants to understand child's weak areas = conversion      │
+│ Action: Click "Upgrade to Achiever"                                         │
 │ Destination: /pricing                                                       │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -881,6 +968,30 @@ When modifying user management features:
 
 ## Changelog
 
+### Version 1.3 (January 6, 2026)
+- **2026 Pricing Strategy Implementation**: Complete overhaul of subscription tiers
+  - Renamed "Explorer ($0.99/mo)" to "Explorer (Free)" - no credit card required
+  - Single child squeeze: Both Explorer and Scholar limited to 1 child (forces $5→$12 upgrade)
+  - Shortened trials: 3 days (down from 14/21) to create urgency
+  - Removed Explorer 60-day upgrade timer complexity for operational sanity
+  - Updated tier limits:
+    - Explorer (Free): 1 child, 5 questions/day, solutions locked
+    - Scholar ($5/mo): 1 child, unlimited questions, drill-down locked
+    - Achiever ($12/mo): 6 children, unlimited everything
+  - Modified `/children/login` to return parent tier for frontend feature gating
+  - Added tier field to ChildProfile interface in localStorage
+  - Implemented locked solutions UI in `/learn` page for free tier
+  - Implemented locked drill-down UI in `/progress` page for Scholar tier
+  - Updated registration flow to skip Stripe for free tier users
+  - Updated `/choose-plan` page with new pricing display ("Always Free", "3-day free trial")
+  - Updated `/pricing` page with Jony Ive minimalist aesthetic
+  - Removed EXPLORER_UPGRADE_DAYS logic from payment handler
+- **Documentation Updates**:
+  - Updated all pricing tables with 2026 strategy
+  - Added new upgrade trigger journeys (daily limit, locked solutions, child limits, drill-down)
+  - Removed outdated Explorer upgrade timer journeys
+  - Updated user flows to reflect free tier bypass of Stripe
+
 ### Version 1.2 (January 4, 2026)
 - **Family-Scoped Child Login**: Changed child authentication from username-only to parent email + child name + PIN
   - Prevents username collisions across families (e.g., two "Thomas" children from different families)
@@ -917,5 +1028,5 @@ When modifying user management features:
 
 ---
 
-*Last Updated: January 4, 2026*
-*Version: 1.2*
+*Last Updated: January 6, 2026*
+*Version: 1.3*

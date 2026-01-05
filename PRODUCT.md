@@ -85,15 +85,20 @@ A fair question. Here's the difference:
 
 ---
 
-## Pricing Tiers
+## Pricing Tiers (2026 Strategy)
 
-| Tier | Price | Children | AI Calls/Day | Questions/Day |
-|------|-------|----------|--------------|---------------|
-| **Free** | $0 | 2 | 10 | 20 |
-| **Scholar** | $5/mo | 5 | Unlimited | Unlimited |
-| **Achiever** | $12/mo | 10 | Unlimited | Unlimited + Reports |
+| Tier | Price | Children | Questions/Day | Solutions | Drill-Down | Trial |
+|------|-------|----------|---------------|-----------|------------|-------|
+| **Explorer (Free)** | $0 | 1 | 5 | Locked 🔒 | Locked 🔒 | - |
+| **Scholar** | $5/mo | 1 | Unlimited | Unlocked | Locked 🔒 | 3 days |
+| **Achiever** | $12/mo | 6 | Unlimited | Unlocked | Unlocked | 3 days |
 
-**Free Trial**: 14 days on paid plans (card required, not charged)
+**Value Proposition**:
+- **No credit card for free tier**: Try before committing
+- **Single child squeeze**: Scholar → Achiever upgrade for 2nd child = 2.4x revenue jump
+- **Strategic feature locks**: Solutions locked at moment of frustration, drill-down locked when parents want insights
+- **Short trials**: 3-day urgency vs 14-day "trial tourism"
+- **Premium pricing**: $12/mo for 6 children = $2/child (vs Kumon $80-160/child)
 
 ---
 

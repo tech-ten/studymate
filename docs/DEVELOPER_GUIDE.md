@@ -58,11 +58,12 @@ Create `.env` in project root (gitignored):
 # AI
 GROQ_API_KEY=gsk_xxx                    # From console.groq.com
 
-# Payments
+# Payments (2026 Pricing Strategy)
 STRIPE_SECRET_KEY=sk_live_xxx           # From stripe.com/dashboard
 STRIPE_WEBHOOK_SECRET=whsec_xxx         # From Stripe webhook config
-STRIPE_PRICE_SCHOLAR=price_xxx          # Scholar tier price ID
-STRIPE_PRICE_ACHIEVER=price_xxx         # Achiever tier price ID
+STRIPE_PRICE_EXPLORER=price_xxx         # DEPRECATED - kept for backward compatibility but not used
+STRIPE_PRICE_SCHOLAR=price_xxx          # Scholar tier ($5/mo) price ID
+STRIPE_PRICE_ACHIEVER=price_xxx         # Achiever tier ($12/mo) price ID
 
 # Admin
 ADMIN_API_KEY=your-secure-key           # For /admin endpoints
@@ -99,10 +100,12 @@ FRONTEND_URL=https://tutor.agentsform.ai
 
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
-| POST | /payments/create-checkout | Cognito | Create Stripe checkout |
+| POST | /payments/create-checkout | Cognito | Create Stripe checkout (Scholar/Achiever only) |
 | GET | /payments/portal | Cognito | Get billing portal URL |
-| GET | /payments/status | Cognito | Get subscription status |
+| GET | /payments/status | Cognito | Get subscription status (includes tier info) |
 | POST | /payments/webhook | Stripe Sig | Handle Stripe events |
+
+**Note:** Free tier users bypass Stripe checkout entirely - no credit card required.
 
 ### Admin
 
@@ -573,18 +576,200 @@ StudyMate uses Groq's LLaMA 3.3 70B model for AI tutoring with **year-level-spec
 }
 ```
 
-#### Rate Limits
-- **Free tier:** 10 AI calls per day
-- **Explorer ($0.99/mo):** 1000 AI calls per day
-- **Scholar ($5/mo):** 1000 AI calls per day
-- **Achiever ($12/mo):** 1000 AI calls per day
+#### Tier-Based Feature Gating (2026 Pricing Strategy)
 
-Rate limits are enforced per parent account, tracked via `aiCalls_YYYY-MM-DD` attribute on user record.
+**Backend Enforcement:**
+- **Explorer (Free):** 5 questions/day, solutions locked in frontend
+- **Scholar ($5/mo):** Unlimited questions/solutions, drill-down locked in frontend
+- **Achiever ($12/mo):** Unlimited everything, full access to detailed reports
+
+**Frontend Gating:**
+Solutions, AI explanations, and drill-down features are locked via `childProfile.tier` stored in localStorage after child login.
+
+Rate limits are enforced per parent account, tracked via daily quiz counts in DynamoDB.
 
 #### Caching
 - Explanation responses are cached for 30 days
 - Cache key: MD5 hash of `questionId:userAnswer:correctAnswer`
 - Chat responses are NOT cached (conversational context varies)
+
+---
+
+## Tier-Based Feature Implementation (2026 Pricing Strategy)
+
+### Overview
+The 2026 pricing strategy implements a "commercial predator" model with three tiers designed to maximize revenue while maintaining a free entry point.
+
+### Pricing Tiers
+
+| Tier | Price | Children | Questions/Day | Solutions | Drill-Down | Trial |
+|------|-------|----------|---------------|-----------|------------|-------|
+| **Explorer (Free)** | $0 | 1 | 5 | Locked 🔒 | Locked 🔒 | - |
+| **Scholar** | $5/mo | 1 | Unlimited | Unlocked | Locked 🔒 | 3 days |
+| **Achiever** | $12/mo | 6 | Unlimited | Unlocked | Unlocked | 3 days |
+
+### Key Design Principles
+
+1. **Single Child Squeeze**: Both free and Scholar tiers limited to 1 child forces $5→$12 upgrade for second child (2.4x revenue jump)
+2. **Value-Based Locks**: Solutions locked for free tier at moment of frustration (wrong answer)
+3. **Operational Sanity**: No time-based promises, removed "Explorer 60-day limit" complexity
+4. **Clean Design**: Jony Ive aesthetic - design itself is a conversion driver
+
+### Backend Enforcement
+
+**Child Limits** (`packages/api/src/handlers/child.ts`):
+```typescript
+const CHILD_LIMITS: Record<string, number> = {
+  free: 1,      // Single child squeeze
+  scholar: 1,   // Forces upgrade to Achiever for 2nd child
+  achiever: 6,  // 6 children = $2 per child
+};
+```
+
+**Daily Question Limits** (`packages/api/src/handlers/progress.ts`):
+```typescript
+const TIER_LIMITS: Record<string, { dailyQuestions: number }> = {
+  free: { dailyQuestions: 5 },      // 5 questions per day
+  scholar: { dailyQuestions: -1 },  // Unlimited
+  achiever: { dailyQuestions: -1 }, // Unlimited
+};
+```
+
+**Trial Periods** (`packages/api/src/handlers/payment.ts`):
+```typescript
+const TRIAL_DAYS: Record<string, number> = {
+  scholar: 3,   // 3-day free trial (down from 14)
+  achiever: 3,  // 3-day free trial (down from 21)
+};
+```
+
+### Frontend Gating
+
+**Tier Detection**:
+Child login API returns parent's tier in response:
+```typescript
+// API response from POST /children/login
+{
+  id: string,
+  name: string,
+  yearLevel: number,
+  avatar: string,
+  username: string,
+  parentId: string,
+  tier: "free" | "scholar" | "achiever"  // ← Parent's subscription tier
+}
+```
+
+Stored in localStorage:
+```typescript
+export interface ChildProfile {
+  id: string;
+  name: string;
+  avatar?: string;
+  yearLevel?: number;
+  username?: string;
+  parentId: string;
+  tier?: string; // Parent's subscription tier for feature gating
+}
+```
+
+**Locked Solutions** (`apps/web/src/app/(student)/learn/page.tsx`):
+```typescript
+const isFreeTier = childProfile?.tier === 'free'
+
+{isFreeTier && selectedAnswer !== currentQuestion.correctAnswer ? (
+  <div className="flex items-center gap-2 p-4 bg-neutral-50 border border-neutral-200 rounded-lg">
+    <span className="text-lg">🔒</span>
+    <div className="flex-1">
+      <div className="font-medium text-neutral-700 mb-1">Solution locked</div>
+      <div className="text-xs text-neutral-500">
+        Upgrade to see worked solutions
+      </div>
+    </div>
+    <Link href="/pricing">
+      <Button size="sm" className="rounded-full">Upgrade</Button>
+    </Link>
+  </div>
+) : (
+  <div className="text-sm">{currentQuestion.explanation}</div>
+)}
+```
+
+**Locked Drill-Down** (`apps/web/src/app/(parent)/progress/page.tsx`):
+```typescript
+const canExpand = userTier === 'achiever'
+
+{isExpanded && progress.answers && (
+  canExpand ? (
+    <div className="px-5 pb-4 bg-neutral-50">
+      {/* Full question details */}
+    </div>
+  ) : (
+    <div className="px-5 pb-4 bg-neutral-50">
+      <div className="p-6 border border-neutral-200 rounded-xl bg-white text-center">
+        <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
+          🔒
+        </div>
+        <h3 className="font-semibold mb-1">Drill-down locked</h3>
+        <p className="text-sm text-neutral-600 mb-4">
+          {userTier === 'scholar'
+            ? 'Upgrade to Achiever to see individual question breakdowns and detailed reports.'
+            : 'Upgrade to see detailed question breakdowns.'}
+        </p>
+        <Link href="/pricing">
+          <Button className="rounded-full">Upgrade to Achiever</Button>
+        </Link>
+      </div>
+    </div>
+  )
+)}
+```
+
+### User Flows
+
+**Free Tier Registration (No Credit Card)**:
+1. `/get-started` → Email capture
+2. `/choose-plan` → Select "Explorer (Free)"
+3. `/register?plan=free` → Create account
+4. `/verify` → Email verification
+5. `/login` → Direct to dashboard (no Stripe checkout)
+
+**Paid Tier Registration**:
+1. `/get-started` → Email capture
+2. `/choose-plan` → Select "Scholar" or "Achiever"
+3. `/register?plan=scholar` → Create account
+4. `/verify` → Email verification
+5. `/login?checkout=scholar` → Redirects to Stripe checkout
+6. Stripe checkout → 3-day trial, then $5 or $12/mo
+7. `/dashboard` → Access to full features
+
+### Upgrade Triggers
+
+**Free → Scholar ($5/mo)**:
+- Hit 5 questions/day limit
+- Click locked solution after wrong answer
+- Try to add 2nd child
+
+**Scholar → Achiever ($12/mo)**:
+- Try to add 2nd child
+- Click locked drill-down in progress reports
+
+### Migration Notes
+
+**Backward Compatibility**:
+- Old "explorer" tier users automatically treated as "free"
+- STRIPE_PRICE_EXPLORER environment variable kept but unused
+- No database migration required
+- Frontend defaults to "free" if tier missing
+
+### Design Philosophy
+
+All upgrade prompts follow Jony Ive minimalist aesthetic:
+- Clean black/white design
+- 🔒 icon for locked features
+- Concise copy ("Solution locked" not "You need to upgrade...")
+- Upgrade button at moment of friction
+- No banners, modals only when blocking access
 
 ---
 
@@ -596,3 +781,4 @@ Rate limits are enforced per parent account, tracked via `aiCalls_YYYY-MM-DD` at
 - **Next.js**: https://nextjs.org/docs
 - **DynamoDB**: https://docs.aws.amazon.com/dynamodb/
 - **AI Prompt Engineering**: [./AI_PROMPT_ENGINEERING.md](./AI_PROMPT_ENGINEERING.md)
+- **2026 Pricing Strategy**: [./PRICING_STRATEGY_2026.md](./PRICING_STRATEGY_2026.md)
