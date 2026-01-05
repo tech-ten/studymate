@@ -123,7 +123,7 @@ New Model: Build 500 high-quality questions per year level ONCE = done forever
 | **Children** | 1 child profile | 1 child profile | 6 child profiles |
 | **Questions** | Limited (5 questions) | Unlimited questions | Unlimited questions |
 | **Solutions** | Solutions locked 🔒 | Unlimited worked solutions | Unlimited worked solutions |
-| **Reports** | Basic score only | Basic reports (no drill down) | Detailed reports with drill down |
+| **Reports** | Basic score only | Progress snapshots | Detailed reports with drill down |
 | **Mastery** | — | — | Concept mastery tracking |
 | **Curriculum** | — | — | Curriculum alignment insights |
 | **Support** | — | — | Priority support |
@@ -206,8 +206,9 @@ Month 2: Parent thinks "This is working for Tommy"
 
 **Alternative Trigger**: Detailed reports
 ```
-Parent on Scholar sees "Basic reports (no drill down)"
-Clicks "View Report" → Sees summary only
+Parent on Scholar sees "Progress snapshots"
+Views progress → Sees only summary scores (e.g., "3/5 on Fractions")
+Cannot see individual questions or which ones were wrong
 Wants to see detailed breakdown by topic
 → "I need to know EXACTLY where they're struggling"
 → Upgrades to Achiever ($12)
@@ -400,8 +401,8 @@ Upgrade to Achiever
 ### Q: What if users complain about the single child limit?
 **A**: Frame it as value alignment: "Our $5 tier is designed for focused, dedicated learning with one child. For families with multiple children, Achiever provides better value at just $2/child."
 
-### Q: Why "Basic reports (no drill down)" instead of "No reports"?
-**A**: Gives them a taste of what's possible. Seeing a summary makes them want the details. Complete deprivation might feel punitive.
+### Q: Why "Progress snapshots" instead of "No reports"?
+**A**: Gives them a taste of what's possible. They see simple results (3/5 correct) but can't drill down into individual questions. Seeing a summary makes them want the details. Complete deprivation might feel punitive.
 
 ---
 
