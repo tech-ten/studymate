@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { getChildren, getDetailedStats, getBadges, getSectionQuizzes, type Child, type DetailedStats, type Badge, type SectionQuizResult } from '@/lib/api'
+import { getChildren, getDetailedStats, getBadges, getSectionQuizzes, getSubscriptionStatus, type Child, type DetailedStats, type Badge, type SectionQuizResult } from '@/lib/api'
 import { isAuthenticatedSync } from '@/lib/auth'
 import { getCurriculum, type YearLevelCurriculum } from '../../(student)/curriculum/curriculum-data'
 import { formatScoreWithLevel } from '@/lib/achievement-levels'
@@ -25,6 +25,7 @@ function DetailedProgressContent() {
   const [sectionProgress, setSectionProgress] = useState<Record<string, SectionProgress>>({})
   const [curriculum, setCurriculum] = useState<YearLevelCurriculum | null>(null)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [userTier, setUserTier] = useState<string>('free')
 
   useEffect(() => {
     if (!isAuthenticatedSync()) {
@@ -42,12 +43,18 @@ function DetailedProgressContent() {
   const loadData = async () => {
     if (!childId) return
     try {
-      const [childrenRes, statsRes, badgesRes, quizzesRes] = await Promise.all([
+      const [childrenRes, statsRes, badgesRes, quizzesRes, subscriptionRes] = await Promise.all([
         getChildren(),
         getDetailedStats(childId).catch(() => null),
         getBadges(childId).catch(() => null),
         getSectionQuizzes(childId).catch(() => null),
+        getSubscriptionStatus().catch(() => null),
       ])
+
+      // Set user tier for feature gating
+      if (subscriptionRes) {
+        setUserTier(subscriptionRes.tier)
+      }
 
       const found = childrenRes.children.find(c => c.id === childId)
       if (found) {
@@ -190,11 +197,14 @@ function DetailedProgressContent() {
                           const scoreData = formatScoreWithLevel(progress.score, progress.totalQuestions)
                           const isExpanded = expandedSection === section.id
 
+                          // Scholar tier users cannot expand (drill-down locked)
+                          const canExpand = userTier === 'achiever'
+
                           return (
                             <div key={section.id}>
                               <button
-                                onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                                className="w-full px-5 py-4 hover:bg-neutral-50 transition-colors text-left"
+                                onClick={() => canExpand && setExpandedSection(isExpanded ? null : section.id)}
+                                className={`w-full px-5 py-4 transition-colors text-left ${canExpand ? 'hover:bg-neutral-50' : 'cursor-default'}`}
                               >
                                 <div className="flex items-center justify-between mb-3">
                                   <div>
@@ -216,14 +226,18 @@ function DetailedProgressContent() {
                                         </div>
                                       </div>
                                     </div>
-                                    <svg
-                                      className={`w-5 h-5 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                    </svg>
+                                    {!canExpand ? (
+                                      <span className="text-lg" title="Upgrade to Achiever for detailed drill-down">🔒</span>
+                                    ) : (
+                                      <svg
+                                        className={`w-5 h-5 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                      </svg>
+                                    )}
                                   </div>
                                 </div>
 
@@ -271,10 +285,11 @@ function DetailedProgressContent() {
                                 </div>
                               </button>
 
-                              {/* Expanded question details */}
+                              {/* Expanded question details - locked for non-Achiever tiers */}
                               {isExpanded && progress.answers && (
-                                <div className="px-5 pb-4 bg-neutral-50">
-                                  <div className="space-y-3">
+                                canExpand ? (
+                                  <div className="px-5 pb-4 bg-neutral-50">
+                                    <div className="space-y-3">
                                     {progress.answers.map((answer, idx) => (
                                       <div
                                         key={idx}
@@ -303,7 +318,28 @@ function DetailedProgressContent() {
                                       </div>
                                     ))}
                                   </div>
-                                </div>
+                                  </div>
+                                ) : (
+                                  // Lock UI for Scholar/Free tier users
+                                  <div className="px-5 pb-4 bg-neutral-50">
+                                    <div className="p-6 border border-neutral-200 rounded-xl bg-white text-center">
+                                      <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
+                                        🔒
+                                      </div>
+                                      <h3 className="font-semibold mb-1">Drill-down locked</h3>
+                                      <p className="text-sm text-neutral-600 mb-4">
+                                        {userTier === 'scholar'
+                                          ? 'Upgrade to Achiever to see individual question breakdowns and detailed reports.'
+                                          : 'Upgrade to see detailed question breakdowns.'}
+                                      </p>
+                                      <Link href="/pricing">
+                                        <Button className="rounded-full">
+                                          Upgrade to Achiever
+                                        </Button>
+                                      </Link>
+                                    </div>
+                                  </div>
+                                )
                               )}
                             </div>
                           )
