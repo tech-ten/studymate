@@ -630,9 +630,14 @@ export interface SubscriptionStatus {
 }
 
 export async function createCheckoutSession(
-  plan: 'explorer' | 'scholar' | 'achiever',
+  plan: 'scholar' | 'achiever',
   token?: string
 ): Promise<{ sessionId: string; url: string }> {
+  // Validate plan - free/explorer tiers should never call this function
+  if (!['scholar', 'achiever'].includes(plan)) {
+    throw new Error(`Invalid plan for checkout: ${plan}. Free tier should not use Stripe checkout.`);
+  }
+
   // If token is provided, use it directly (avoids race condition after login)
   if (token) {
     const response = await fetch(`${API_BASE}/payments/create-checkout`, {

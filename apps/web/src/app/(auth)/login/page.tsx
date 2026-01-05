@@ -35,20 +35,29 @@ function LoginForm() {
     try {
       const { token } = await signIn(email, password)
 
-      // If checkout param is present, go directly to Stripe checkout
-      if (checkoutPlan && ['explorer', 'scholar', 'achiever'].includes(checkoutPlan)) {
-        setCheckoutLoading(true)
-        try {
-          // Pass token directly to avoid race condition with session retrieval
-          const result = await createCheckoutSession(checkoutPlan as 'explorer' | 'scholar' | 'achiever', token)
-          // Redirect to Stripe checkout (same tab for better conversion)
-          window.location.href = result.url
+      // If checkout param is present, handle based on plan
+      if (checkoutPlan) {
+        // Free tier bypasses Stripe checkout entirely (supports both 'free' and 'explorer' for backward compatibility)
+        if (checkoutPlan === 'free' || checkoutPlan === 'explorer') {
+          router.push(redirect || '/dashboard')
           return
-        } catch (checkoutErr) {
-          console.error('Checkout failed:', checkoutErr)
-          // If checkout fails, fall back to pricing page
-          router.push(`/pricing?plan=${checkoutPlan}`)
-          return
+        }
+
+        // Paid tiers (scholar, achiever) go through Stripe
+        if (['scholar', 'achiever'].includes(checkoutPlan)) {
+          setCheckoutLoading(true)
+          try {
+            // Pass token directly to avoid race condition with session retrieval
+            const result = await createCheckoutSession(checkoutPlan as 'scholar' | 'achiever', token)
+            // Redirect to Stripe checkout (same tab for better conversion)
+            window.location.href = result.url
+            return
+          } catch (checkoutErr) {
+            console.error('Checkout failed:', checkoutErr)
+            // If checkout fails, fall back to pricing page
+            router.push(`/pricing?plan=${checkoutPlan}`)
+            return
+          }
         }
       }
 

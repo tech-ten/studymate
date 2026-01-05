@@ -46,7 +46,8 @@ function VerifyForm() {
 
       setTimeout(() => {
         // Free users skip checkout, paid users go through Stripe
-        if (selectedPlan === 'free') {
+        // Support both 'free' and 'explorer' for backward compatibility
+        if (selectedPlan === 'free' || selectedPlan === 'explorer') {
           // Free tier: go directly to dashboard
           router.push(`/login?email=${encodeURIComponent(email)}`)
         } else {
@@ -80,6 +81,7 @@ function VerifyForm() {
 
   const planNames: Record<string, string> = {
     free: 'Explorer',
+    explorer: 'Explorer', // Backward compatibility
     scholar: 'Scholar',
     achiever: 'Achiever',
   }
