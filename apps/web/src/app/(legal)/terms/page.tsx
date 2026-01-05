@@ -6,7 +6,7 @@ export default function TermsPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
         </div>
       </header>
@@ -19,7 +19,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-neutral-600 mb-4">
-              Welcome to StudyMate, an AI-powered tutoring platform operated by SOFTSYS PTY LTD
+              Welcome to Grade My Child, an AI-powered tutoring platform operated by SOFTSYS PTY LTD
               (ABN 64 663 472 759), trading as Enhanced Software Systems (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
             </p>
             <p className="text-neutral-600 mb-4">
@@ -31,7 +31,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">2. Service Description</h2>
             <p className="text-neutral-600 mb-4">
-              StudyMate provides AI-powered educational tutoring services for Australian students
+              Grade My Child provides AI-powered educational tutoring services for Australian students
               from Prep to Year 12. Our services include:
             </p>
             <ul className="list-disc pl-6 text-neutral-600 mb-4 space-y-2">
@@ -45,7 +45,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">3. Account Registration</h2>
             <p className="text-neutral-600 mb-4">
-              To use StudyMate, you must create an account and provide accurate information.
+              To use Grade My Child, you must create an account and provide accurate information.
               Parents or guardians must register accounts for children under 18. You are
               responsible for maintaining the confidentiality of your account credentials.
             </p>
@@ -102,7 +102,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">8. Intellectual Property</h2>
             <p className="text-neutral-600 mb-4">
-              All content, features, and functionality of StudyMate are owned by SOFTSYS PTY LTD
+              All content, features, and functionality of Grade My Child are owned by SOFTSYS PTY LTD
               and are protected by Australian and international copyright laws. You may not
               reproduce, distribute, or create derivative works without our permission.
             </p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">9. Limitation of Liability</h2>
             <p className="text-neutral-600 mb-4">
-              StudyMate is provided &quot;as is&quot; without warranties of any kind. We are not liable
+              Grade My Child is provided &quot;as is&quot; without warranties of any kind. We are not liable
               for any indirect, incidental, or consequential damages arising from your use of
               the service. Our total liability shall not exceed the amount paid by you in the
               12 months preceding any claim.

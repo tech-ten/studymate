@@ -33,7 +33,7 @@ export default function GetStartedPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
           <h1 className="text-2xl font-semibold mt-8 mb-2">Get started</h1>
           <p className="text-neutral-500">

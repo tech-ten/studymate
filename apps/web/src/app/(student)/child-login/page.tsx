@@ -90,7 +90,7 @@ function ChildLoginContent() {
       <div className="w-full max-w-xs px-6">
         <div className="text-center mb-10">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
           <div className="mt-6 mb-6">
             <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">
@@ -142,7 +142,7 @@ function ChildLoginContent() {
       <div className="w-full max-w-xs px-6">
         <div className="text-center mb-10">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
           <div className="mt-6 mb-6">
             <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">
@@ -200,7 +200,7 @@ function ChildLoginContent() {
     <div className="w-full max-w-xs px-6">
       <div className="text-center mb-10">
         <Link href="/" className="text-lg font-semibold">
-          StudyMate
+          Grade My Child
         </Link>
         <div className="mt-6 mb-6">
           <span className="inline-block px-3 py-1 text-xs font-medium bg-neutral-100 text-neutral-600 rounded-full">

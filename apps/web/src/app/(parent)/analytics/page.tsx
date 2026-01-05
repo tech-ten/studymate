@@ -440,7 +440,7 @@ export default function AnalyticsPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-neutral-100">
         <div className="max-w-3xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-medium tracking-tight">
-            StudyMate
+            Grade My Child
           </Link>
           <Link href="/dashboard" className="text-sm text-neutral-400 hover:text-black transition-colors">
             Dashboard

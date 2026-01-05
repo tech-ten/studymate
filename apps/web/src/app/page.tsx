@@ -290,7 +290,7 @@ export default function Home() {
             Ready to transform how your child learns?
           </h2>
           <p className="text-lg text-neutral-400 mb-8">
-            Join thousands of Australian families already using StudyMate.
+            Join thousands of Australian families already using Grade My Child.
           </p>
           <Link href="/get-started">
             <Button size="lg" variant="secondary" className="rounded-full px-8 h-12 text-base">
@@ -306,7 +306,7 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             {/* Company Info */}
             <div className="md:col-span-2">
-              <h3 className="text-lg font-semibold mb-4">StudyMate</h3>
+              <h3 className="text-lg font-semibold mb-4">Grade My Child</h3>
               <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
                 Instant curriculum grading for Australian students. Mark your child's homework
                 against the Australian Curriculum V9.0 from Prep to Year 12.

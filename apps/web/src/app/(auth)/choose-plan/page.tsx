@@ -90,7 +90,7 @@ export default function ChoosePlanPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
           <div className="mt-6 mb-2">
             <span className="inline-block px-3 py-1 text-xs bg-neutral-100 text-neutral-600 rounded-full">

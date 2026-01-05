@@ -6,7 +6,7 @@ export default function ContactPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
         </div>
       </header>
@@ -115,7 +115,7 @@ export default function ContactPage() {
         <div className="p-6 bg-black text-white rounded-xl">
           <h2 className="text-xl font-semibold mb-4">Need Help Getting Started?</h2>
           <p className="text-neutral-300 mb-6">
-            New to StudyMate? We&apos;re happy to walk you through the platform
+            New to Grade My Child? We&apos;re happy to walk you through the platform
             and help you set up your children&apos;s profiles.
           </p>
           <Link

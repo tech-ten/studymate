@@ -168,7 +168,7 @@ export default function AdminDashboard() {
 
           <div className="mt-8 text-center">
             <Link href="/" className="text-sm text-neutral-500 hover:text-black">
-              ← Back to StudyMate
+              ← Back to Grade My Child
             </Link>
           </div>
         </div>

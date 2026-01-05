@@ -6,7 +6,7 @@ export default function RefundPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
         </div>
       </header>
@@ -19,7 +19,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Our Commitment</h2>
             <p className="text-neutral-600 mb-4">
-              At StudyMate, operated by SOFTSYS PTY LTD (ABN 64 663 472 759), we want you to be
+              At Grade My Child, operated by SOFTSYS PTY LTD (ABN 64 663 472 759), we want you to be
               completely satisfied with our service. If you&apos;re not happy, we&apos;re here to help.
             </p>
           </section>
@@ -27,7 +27,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Free Trial</h2>
             <p className="text-neutral-600 mb-4">
-              We offer a free Explorer plan so you can try StudyMate before committing to a
+              We offer a free Explorer plan so you can try Grade My Child before committing to a
               paid subscription. We encourage you to fully explore the platform before upgrading.
             </p>
           </section>

@@ -6,7 +6,7 @@ export default function PrivacyPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <Link href="/" className="text-lg font-semibold">
-            StudyMate
+            Grade My Child
           </Link>
         </div>
       </header>
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-neutral-600 mb-4">
               SOFTSYS PTY LTD (ABN 64 663 472 759), trading as Enhanced Software Systems,
-              operates StudyMate (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;). We are committed to protecting the
+              operates Grade My Child (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;). We are committed to protecting the
               privacy of our users, particularly children.
             </p>
             <p className="text-neutral-600 mb-4">

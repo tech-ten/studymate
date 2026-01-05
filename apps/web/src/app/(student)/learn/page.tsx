@@ -525,7 +525,7 @@ export default function LearnPage() {
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-lg font-semibold">
-              StudyMate
+              Grade My Child
             </Link>
             {curriculum && (
               <span className="text-sm text-neutral-500">
