@@ -268,27 +268,21 @@ curl https://grademychild.com.au
 ## Domain Configuration
 
 ### Primary Domain: grademychild.com.au
-**Status**: SSL certificate pending validation (PENDING_VALIDATION)
+**Status**: ✅ **LIVE** (CloudFront deploying - allow 10-20 mins)
 **Certificate ARN**: `arn:aws:acm:us-east-1:308045886682:certificate/46c8b726-4819-48e6-b691-5f33bf5b4108`
+**Certificate Status**: ISSUED
 **Route53 Hosted Zone**: `Z09881502H85UWWFLHT54`
 
-**DNS Validation Records** (added to Route53):
-```
-_0ace852b7c4c47c8023d3e90ea6f9f89.grademychild.com.au. → _79050f05c2309dc982fe9f54b00b316e.jkddzztszm.acm-validations.aws.
-_452befc523c7c9431ad047f353b9bdfc.www.grademychild.com.au. → _2f4c6d8b0f671a68ca5daddf43779e8b.jkddzztszm.acm-validations.aws.
-```
+**DNS Configuration**:
+- `grademychild.com.au` → A/AAAA alias to `d2o8yut6q5cqmv.cloudfront.net`
+- `www.grademychild.com.au` → A/AAAA alias to `d2o8yut6q5cqmv.cloudfront.net`
 
-**Next Steps** (once certificate validates):
-1. Update CloudFront to add `grademychild.com.au` and `www.grademychild.com.au` as aliases
-2. Update CloudFront certificate to use new ARN
-3. Add A/AAAA records in Route53 pointing to CloudFront distribution
-4. Test new domain
-5. Configure redirect from legacy domain
+**CloudFront Aliases**: `grademychild.com.au`, `www.grademychild.com.au`, `tutor.agentsform.ai`
 
 ### Legacy Domain: tutor.agentsform.ai
-**Status**: Active
-**Certificate ARN**: `arn:aws:acm:us-east-1:308045886682:certificate/8048c522-52c9-4a5e-af4d-6fa723524c42`
-**Plan**: Will redirect to grademychild.com.au after migration
+**Status**: Active (still works, shares same CloudFront distribution)
+**Certificate ARN**: Superseded by new certificate covering all domains
+**Plan**: Keep active for now, will redirect later if needed
 
 ---
 
