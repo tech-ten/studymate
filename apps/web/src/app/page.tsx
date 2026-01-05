@@ -36,7 +36,7 @@ export default function Home() {
             Is your child on track to pass their Year Level?
           </h1>
           <p className="text-xl text-neutral-500 mb-10 max-w-2xl mx-auto text-balance">
-            Instantly mark your child's homework against the Australian Curriculum (V9.0). Get a clear grade and a plan to fix the gaps.
+            Don't wait for the school report card. Get an instant, independent check of your child's knowledge against the Australian Curriculum.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/get-started">
