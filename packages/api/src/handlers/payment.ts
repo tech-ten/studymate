@@ -230,8 +230,6 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       let trialEndsAt: string | null = null;
       let isTrialing = false;
       let trialDaysLeft = 0;
-      let requiresUpgrade = false;
-      let explorerDaysLeft = 0;
 
       if (subscriptionId) {
         try {
@@ -247,16 +245,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
           // For Explorer users, calculate days until forced upgrade to Scholar
           // They get 60 days total (21 free + 39 paid at $0.99) before must upgrade
-          if (tier === 'explorer' && subscription.created) {
-            const subscriptionStart = subscription.created * 1000;
-            const daysSinceStart = Math.floor((now - subscriptionStart) / (1000 * 60 * 60 * 24));
-            explorerDaysLeft = Math.max(0, EXPLORER_UPGRADE_DAYS - daysSinceStart);
-
-            // If 60 days have passed, force upgrade
-            if (daysSinceStart >= EXPLORER_UPGRADE_DAYS) {
-              requiresUpgrade = true;
-            }
-          }
+          // Explorer tier no longer exists - it's now "free" tier with no subscription
         } catch (err) {
           console.error('Error fetching subscription details:', err);
         }
@@ -269,8 +258,6 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         trialEndsAt,
         isTrialing,
         trialDaysLeft,
-        explorerDaysLeft, // Days left before Explorer must upgrade
-        requiresUpgrade, // If true, user must upgrade to Scholar or Achiever
       });
     }
 
