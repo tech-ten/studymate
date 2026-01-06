@@ -46,10 +46,10 @@ export default function ContactPage() {
               For urgent matters or if you prefer to speak with us:
             </p>
             <a
-              href="tel:+61410386167"
+              href="tel:+61401156266"
               className="text-lg font-medium text-black hover:underline"
             >
-              +61 410 386 167
+              +61 401 156 266
             </a>
             <p className="text-sm text-neutral-500 mt-2">
               Available Monday to Friday, 9am - 5pm AEST.

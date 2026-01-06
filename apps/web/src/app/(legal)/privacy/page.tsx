@@ -151,7 +151,7 @@ export default function PrivacyPage() {
               <p><strong>Privacy Officer</strong></p>
               <p>SOFTSYS PTY LTD</p>
               <p>Email: <a href="mailto:tendai@agentsform.ai" className="text-black underline">tendai@agentsform.ai</a></p>
-              <p>Phone: <a href="tel:+61410386167" className="text-black underline">+61 410 386 167</a></p>
+              <p>Phone: <a href="tel:+61401156266" className="text-black underline">+61 401 156 266</a></p>
             </div>
           </section>
         </div>

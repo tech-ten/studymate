@@ -347,8 +347,8 @@ export default function Home() {
               </div>
               <div>
                 <p className="font-medium text-black mb-1">Phone</p>
-                <a href="tel:+61410386167" className="hover:text-black transition-colors">
-                  +61 410 386 167
+                <a href="tel:+61401156266" className="hover:text-black transition-colors">
+                  +61 401 156 266
                 </a>
               </div>
               <div>
