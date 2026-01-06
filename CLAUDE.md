@@ -105,11 +105,13 @@ StudyMate (branded as "Grade My Child") is an AI-powered curriculum grading plat
 ### AWS Resource IDs
 | Resource | ID/ARN |
 |----------|--------|
-| **CloudFront** | `E1WZZKB5A9CWD6` |
+| **CloudFront Distribution** | `E1WZZKB5A9CWD6` |
 | **CloudFront Domain** | `d2o8yut6q5cqmv.cloudfront.net` |
-| **SSL Certificate (new)** | `arn:aws:acm:us-east-1:308045886682:certificate/46c8b726-4819-48e6-b691-5f33bf5b4108` |
-| **SSL Certificate (legacy)** | `arn:aws:acm:us-east-1:308045886682:certificate/8048c522-52c9-4a5e-af4d-6fa723524c42` |
-| **Route53 Hosted Zone** | `Z09881502H85UWWFLHT54` (grademychild.com.au) |
+| **SSL Certificate (Active)** | `1387398b-f819-42e3-b090-ba693f80f370` |
+| **SSL Certificate ARN (Active)** | `arn:aws:acm:us-east-1:308045886682:certificate/1387398b-f819-42e3-b090-ba693f80f370` |
+| **SSL Certificate (Legacy)** | `arn:aws:acm:us-east-1:308045886682:certificate/42524134-550c-41ab-80f2-5665eac1ee0d` (deleted) |
+| **Route53 Hosted Zone (grademychild.com.au)** | `Z09881502H85UWWFLHT54` |
+| **Route53 Hosted Zone (agentsform.ai)** | `Z0401224GBU1TTNNB67F` |
 | **S3 Bucket** | `onceoffresourcesstack-techxbucket00f18e48-h7seokhaha6q` |
 | **API Gateway** | `yhn9tli08d.execute-api.ap-southeast-2.amazonaws.com` |
 | **Cognito User Pool** | `ap-southeast-2_KQjSkcKvP` |
@@ -293,21 +295,25 @@ curl https://grademychild.com.au
 ## Domain Configuration
 
 ### Primary Domain: grademychild.com.au
-**Status**: ✅ **LIVE** (CloudFront deploying - allow 10-20 mins)
-**Certificate ARN**: `arn:aws:acm:us-east-1:308045886682:certificate/46c8b726-4819-48e6-b691-5f33bf5b4108`
+**Status**: ✅ **LIVE IN PRODUCTION**
+**Certificate ID**: `1387398b-f819-42e3-b090-ba693f80f370`
+**Certificate ARN**: `arn:aws:acm:us-east-1:308045886682:certificate/1387398b-f819-42e3-b090-ba693f80f370`
 **Certificate Status**: ISSUED
+**Certificate SANs**: grademychild.com.au, www.grademychild.com.au, agentsform.ai, tutor.agentsform.ai
 **Route53 Hosted Zone**: `Z09881502H85UWWFLHT54`
+**CloudFront Distribution**: `E1WZZKB5A9CWD6`
 
 **DNS Configuration**:
 - `grademychild.com.au` → A/AAAA alias to `d2o8yut6q5cqmv.cloudfront.net`
 - `www.grademychild.com.au` → A/AAAA alias to `d2o8yut6q5cqmv.cloudfront.net`
 
-**CloudFront Aliases**: `grademychild.com.au`, `www.grademychild.com.au`, `tutor.agentsform.ai`
+**CloudFront Aliases**: `grademychild.com.au`, `www.grademychild.com.au`, `agentsform.ai`, `tutor.agentsform.ai`
 
-### Legacy Domain: tutor.agentsform.ai
-**Status**: Active (still works, shares same CloudFront distribution)
-**Certificate ARN**: Superseded by new certificate covering all domains
-**Plan**: Keep active for now, will redirect later if needed
+### Legacy Domains: agentsform.ai, tutor.agentsform.ai
+**Status**: ✅ Active (shares same CloudFront distribution and certificate)
+**Route53 Hosted Zone**: `Z0401224GBU1TTNNB67F`
+**Certificate**: Same as primary domain (1387398b-f819-42e3-b090-ba693f80f370)
+**Plan**: Keep active for existing users, primary domain is grademychild.com.au
 
 ---
 
@@ -316,8 +322,10 @@ curl https://grademychild.com.au
 ### URLs
 | Resource | URL |
 |----------|-----|
-| Live Site (Primary) | https://grademychild.com.au (pending) |
+| Live Site (Primary) | https://grademychild.com.au |
+| Live Site (www) | https://www.grademychild.com.au |
 | Live Site (Legacy) | https://tutor.agentsform.ai |
+| Live Site (Legacy Root) | https://agentsform.ai |
 | Admin Dashboard | https://tutor.agentsform.ai/admin |
 | API | https://yhn9tli08d.execute-api.ap-southeast-2.amazonaws.com |
 | GitHub | https://github.com/tech-ten/studymate |

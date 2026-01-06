@@ -325,6 +325,24 @@ export async function getSectionQuizzes(
   return response.json();
 }
 
+export async function checkQuestionLimit(
+  childId: string,
+  questionCount: number
+): Promise<{ allowed: boolean; questionsUsed: number; limit: number; tier: string }> {
+  // No auth token needed for child sessions
+  const response = await fetch(`${API_BASE}/progress/${childId}/check-limit?questions=${questionCount}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ error: 'Failed to check limit' }));
+    throw new Error(error.error || error.message || 'Failed to check question limit');
+  }
+
+  return response.json();
+}
+
 // ============ AI API ============
 
 export async function getAIExplanation(data: {

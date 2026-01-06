@@ -137,17 +137,25 @@ const RATE_LIMITS: Record<string, number> = {
 
 ### Progress Handler (`packages/api/src/handlers/progress.ts`)
 
-**Lines 6-11**: Daily question limits
+**Lines 6-12**: Daily question limits with backward compatibility
 
 ```typescript
 const TIER_LIMITS: Record<string, { dailyQuestions: number }> = {
   free: { dailyQuestions: 5 },      // 5 questions per day
+  explorer: { dailyQuestions: 5 },  // 5 questions per day (legacy name for free tier)
   scholar: { dailyQuestions: -1 },  // Unlimited
   achiever: { dailyQuestions: -1 }, // Unlimited
 };
 ```
 
-**Lines 71-124**: Enforces daily question limit when saving quiz results (403 error if exceeded)
+**Lines 93-124**: Enforces daily question limit when saving quiz results with **Sydney timezone awareness**
+- Uses `Australia/Sydney` timezone for accurate daily resets at local midnight
+- Returns 403 error if limit exceeded with upgrade prompt
+
+**Lines 175-234**: NEW endpoint `GET /progress/{childId}/check-limit?questions=N`
+- Checks if user can answer N more questions before proceeding
+- Uses Sydney timezone for accurate limit checking
+- Returns `{ allowed: boolean, questionsUsed: number, limit: number, tier: string }`
 
 ---
 
@@ -173,17 +181,30 @@ export interface ChildLoginResponse {
 
 ### Learn Page (`apps/web/src/app/(student)/learn/page.tsx`)
 
-**Line 128**: Tier check for free tier users
+**Line 171**: Limit modal state for graceful error handling
 
 ```typescript
-const isFreeTier = childProfile?.tier === 'free' || childProfile?.tier === 'explorer'
+const [showLimitModal, setShowLimitModal] = useState(false)
 ```
 
-**Lines 920-946**: Solution lock UI for free tier (shows 🔒 with upgrade button)
+**Lines 302-319**: **Pre-quiz limit check** - Blocks quiz start if user already at daily limit
 
-**Lines 950-968**: Hides "Explain this to me" button for free tier
+**Lines 361-388**: **Per-answer enforcement** - CRITICAL implementation
+- Saves EACH answer immediately to database (not at quiz completion)
+- Handles 403 errors gracefully with modal instead of browser alert
+- Prevents users from bypassing limit by refreshing browser
 
-**Lines 442-449, 474-479**: Graceful handling of AI rate limit errors
+**Lines 433-468**: **Per-question limit check** - Blocks proceeding to next question after 5th answer
+- Saves partial progress when limit reached mid-quiz
+- Shows upgrade modal instead of letting quiz continue
+
+**Lines 787, 928**: Solution lock message updated to include "and detailed explanations"
+
+**Lines 1224-1288**: **Professional upgrade modal** - Replaces browser alerts
+- Warning icon with clear messaging about hitting limit
+- Lists upgrade benefits (unlimited questions, full solutions, AI tutor)
+- "View Plans" button linking to /pricing
+- "Close" button to dismiss gracefully
 
 ---
 
@@ -283,7 +304,25 @@ STRIPE_PRICE_EXPLORER=price_1SlNTJFqL65Zilf9GZop22SQ # Legacy $0.99/mo (deprecat
 
 ## Changelog
 
-### 2026-01-06
+### 2026-01-06 (Latest)
+- ✅ **DEPLOYED**: Sydney timezone enforcement for daily question limits
+  - Backend uses `Australia/Sydney` timezone for accurate daily resets
+  - Daily limits reset at midnight Sydney time, not UTC
+  - Deployed to Lambda: ProgressHandler updated at 3:43 PM
+- ✅ **IMPLEMENTED**: Per-answer question limit enforcement
+  - Each answer saved immediately to database
+  - Pre-quiz check blocks starting if already at limit
+  - Per-question check blocks after 5th answer during quiz
+  - Professional modal UI instead of browser alerts
+- ✅ **ADDED**: New API endpoint `/progress/{childId}/check-limit?questions=N`
+  - Frontend checks limit before quiz start and each next question
+  - Returns `{ allowed, questionsUsed, limit, tier }`
+- ✅ **VERIFIED**: Comprehensive analytics tracking operational
+  - Every child, every question, every answer tracked
+  - Knowledge tokens, confusion patterns, time spent recorded
+  - AI-powered insights with Groq integration
+  - Token utilization metadata captured
+- Updated solution lock message to include "and detailed explanations"
 - Fixed `ChildLoginResponse` interface to include `tier` field
 - Documented authoritative pricing rules
 - Clarified AI rate limit vs solution lock for free tier

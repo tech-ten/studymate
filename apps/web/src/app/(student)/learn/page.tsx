@@ -11,6 +11,7 @@ import {
   getAIExplanation,
   saveSectionQuiz,
   getSectionQuizzes,
+  checkQuestionLimit,
   chatWithAI,
   getCurriculumSections,
   getCurriculumSection,
@@ -166,6 +167,9 @@ export default function LearnPage() {
   const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
   const [aiExplanationRequested, setAiExplanationRequested] = useState(false)
 
+  // Daily limit modal
+  const [showLimitModal, setShowLimitModal] = useState(false)
+
   // Load curriculum from API
   const loadCurriculum = async (yearLevel: number) => {
     try {
@@ -295,7 +299,25 @@ export default function LearnPage() {
     }
   }
 
-  const handleStartQuiz = () => {
+  const handleStartQuiz = async () => {
+    if (!childId) return
+
+    // Check daily question limit for free tier BEFORE starting quiz
+    const isFreeTier = childProfile?.tier === 'free' || childProfile?.tier === 'explorer'
+    if (isFreeTier) {
+      try {
+        const limitCheck = await checkQuestionLimit(childId, 1)
+        if (!limitCheck.allowed) {
+          // User has hit their daily limit - block quiz entirely
+          setShowLimitModal(true)
+          return // Don't start quiz
+        }
+      } catch (err) {
+        console.error('Failed to check question limit:', err)
+        // On error, allow them to continue (fail open for better UX)
+      }
+    }
+
     setShowQuiz(true)
     setCurrentQuestionIndex(0)
     setQuizScore(0)
@@ -332,12 +354,39 @@ export default function LearnPage() {
       isCorrect,
       options: question.options,
     }
-    setQuizAnswers(prev => [...prev, newAnswer])
+    const updatedAnswers = [...quizAnswers, newAnswer]
+    setQuizAnswers(updatedAnswers)
 
     setShowResult(true)
 
     // Record attempt to both APIs (curriculum for mastery, analytics for detailed tracking)
     if (childId) {
+      // IMMEDIATELY save this single answer to quiz tracking (for daily limit enforcement)
+      try {
+        const currentScore = quizScore + (isCorrect ? 1 : 0)
+        await saveSectionQuiz(childId, {
+          sectionId: selectedSection.id,
+          sectionTitle: selectedSection.title,
+          chapterTitle: selectedChapter?.title || '',
+          strandName: selectedStrand?.name || '',
+          completed: false, // Not completed yet - still in progress
+          score: currentScore,
+          totalQuestions: updatedAnswers.length, // Only count questions answered so far
+          lastAttempt: new Date().toISOString(),
+          answers: updatedAnswers,
+        })
+      } catch (err) {
+        console.error('Failed to save answer to quiz tracking:', err)
+        // Check if this is a 403 limit error
+        const errorMessage = err instanceof Error ? err.message : String(err)
+        if (errorMessage.includes('Daily question limit reached') || errorMessage.includes('limit reached')) {
+          // Force quiz completion and show upgrade modal
+          setQuizComplete(true)
+          setShowLimitModal(true)
+          return // Stop processing - don't save to other APIs
+        }
+      }
+
       // Record to curriculum API (for mastery tracking)
       try {
         await recordCurriculumAttempt({
@@ -379,6 +428,46 @@ export default function LearnPage() {
 
   const handleNextQuestion = async () => {
     if (!selectedSection || !childId || !selectedSection.questions) return
+
+    // Check daily question limit for free tier BEFORE proceeding to next question
+    const isFreeTier = childProfile?.tier === 'free' || childProfile?.tier === 'explorer'
+    if (isFreeTier) {
+      try {
+        const limitCheck = await checkQuestionLimit(childId, 1)
+        if (!limitCheck.allowed) {
+          // User has hit their daily limit - force quiz completion with partial progress
+          setQuizComplete(true)
+
+          // Save partial progress (only questions answered so far)
+          const partialScore = quizScore + (selectedAnswer === selectedSection.questions[currentQuestionIndex].correctAnswer ? 1 : 0)
+          const partialProgress: SectionProgress = {
+            sectionId: selectedSection.id,
+            sectionTitle: selectedSection.title,
+            chapterTitle: selectedChapter?.title || '',
+            strandName: selectedStrand?.name || '',
+            completed: false, // Not completed - hit daily limit
+            score: partialScore,
+            totalQuestions: quizAnswers.length + 1, // Only count questions answered
+            lastAttempt: new Date().toISOString(),
+            answers: quizAnswers,
+          }
+
+          // Update local state
+          setSectionProgress(prev => ({
+            ...prev,
+            [selectedSection.id]: partialProgress,
+          }))
+
+          // Show limit modal
+          setShowLimitModal(true)
+
+          return // Stop here - don't proceed to next question
+        }
+      } catch (err) {
+        console.error('Failed to check question limit:', err)
+        // On error, allow them to continue (fail open for better UX)
+      }
+    }
 
     if (currentQuestionIndex + 1 >= selectedSection.questions.length) {
       setQuizComplete(true)
@@ -784,7 +873,7 @@ export default function LearnPage() {
                                   isFreeTier ? (
                                     <div className="flex items-center gap-2 text-neutral-600 text-xs mt-2">
                                       <span>🔒</span>
-                                      <span>Solution locked - upgrade to see correct answer</span>
+                                      <span>Solution locked - upgrade to see worked solutions and detailed explanations</span>
                                     </div>
                                   ) : (
                                     <div className="text-green-700">
@@ -925,7 +1014,7 @@ export default function LearnPage() {
                               <div className="flex-1">
                                 <div className="font-medium text-neutral-700 mb-1">Solution locked</div>
                                 <div className="text-xs text-neutral-500">
-                                  Upgrade to see worked solutions
+                                  Upgrade to see worked solutions and detailed explanations
                                 </div>
                               </div>
                               <Link href="/pricing">
@@ -1131,6 +1220,72 @@ export default function LearnPage() {
           )}
         </div>
       </div>
+
+      {/* Daily Limit Reached Modal */}
+      {showLimitModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+                  <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold text-neutral-900 mb-2">
+                Daily Question Limit Reached
+              </h3>
+
+              <p className="text-neutral-600 mb-6">
+                You've reached your daily limit of <strong>5 questions</strong> on the free Explorer plan.
+              </p>
+
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
+                <p className="text-sm font-medium text-neutral-900 mb-2">
+                  Upgrade to continue learning
+                </p>
+                <div className="text-left space-y-2">
+                  <div className="flex items-start gap-2 text-sm text-neutral-700">
+                    <svg className="w-4 h-4 text-green-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span><strong>Unlimited questions</strong> every day</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-neutral-700">
+                    <svg className="w-4 h-4 text-green-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span><strong>Full worked solutions</strong> for every answer</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-neutral-700">
+                    <svg className="w-4 h-4 text-green-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span><strong>AI tutor</strong> available anytime</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Link href="/pricing">
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    View Plans
+                  </Button>
+                </Link>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => setShowLimitModal(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

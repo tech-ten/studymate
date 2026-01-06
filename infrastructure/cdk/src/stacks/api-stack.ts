@@ -206,6 +206,12 @@ export class ApiStack extends cdk.Stack {
     });
 
     this.api.addRoutes({
+      path: '/progress/{childId}/check-limit',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('CheckLimitIntegration', progressHandler),
+    });
+
+    this.api.addRoutes({
       path: '/progress/{childId}/quizzes',
       methods: [apigatewayv2.HttpMethod.GET],
       integration: new apigatewayv2Integrations.HttpLambdaIntegration('QuizzesGetIntegration', progressHandler),

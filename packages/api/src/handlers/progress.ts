@@ -90,40 +90,40 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const tier = parentResult.Item?.tier || 'free';
       const limits = TIER_LIMITS[tier] || TIER_LIMITS.free;
 
-      // Check daily question limit (only for paid tiers with limits)
-      if (limits.dailyQuestions > 0) {
-        // Get today's quiz count
-        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-        const todayQuizzes = await db.send(new QueryCommand({
-          TableName: TABLE_NAME,
-          KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
-          ExpressionAttributeValues: {
-            ':pk': `CHILD#${childId}`,
-            ':sk': 'QUIZ#',
-          },
-        }));
+      // Get today's quiz count for limit checking (using Australia/Sydney timezone)
+      const sydneyDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' })
+      const today = new Date(sydneyDate).toISOString().split('T')[0]; // YYYY-MM-DD in Sydney timezone
+      const todayQuizzes = await db.send(new QueryCommand({
+        TableName: TABLE_NAME,
+        KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
+        ExpressionAttributeValues: {
+          ':pk': `CHILD#${childId}`,
+          ':sk': 'QUIZ#',
+        },
+      }));
 
-        // Count questions answered today
-        const questionsToday = (todayQuizzes.Items || [])
-          .filter(item => item.lastAttempt.startsWith(today))
-          .reduce((sum, item) => sum + (item.totalQuestions || 0), 0);
+      // Count questions answered today (count unique answers, not total questions)
+      const questionsToday = (todayQuizzes.Items || [])
+        .filter(item => item.lastAttempt.startsWith(today))
+        .reduce((sum, item) => sum + (item.totalQuestions || 0), 0);
 
-        // Check if adding this quiz would exceed the limit
-        if (questionsToday + body.totalQuestions > limits.dailyQuestions) {
-          return {
-            statusCode: 403,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              error: `Daily question limit reached. Your ${tier} plan allows ${limits.dailyQuestions} questions per day.`,
-              limit: limits.dailyQuestions,
-              used: questionsToday,
-              tier,
-              upgradeUrl: '/pricing',
-            }),
-          };
-        }
+      // For free tier with limits, check if they've exceeded the limit
+      if (limits.dailyQuestions > 0 && questionsToday >= limits.dailyQuestions) {
+        // User has already hit limit - reject new answers
+        return {
+          statusCode: 403,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            error: `Daily question limit reached. Your ${tier} plan allows ${limits.dailyQuestions} questions per day.`,
+            limit: limits.dailyQuestions,
+            used: questionsToday,
+            tier,
+            upgradeUrl: '/pricing',
+          }),
+        };
       }
 
+      // Save quiz result (will update same section record each time)
       await db.send(new PutCommand({
         TableName: TABLE_NAME,
         Item: {
@@ -172,8 +172,69 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       return success({ quizzes });
     }
 
+    // GET /progress/{childId}/check-limit - Check if user can answer more questions today
+    if (path.includes('/check-limit') && method === 'GET') {
+      // Get child's parent to check tier
+      const childProfile = await db.send(new GetCommand({
+        TableName: TABLE_NAME,
+        Key: keys.childProfile(childId),
+      }));
+
+      if (!childProfile.Item) {
+        return notFound('Child not found');
+      }
+
+      const parentId = childProfile.Item.parentId;
+
+      // Get parent's tier
+      const parentResult = await db.send(new GetCommand({
+        TableName: TABLE_NAME,
+        Key: keys.user(parentId),
+      }));
+
+      const tier = parentResult.Item?.tier || 'free';
+      const limits = TIER_LIMITS[tier] || TIER_LIMITS.free;
+
+      // If unlimited, allow immediately
+      if (limits.dailyQuestions <= 0) {
+        return success({
+          allowed: true,
+          questionsUsed: 0,
+          limit: -1,
+          tier,
+        });
+      }
+
+      // Get today's quiz count (using Australia/Sydney timezone)
+      const sydneyDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' })
+      const today = new Date(sydneyDate).toISOString().split('T')[0]; // YYYY-MM-DD in Sydney timezone
+      const todayQuizzes = await db.send(new QueryCommand({
+        TableName: TABLE_NAME,
+        KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
+        ExpressionAttributeValues: {
+          ':pk': `CHILD#${childId}`,
+          ':sk': 'QUIZ#',
+        },
+      }));
+
+      // Count questions answered today
+      const questionsToday = (todayQuizzes.Items || [])
+        .filter(item => item.lastAttempt.startsWith(today))
+        .reduce((sum, item) => sum + (item.totalQuestions || 0), 0);
+
+      // Parse question count from query params
+      const questionCount = parseInt(event.queryStringParameters?.questions || '0');
+
+      return success({
+        allowed: questionsToday + questionCount <= limits.dailyQuestions,
+        questionsUsed: questionsToday,
+        limit: limits.dailyQuestions,
+        tier,
+      });
+    }
+
     // GET /progress/{childId} - Get all progress for child
-    if (!path.includes('/stats') && !path.includes('/quiz')) {
+    if (!path.includes('/stats') && !path.includes('/quiz') && !path.includes('/check-limit')) {
       const result = await db.send(new QueryCommand({
         TableName: TABLE_NAME,
         KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
