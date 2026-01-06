@@ -6,6 +6,7 @@ import { success, badRequest, forbidden, notFound, serverError } from '../lib/re
 // Tier limits (aligned with 2026 pricing strategy)
 const TIER_LIMITS: Record<string, { dailyQuestions: number }> = {
   free: { dailyQuestions: 5 },      // 5 questions per day
+  explorer: { dailyQuestions: 5 },  // 5 questions per day (legacy name for free tier)
   scholar: { dailyQuestions: -1 },  // Unlimited
   achiever: { dailyQuestions: -1 }, // Unlimited
 };

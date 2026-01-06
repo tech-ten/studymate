@@ -75,11 +75,14 @@ interface AIInteractionLog {
   subject?: string;
 }
 
-// Rate limits per tier
+// Rate limits per tier (aligned with 2026 pricing strategy)
 const RATE_LIMITS: Record<string, number> = {
-  free: 10,
-  essential: 1000,
-  premium: 1000,
+  free: 10,              // 10 AI calls per day for free tier
+  explorer: 10,          // 10 AI calls per day for explorer tier (legacy name for free)
+  scholar: -1,           // Unlimited for Scholar tier
+  achiever: -1,          // Unlimited for Achiever tier
+  essential: 1000,       // Legacy tier
+  premium: 1000,         // Legacy tier
 };
 
 // Get age for safety prompts with buffer to avoid overly simple responses
@@ -143,7 +146,11 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
     const dailyKey = `aiCalls_${today}`;
     const currentCalls = userResult.Item?.[dailyKey] || 0;
 
-    if (currentCalls >= RATE_LIMITS[tier]) {
+    // Get rate limit for tier, default to free tier if unknown
+    const rateLimit = RATE_LIMITS[tier] ?? RATE_LIMITS.free;
+
+    // Check limit only if not unlimited (-1)
+    if (rateLimit > 0 && currentCalls >= rateLimit) {
       // Track rate limit hits
       await publishMetric('RateLimitHits', 1, 'Count', [{ Name: 'Tier', Value: tier }]);
       return {
@@ -151,7 +158,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           error: 'Daily AI chat limit reached',
-          limit: RATE_LIMITS[tier],
+          limit: rateLimit,
           tier,
           upgradeUrl: '/pricing',
         }),
