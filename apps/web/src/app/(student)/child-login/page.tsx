@@ -75,6 +75,7 @@ function ChildLoginContent() {
         yearLevel: child.yearLevel,
         username: child.username,
         parentId: child.parentId,
+        tier: child.tier, // CRITICAL: Parent's subscription tier for feature gating
       })
       router.push('/learn')
     } catch (err) {
