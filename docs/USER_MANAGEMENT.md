@@ -78,12 +78,20 @@ createdAt: ISO timestamp
 
 ## User Lifecycle
 
-### 1. Sign Up
+### 1. Sign Up (Email/Password)
 1. User registers via `/register` page
 2. Cognito creates account (UNCONFIRMED status)
 3. Verification code sent to email
 
-### 2. Email Verification
+### 1 (Alternative). Sign Up (Google OAuth)
+1. User clicks "Continue with Google" on `/register` or `/login`
+2. Redirected to Google authentication
+3. Google redirects to `/auth/callback?code={auth_code}`
+4. Frontend exchanges code for tokens
+5. **PostAuthentication Lambda Trigger** fires
+6. User redirected to `/choose-tier` for tier selection (new users) or `/dashboard` (returning users)
+
+### 2. Email Verification (Email/Password Only)
 1. User enters verification code via `/verify` page
 2. Cognito confirms account (CONFIRMED status)
 3. **Post-Confirmation Lambda Trigger** fires
@@ -94,10 +102,14 @@ createdAt: ISO timestamp
      SK: 'PROFILE',
      email: userEmail,
      tier: 'free',
+     status: 'verified',
+     signupMethod: 'email',  // or 'google' for OAuth
      createdAt: now,
      updatedAt: now
    }
    ```
+
+**Note**: OAuth users skip email verification - they're auto-verified by Google. PostAuthentication Lambda creates their profile instead.
 
 ### 3. Adding Children
 1. Parent adds child via `/children/add`
@@ -123,10 +135,20 @@ createdAt: ISO timestamp
 ## Lambda Functions
 
 ### `agentsform-post-confirmation`
-- **Trigger**: Cognito Post Confirmation
+- **Trigger**: Cognito Post Confirmation (email/password signups)
 - **Source**: `packages/api/src/handlers/cognito-trigger.ts`
 - **Purpose**: Create DynamoDB profile on email verification
 - **Duplicate Prevention**: Uses `ConditionExpression: 'attribute_not_exists(PK)'`
+- **Sets**: `signupMethod: 'email'`, `status: 'verified'`
+
+### `agentsform-post-confirmation` (PostAuthentication Trigger)
+- **Trigger**: Cognito Post Authentication (OAuth logins)
+- **Source**: `packages/api/src/handlers/cognito-trigger.ts` (same Lambda, different trigger)
+- **Purpose**:
+  - For new OAuth users: Create DynamoDB profile with `signupMethod: 'google'`
+  - For returning OAuth users: Update `lastLoginDate` only
+- **Analytics**: Tracks `identityProvider`, `firstLoginDate`, `oauthSignupDate`
+- **Duplicate Prevention**: Checks if profile exists before creating
 
 ### `agentsform-childhandler`
 - **Source**: `packages/api/src/handlers/child.ts`
