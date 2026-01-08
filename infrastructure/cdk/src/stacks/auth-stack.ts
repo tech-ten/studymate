@@ -31,8 +31,8 @@ export class AuthStack extends cdk.Stack {
       },
     });
 
-    // Grant DynamoDB write access to the trigger
-    table.grantWriteData(postConfirmationTrigger);
+    // Grant DynamoDB read/write access to the trigger (needs read for OAuth returning users)
+    table.grantReadWriteData(postConfirmationTrigger);
 
     // User pool for parent accounts
     this.userPool = new cognito.UserPool(this, 'AgentsFormUserPool', {
@@ -67,9 +67,27 @@ export class AuthStack extends cdk.Stack {
       },
       accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
-      // Add post-confirmation trigger
+      // Add Lambda triggers for both email signup and OAuth login
       lambdaTriggers: {
-        postConfirmation: postConfirmationTrigger,
+        postConfirmation: postConfirmationTrigger,  // Email signup after verification
+        postAuthentication: postConfirmationTrigger, // OAuth login (uses same handler)
+      },
+    });
+
+    // Google identity provider (configure with Google OAuth credentials via console)
+    // After deployment, configure in AWS Console:
+    // 1. Cognito User Pool → Sign-in experience → Federated identity providers → Google
+    // 2. Add Client ID and Client Secret from Google Cloud Console
+    const googleProvider = new cognito.UserPoolIdentityProviderGoogle(this, 'GoogleProvider', {
+      userPool: this.userPool,
+      clientId: 'PLACEHOLDER', // Replace in AWS Console after deployment
+      clientSecretValue: cdk.SecretValue.unsafePlainText('PLACEHOLDER'), // Replace in AWS Console
+      scopes: ['email', 'profile', 'openid'],
+      attributeMapping: {
+        email: cognito.ProviderAttribute.GOOGLE_EMAIL,
+        givenName: cognito.ProviderAttribute.GOOGLE_GIVEN_NAME,
+        familyName: cognito.ProviderAttribute.GOOGLE_FAMILY_NAME,
+        fullname: cognito.ProviderAttribute.GOOGLE_NAME,
       },
     });
 
@@ -86,17 +104,30 @@ export class AuthStack extends cdk.Stack {
         },
         scopes: [cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE],
         callbackUrls: [
-          'http://localhost:3000/api/auth/callback',
-          'https://agentsform.ai/api/auth/callback',
+          'http://localhost:3000/auth/callback',
+          'https://grademychild.com.au/auth/callback',
+          'https://www.grademychild.com.au/auth/callback',
+          'https://tutor.agentsform.ai/auth/callback',
+          'https://agentsform.ai/auth/callback',
         ],
         logoutUrls: [
           'http://localhost:3000',
+          'https://grademychild.com.au',
+          'https://www.grademychild.com.au',
+          'https://tutor.agentsform.ai',
           'https://agentsform.ai',
         ],
       },
       preventUserExistenceErrors: true,
       generateSecret: false,
+      supportedIdentityProviders: [
+        cognito.UserPoolClientIdentityProvider.COGNITO,
+        cognito.UserPoolClientIdentityProvider.GOOGLE,
+      ],
     });
+
+    // Ensure client is created after Google provider
+    this.userPoolClient.node.addDependency(googleProvider);
 
     // Outputs
     new cdk.CfnOutput(this, 'UserPoolId', {
