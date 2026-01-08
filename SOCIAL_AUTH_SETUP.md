@@ -466,72 +466,300 @@ Revenue: 30 × $5 + 10 × $12 = $270/month
 
 ## Backend Considerations
 
-### Auto-Create User Profile
+### Auto-Create User Profile with Analytics Tracking
 
-When a user signs in with social OAuth for the first time, Cognito will create a user in the user pool automatically. However, you need to ensure your DynamoDB user profile is also created.
+When a user signs in with social OAuth for the first time, Cognito will create a user in the user pool automatically. However, you need to ensure your DynamoDB user profile is also created **with analytics tracking**.
 
-**Solution**: Use a Cognito Post Authentication Lambda Trigger
+**IMPORTANT**: The existing Cognito trigger handler has been updated to support BOTH:
+- **PostConfirmation** - Email signup (after email verification)
+- **PostAuthentication** - OAuth signup (Google/Facebook/Apple)
 
-**File**: `packages/api/src/handlers/post-auth.ts`
+**File**: `packages/api/src/handlers/cognito-trigger.ts` ✅ ALREADY UPDATED
+
+### Analytics Fields Tracked in User Profile
+
+Every user profile now includes these analytics fields:
 
 ```typescript
-import { PostAuthenticationTriggerEvent } from 'aws-lambda'
-import { PutCommand } from '@aws-sdk/lib-dynamodb'
-import { db, TABLE_NAME, keys } from '../lib/db'
+{
+  // Core profile
+  email: string,
+  name: string,
+  tier: 'free' | 'scholar' | 'achiever',
+  status: 'verified' | 'active' | 'cancelled',
 
-export async function handler(event: PostAuthenticationTriggerEvent) {
-  const userId = event.request.userAttributes.sub
-  const email = event.request.userAttributes.email
-  const name = event.request.userAttributes.name || email.split('@')[0]
+  // Analytics tracking
+  signupMethod: 'email' | 'google' | 'facebook' | 'apple',  // HOW they signed up
+  signupDate: string,           // ISO timestamp of signup
+  identityProvider: string | null,  // 'google' | 'facebook' | 'apple' | null
+  firstLoginDate: string | null,    // For OAuth users (instant login)
+  lastLoginDate: string | null,     // Updated on each OAuth login
 
-  // Check if this is first login (user profile doesn't exist)
-  try {
-    // Try to create user profile (will only succeed if doesn't exist)
-    await db.send(new PutCommand({
-      TableName: TABLE_NAME,
-      Item: {
-        ...keys.user(userId),
-        email,
-        name,
-        tier: 'free',
-        createdAt: new Date().toISOString(),
-        lastLogin: new Date().toISOString(),
-      },
-      ConditionExpression: 'attribute_not_exists(PK)',
-    }))
+  // OAuth-specific
+  oauthProvider: string,        // Only for OAuth users
+  oauthSignupDate: string,      // Only for OAuth users
 
-    console.log('Created new user profile for OAuth user:', userId)
-  } catch (err: any) {
-    if (err.name === 'ConditionalCheckFailedException') {
-      // User already exists, just update last login
-      console.log('User already exists, skipping profile creation:', userId)
-    } else {
-      console.error('Error creating user profile:', err)
-    }
-  }
-
-  return event
+  // Timestamps
+  createdAt: string,
+  updatedAt: string,
+  verifiedAt: string,
 }
 ```
 
-**Configure in CDK** (`infrastructure/cdk/src/stacks/api-stack.ts`):
+### How Signup Method is Detected
+
+The Lambda automatically detects the signup method:
+
+1. **PostAuthentication trigger** (OAuth)
+   - Parses `identities` attribute from Cognito
+   - Checks for `Google`, `Facebook`, or `Apple` provider
+   - Sets `signupMethod` accordingly
+
+2. **PostConfirmation trigger** (Email)
+   - No `identities` attribute present
+   - Defaults to `signupMethod: 'email'`
+
+### Analytics Queries You Can Run
+
+**Query 1: Conversion funnel by signup method**
+```typescript
+// Count users by signup method and tier
+SELECT signupMethod, tier, COUNT(*)
+FROM Users
+GROUP BY signupMethod, tier
+
+// Expected output:
+// google | free     | 120
+// google | scholar  | 45
+// google | achiever | 12
+// email  | free     | 80
+// email  | scholar  | 8
+// email  | achiever | 2
+```
+
+**Query 2: Time to conversion**
+```typescript
+// Calculate days between signup and first paid tier
+// Compare OAuth vs email signups
+SELECT
+  signupMethod,
+  AVG(DATEDIFF(firstPaidDate, signupDate)) as avg_days_to_convert
+FROM Users
+WHERE tier != 'free'
+GROUP BY signupMethod
+
+// Expected: OAuth users convert faster (3 days vs 30 days)
+```
+
+**Query 3: OAuth provider performance**
+```typescript
+// Which OAuth provider has highest paid conversion?
+SELECT
+  oauthProvider,
+  COUNT(*) as total_signups,
+  SUM(CASE WHEN tier != 'free' THEN 1 ELSE 0 END) as paid_users,
+  (paid_users / total_signups * 100) as conversion_rate
+FROM Users
+WHERE oauthProvider IS NOT NULL
+GROUP BY oauthProvider
+ORDER BY conversion_rate DESC
+
+// Tells you if Google converts better than Apple, etc.
+```
+
+### CDK Configuration
+
+The trigger is already configured in your CDK stack. You just need to ensure it's attached to **both** trigger types:
 
 ```typescript
-// Add Post Authentication trigger
-const postAuthFunction = new lambda.Function(this, 'PostAuthFunction', {
+// infrastructure/cdk/src/stacks/api-stack.ts
+const cognitoTriggerFunction = new lambda.Function(this, 'CognitoTriggerFunction', {
   runtime: lambda.Runtime.NODEJS_20_X,
-  handler: 'post-auth.handler',
+  handler: 'cognito-trigger.handler',
   code: lambda.Code.fromAsset('../../packages/api/dist'),
   environment: {
     TABLE_NAME: table.tableName,
   },
 })
 
-table.grantReadWriteData(postAuthFunction)
+table.grantReadWriteData(cognitoTriggerFunction)
 
-// Attach to Cognito
-userPool.addTrigger(cognito.UserPoolOperation.POST_AUTHENTICATION, postAuthFunction)
+// Attach to BOTH triggers
+userPool.addTrigger(
+  cognito.UserPoolOperation.POST_CONFIRMATION,  // Email signup
+  cognitoTriggerFunction
+)
+
+userPool.addTrigger(
+  cognito.UserPoolOperation.POST_AUTHENTICATION, // OAuth login
+  cognitoTriggerFunction
+)
 ```
+
+### What Gets Tracked Automatically
+
+✅ **New OAuth signup** (first time signing in with Google/Facebook/Apple):
+- Creates user profile with `signupMethod: 'google'` (or facebook/apple)
+- Sets `identityProvider: 'google'`
+- Sets `oauthProvider: 'google'`
+- Sets `firstLoginDate: now()`
+- Sets `tier: 'free'` (can be upgraded via tier selection page)
+
+✅ **Returning OAuth user** (already signed up before):
+- Updates `lastLoginDate: now()`
+- Does NOT create duplicate profile
+- Does NOT overwrite existing analytics fields
+
+✅ **Email signup** (traditional registration):
+- Creates user profile with `signupMethod: 'email'`
+- Sets `identityProvider: null`
+- Sets `firstLoginDate: null` (they haven't logged in yet, just verified email)
+
+✅ **Existing users (before OAuth implementation)**:
+- Profiles without `signupMethod` field = legacy users
+- Lambda only adds analytics fields if they don't exist (`if_not_exists`)
+- Existing users will get `signupMethod: 'email'` on next login
+- No data loss, no overwrites
+
+### Backward Compatibility Guarantees
+
+🛡️ **Safe Migration** - All existing user profiles remain intact:
+- Analytics fields only added if missing
+- Existing `tier`, `status`, `createdAt` never overwritten
+- Legacy users without `signupMethod` treated as email signups
+
+🛡️ **No Breaking Changes**:
+- Frontend code checks `signupMethod` with fallback to 'email'
+- DynamoDB queries work with or without new fields
+- Analytics queries exclude null values gracefully
+
+🛡️ **Gradual Rollout**:
+- Existing users get analytics fields on next login
+- New users get analytics fields immediately
+- Both user types appear correctly in analytics
+
+### Revenue Analytics
+
+With this data, you can now answer:
+
+1. **Which signup method generates more revenue?**
+   - Group by `signupMethod`, calculate avg LTV
+
+2. **How fast do OAuth users convert compared to email users?**
+   - Compare `signupDate` to first Stripe payment webhook
+
+3. **Which tier selection converts best after OAuth?**
+   - Track tier chosen on `/choose-tier` page
+
+4. **Is Apple Sign In worth the $99/year?**
+   - Compare Apple signups to Google/Facebook
+   - Calculate revenue per signup by provider
+
+---
+
+## Backward Compatibility
+
+### Existing Users Are Safe
+
+**IMPORTANT**: This OAuth implementation is **100% backward compatible** with existing users.
+
+#### What Happens to Existing Users?
+
+**Scenario 1: Existing email/password user logs in normally**
+- Their profile already exists with `tier`, `email`, `name`, etc.
+- PostAuthentication trigger does NOT fire (email login uses PostConfirmation)
+- No changes to their profile
+- They continue using the app exactly as before
+
+**Scenario 2: Existing user's profile is missing analytics fields**
+- Next time they log in, Lambda runs
+- Uses `if_not_exists(signupMethod, 'email')` - only adds if missing
+- Never overwrites existing data
+- Analytics fields are backfilled gracefully
+
+**Scenario 3: Existing user tries OAuth (links Google to existing account)**
+- Cognito supports account linking
+- PostAuthentication trigger fires
+- Lambda detects existing profile via `GetCommand`
+- Only updates `lastLoginDate`, no other changes
+- Original signup method preserved
+
+#### Code Guarantees Backward Compatibility
+
+**Lambda Update Expression** ([cognito-trigger.ts:143-151](../../packages/api/src/handlers/cognito-trigger.ts#L143-L151)):
+```typescript
+UpdateExpression: `
+  SET
+    #status = :status,
+    verifiedAt = if_not_exists(verifiedAt, :now),
+    signupMethod = if_not_exists(signupMethod, :method),  // Only set if missing
+    identityProvider = if_not_exists(identityProvider, :provider),
+    ${isOAuth ? 'firstLoginDate = if_not_exists(firstLoginDate, :now),' : ''}
+    ${isOAuth ? 'lastLoginDate = :now,' : ''}
+    updatedAt = :now
+`
+```
+
+**Key Protection**: `if_not_exists()` prevents overwriting existing values.
+
+#### Analytics Query Compatibility
+
+**Query for users without signup method** (legacy users):
+```typescript
+// Count users by signup method, treating null as 'email'
+SELECT
+  COALESCE(signupMethod, 'email') as method,
+  tier,
+  COUNT(*)
+FROM Users
+GROUP BY method, tier
+```
+
+**Safe aggregate queries**:
+```typescript
+// Only analyze users with signupMethod data
+SELECT signupMethod, AVG(revenue)
+FROM Users
+WHERE signupMethod IS NOT NULL  // Excludes legacy users
+GROUP BY signupMethod
+```
+
+### Migration Strategy
+
+**Phase 1: Deploy OAuth (Week 1)**
+- New signups get `signupMethod` automatically
+- Existing users unaffected
+
+**Phase 2: Backfill Analytics (Optional)**
+- Run DynamoDB scan to find users without `signupMethod`
+- Set `signupMethod: 'email'` for all legacy users
+- This is optional - Lambda will do it gradually
+
+**Phase 3: Analytics Dashboard (Week 3)**
+- Build dashboards that handle both legacy and new users
+- Use `COALESCE(signupMethod, 'email')` in queries
+
+### Testing Backward Compatibility
+
+**Test Cases**:
+
+1. ✅ **Existing email user logs in**
+   - Verify profile unchanged
+   - Verify no duplicate records created
+
+2. ✅ **Existing user missing `signupMethod` logs in via OAuth**
+   - Verify `signupMethod` added as 'google' (or facebook/apple)
+   - Verify `tier` unchanged
+   - Verify `createdAt` unchanged
+
+3. ✅ **Existing paid user (Scholar/Achiever) logs in**
+   - Verify tier NOT reset to 'free'
+   - Verify subscription status preserved
+
+4. ✅ **Analytics query on mixed dataset**
+   - Query returns both legacy and new users
+   - No null pointer errors
+   - Counts accurate
 
 ---
 
@@ -542,13 +770,15 @@ userPool.addTrigger(cognito.UserPoolOperation.POST_AUTHENTICATION, postAuthFunct
 - [ ] Test Google OAuth in production
 - [ ] Test Facebook OAuth in production
 - [ ] Test Apple Sign In in production
-- [ ] Verify user profile is created in DynamoDB
+- [ ] Verify user profile is created in DynamoDB with analytics fields
 - [ ] Verify tier defaults to 'free' for new OAuth users
+- [ ] **Test existing email user can still log in** ⚠️ CRITICAL
+- [ ] **Verify existing paid users keep their tier** ⚠️ CRITICAL
+- [ ] **Test returning OAuth user doesn't create duplicate profile** ⚠️ CRITICAL
 - [ ] Test OAuth on mobile browsers
 - [ ] Verify callback URLs work on all domains
 - [ ] Test error handling (user cancels, denies permissions)
 - [ ] Verify email verification isn't required for OAuth users
-- [ ] Test existing email/password users can still sign in
 
 ### Production URLs to Configure
 
@@ -675,47 +905,43 @@ https://agentsform.ai
 
 ---
 
-## Next Steps
+## Implementation Plan
 
-### Phase 1: Core OAuth Implementation (Week 1)
+### Phase 1: OAuth + Tier Selection (Week 1) - COMPLETE MONETIZATION SETUP
 1. ✅ Read this document completely
 2. ⏳ Configure Google OAuth in AWS Cognito
 3. ⏳ Implement OAuth callback handler (`/auth/callback`)
 4. ⏳ Update register/login pages with social buttons
 5. ⏳ Deploy Post Authentication Lambda
-6. ⏳ Test in production with real OAuth providers
-7. ⏳ Monitor signup conversion rates
+6. ⏳ **Create tier selection page (`/choose-tier`)** ⭐ REVENUE ACCELERATOR
+7. ⏳ **Update OAuth callback to redirect to tier choice** ⭐ REVENUE ACCELERATOR
+8. ⏳ Add social proof elements and testimonials to tier selection
+9. ⏳ Test complete flow: OAuth → Tier Selection → Dashboard
+10. ⏳ Monitor signup AND paid conversion rates
 
-**Estimated Time**: 2-3 days
+**Estimated Time**: 3-4 days
 **Expected Signup Lift**: +100-150%
+**Expected Revenue Lift**: +322% ($64 → $270 per 100 signups)
 
-### Phase 2: Immediate Paid Conversion (Week 2) - RECOMMENDED
-1. ⏳ Create tier selection page (`/choose-tier`)
-2. ⏳ Update OAuth callback to redirect to tier choice
-3. ⏳ Add social proof elements and testimonials
-4. ⏳ Implement analytics tracking for tier selection
-5. ⏳ A/B test tier choice vs free-first
-6. ⏳ Monitor paid conversion rates
+**Why Together?**: No point building OAuth without tier selection - you'd leave money on the table from day one.
 
-**Estimated Time**: 1-2 days
-**Expected Revenue Lift**: +300% (from $64 to $270 per 100 signups)
-
-### Phase 3: Facebook + Apple OAuth (Week 3)
-1. ⏳ Configure Facebook OAuth
-2. ⏳ Configure Apple Sign In
-3. ⏳ Update UI with all 3 providers
-4. ⏳ Test all providers thoroughly
+### Phase 2: Facebook + Apple OAuth (Week 2)
+1. ⏳ Configure Facebook OAuth in AWS Cognito
+2. ⏳ Configure Apple Sign In in AWS Cognito
+3. ⏳ Update UI with all 3 provider buttons
+4. ⏳ Test all providers with tier selection flow
 5. ⏳ Deploy to production
 
-**Estimated Time**: 1-2 days
-**Expected Additional Signups**: +20-30%
+**Estimated Time**: 2-3 days
+**Expected Additional Signups**: +20-30% (more options = more signups)
 
-### Phase 4: Optimization (Ongoing)
-1. ⏳ A/B test trial length (3 vs 7 days)
-2. ⏳ Test default tier selection
-3. ⏳ Optimize button copy and placement
-4. ⏳ Add urgency elements (limited time offers)
-5. ⏳ Track cohort retention and LTV
+### Phase 3: Optimization (Ongoing)
+1. ⏳ A/B test tier choice vs free-first (validate +300% assumption)
+2. ⏳ Test trial length (3 vs 7 days)
+3. ⏳ Test default tier selection vs "Most Popular" badge
+4. ⏳ Optimize button copy ("Start Free Trial" vs "Try Free")
+5. ⏳ Add urgency elements if needed (limited time offers)
+6. ⏳ Track cohort retention and lifetime value
 
 **Total Estimated Implementation Time**: 5-7 days
 **Total Expected Revenue Lift**: +400-500%

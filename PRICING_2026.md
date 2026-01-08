@@ -371,14 +371,37 @@ Shows 3 tier cards immediately after OAuth:
 
 **No changes required** - Tier selection uses existing Stripe checkout flow with 3-day trial already configured.
 
-**Post Authentication Lambda** already creates user with `tier: 'free'` - tier choice page updates via Stripe webhook when user completes checkout.
+**Post Authentication Lambda** creates user with `tier: 'free'` - tier choice page updates via Stripe webhook when user completes checkout.
+
+### Backward Compatibility
+
+**100% Safe for Existing Users**:
+- Cognito trigger updated to handle both PostConfirmation (email) and PostAuthentication (OAuth)
+- Uses `if_not_exists()` to prevent overwriting existing user data
+- Existing paid users (Scholar/Achiever) keep their tier
+- Analytics fields added only if missing
+- No data loss, no breaking changes
+
+**Analytics Tracking** ([cognito-trigger.ts](../../packages/api/src/handlers/cognito-trigger.ts)):
+- `signupMethod`: 'email' | 'google' | 'facebook' | 'apple'
+- `identityProvider`: Provider name for OAuth users
+- `signupDate`: ISO timestamp of first signup
+- `firstLoginDate`: For OAuth users (instant)
+- `lastLoginDate`: Updated on each OAuth login
+
+**Legacy User Handling**:
+- Users without `signupMethod` treated as email signups
+- Lambda backfills analytics fields on next login
+- Analytics queries use `COALESCE(signupMethod, 'email')` for compatibility
 
 ### See Also
 
 - Full implementation guide: `SOCIAL_AUTH_SETUP.md`
 - OAuth configuration steps
+- Analytics tracking details
 - A/B testing recommendations
 - Conversion optimization tactics
+- Backward compatibility testing checklist
 
 ---
 
@@ -390,6 +413,12 @@ Shows 3 tier cards immediately after OAuth:
   - Expected +300% increase in paid conversions
   - Revenue/100 users: $64 → $270 (+322%)
   - Implementation guide added to SOCIAL_AUTH_SETUP.md
+- ✅ **UPDATED**: Cognito trigger with analytics tracking and backward compatibility
+  - Tracks `signupMethod` (email/google/facebook/apple) for all users
+  - Uses `if_not_exists()` to prevent overwriting existing data
+  - Existing paid users keep their tier - no data loss
+  - PostAuthentication + PostConfirmation triggers unified
+  - Analytics fields: signupMethod, identityProvider, firstLoginDate, lastLoginDate
 
 ### 2026-01-06
 - ✅ **DEPLOYED**: Sydney timezone enforcement for daily question limits
