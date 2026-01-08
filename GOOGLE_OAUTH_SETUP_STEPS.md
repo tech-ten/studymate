@@ -1,8 +1,8 @@
 # Google OAuth Setup - Manual Configuration Steps
 
-**Status**: CDK deployment complete ✅
+**Status**: GOOGLE OAUTH FULLY CONFIGURED ✅✅✅
 **Date**: 2026-01-08
-**Next**: Configure Google OAuth credentials in AWS Console
+**Next**: Test OAuth flow with test URL below
 
 ---
 
@@ -165,19 +165,42 @@ Handle OAuth callback (to be implemented).
 
 ---
 
-## Verification Checklist
+## ✅ CONFIGURATION COMPLETE
 
-Before going live:
+**All backend setup is done:**
 
-- [ ] Google OAuth app created in Google Cloud Console
-- [ ] Client ID and secret configured in Cognito
-- [ ] Authorized redirect URIs match Cognito hosted UI domain
-- [ ] Cognito app client supports Google identity provider
-- [ ] Lambda has both PostConfirmation and PostAuthentication triggers
-- [ ] Lambda has DynamoDB read/write permissions
+- ✅ Google OAuth app created in Google Cloud Console
+- ✅ Client ID: `[CONFIGURED - See .env file]`
+- ✅ Client Secret: `[CONFIGURED - See .env file]`
+- ✅ Credentials saved to `.env` file
+- ✅ Credentials configured in AWS Cognito
+- ✅ Authorized redirect URI: `https://grademychild.auth.ap-southeast-2.amazoncognito.com/oauth2/idpresponse`
+- ✅ Cognito app client supports Google identity provider
+- ✅ Lambda has both PostConfirmation and PostAuthentication triggers
+- ✅ Lambda has DynamoDB read/write permissions
+
+**Test OAuth Flow (localhost):**
+
+```
+https://grademychild.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize?client_id=6sehatih95apslqtikic4sf39o&response_type=code&scope=email+openid+profile&redirect_uri=http://localhost:3000/auth/callback
+```
+
+**Test OAuth Flow (production):**
+
+```
+https://grademychild.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize?client_id=6sehatih95apslqtikic4sf39o&response_type=code&scope=email+openid+profile&redirect_uri=https://grademychild.com.au/auth/callback
+```
+
+## Remaining Tasks
+
+- [ ] **IMPORTANT**: Publish Google OAuth app in Google Cloud Console (currently in "Testing" mode)
+  - Go to: OAuth consent screen → Publishing status → Publish App
+  - Without this, only test users can sign in
 - [ ] Test OAuth flow creates user in DynamoDB with correct fields
-- [ ] Existing email users can still log in (backward compatibility)
-- [ ] Existing paid users keep their tier (backward compatibility)
+- [ ] Verify existing email users can still log in (backward compatibility)
+- [ ] Verify existing paid users keep their tier (backward compatibility)
+- [ ] Implement frontend OAuth button in [register/page.tsx](file:///Users/tendaimudavanhu/CODE/tutor/studymate/apps/web/src/app/(auth)/register/page.tsx)
+- [ ] Implement frontend OAuth callback handler in `/auth/callback/page.tsx`
 
 ---
 
