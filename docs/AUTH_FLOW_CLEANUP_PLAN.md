@@ -712,6 +712,125 @@ There are TWO pages related to tier/plan selection, serving different purposes:
 
 ---
 
+## Data Collection Gap Analysis
+
+### Investigation Summary
+
+A thorough review of all pages marked for deletion/modification was conducted to ensure no data capture functionality is lost.
+
+### Pages Marked for Deletion - Data Interactions
+
+| Page | Data Captured | Storage | Backend Call | DB Write |
+|------|---------------|---------|--------------|----------|
+| `/get-started` | Email only | `sessionStorage` | **NONE** | **NONE** |
+| `/choose-plan` | Plan selection | `sessionStorage` | **NONE** | **NONE** |
+
+**Finding**: Both pages store data in browser `sessionStorage` only. No API calls, no Lambda triggers, no DynamoDB writes. All backend data capture occurs in subsequent pages.
+
+### Actual Data Capture Points (Unchanged)
+
+| Trigger Point | Lambda | DynamoDB Fields Written |
+|---------------|--------|------------------------|
+| `/verify` (email confirmation) | PostConfirmation | email, name, tier, status, signupMethod, signupDate, verifiedAt, createdAt |
+| `/auth/callback` (OAuth login) | PostAuthentication | email, name, tier, status, signupMethod, signupDate, identityProvider, firstLoginDate, oauthProvider |
+| Stripe Checkout completion | Stripe Webhook | tier, status, stripeCustomerId, stripeSubscriptionId, subscribedAt |
+
+### Gap Analysis Result
+
+| Data Point | Current Flow | Proposed Flow | Gap? |
+|------------|-------------|---------------|------|
+| Email | `/get-started` → session → `/register` → Cognito | `/signup` → Cognito | ✅ No gap |
+| Name | `/register` → Cognito | `/signup` → Cognito | ✅ No gap |
+| Password | `/register` → Cognito | `/signup` → Cognito | ✅ No gap |
+| Plan/Tier | `/choose-plan` → session → checkout | `/choose-tier` → checkout | ✅ No gap |
+| signupMethod | PostConfirmation Lambda | PostConfirmation Lambda | ✅ No gap |
+| signupDate | PostConfirmation Lambda | PostConfirmation Lambda | ✅ No gap |
+| Analytics fields | PostConfirmation/PostAuthentication | PostConfirmation/PostAuthentication | ✅ No gap |
+
+### Conclusion
+
+**✅ NO DATA COLLECTION GAPS IDENTIFIED**
+
+The proposed cleanup maintains all existing data capture functionality:
+- User profile creation (DynamoDB) - unchanged
+- Analytics tracking (signupMethod, signupDate, etc.) - unchanged
+- Tier/subscription data (Stripe webhooks) - unchanged
+- OAuth tracking (identityProvider, firstLoginDate) - unchanged
+
+The pages being deleted (`/get-started`, `/choose-plan`) only use browser `sessionStorage` which is:
+1. Not sent to any backend
+2. Cleared when browser session ends
+3. Not used for analytics or user tracking
+
+---
+
+## Future Enhancement: Abandoned Signup Tracking
+
+> **Status**: NOT IN SCOPE for current cleanup. Documented for future sprint.
+
+### Current Limitation
+
+Neither the current flow NOR the proposed flow captures data from users who:
+- Start typing their email but don't submit
+- Begin the signup form but abandon before completion
+- Drop off at any point before email verification
+
+### Proposed Future Enhancement
+
+**Goal**: Capture abandoned signups for remarketing and funnel analysis.
+
+**Implementation Approach**:
+
+```typescript
+// On /signup page - debounced email capture
+const captureAbandonedEmail = useDebouncedCallback(async (email: string) => {
+  if (isValidEmail(email)) {
+    await fetch('/api/analytics/abandoned-signup', {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        stage: 'email_entered',
+        timestamp: new Date().toISOString(),
+        source: 'signup_page'
+      })
+    })
+  }
+}, 2000) // 2 second debounce
+```
+
+**Backend Requirements**:
+- New DynamoDB table or GSI for abandoned signups
+- Lambda handler for `/api/analytics/abandoned-signup`
+- GDPR/privacy compliance (consent checkbox, data retention policy)
+- Email remarketing integration (optional)
+
+**Data to Capture**:
+| Field | Description |
+|-------|-------------|
+| email | User's email (partial or complete) |
+| stage | Where user abandoned: `email_entered`, `form_started`, `form_partial` |
+| timestamp | When abandonment detected |
+| source | Which page/flow |
+| device | Mobile/desktop (for UX optimization) |
+
+**Analytics Use Cases**:
+- Funnel drop-off analysis
+- A/B testing signup flow variants
+- Remarketing email campaigns
+- Conversion rate optimization
+
+**Privacy Considerations**:
+- Require explicit consent before capturing
+- Clear data retention policy (e.g., delete after 30 days if not converted)
+- Easy opt-out mechanism
+- GDPR Article 6 lawful basis documentation
+
+**Estimated Effort**: 4-6 hours (backend + frontend + testing)
+
+**Priority**: Low - Nice to have for growth optimization, not critical for MVP
+
+---
+
 ## Questions for Approval
 
 ### 1. Tier Selection for Returning Free Users
@@ -841,5 +960,6 @@ There are TWO pages related to tier/plan selection, serving different purposes:
 
 ---
 
-*Last Updated: 2026-01-09*
+*Last Updated: 2026-01-11*
 *Status: AWAITING USER APPROVAL*
+*Data Collection Gap Analysis: ✅ VERIFIED - No gaps identified*
