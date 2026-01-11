@@ -1,7 +1,7 @@
 # Authentication Flow Cleanup Plan
 
 **Status**: DRAFT - Awaiting Approval
-**Date**: 2026-01-09
+**Date**: 2026-01-11 (Updated)
 **Author**: Claude (UX Analysis)
 
 ---
@@ -180,9 +180,9 @@ Option 2: Enter email + password → /dashboard
 
 ---
 
-### 2. ✅ KEEP: `/choose-tier` (Tier Selection - Post-Auth)
+### 2. ✅ KEEP: `/choose-tier` (Initial Tier Selection - Post-Auth, New Users Only)
 
-**Purpose**: Tier selection for NEW users only (both OAuth and Email)
+**Purpose**: Tier selection for NEW users only (both OAuth and Email) during initial signup
 
 **When shown**:
 - OAuth users: After first successful OAuth authentication
@@ -194,6 +194,40 @@ Option 2: Enter email + password → /dashboard
 - Add breadcrumb: "Step 2 of 2: Choose your plan"
 
 **Layout**: Keep current design with Scholar pre-selected
+
+**Important**: This page is ONLY for initial signup. It is NOT used for upgrades.
+
+---
+
+### 2b. ✅ KEEP: `/pricing` (Upgrade/Manage Subscription - Existing Users Only)
+
+**Purpose**: Tier upgrades and subscription management for EXISTING authenticated users
+
+**Location**: `apps/web/src/app/(parent)/pricing/page.tsx`
+
+**When shown**:
+- Authenticated users wanting to upgrade from free tier
+- Authenticated users wanting to change their subscription
+- Authenticated users wanting to manage billing via Stripe portal
+
+**Features**:
+- Shows current plan with "Current" badge
+- "Manage Subscription" button → Stripe Customer Portal
+- Upgrade buttons → Stripe Checkout
+- Requires authentication (redirects to `/login?redirect=/pricing` if not logged in)
+
+**Key Difference from `/choose-tier`**:
+
+| Aspect | `/choose-tier` | `/pricing` |
+|--------|---------------|------------|
+| When used | Initial signup only | After signup (upgrades) |
+| Layout | Auth layout (minimal) | Parent layout (with dashboard nav) |
+| Shows current plan | No | Yes |
+| Stripe portal access | No | Yes |
+| Authentication | Just authenticated | Must be authenticated |
+| Breadcrumb | "Step 2 of 2" | None (standalone page) |
+
+**No changes needed**: This page is well-designed and should remain as-is.
 
 ---
 
@@ -323,12 +357,29 @@ router.push('/choose-tier')
 | Old URL | New URL | Action | Purpose |
 |---------|---------|--------|---------|
 | `/get-started` | `/signup` | DELETE & REDIRECT | Unified signup entry |
-| `/choose-plan` | `/choose-tier` | DELETE | Tier selection post-auth only |
+| `/choose-plan` | N/A | DELETE | Redundant - tier selection moved post-auth |
 | `/register` | `/signup` | RENAME | Clearer naming |
 | `/login` | `/login` | KEEP | No change |
 | `/verify` | `/verify` | KEEP | No change |
-| `/choose-tier` | `/choose-tier` | KEEP | No change |
+| `/choose-tier` | `/choose-tier` | KEEP | Initial tier selection (new users only) |
+| `/pricing` | `/pricing` | KEEP | Upgrades & subscription management (existing users) |
 | `/auth/callback` | `/auth/callback` | KEEP | No change |
+
+### Tier Selection Pages Clarification
+
+There are TWO pages related to tier/plan selection, serving different purposes:
+
+1. **`/choose-tier`** - Initial signup only
+   - Shown once after first authentication (OAuth or email)
+   - No current plan display
+   - No Stripe portal access
+   - Part of auth layout
+
+2. **`/pricing`** - Upgrades only (existing users)
+   - Accessible from dashboard/navigation
+   - Shows current plan with badge
+   - Has "Manage Subscription" → Stripe portal
+   - Part of parent layout with full navigation
 
 ---
 
@@ -440,6 +491,65 @@ router.push('/choose-tier')
 
 **Total steps**: 2 clicks (Sign In → Dashboard)
 **Time**: ~10 seconds
+
+---
+
+### Journey 4: Existing User - Upgrade Plan
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 1: Dashboard (Already Logged In)                          │
+│ Action: Click "Upgrade" in navigation or upgrade banner        │
+│ Destination: /pricing                                           │
+└────────────────────────────────────────────────────────────────┘
+                           ↓
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 2: Pricing Page                                            │
+│ Display: All three tiers with current plan marked              │
+│          "Manage Subscription" button (if already paid)        │
+│ Action: Click "Start Free Trial" on higher tier                │
+│ Destination: Stripe Checkout                                    │
+└────────────────────────────────────────────────────────────────┘
+                           ↓
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 3: Stripe Checkout                                         │
+│ Action: Enter payment details                                   │
+│ Destination: /pricing?payment=success                           │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**Total steps**: 3 clicks (Dashboard → Pricing → Stripe → Done)
+**Time**: ~1 minute
+
+**Note**: `/pricing` is the ONLY page for upgrades. New users use `/choose-tier` during signup.
+
+---
+
+### Journey 5: Existing User - Manage Subscription (Cancel/Update Card)
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 1: Dashboard (Already Logged In)                          │
+│ Action: Navigate to /pricing                                    │
+│ Destination: /pricing                                           │
+└────────────────────────────────────────────────────────────────┘
+                           ↓
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 2: Pricing Page                                            │
+│ Display: Current plan with "Current" badge                     │
+│ Action: Click "Manage Subscription"                            │
+│ Destination: Stripe Customer Portal                            │
+└────────────────────────────────────────────────────────────────┘
+                           ↓
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 3: Stripe Customer Portal                                  │
+│ Action: Update card, cancel subscription, view invoices        │
+│ Destination: Back to /pricing                                   │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**Total steps**: 3 clicks
+**Time**: ~2 minutes
 
 ---
 
