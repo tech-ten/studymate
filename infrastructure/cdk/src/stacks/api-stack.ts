@@ -69,6 +69,8 @@ export class ApiStack extends cdk.Stack {
       STRIPE_PRICE_ACHIEVER: process.env.STRIPE_PRICE_ACHIEVER || '',
       ADMIN_API_KEY: process.env.ADMIN_API_KEY || 'studymate-admin-2024',
       FRONTEND_URL: 'https://tutor.agentsform.ai',
+      // Force Lambda update when code changes (CDK content hash doesn't always catch changes)
+      DEPLOY_VERSION: '2026-01-13-oauth-fix-v3',
     };
 
     // Lambda function factory

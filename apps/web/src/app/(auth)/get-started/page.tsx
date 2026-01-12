@@ -53,11 +53,11 @@ export default function GetStartedPage() {
 
             const cognitoDomain = 'https://auth.grademychild.com.au'
             const clientId = '6sehatih95apslqtikic4sf39o'
-            const redirectUri = encodeURIComponent(`${window.location.origin}/callback`)
-            const responseType = 'code'
-            const scope = 'email+openid+profile'
+            const oauthRedirectPage = `${window.location.origin}/oauth-redirect`
 
-            window.location.href = `${cognitoDomain}/oauth2/authorize?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${redirectUri}&identity_provider=Google&prompt=select_account`
+            // First logout from Cognito to clear any cached session,
+            // then redirect to oauth-redirect page which initiates fresh OAuth flow
+            window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(oauthRedirectPage)}`
           }}
           className="w-full h-12 px-4 py-3 border border-neutral-200 rounded-xl hover:bg-neutral-50 transition-all flex items-center justify-center gap-3"
         >

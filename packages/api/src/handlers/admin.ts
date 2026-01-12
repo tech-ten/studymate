@@ -136,7 +136,13 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
           const email = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email')?.Value || '';
           const emailVerified = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email_verified')?.Value === 'true';
           // Use 'sub' as the ID - it matches what's stored in DynamoDB and the JWT token
-          const sub = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'sub')?.Value || user.Username || '';
+          const subAttr = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'sub');
+          const sub = subAttr?.Value || user.Username || '';
+
+          // Debug: log OAuth users to check sub extraction
+          if (user.Username?.startsWith('Google_')) {
+            console.log(`OAuth user ${email}: Username=${user.Username}, sub=${sub}, subAttr=${JSON.stringify(subAttr)}`);
+          }
 
           cognitoUsers.push({
             id: sub,
@@ -152,22 +158,52 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
       // Fetch DynamoDB profile data for each user (tier, AI calls, OAuth info, children)
       const users = await Promise.all(cognitoUsers.map(async (cognitoUser) => {
-        const profileResult = await db.send(new GetCommand({
+        // Try to find profile using 'sub' first (preferred), then fall back to cognitoUsername
+        // This handles both new OAuth users (using sub) and legacy records (using Google_xxx username)
+        let profileResult = await db.send(new GetCommand({
           TableName: TABLE_NAME,
           Key: { PK: `USER#${cognitoUser.id}`, SK: 'PROFILE' },
         }));
 
-        const profile = profileResult.Item;
+        let profile = profileResult.Item;
+        let effectiveUserId = cognitoUser.id;
 
-        // Query for children linked to this user
-        const childrenQuery = await db.send(new QueryCommand({
+        // If no profile found with sub, try with cognitoUsername (for legacy OAuth records)
+        if (!profile && cognitoUser.cognitoUsername !== cognitoUser.id) {
+          const legacyProfileResult = await db.send(new GetCommand({
+            TableName: TABLE_NAME,
+            Key: { PK: `USER#${cognitoUser.cognitoUsername}`, SK: 'PROFILE' },
+          }));
+          if (legacyProfileResult.Item) {
+            profile = legacyProfileResult.Item;
+            effectiveUserId = cognitoUser.cognitoUsername;
+          }
+        }
+
+        // Query for children linked to this user (try both IDs)
+        let childrenQuery = await db.send(new QueryCommand({
           TableName: TABLE_NAME,
           KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
           ExpressionAttributeValues: {
-            ':pk': `USER#${cognitoUser.id}`,
+            ':pk': `USER#${effectiveUserId}`,
             ':sk': 'CHILD#',
           },
         }));
+
+        // Also check under sub if we used username for profile
+        if (childrenQuery.Items?.length === 0 && effectiveUserId !== cognitoUser.id) {
+          const subChildrenQuery = await db.send(new QueryCommand({
+            TableName: TABLE_NAME,
+            KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
+            ExpressionAttributeValues: {
+              ':pk': `USER#${cognitoUser.id}`,
+              ':sk': 'CHILD#',
+            },
+          }));
+          if (subChildrenQuery.Items?.length) {
+            childrenQuery = subChildrenQuery;
+          }
+        }
 
         const children = (childrenQuery.Items || []).map(child => ({
           id: child.SK.replace('CHILD#', ''),
