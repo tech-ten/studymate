@@ -145,7 +145,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         paginationToken = listUsersResponse.PaginationToken;
       } while (paginationToken);
 
-      // Fetch DynamoDB profile data for each user (tier, AI calls)
+      // Fetch DynamoDB profile data for each user (tier, AI calls, OAuth info, children)
       const users = await Promise.all(cognitoUsers.map(async (cognitoUser) => {
         const profileResult = await db.send(new GetCommand({
           TableName: TABLE_NAME,
@@ -154,14 +154,59 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
         const profile = profileResult.Item;
 
+        // Query for children linked to this user
+        const childrenQuery = await db.send(new QueryCommand({
+          TableName: TABLE_NAME,
+          KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
+          ExpressionAttributeValues: {
+            ':pk': `USER#${cognitoUser.id}`,
+            ':sk': 'CHILD#',
+          },
+        }));
+
+        const children = (childrenQuery.Items || []).map(child => ({
+          id: child.SK.replace('CHILD#', ''),
+          name: child.name,
+          username: child.username,
+          yearLevel: child.yearLevel,
+        }));
+
+        // OAuth users are considered verified (Google/Facebook/Apple verify emails)
+        const authMethod = profile?.auth_method || 'email';
+        const isOAuthUser = authMethod === 'oauth' || authMethod === 'both';
+        const effectivelyVerified = cognitoUser.emailVerified || isOAuthUser;
+
         return {
           id: cognitoUser.id,
           email: cognitoUser.email,
-          emailVerified: cognitoUser.emailVerified,
+          emailVerified: effectivelyVerified,
+
+          // Account status
+          hasProfile: !!profile,
+          accountStatus: profile?.status || 'no-profile',
+
+          // Subscription info
           tier: profile?.tier || 'free',
-          aiCallsToday: profile?.[dailyKey] || 0,
-          createdAt: cognitoUser.createdAt,
           hasSubscription: !!profile?.stripeSubscriptionId,
+          stripeCustomerId: profile?.stripeCustomerId || null,
+
+          // Activity
+          aiCallsToday: profile?.[dailyKey] || 0,
+          lastLoginDate: profile?.lastLoginDate || null,
+
+          // Dates
+          createdAt: cognitoUser.createdAt,
+          verifiedAt: profile?.verifiedAt || null,
+
+          // OAuth authentication tracking
+          authMethod: profile?.auth_method || 'email', // 'email' | 'oauth' | 'both'
+          oauthProvider: profile?.oauth_provider || null, // 'google' | 'facebook' | 'apple' | null
+          linkedAccounts: profile?.linked_accounts || [], // Array of auth methods
+          signupMethod: profile?.signupMethod || 'email', // Original signup method
+
+          // Children info
+          childrenCount: children.length,
+          children: children,
         };
       }));
 
@@ -170,23 +215,59 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
     // GET /admin/children - List all children with progress
     if (path === '/admin/children') {
-      const childrenResult = await db.send(new ScanCommand({
-        TableName: TABLE_NAME,
-        FilterExpression: 'begins_with(PK, :pk) AND SK = :sk',
-        ExpressionAttributeValues: {
-          ':pk': 'CHILD#',
-          ':sk': 'PROFILE',
-        },
-      }));
+      // Children are stored as PK=USER#{parentId}, SK=CHILD#{childId}
+      // Use pagination to get all children
+      const allItems: Record<string, unknown>[] = [];
+      let lastEvaluatedKey: Record<string, unknown> | undefined;
 
-      const children = (childrenResult.Items || []).map(item => ({
-        id: item.PK.replace('CHILD#', ''),
-        name: item.name,
-        username: item.username,
-        yearLevel: item.yearLevel,
-        parentId: item.parentId,
-        createdAt: item.createdAt,
-      }));
+      do {
+        const childrenResult = await db.send(new ScanCommand({
+          TableName: TABLE_NAME,
+          FilterExpression: 'begins_with(SK, :sk)',
+          ExpressionAttributeValues: {
+            ':sk': 'CHILD#',
+          },
+          ExclusiveStartKey: lastEvaluatedKey,
+        }));
+
+        allItems.push(...(childrenResult.Items || []));
+        lastEvaluatedKey = childrenResult.LastEvaluatedKey;
+      } while (lastEvaluatedKey);
+
+      // Get unique parent IDs to fetch their emails
+      const parentIds = [...new Set(allItems.map(item => (item.PK as string).replace('USER#', '')))];
+
+      // Fetch parent emails from Cognito
+      const parentEmails: Record<string, string> = {};
+      for (const parentId of parentIds) {
+        try {
+          const userResponse = await cognitoClient.send(new ListUsersCommand({
+            UserPoolId: USER_POOL_ID,
+            Filter: `sub = "${parentId}"`,
+            Limit: 1,
+          }));
+          const user = userResponse.Users?.[0];
+          if (user) {
+            const email = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email')?.Value || '';
+            parentEmails[parentId] = email;
+          }
+        } catch {
+          // Skip if user not found
+        }
+      }
+
+      const children = allItems.map(item => {
+        const parentId = (item.PK as string).replace('USER#', '');
+        return {
+          id: (item.SK as string).replace('CHILD#', ''),
+          name: item.name,
+          username: item.username,
+          yearLevel: item.yearLevel,
+          parentId,
+          parentEmail: parentEmails[parentId] || '',
+          createdAt: item.createdAt,
+        };
+      });
 
       return success({ children });
     }

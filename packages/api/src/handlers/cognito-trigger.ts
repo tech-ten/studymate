@@ -18,6 +18,14 @@
  * - firstLoginDate: ISO timestamp (for OAuth users)
  * - identityProvider: OAuth provider name (if OAuth)
  *
+ * OAuth User Unification:
+ * - Users are unified by email address
+ * - If OAuth user email matches existing email/password user, accounts are linked
+ * - oauth_provider: 'google' | 'facebook' | 'apple' | null
+ * - oauth_sub: Cognito sub for OAuth users
+ * - auth_method: 'email' | 'oauth' | 'both'
+ * - linked_accounts: Array of authentication methods
+ *
  * This ensures every user has a profile in DynamoDB for:
  * - Rate limiting (AI calls tracking)
  * - Subscription management
@@ -26,8 +34,12 @@
  */
 
 import { PostConfirmationTriggerEvent, PostConfirmationTriggerHandler, PostAuthenticationTriggerEvent } from 'aws-lambda';
-import { PutCommand, UpdateCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
+import { PutCommand, UpdateCommand, GetCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { CognitoIdentityProviderClient, AdminUpdateUserAttributesCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { db, TABLE_NAME, keys } from '../lib/db';
+
+const cognitoClient = new CognitoIdentityProviderClient({ region: 'ap-southeast-2' });
+const USER_POOL_ID = process.env.USER_POOL_ID || '';
 
 // Detect signup method from Cognito identity provider
 function getSignupMethod(event: PostConfirmationTriggerEvent | PostAuthenticationTriggerEvent): 'email' | 'google' | 'facebook' | 'apple' {
@@ -70,6 +82,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
   const userId = event.userName;
   const email = event.request.userAttributes.email;
   const name = event.request.userAttributes.name || null;
+  const cognitoTier = event.request.userAttributes['custom:tier'] || 'free';
   const now = new Date().toISOString();
   const signupMethod = getSignupMethod(event);
 
@@ -79,15 +92,66 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
   const isOAuth = triggerSource === 'PostAuthentication_Authentication';
 
   try {
-    // For OAuth: Check if profile already exists (returning user)
-    if (isOAuth) {
-      const existing = await db.send(new GetCommand({
-        TableName: TABLE_NAME,
-        Key: keys.user(userId),
-      }));
+    // STEP 1: Check if user with this email already exists (for account linking)
+    // This handles the case where a user signed up with email/password, then tries OAuth
+    const emailIndexResponse = await db.send(new QueryCommand({
+      TableName: TABLE_NAME,
+      IndexName: 'email-index', // GSI on email attribute
+      KeyConditionExpression: 'email = :email',
+      ExpressionAttributeValues: {
+        ':email': email,
+      },
+      Limit: 1,
+    }));
 
-      if (existing.Item) {
-        // Returning OAuth user - just update lastLoginDate
+    const existingUsers = emailIndexResponse.Items || [];
+
+    if (existingUsers.length > 0) {
+      const existingUser = existingUsers[0];
+      const existingUserId = existingUser.PK.replace('USER#', '');
+
+      // CASE 1: OAuth user trying to link to existing email/password account
+      // Only link if: 1) existing user has email auth, 2) existing user ID is DIFFERENT from current OAuth user ID
+      // If IDs are the same, this is just a stale record from a deleted user - don't link, just update
+      if (isOAuth && existingUser.auth_method === 'email' && existingUserId !== userId) {
+        console.log(`Linking OAuth account ${userId} to existing user ${existingUserId}`);
+
+        // Update existing user record to link OAuth account
+        await db.send(new UpdateCommand({
+          TableName: TABLE_NAME,
+          Key: keys.user(existingUserId),
+          UpdateExpression: 'SET oauth_sub = :oauth_sub, oauth_provider = :provider, auth_method = :auth, linked_accounts = list_append(if_not_exists(linked_accounts, :empty_list), :new_account), lastLoginDate = :now, updatedAt = :now',
+          ExpressionAttributeValues: {
+            ':oauth_sub': userId,
+            ':provider': signupMethod,
+            ':auth': 'both',
+            ':new_account': [`oauth:${signupMethod}`],
+            ':empty_list': [],
+            ':now': now,
+          },
+        }));
+
+        // Sync tier from DynamoDB to Cognito custom:tier
+        if (existingUser.tier !== cognitoTier) {
+          await cognitoClient.send(new AdminUpdateUserAttributesCommand({
+            UserPoolId: USER_POOL_ID,
+            Username: userId,
+            UserAttributes: [
+              {
+                Name: 'custom:tier',
+                Value: existingUser.tier,
+              },
+            ],
+          }));
+          console.log(`Synced tier ${existingUser.tier} to Cognito for OAuth user ${userId}`);
+        }
+
+        console.log(`Successfully linked OAuth account to existing user ${existingUserId}`);
+        return event;
+      }
+
+      // CASE 2: Returning OAuth user with same email (just update lastLoginDate)
+      if (isOAuth && existingUserId === userId) {
         await db.send(new UpdateCommand({
           TableName: TABLE_NAME,
           Key: keys.user(userId),
@@ -97,12 +161,45 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
           },
         }));
 
+        // Sync tier from DynamoDB if out of sync
+        if (existingUser.tier !== cognitoTier) {
+          await cognitoClient.send(new AdminUpdateUserAttributesCommand({
+            UserPoolId: USER_POOL_ID,
+            Username: userId,
+            UserAttributes: [
+              {
+                Name: 'custom:tier',
+                Value: existingUser.tier,
+              },
+            ],
+          }));
+          console.log(`Synced tier ${existingUser.tier} to Cognito for returning user ${userId}`);
+        }
+
         console.log(`OAuth returning user: ${email} (${userId})`);
+        return event;
+      }
+
+      // CASE 3: Email user returning (already exists)
+      if (!isOAuth && existingUserId === userId) {
+        await db.send(new UpdateCommand({
+          TableName: TABLE_NAME,
+          Key: keys.user(userId),
+          UpdateExpression: 'SET lastLoginDate = :now, updatedAt = :now',
+          ExpressionAttributeValues: {
+            ':now': now,
+          },
+        }));
+
+        console.log(`Email returning user: ${email} (${userId})`);
         return event;
       }
     }
 
-    // Create new user profile (email signup or first OAuth login)
+    // STEP 2: Create new user profile (first time signup - email or OAuth)
+    const authMethod = isOAuth ? 'oauth' : 'email';
+    const linkedAccounts = [isOAuth ? `oauth:${signupMethod}` : 'cognito:email'];
+
     await db.send(new PutCommand({
       TableName: TABLE_NAME,
       Item: {
@@ -114,6 +211,12 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
         verifiedAt: now,
         createdAt: now,
         updatedAt: now,
+
+        // OAuth account linking fields
+        oauth_provider: isOAuth ? signupMethod : null,
+        oauth_sub: isOAuth ? userId : null,
+        auth_method: authMethod,
+        linked_accounts: linkedAccounts,
 
         // Analytics tracking
         signupMethod, // 'email' | 'google' | 'facebook' | 'apple'
@@ -130,7 +233,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
       ConditionExpression: 'attribute_not_exists(PK)', // Prevent duplicates
     }));
 
-    console.log(`Created ${signupMethod} user profile for ${email} (${userId}) with status=verified`);
+    console.log(`Created ${signupMethod} user profile for ${email} (${userId}) with auth_method=${authMethod}`);
   } catch (err: unknown) {
     // If profile already exists, update it with OAuth info
     if ((err as { name?: string }).name === 'ConditionalCheckFailedException') {
@@ -146,6 +249,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
               verifiedAt = if_not_exists(verifiedAt, :now),
               signupMethod = if_not_exists(signupMethod, :method),
               identityProvider = if_not_exists(identityProvider, :provider),
+              auth_method = if_not_exists(auth_method, :auth),
               ${isOAuth ? 'firstLoginDate = if_not_exists(firstLoginDate, :now),' : ''}
               ${isOAuth ? 'lastLoginDate = :now,' : ''}
               updatedAt = :now
@@ -158,6 +262,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
             ':now': now,
             ':method': signupMethod,
             ':provider': identityProvider,
+            ':auth': isOAuth ? 'oauth' : 'email',
           },
         }));
 
