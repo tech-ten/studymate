@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getChildren, getProgress, getSubscriptionStatus, getCustomerPortalUrl, type Child, type SubscriptionStatus } from '@/lib/api'
-import { isAuthenticatedSync, setSelectedChild, signOut } from '@/lib/auth'
+import { isAuthenticatedSync, setSelectedChild, signOut, getUser } from '@/lib/auth'
 
 interface ChildProgress {
   subject: string
@@ -24,11 +24,17 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null)
+  const [parentName, setParentName] = useState<string>('')
 
   useEffect(() => {
     if (!isAuthenticatedSync()) {
       router.push('/login')
       return
+    }
+    // Get parent name from stored user
+    const user = getUser()
+    if (user?.name) {
+      setParentName(user.name.split(' ')[0]) // First name only
     }
     checkSubscriptionAndLoad()
   }, [router])
@@ -123,6 +129,11 @@ export default function DashboardPage() {
             Grade My Child
           </Link>
           <div className="flex items-center gap-4">
+            {parentName && (
+              <span className="text-sm text-neutral-600">
+                Hi, <span className="font-medium text-black">{parentName}</span>
+              </span>
+            )}
             {subscription && (subscription.tier === 'free' || subscription.tier === 'explorer') && (
               <Link href="/pricing">
                 <Button size="sm" variant="outline" className="rounded-full border-amber-400 text-amber-600 hover:bg-amber-50">
