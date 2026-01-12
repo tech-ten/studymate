@@ -38,3 +38,11 @@ coverage/
 # Misc
 *.tgz
 .turbo/
+
+# Lambda deployment artifacts
+*.zip
+migrate-all-users.js
+deploy-oauth.sh
+
+# Claude Code local settings
+.claude/settings.local.json
