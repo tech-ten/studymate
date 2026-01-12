@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 interface AuthStackProps extends cdk.StackProps {
@@ -33,6 +34,13 @@ export class AuthStack extends cdk.Stack {
 
     // Grant DynamoDB read/write access to the trigger (needs read for OAuth returning users)
     table.grantReadWriteData(postConfirmationTrigger);
+
+    // Grant Cognito AdminUpdateUserAttributes permission for tier syncing
+    postConfirmationTrigger.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['cognito-idp:AdminUpdateUserAttributes'],
+      resources: ['*'], // Will be scoped to user pool after creation
+    }));
 
     // User pool for parent accounts
     this.userPool = new cognito.UserPool(this, 'AgentsFormUserPool', {
@@ -104,11 +112,11 @@ export class AuthStack extends cdk.Stack {
         },
         scopes: [cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE],
         callbackUrls: [
-          'http://localhost:3000/auth/callback',
-          'https://grademychild.com.au/auth/callback',
-          'https://www.grademychild.com.au/auth/callback',
-          'https://tutor.agentsform.ai/auth/callback',
-          'https://agentsform.ai/auth/callback',
+          'http://localhost:3000/callback',
+          'https://grademychild.com.au/callback',
+          'https://www.grademychild.com.au/callback',
+          'https://tutor.agentsform.ai/callback',
+          'https://agentsform.ai/callback',
         ],
         logoutUrls: [
           'http://localhost:3000',

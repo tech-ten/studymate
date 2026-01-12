@@ -691,6 +691,13 @@ export async function getCustomerPortalUrl(): Promise<{ url: string }> {
   return apiFetch('/payments/portal');
 }
 
+export async function updateUserTier(tier: 'free' | 'explorer' | 'scholar' | 'achiever'): Promise<{ success: boolean; tier: string }> {
+  return apiFetch('/users/tier', {
+    method: 'PUT',
+    body: JSON.stringify({ tier }),
+  });
+}
+
 // ============ CURRICULUM API ============
 
 export interface CurriculumSectionSummary {

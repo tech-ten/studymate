@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { getUser, isAuthenticatedSync } from '@/lib/auth'
-import { createCheckoutSession } from '@/lib/api'
+import { createCheckoutSession, updateUserTier } from '@/lib/api'
 
 const plans = [
   {
@@ -14,7 +14,8 @@ const plans = [
     name: 'Explorer',
     subtitle: 'Perfect for getting started',
     price: null,
-    priceDisplay: 'Always Free',
+    priceDisplay: 'Free',
+    priceSubtext: 'Limited time offer',
     features: [
       '1 child profile',
       '5 questions to try',
@@ -85,16 +86,22 @@ function ChooseTierContent() {
 
   const handleSelectPlan = async (planId: string) => {
     setSelectedPlan(planId)
+    setLoading(true)
 
-    // Free tier - skip payment, go to redirect destination or dashboard
+    // Free tier - update tier in backend, then go to dashboard
     if (planId === 'free') {
-      setLoading(true)
-      router.push(redirect || '/dashboard')
+      try {
+        await updateUserTier('free')
+        router.push(redirect || '/dashboard')
+      } catch (err) {
+        console.error('Failed to update tier:', err)
+        setLoading(false)
+        alert('Failed to update tier. Please try again.')
+      }
       return
     }
 
     // Paid tiers - redirect to Stripe checkout
-    setLoading(true)
     try {
       const result = await createCheckoutSession(planId as 'scholar' | 'achiever')
       window.location.href = result.url
@@ -103,10 +110,6 @@ function ChooseTierContent() {
       setLoading(false)
       alert('Failed to start checkout. Please try again.')
     }
-  }
-
-  const handleSkip = () => {
-    router.push(redirect || '/dashboard') // Respect redirect parameter
   }
 
   return (
@@ -178,6 +181,11 @@ function ChooseTierContent() {
                     {plan.trial}
                   </div>
                 )}
+                {'priceSubtext' in plan && (
+                  <div className="text-sm mt-2 font-medium text-neutral-500">
+                    {plan.priceSubtext}
+                  </div>
+                )}
               </div>
 
               <ul className="space-y-3 mb-8 text-sm">
@@ -204,17 +212,6 @@ function ChooseTierContent() {
               </Button>
             </div>
           ))}
-        </div>
-
-        {/* Skip Option */}
-        <div className="text-center">
-          <button
-            onClick={handleSkip}
-            className="text-sm text-neutral-500 hover:text-black transition-colors underline"
-            disabled={loading}
-          >
-            I'll choose later, take me to my dashboard
-          </button>
         </div>
 
         {/* Testimonials */}

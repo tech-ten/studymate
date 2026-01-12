@@ -5,7 +5,12 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "test:local": "node test-local.js",
+    "test:oauth": "node test-local.js --test=oauth-new-user",
+    "test:linking": "node test-local.js --test=account-linking",
+    "migrate:oauth": "npx ts-node scripts/migrate-oauth-fields.ts --dry-run",
+    "migrate:oauth:execute": "npx ts-node scripts/migrate-oauth-fields.ts --execute"
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.958.0",

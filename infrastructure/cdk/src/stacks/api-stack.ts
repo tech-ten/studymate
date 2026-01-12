@@ -5,6 +5,7 @@ import * as apigatewayv2Integrations from 'aws-cdk-lib/aws-apigatewayv2-integrat
 import * as apigatewayv2Authorizers from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 interface ApiStackProps extends cdk.StackProps {
@@ -338,6 +339,24 @@ export class ApiStack extends cdk.Stack {
       path: '/payments/webhook',
       methods: [apigatewayv2.HttpMethod.POST],
       integration: new apigatewayv2Integrations.HttpLambdaIntegration('PaymentWebhookIntegration', paymentHandler),
+    });
+
+    // === USER ROUTES ===
+    // User handler for OAuth tier selection
+    const userHandler = createLambda('UserHandler', 'handlers/user.handler');
+    // Grant Cognito AdminUpdateUserAttributes permission
+    userHandler.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['cognito-idp:AdminUpdateUserAttributes'],
+      resources: [userPool.userPoolArn],
+    }));
+
+    // Update user tier - requires auth (called after OAuth tier selection)
+    this.api.addRoutes({
+      path: '/users/tier',
+      methods: [apigatewayv2.HttpMethod.PUT],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('UserTierIntegration', userHandler),
+      authorizer,
     });
 
     // === CURRICULUM ROUTES ===
