@@ -123,7 +123,7 @@ function LoginForm() {
           <span className="font-medium">Continue with Google</span>
         </button>
 
-        <div className="relative">
+        <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-neutral-200"></div>
           </div>
