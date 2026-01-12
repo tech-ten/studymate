@@ -221,6 +221,19 @@ aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 **Branch**: `feature/google-oauth-frontend`
 **Status**: Backend deployed, frontend in development (not in production)
 
+**Stashed Changes** (review when issues arise):
+```bash
+git stash list                    # See stash
+git stash show -p stash@{0}       # View diff
+git stash pop                     # Restore files
+```
+Stash `oauth-infrastructure-changes` contains:
+- `apps/web/src/app/(auth)/choose-tier/page.tsx`
+- `apps/web/src/lib/api.ts`
+- `infrastructure/cdk/src/stacks/api-stack.ts` - CDK API config
+- `infrastructure/cdk/src/stacks/auth-stack.ts` - CDK Cognito/OAuth config
+- `packages/api/package.json`
+
 **Cognito OAuth Configuration**:
 | Setting | Value |
 |---------|-------|
