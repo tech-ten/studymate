@@ -90,9 +90,8 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const tier = parentResult.Item?.tier || 'free';
       const limits = TIER_LIMITS[tier] || TIER_LIMITS.free;
 
-      // Get today's quiz count for limit checking (using Australia/Sydney timezone)
-      const sydneyDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' })
-      const today = new Date(sydneyDate).toISOString().split('T')[0]; // YYYY-MM-DD in Sydney timezone
+      // Get today's quiz count for limit checking (UTC - matches lastAttempt storage format)
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
       const todayQuizzes = await db.send(new QueryCommand({
         TableName: TABLE_NAME,
         KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
@@ -205,9 +204,8 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         });
       }
 
-      // Get today's quiz count (using Australia/Sydney timezone)
-      const sydneyDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' })
-      const today = new Date(sydneyDate).toISOString().split('T')[0]; // YYYY-MM-DD in Sydney timezone
+      // Get today's quiz count (UTC - matches lastAttempt storage format)
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
       const todayQuizzes = await db.send(new QueryCommand({
         TableName: TABLE_NAME,
         KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
