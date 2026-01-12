@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { signIn } from '@/lib/auth'
+import { signIn, clearAllAuthState } from '@/lib/auth'
 import { createCheckoutSession } from '@/lib/api'
 
 function LoginForm() {
@@ -101,9 +101,12 @@ function LoginForm() {
         <button
           type="button"
           onClick={() => {
-            const cognitoDomain = 'https://grademychild.auth.ap-southeast-2.amazoncognito.com'
+            // Clear any existing auth data before OAuth redirect
+            clearAllAuthState()
+
+            const cognitoDomain = 'https://auth.grademychild.com.au'
             const clientId = '6sehatih95apslqtikic4sf39o'
-            const redirectUri = encodeURIComponent(`${window.location.origin}/auth/callback`)
+            const redirectUri = encodeURIComponent(`${window.location.origin}/callback`)
             const responseType = 'code'
             const scope = 'email+openid+profile'
 

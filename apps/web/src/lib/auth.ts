@@ -42,6 +42,15 @@ function getCurrentSession(): Promise<CognitoUserSession | null> {
 
 // Get JWT token for API calls
 export async function getToken(): Promise<string | null> {
+  // First check for OAuth tokens in localStorage (from OAuth flow)
+  if (typeof window !== 'undefined') {
+    const idToken = localStorage.getItem('idToken');
+    if (idToken) {
+      return idToken;
+    }
+  }
+
+  // Fall back to Cognito session tokens (email/password flow)
   const session = await getCurrentSession();
   if (!session) return null;
   return session.getIdToken().getJwtToken();
@@ -68,6 +77,25 @@ export function clearUser(): void {
   if (typeof window === 'undefined') return;
   localStorage.removeItem('user');
   localStorage.removeItem('selectedChild');
+}
+
+// Clear all auth state (for OAuth redirect to prevent stale data)
+export function clearAllAuthState(): void {
+  if (typeof window === 'undefined') return;
+
+  // Clear our custom tokens
+  localStorage.removeItem('user');
+  localStorage.removeItem('idToken');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('childProfile');
+  localStorage.removeItem('selectedChild');
+
+  // Sign out from Cognito SDK (clears its localStorage entries)
+  const cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser) {
+    cognitoUser.signOut();
+  }
 }
 
 // Store selected child

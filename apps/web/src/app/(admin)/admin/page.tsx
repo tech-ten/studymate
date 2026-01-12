@@ -319,36 +319,95 @@ export default function AdminDashboard() {
 
             {/* Users Tab */}
             {activeTab === 'users' && (
-              <div className="border border-neutral-200 rounded-2xl overflow-hidden">
+              <div className="border border-neutral-200 rounded-2xl overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-neutral-50">
                     <tr>
-                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">User ID</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Email</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Status</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Profile</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Auth</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Tier</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Children</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">AI Today</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Joined</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user) => (
-                      <tr key={user.id} className="border-t border-neutral-100">
-                        <td className="px-4 py-3 text-sm font-mono text-neutral-600">
-                          {user.id.substring(0, 8)}...
+                    {users.map((user: any) => (
+                      <tr key={user.id} className="border-t border-neutral-100 hover:bg-neutral-50">
+                        <td className="px-4 py-3 text-sm">
+                          <div className="flex flex-col">
+                            <span className="font-medium">{user.email || '-'}</span>
+                            {!user.emailVerified && (
+                              <span className="text-xs text-orange-600">⚠ Not verified</span>
+                            )}
+                          </div>
                         </td>
-                        <td className="px-4 py-3 text-sm">{user.email || '-'}</td>
+                        <td className="px-4 py-3">
+                          <span className={`px-2 py-0.5 text-xs rounded-full ${
+                            user.accountStatus === 'verified'
+                              ? 'bg-green-100 text-green-700'
+                              : user.accountStatus === 'no-profile'
+                              ? 'bg-orange-100 text-orange-700'
+                              : 'bg-neutral-100 text-neutral-600'
+                          }`}>
+                            {user.accountStatus || 'unknown'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          <span className={`px-2 py-0.5 text-xs rounded-full ${
+                            user.hasProfile
+                              ? 'bg-blue-100 text-blue-700'
+                              : 'bg-red-100 text-red-700'
+                          }`}>
+                            {user.hasProfile ? 'DynamoDB' : 'Cognito only'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          <div className="flex flex-col gap-1">
+                            <span className={`px-2 py-0.5 text-xs rounded-full inline-block w-fit ${
+                              user.authMethod === 'both'
+                                ? 'bg-purple-100 text-purple-700'
+                                : user.authMethod === 'oauth'
+                                ? 'bg-green-100 text-green-700'
+                                : 'bg-neutral-100 text-neutral-600'
+                            }`}>
+                              {user.authMethod || 'email'}
+                            </span>
+                            {user.oauthProvider && (
+                              <span className="text-xs text-neutral-500">
+                                via {user.oauthProvider}
+                              </span>
+                            )}
+                          </div>
+                        </td>
                         <td className="px-4 py-3">
                           <span className={`px-2 py-0.5 text-xs rounded-full ${
                             user.tier === 'achiever'
                               ? 'bg-purple-100 text-purple-700'
                               : user.tier === 'scholar'
                               ? 'bg-blue-100 text-blue-700'
+                              : user.tier === 'explorer'
+                              ? 'bg-green-100 text-green-700'
                               : 'bg-neutral-100 text-neutral-600'
                           }`}>
                             {user.tier || 'free'}
                           </span>
+                          {user.hasSubscription && (
+                            <span className="ml-1 text-xs">💳</span>
+                          )}
                         </td>
-                        <td className="px-4 py-3 text-sm">{user.aiCallsToday}</td>
+                        <td className="px-4 py-3 text-sm">
+                          {user.childrenCount > 0 ? (
+                            <span className="font-medium text-blue-600">
+                              {user.childrenCount} {user.childrenCount === 1 ? 'child' : 'children'}
+                            </span>
+                          ) : (
+                            <span className="text-neutral-400">-</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-sm">{user.aiCallsToday || 0}</td>
                         <td className="px-4 py-3 text-sm text-neutral-400">
                           {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: '2-digit' }) : '-'}
                         </td>
@@ -368,17 +427,17 @@ export default function AdminDashboard() {
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Name</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Username</th>
                       <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Year</th>
-                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Parent ID</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-600">Parent Email</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {children.map((child) => (
+                    {children.map((child: any) => (
                       <tr key={child.id} className="border-t border-neutral-100">
                         <td className="px-4 py-3 text-sm font-medium">{child.name}</td>
                         <td className="px-4 py-3 text-sm text-neutral-600">{child.username || '-'}</td>
                         <td className="px-4 py-3 text-sm">Year {child.yearLevel}</td>
-                        <td className="px-4 py-3 text-sm font-mono text-neutral-400">
-                          {child.parentId.substring(0, 8)}...
+                        <td className="px-4 py-3 text-sm text-neutral-600">
+                          {child.parentEmail || '-'}
                         </td>
                       </tr>
                     ))}

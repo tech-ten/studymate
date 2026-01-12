@@ -217,6 +217,38 @@ aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 | **Parent** | Cognito JWT token via `apiFetch()` | Dashboard, child management, progress |
 | **Child** | localStorage only (no auth header) | Learning, quizzes, AI chat |
 
+### Google OAuth Integration (Feature Branch)
+**Branch**: `feature/google-oauth-frontend`
+**Status**: Backend deployed, frontend in development (not in production)
+
+**Cognito OAuth Configuration**:
+| Setting | Value |
+|---------|-------|
+| Cognito Domain | `auth.grademychild.com.au` |
+| Client ID | `6sehatih95apslqtikic4sf39o` |
+| Callback URL | `{origin}/callback` |
+| Identity Provider | Google |
+
+**Key Files**:
+| File | Purpose |
+|------|---------|
+| `apps/web/src/app/(auth)/callback/page.tsx` | OAuth callback handler with flicker prevention |
+| `apps/web/src/app/(auth)/login/page.tsx` | Login with Google OAuth button |
+| `apps/web/src/app/(auth)/get-started/page.tsx` | Signup with Google OAuth button |
+| `apps/web/src/lib/auth.ts` | `clearAllAuthState()` function for OAuth |
+| `packages/api/src/handlers/cognito-trigger.ts` | PostAuthentication trigger for OAuth users |
+
+**Account Unification**:
+- Users are unified by email address
+- OAuth user with same email as existing email/password user → accounts linked
+- DynamoDB fields: `auth_method`, `oauth_provider`, `oauth_sub`, `linked_accounts`
+
+**Lambda Functions**:
+| Function | Purpose |
+|----------|---------|
+| `agentsform-post-confirmation` | Cognito PostConfirmation & PostAuthentication trigger |
+| `agentsform-adminhandler` | Admin API with OAuth user support |
+
 ### API Auth Requirements
 | Endpoint | Auth Required |
 |----------|---------------|

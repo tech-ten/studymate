@@ -9,6 +9,7 @@ function CallbackHandler() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
+  const [showError, setShowError] = useState(false)
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -20,21 +21,38 @@ function CallbackHandler() {
       // Handle OAuth errors (user cancelled, permissions denied, etc.)
       if (errorParam) {
         console.error('OAuth error:', errorParam, errorDescription)
-        setError(errorDescription || 'Authentication failed')
+
+        // User-friendly messages for common errors
+        if (errorParam === 'access_denied' || errorDescription?.includes('access_denied')) {
+          setError('You cancelled the sign-in. No worries! Click below to try again.')
+        } else if (errorDescription) {
+          setError('Something went wrong. Please try again.')
+        } else {
+          setError('Authentication was cancelled')
+        }
+        // Delay showing error UI to prevent flicker
+        setTimeout(() => setShowError(true), 500)
         return
       }
 
-      // Missing authorization code
+      // Missing authorization code - wait before showing error
+      // This prevents flicker when URL params are still loading
       if (!code) {
-        setError('No authorization code received')
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        // Re-check after delay
+        const codeAfterDelay = new URLSearchParams(window.location.search).get('code')
+        if (!codeAfterDelay) {
+          setError('Something went wrong. Please try signing in again.')
+          setTimeout(() => setShowError(true), 500)
+        }
         return
       }
 
       try {
         // Exchange authorization code for tokens via Cognito token endpoint
-        const tokenEndpoint = 'https://grademychild.auth.ap-southeast-2.amazoncognito.com/oauth2/token'
+        const tokenEndpoint = 'https://auth.grademychild.com.au/oauth2/token'
         const clientId = '6sehatih95apslqtikic4sf39o'
-        const redirectUri = `${window.location.origin}/auth/callback`
+        const redirectUri = `${window.location.origin}/callback`
 
         const response = await fetch(tokenEndpoint, {
           method: 'POST',
@@ -75,15 +93,14 @@ function CallbackHandler() {
         localStorage.setItem('accessToken', tokens.access_token)
         localStorage.setItem('refreshToken', tokens.refresh_token)
 
-        // Redirect based on user tier
-        // Existing paid users go to original destination or dashboard
-        // New free users choose tier first, then redirect to original destination
+        // Redirect logic based ONLY on tier from Cognito (source of truth)
+        // Backend must set custom:tier attribute when user completes tier selection
         if (user.tier && user.tier !== 'free') {
-          // Returning paid user - go to redirect destination or dashboard
+          // Paid user (scholar/achiever) - go to redirect destination or dashboard
           router.push(redirect || '/dashboard')
         } else {
-          // New OAuth signup - show tier selection first
-          // Pass redirect param to tier selection so it can redirect after tier choice
+          // Free tier - show tier selection
+          // User will choose tier, backend updates custom:tier, then redirects to dashboard
           if (redirect) {
             router.push(`/choose-tier?redirect=${encodeURIComponent(redirect)}`)
           } else {
@@ -93,13 +110,17 @@ function CallbackHandler() {
       } catch (err) {
         console.error('OAuth callback error:', err)
         setError(err instanceof Error ? err.message : 'Authentication failed')
+        setTimeout(() => setShowError(true), 500)
       }
     }
 
     handleCallback()
   }, [searchParams, router])
 
-  if (error) {
+  // Only show error UI after delay to prevent flicker
+  if (showError && error) {
+    const isCancelled = error.includes('cancelled') || error.includes('No worries')
+
     return (
       <main className="min-h-screen flex items-center justify-center bg-white px-6">
         <div className="w-full max-w-sm">
@@ -110,14 +131,23 @@ function CallbackHandler() {
             </Link>
           </div>
 
-          <div className="p-6 text-center border border-red-100 bg-red-50 rounded-xl">
-            <h2 className="text-lg font-semibold mb-2 text-red-900">Authentication Failed</h2>
-            <p className="text-sm text-red-700 mb-6">{error}</p>
+          <div className="p-8 text-center border border-neutral-200 bg-neutral-50 rounded-xl">
+            <div className="mb-4">
+              {isCancelled ? (
+                <span className="text-4xl">👋</span>
+              ) : (
+                <span className="text-4xl">🤔</span>
+              )}
+            </div>
+            <h2 className="text-lg font-semibold mb-3">
+              {isCancelled ? 'Sign in cancelled' : 'Oops!'}
+            </h2>
+            <p className="text-neutral-600 mb-6">{error}</p>
             <Link
-              href="/login"
-              className="inline-block px-6 py-3 bg-black text-white rounded-xl hover:bg-neutral-800 transition-colors"
+              href="/get-started"
+              className="inline-block px-8 py-3 bg-black text-white rounded-xl hover:bg-neutral-800 transition-colors font-medium"
             >
-              Back to Login
+              Try again
             </Link>
           </div>
         </div>
