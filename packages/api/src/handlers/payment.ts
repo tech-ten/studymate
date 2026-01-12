@@ -79,7 +79,8 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const userEmail = userResult.Item?.email;
 
       // Create Stripe Checkout session with plan-specific trial period
-      const trialDays = TRIAL_DAYS[plan] || 14;
+      // Default to 3 days for any plan not explicitly listed
+      const trialDays = TRIAL_DAYS[plan] || 3;
       const session = await getStripe().checkout.sessions.create({
         mode: 'subscription',
         payment_method_types: ['card'],
