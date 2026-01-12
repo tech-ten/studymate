@@ -1,0 +1,39 @@
+{
+  "version": "2.0",
+  "routeKey": "PUT /users/tier",
+  "rawPath": "/users/tier",
+  "rawQueryString": "",
+  "headers": {
+    "content-type": "application/json",
+    "authorization": "Bearer test-jwt-token"
+  },
+  "requestContext": {
+    "accountId": "308045886682",
+    "apiId": "test-api",
+    "domainName": "api.test.com",
+    "domainPrefix": "api",
+    "http": {
+      "method": "PUT",
+      "path": "/users/tier",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "127.0.0.1",
+      "userAgent": "Mozilla/5.0"
+    },
+    "requestId": "test-request-id",
+    "routeKey": "PUT /users/tier",
+    "stage": "$default",
+    "time": "11/Jan/2026:00:00:00 +0000",
+    "timeEpoch": 1736640000000,
+    "authorizer": {
+      "jwt": {
+        "claims": {
+          "sub": "test-user-123",
+          "email": "test@example.com",
+          "custom:tier": "free"
+        }
+      }
+    }
+  },
+  "body": "{\"tier\":\"free\"}",
+  "isBase64Encoded": false
+}

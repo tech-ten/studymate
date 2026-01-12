@@ -1,0 +1,21 @@
+{
+  "version": "1",
+  "region": "ap-southeast-2",
+  "userPoolId": "ap-southeast-2_KQjSkcKvP",
+  "userName": "google_test-oauth-user-123",
+  "callerContext": {
+    "awsSdkVersion": "3.0",
+    "clientId": "6sehatih95apslqtikic4sf39o"
+  },
+  "triggerSource": "PostAuthentication_Authentication",
+  "request": {
+    "userAttributes": {
+      "sub": "google_test-oauth-user-123",
+      "email": "test-oauth@example.com",
+      "name": "Test OAuth User",
+      "identities": "[{\"userId\":\"103547991597142817347\",\"providerName\":\"Google\",\"providerType\":\"Google\",\"issuer\":null,\"primary\":true,\"dateCreated\":1736649600000}]",
+      "custom:tier": "free"
+    }
+  },
+  "response": {}
+}
