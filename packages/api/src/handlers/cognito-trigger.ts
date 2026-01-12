@@ -79,7 +79,11 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
     return event;
   }
 
-  const userId = event.userName;
+  // Use 'sub' as the primary user ID - it's consistent across OAuth and email auth
+  // and matches what the frontend extracts from the JWT token
+  // Note: event.userName can be 'Google_xxx' for OAuth users which doesn't match the JWT sub
+  const userId = event.request.userAttributes.sub;
+  const cognitoUsername = event.userName; // Keep for reference/logging
   const email = event.request.userAttributes.email;
   const name = event.request.userAttributes.name || null;
   const cognitoTier = event.request.userAttributes['custom:tier'] || 'free';
@@ -89,7 +93,14 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
   // Extract identity provider for OAuth users
   const identityProvider = signupMethod !== 'email' ? signupMethod : null;
 
-  const isOAuth = triggerSource === 'PostAuthentication_Authentication';
+  // Detect OAuth from multiple sources:
+  // 1. PostAuthentication trigger (returning OAuth users)
+  // 2. PostConfirmation with EXTERNAL_PROVIDER status (first-time OAuth users)
+  // 3. signupMethod detected as google/facebook/apple
+  const userStatus = event.request.userAttributes['cognito:user_status'];
+  const isOAuth = triggerSource === 'PostAuthentication_Authentication'
+    || userStatus === 'EXTERNAL_PROVIDER'
+    || signupMethod !== 'email';
 
   try {
     // STEP 1: Check if user with this email already exists (for account linking)

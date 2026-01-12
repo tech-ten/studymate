@@ -115,8 +115,10 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
       const dailyKey = `aiCalls_${today}`;
 
       // Fetch users from Cognito to get emails
+      // Note: We use 'sub' as the primary ID since it matches the JWT token and DynamoDB records
       const cognitoUsers: Array<{
-        id: string;
+        id: string; // This is the 'sub' attribute, not the Username
+        cognitoUsername: string; // Keep the original Username for reference
         email: string;
         createdAt: string;
         emailVerified: boolean;
@@ -133,9 +135,12 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         for (const user of listUsersResponse.Users || []) {
           const email = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email')?.Value || '';
           const emailVerified = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'email_verified')?.Value === 'true';
+          // Use 'sub' as the ID - it matches what's stored in DynamoDB and the JWT token
+          const sub = user.Attributes?.find((a: { Name?: string; Value?: string }) => a.Name === 'sub')?.Value || user.Username || '';
 
           cognitoUsers.push({
-            id: user.Username || '',
+            id: sub,
+            cognitoUsername: user.Username || '',
             email,
             createdAt: user.UserCreateDate?.toISOString() || '',
             emailVerified,
