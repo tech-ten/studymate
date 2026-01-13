@@ -8,6 +8,16 @@ import { Button } from '@/components/ui/button'
 import { signIn, clearAllAuthState } from '@/lib/auth'
 import { createCheckoutSession } from '@/lib/api'
 
+// API base URL
+const API_URL = 'https://yhn9tli08d.execute-api.ap-southeast-2.amazonaws.com'
+
+// Auth method check response type
+interface AuthMethodResponse {
+  exists: boolean
+  auth_method?: 'email' | 'oauth' | 'both'
+  provider?: string
+}
+
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -20,6 +30,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [oauthOnly, setOauthOnly] = useState<{ provider: string } | null>(null)
 
   useEffect(() => {
     if (prefillEmail) {
@@ -31,8 +42,23 @@ function LoginForm() {
     e.preventDefault()
     setLoading(true)
     setError(null)
+    setOauthOnly(null)
 
     try {
+      // Step 1: Check if this email uses OAuth-only authentication
+      const checkResponse = await fetch(`${API_URL}/auth/check-method?email=${encodeURIComponent(email)}`)
+      if (checkResponse.ok) {
+        const authData: AuthMethodResponse = await checkResponse.json()
+
+        if (authData.exists && authData.auth_method === 'oauth') {
+          // OAuth-only user - don't attempt password login
+          setOauthOnly({ provider: authData.provider || 'Google' })
+          setLoading(false)
+          return
+        }
+      }
+
+      // Step 2: Proceed with password authentication
       const { token } = await signIn(email, password)
 
       // If checkout param is present, handle based on plan
@@ -167,6 +193,33 @@ function LoginForm() {
           {error && (
             <div className="p-4 text-sm text-red-700 bg-red-50 border border-red-100 rounded-xl">
               {error}
+            </div>
+          )}
+
+          {oauthOnly && (
+            <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl">
+              <p className="text-sm text-blue-800 mb-3">
+                This email is registered with {oauthOnly.provider} Sign-In. Please use the button above to continue.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  clearAllAuthState()
+                  const cognitoDomain = 'https://auth.grademychild.com.au'
+                  const clientId = '6sehatih95apslqtikic4sf39o'
+                  const oauthRedirectPage = `${window.location.origin}/oauth-redirect`
+                  window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(oauthRedirectPage)}`
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                  <path d="M19.6 10.227c0-.709-.064-1.39-.182-2.045H10v3.868h5.382a4.6 4.6 0 01-1.996 3.018v2.51h3.232c1.891-1.742 2.982-4.305 2.982-7.35z" fill="#4285F4"/>
+                  <path d="M10 20c2.7 0 4.964-.895 6.618-2.423l-3.232-2.509c-.895.6-2.04.955-3.386.955-2.605 0-4.81-1.76-5.595-4.123H1.064v2.59A9.996 9.996 0 0010 20z" fill="#34A853"/>
+                  <path d="M4.405 11.9c-.2-.6-.314-1.24-.314-1.9 0-.66.114-1.3.314-1.9V5.51H1.064A9.996 9.996 0 000 10c0 1.614.386 3.14 1.064 4.49l3.34-2.59z" fill="#FBBC05"/>
+                  <path d="M10 3.977c1.468 0 2.786.505 3.823 1.496l2.868-2.868C14.959.99 12.695 0 10 0 6.09 0 2.71 2.24 1.064 5.51l3.34 2.59C5.19 5.736 7.395 3.977 10 3.977z" fill="#EA4335"/>
+                </svg>
+                <span className="text-sm font-medium text-blue-800">Continue with {oauthOnly.provider}</span>
+              </button>
             </div>
           )}
 

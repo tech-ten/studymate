@@ -343,6 +343,18 @@ export class ApiStack extends cdk.Stack {
       integration: new apigatewayv2Integrations.HttpLambdaIntegration('PaymentWebhookIntegration', paymentHandler),
     });
 
+    // === AUTH CHECK ROUTES ===
+    // Public endpoint to check authentication method by email
+    // Used by login page to detect OAuth-only users
+    const authCheckHandler = createLambda('AuthCheckHandler', 'handlers/auth-check.handler');
+
+    this.api.addRoutes({
+      path: '/auth/check-method',
+      methods: [apigatewayv2.HttpMethod.GET],
+      integration: new apigatewayv2Integrations.HttpLambdaIntegration('AuthCheckIntegration', authCheckHandler),
+      // No authorizer - public endpoint for pre-login check
+    });
+
     // === USER ROUTES ===
     // User handler for OAuth tier selection
     const userHandler = createLambda('UserHandler', 'handlers/user.handler');
