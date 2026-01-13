@@ -1,18 +1,21 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState, useRef, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 
 function CallbackHandler() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
   const [showError, setShowError] = useState(false)
+  const hasRun = useRef(false)
 
   useEffect(() => {
     const handleCallback = async () => {
+      // Prevent duplicate execution in React Strict Mode
+      if (hasRun.current) return
+      hasRun.current = true
       const code = searchParams.get('code')
       const errorParam = searchParams.get('error')
       const errorDescription = searchParams.get('error_description')
@@ -93,19 +96,35 @@ function CallbackHandler() {
         localStorage.setItem('accessToken', tokens.access_token)
         localStorage.setItem('refreshToken', tokens.refresh_token)
 
-        // Redirect logic based ONLY on tier from Cognito (source of truth)
-        // Backend must set custom:tier attribute when user completes tier selection
-        if (user.tier && user.tier !== 'free') {
-          // Paid user (scholar/achiever) - go to redirect destination or dashboard
-          router.push(redirect || '/dashboard')
-        } else {
-          // Free tier - show tier selection
-          // User will choose tier, backend updates custom:tier, then redirects to dashboard
-          if (redirect) {
-            router.push(`/choose-tier?redirect=${encodeURIComponent(redirect)}`)
-          } else {
-            router.push('/choose-tier')
+        // Check if returning user by fetching their subscription/profile status
+        // If user has an existing profile in DB, they're returning → go to dashboard
+        // If no profile (new OAuth user), they're new → go to choose-tier
+        try {
+          const statusRes = await fetch('https://yhn9tli08d.execute-api.ap-southeast-2.amazonaws.com/payments/status', {
+            headers: { 'Authorization': `Bearer ${tokens.id_token}` }
+          })
+
+          if (statusRes.ok) {
+            const statusData = await statusRes.json()
+            // If we got a valid response with a tier, user exists in DB
+            if (statusData.tier) {
+              // Returning user - go to dashboard
+              // Use window.location for clean redirect (no React re-render issues)
+              window.location.href = redirect || '/dashboard'
+              return
+            }
           }
+        } catch (err) {
+          console.error('Failed to check user status:', err)
+          // On error, fall through to tier selection for safety
+        }
+
+        // New user - go to tier selection/onboarding
+        // Use window.location for clean redirect (no React re-render issues)
+        if (redirect) {
+          window.location.href = `/choose-tier?redirect=${encodeURIComponent(redirect)}`
+        } else {
+          window.location.href = '/choose-tier'
         }
       } catch (err) {
         console.error('OAuth callback error:', err)
@@ -115,7 +134,8 @@ function CallbackHandler() {
     }
 
     handleCallback()
-  }, [searchParams, router])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   // Only show error UI after delay to prevent flicker
   if (showError && error) {
