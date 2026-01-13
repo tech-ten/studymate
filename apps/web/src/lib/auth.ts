@@ -77,6 +77,11 @@ export function clearUser(): void {
   if (typeof window === 'undefined') return;
   localStorage.removeItem('user');
   localStorage.removeItem('selectedChild');
+  // Also clear OAuth tokens to prevent stale token usage on re-login
+  localStorage.removeItem('idToken');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('childProfile');
 }
 
 // Clear all auth state (for OAuth redirect to prevent stale data)
