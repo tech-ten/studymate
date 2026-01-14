@@ -37,7 +37,7 @@ An AI tutor that:
 This is a fair question. Here's the difference:
 
 | Feature | Free ChatGPT | StudyMate |
-|---------|-------------|-----------|
+|---------|-------------|-----------
 | Curriculum alignment | Generic knowledge | Victorian VCAA codes (VCMNA186, etc.) |
 | Progress tracking | None | Per-child, per-section, over time |
 | Structured learning path | Random Q&A | Strands → Chapters → Sections → Quizzes |
@@ -66,9 +66,9 @@ This is a fair question. Here's the difference:
 
 | Tier | Price | Target |
 |------|-------|--------|
-| Free | $0 | Lead generation, 10 AI calls/day limit drives upgrades |
-| Scholar | $5/mo | Cost-conscious families, 1-2 children |
-| Achiever | $12/mo | Aspirational families, 3+ children, want detailed reports |
+| Explorer | $0 | Lead generation, 5 questions/day + locked solutions drives upgrades |
+| Scholar | $5/mo | Single-child families, unlimited questions + worked solutions |
+| Achiever | $12/mo | Multi-child families (6 kids), detailed reports + concept mastery |
 
 ### Unit Economics
 
@@ -121,7 +121,7 @@ With Retrieval-Augmented Generation, the AI will:
 
 ## Founder Story
 
-> "I was paying $160/month for Kumon for my two kids. The content was okay, but it wasn't personalised—just worksheets at a fixed pace.
+> "I was paying $320/month for Kumon for my two kids ($160 each). The content was okay, but it wasn't personalised—just worksheets at a fixed pace.
 >
 > I also tried James An College, but one of my sons had a low English level and couldn't keep up with the group pace. He needed to learn at his own speed while still covering all curriculum requirements.
 >
@@ -129,7 +129,7 @@ With Retrieval-Augmented Generation, the AI will:
 >
 > — Founder
 
-This is the core proposition: **Replace $160-400/month tutoring services with a $5-12/month AI-powered alternative that adapts to each child.**
+This is the core proposition: **Replace $320-400/month tutoring services with a $5-12/month AI-powered alternative that adapts to each child.**
 
 ---
 
@@ -137,7 +137,7 @@ This is the core proposition: **Replace $160-400/month tutoring services with a 
 
 | Service | Monthly Cost | AI-Powered | Curriculum-Aligned | Self-Paced | Progress Tracking |
 |---------|-------------|------------|-------------------|------------|-------------------|
-| **Kumon** | $80-160 | No | Generic | Fixed pace | Paper-based |
+| **Kumon** | $160/child | No | Generic | Fixed pace | Paper-based |
 | **James An College** | $200-400 | No | Yes | Group pace | Limited |
 | **Cluey Learning** | $300+ | No | Yes | Tutor-paced | Yes |
 | **Khan Academy** | Free | Limited | US-focused | Yes | Basic |
@@ -169,7 +169,10 @@ This is the core proposition: **Replace $160-400/month tutoring services with a 
 
 ## Team
 
-*[To be populated with founder/team details]*
+**Tendai Mudavanhu** - Founder & Solutions Architect
+- Parent of three primary school kids
+- Full-stack engineering and AWS/AI experience
+- Built and deployed entire platform solo
 
 ---
 
@@ -189,8 +192,9 @@ This is the core proposition: **Replace $160-400/month tutoring services with a 
 ### Q1 2026 (Current) ✅
 - Victorian curriculum Years 3-6 Maths
 - AI tutor with Groq LLaMA 3.3
-- Stripe payments with 14-day trial
+- Stripe payments with 3-day trial
 - Admin dashboard with analytics
+- Google OAuth sign-in with seamless account linking
 
 ### Q2 2026
 - English curriculum (Years 3-6)
@@ -214,12 +218,11 @@ This is the core proposition: **Replace $160-400/month tutoring services with a 
 
 ## Traction
 
-### Current Stats (2 January 2026)
+### Current Stats (January 2026)
 
-- **Platform**: Live at tutor.agentsform.ai
-- **Users**: 1 registered parent
-- **Children**: 1 active learner
-- **AI Interactions**: 25 today
+- **Platform**: Live at grademychild.com.au
+- **Users**: 5 registered families
+- **Children**: 6 active learners
 - **Payment System**: Stripe fully integrated
 - **Content**: Year 3-6 Maths complete
 
@@ -228,9 +231,10 @@ This is the core proposition: **Replace $160-400/month tutoring services with a 
 - [x] Production deployment on AWS
 - [x] AI tutor integration (Groq LLaMA 3.3)
 - [x] Victorian curriculum browser
-- [x] Stripe payments with 14-day trial
+- [x] Stripe payments with 3-day trial
 - [x] Admin analytics dashboard
 - [x] Gamification system (XP, badges, streaks)
+- [x] Google OAuth with automatic account linking
 
 ---
 
@@ -244,5 +248,5 @@ This is the core proposition: **Replace $160-400/month tutoring services with a 
 
 ## Contact
 
-**Website**: https://tutor.agentsform.ai
+**Website**: https://grademychild.com.au
 **Demo**: Available on request

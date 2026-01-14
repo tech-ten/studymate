@@ -42,7 +42,7 @@ studymate/
 | Frontend | Next.js 14, TypeScript, Tailwind, shadcn/ui |
 | Backend | AWS Lambda (Node.js 20, ARM64) |
 | Database | DynamoDB (single-table design) |
-| Auth | AWS Cognito (parents) + DynamoDB (children) |
+| Auth | AWS Cognito + Google OAuth (parents), DynamoDB (children) |
 | AI | Groq API (LLaMA 3.3 70B) |
 | Payments | Stripe |
 | CDN | CloudFront |
@@ -69,7 +69,11 @@ STRIPE_PRICE_ACHIEVER=price_xxx         # Achiever tier ($12/mo) price ID
 ADMIN_API_KEY=your-secure-key           # For /admin endpoints
 
 # Frontend
-FRONTEND_URL=https://tutor.agentsform.ai
+FRONTEND_URL=https://grademychild.com.au
+
+# Google OAuth
+GOOGLE_CLIENT_ID=xxx.apps.googleusercontent.com   # From Google Cloud Console
+GOOGLE_CLIENT_SECRET=GOCSPX-xxx                   # From Google Cloud Console
 ```
 
 ---
@@ -82,6 +86,8 @@ FRONTEND_URL=https://tutor.agentsform.ai
 |--------|------|------|-------------|
 | POST | /children/login | None | Child PIN login |
 | * | /children/* | Cognito | Parent child management |
+| GET | /auth/check-method | None | Check user's auth method by email |
+| PUT | /users/tier | Cognito | Update user tier (OAuth users) |
 
 ### Learning
 
@@ -125,7 +131,7 @@ FRONTEND_URL=https://tutor.agentsform.ai
 ```
 PK                    │ SK                    │ Attributes
 ──────────────────────┼───────────────────────┼──────────────────────
-USER#<userId>         │ PROFILE               │ email, tier, stripeCustomerId
+USER#<userId>         │ PROFILE               │ email, tier, stripeCustomerId, auth_method, oauth_provider
 USER#<userId>         │ CHILD#<childId>       │ name, yearLevel, pin
 CHILD#<childId>       │ PROFILE               │ parentId, username, avatar
 CHILD#<childId>       │ PROGRESS#maths        │ level, xp, accuracy
@@ -363,6 +369,88 @@ npx esbuild src/handlers/ai.ts --bundle --platform=node --target=node20 \
 
 ---
 
+## Google OAuth Integration
+
+### Overview
+
+StudyMate supports Google OAuth for parent authentication, providing a seamless sign-in experience alongside traditional email/password login.
+
+### OAuth Configuration
+
+| Setting | Value |
+|---------|-------|
+| Cognito Domain | `auth.grademychild.com.au` |
+| Client ID | `6sehatih95apslqtikic4sf39o` |
+| Identity Provider | Google |
+| Callback URL | `{origin}/callback` |
+| Logout URL | `{origin}/oauth-redirect` |
+
+### Account Linking
+
+When an existing email/password user signs in with Google OAuth using the same email:
+
+1. **PreSignUp Lambda trigger** detects existing account
+2. `AdminLinkProviderForUser` API links OAuth identity to existing Cognito user
+3. Lambda throws `USER_LINKED_TO_EXISTING_ACCOUNT` error
+4. Callback page catches error, sets `sessionStorage.accountLinked` flag
+5. Callback page immediately retries OAuth (succeeds with linked identity)
+6. Dashboard shows toast notification: "Google account linked"
+
+### Key OAuth Files
+
+| File | Purpose |
+|------|---------|
+| `apps/web/src/app/(auth)/callback/page.tsx` | OAuth callback, token exchange, account linking |
+| `apps/web/src/app/(auth)/oauth-redirect/page.tsx` | Logout redirect handler |
+| `packages/api/src/handlers/cognito-trigger.ts` | PreSignUp, PostConfirmation, PostAuthentication triggers |
+| `packages/api/src/handlers/auth-check.ts` | Check user auth method by email |
+| `infrastructure/cdk/src/stacks/auth-stack.ts` | Cognito User Pool, Google IdP config |
+
+### OAuth User Fields in DynamoDB
+
+```typescript
+{
+  PK: 'USER#<cognito-sub>',
+  SK: 'PROFILE',
+  email: 'user@example.com',
+  tier: 'scholar',
+  auth_method: 'both',           // 'email' | 'oauth' | 'both'
+  oauth_provider: 'google',      // 'google' | 'facebook' | 'apple' | null
+  oauth_sub: '<cognito-sub>',    // Cognito sub for OAuth users
+  linked_accounts: ['cognito:email', 'oauth:google'],
+  signupMethod: 'email',         // Original signup method
+  identityProvider: 'google',    // OAuth provider name
+  firstLoginDate: '2026-01-14T00:00:00.000Z',
+  lastLoginDate: '2026-01-14T12:00:00.000Z'
+}
+```
+
+### Lambda Triggers
+
+| Trigger | Event | Purpose |
+|---------|-------|---------|
+| PreSignUp | `PreSignUp_ExternalProvider` | Link OAuth to existing email accounts |
+| PostConfirmation | `PostConfirmation_ConfirmSignUp` | Create profile for email signups |
+| PostAuthentication | `PostAuthentication_Authentication` | Update lastLoginDate, sync tier |
+
+### Testing OAuth
+
+```bash
+# Reset test user (remove Google identity)
+aws cognito-idp admin-disable-provider-for-user \
+  --user-pool-id ap-southeast-2_KQjSkcKvP \
+  --user ProviderName=Google,ProviderAttributeName=Cognito_Subject,ProviderAttributeValue=<google-user-id> \
+  --region ap-southeast-2
+
+# Check user identities
+aws cognito-idp admin-get-user \
+  --user-pool-id ap-southeast-2_KQjSkcKvP \
+  --username <cognito-username> \
+  --region ap-southeast-2
+```
+
+---
+
 ## Frontend Structure
 
 ```
@@ -370,8 +458,11 @@ apps/web/src/
 ├── app/
 │   ├── page.tsx                    # Landing page
 │   ├── (auth)/
-│   │   ├── login/                  # Parent login
-│   │   └── register/               # Parent registration
+│   │   ├── login/                  # Parent login (+ Google OAuth)
+│   │   ├── register/               # Parent registration
+│   │   ├── callback/               # OAuth callback handler
+│   │   ├── oauth-redirect/         # Logout redirect handler
+│   │   └── choose-tier/            # Tier selection (OAuth users)
 │   ├── (parent)/
 │   │   ├── dashboard/              # Parent dashboard
 │   │   ├── children/               # Child management

@@ -84,6 +84,16 @@ We do not transfer personal information outside Australia. Our AI provider (Groq
 - Child's name is not included in AI requests
 - Responses are not stored by Groq
 
+### Google OAuth Integration
+
+When users sign in with Google, the following applies:
+- Google verifies identity and provides email/name to AWS Cognito
+- We store only email and display name from Google
+- No Google access tokens are stored long-term
+- Google's data practices are governed by their Privacy Policy
+- Users can unlink Google at any time via account settings
+- Account linking is controlled by AWS Cognito in Sydney (ap-southeast-2)
+
 ---
 
 ## 4. Consumer Law (ACL) Compliance
@@ -95,12 +105,12 @@ We do not transfer personal information outside Australia. Our AI provider (Groq
 | Clear pricing | Displayed on /pricing page |
 | No hidden fees | Subscription price is all-inclusive |
 | Easy cancellation | Self-service via Stripe portal |
-| Refund policy | 14-day trial, pro-rata refunds |
+| Refund policy | 3-day trial, pro-rata refunds |
 | Fair terms | Plain English, no harsh clauses |
 
 ### Subscription Terms
 
-- **Free trial**: 14 days, card required, not charged until trial ends
+- **Free trial**: 3 days, card required, not charged until trial ends
 - **Billing**: Monthly, charged on subscription anniversary
 - **Cancellation**: Effective immediately, access until period end
 - **Refunds**: Pro-rata for annual plans, discretionary for monthly
@@ -109,7 +119,7 @@ We do not transfer personal information outside Australia. Our AI provider (Groq
 
 ## 5. Terms of Service Summary
 
-Full terms available at: tutor.agentsform.ai/terms
+Full terms available at: grademychild.com.au/terms
 
 ### Key Terms
 
@@ -124,13 +134,15 @@ Full terms available at: tutor.agentsform.ai/terms
 
 ## 6. Privacy Policy Summary
 
-Full policy available at: tutor.agentsform.ai/privacy
+Full policy available at: grademychild.com.au/privacy
 
 ### What We Collect
 
 **From Parents:**
 - Email address
-- Password (hashed, never stored in plain text)
+- Password (hashed, never stored in plain text) - for email/password signups
+- Google account information (email, name) - for Google OAuth signups
+- Authentication method preference (email, Google OAuth, or both)
 - Payment information (processed by Stripe, we don't store card numbers)
 - Subscription status
 
@@ -164,10 +176,10 @@ Full policy available at: tutor.agentsform.ai/privacy
 
 ## 7. Refund Policy Summary
 
-Full policy available at: tutor.agentsform.ai/refund
+Full policy available at: grademychild.com.au/refund
 
 ### Free Trial
-- 14-day trial included with paid plans
+- 3-day trial included with paid plans
 - Cancel before trial ends = no charge
 - Trial starts when checkout completed
 
@@ -197,6 +209,7 @@ Full policy available at: tutor.agentsform.ai/refund
 | Encryption in transit | TLS 1.3 |
 | Encryption at rest | AES-256 (DynamoDB) |
 | Password storage | bcrypt hashing (Cognito) |
+| OAuth authentication | Google OAuth 2.0 via AWS Cognito |
 | API authentication | JWT tokens |
 | Admin access | API key authentication |
 
@@ -248,7 +261,7 @@ If unsatisfied with our response:
 - Phone: 1300 363 992
 
 ### General Support
-- Website: tutor.agentsform.ai
+- Website: grademychild.com.au
 - Email: support@agentsform.ai
 
 ---
@@ -258,6 +271,7 @@ If unsatisfied with our response:
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | 2 Jan 2026 | Initial release |
+| 1.1 | 14 Jan 2026 | Added Google OAuth data handling |
 
 This document is reviewed quarterly and updated as required.
 

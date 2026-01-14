@@ -10,10 +10,20 @@ StudyMate is an AI-powered learning platform designed specifically for Australia
 
 ### Step 1: Create Your Account
 
-1. Go to **tutor.agentsform.ai/register**
+**Option A: Sign up with Google (Recommended)**
+1. Go to **grademychild.com.au/get-started**
+2. Click **"Continue with Google"**
+3. Select your Google account
+4. Choose your subscription tier
+5. You're ready to go!
+
+**Option B: Sign up with Email**
+1. Go to **grademychild.com.au/get-started**
 2. Enter your email and create a password
 3. Check your email for a verification code
 4. Enter the code to verify your account
+
+**Already have an account?** You can add Google sign-in to your existing account at any time. Just click "Continue with Google" on the login page using the same email address. Your accounts will be automatically linked.
 
 ### Step 2: Add Your Child
 
@@ -33,7 +43,7 @@ The first time your child logs in, they'll take a short benchmark test. This hel
 
 ### Logging In
 
-1. Your child goes to **tutor.agentsform.ai/child-login**
+1. Your child goes to **grademychild.com.au/child-login**
 2. They enter their username and 4-digit PIN
 3. They see their dashboard with XP, streaks, and subjects
 
@@ -101,7 +111,7 @@ Your child sees:
 - School integration (coming soon)
 
 ### 14-Day Free Trial
-All paid plans come with a 14-day free trial. Your card won't be charged until the trial ends. Cancel anytime from your dashboard.
+All paid plans come with a 3-day free trial. Your card won't be charged until the trial ends. Cancel anytime from your dashboard.
 
 ---
 
@@ -112,7 +122,7 @@ All paid plans come with a 14-day free trial. Your card won't be charged until t
 2. Click **"Upgrade"** (yellow button in header)
 3. Choose Scholar or Achiever
 4. Enter payment details
-5. Start your 14-day trial
+5. Start your 3-day trial
 
 ### To Manage or Cancel
 1. Go to your **Dashboard**
@@ -138,6 +148,14 @@ Yes. We take privacy seriously:
 - All data is stored in Australia (Sydney)
 - We don't sell data or show ads to children
 - You can delete your account anytime
+- If you sign in with Google, we only store your email and name
+
+### Can I sign in with Google?
+Yes! We support Google Sign-In for faster access:
+- Click "Continue with Google" on the login or signup page
+- If you already have an email/password account, it will be automatically linked
+- You can then sign in using either method
+- You'll see a notification when accounts are linked
 
 ### How much time should my child spend on StudyMate?
 We recommend 15-20 minutes daily. Consistency is more important than duration. The streak feature encourages regular practice without marathon sessions.
@@ -205,8 +223,8 @@ Contact us through the app or email support. We typically respond within 24 hour
 
 ## Need More Help?
 
-- **Website**: tutor.agentsform.ai
+- **Website**: grademychild.com.au
 - **Email**: (via AgentsForm support)
-- **FAQ**: tutor.agentsform.ai/faq (coming soon)
+- **FAQ**: grademychild.com.au/faq (coming soon)
 
 Thank you for choosing StudyMate. We're here to help your child succeed!

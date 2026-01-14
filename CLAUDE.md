@@ -20,6 +20,8 @@ StudyMate (branded as "Grade My Child") is an AI-powered curriculum grading plat
 | `docs/PARENT_GUIDE.md` | User guide for parents |
 | `docs/STUDENT_GUIDE.md` | User guide for children |
 | `docs/LEGAL_COMPLIANCE.md` | Privacy Act, data protection |
+| `docs/USER_MANAGEMENT.md` | ⭐ User lifecycle, OAuth account linking, DynamoDB schema |
+| `docs/OAUTH_ARCHITECTURE.md` | Google OAuth flow, account linking, Lambda triggers |
 
 ### Key Code Files
 | File | Purpose |
@@ -140,6 +142,8 @@ All secrets stored in `.env` file (gitignored):
 | `STRIPE_PRICE_SCHOLAR` | $5/mo Scholar tier price ID |
 | `STRIPE_PRICE_ACHIEVER` | $12/mo Achiever tier price ID |
 | `ADMIN_API_KEY` | Admin dashboard access |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
 
 ---
 
@@ -217,50 +221,132 @@ aws cloudfront create-invalidation --distribution-id E1WZZKB5A9CWD6 --paths "/*"
 | **Parent** | Cognito JWT token via `apiFetch()` | Dashboard, child management, progress |
 | **Child** | localStorage only (no auth header) | Learning, quizzes, AI chat |
 
-### Google OAuth Integration (Feature Branch)
-**Branch**: `feature/google-oauth-frontend`
-**Status**: Backend deployed, frontend in development (not in production)
+### Google OAuth Integration
+**Status**: ✅ **LIVE IN PRODUCTION** (deployed 2026-01-14)
 
-**Stashed Changes** (review when issues arise):
-```bash
-git stash list                    # See stash
-git stash show -p stash@{0}       # View diff
-git stash pop                     # Restore files
-```
-Stash `oauth-infrastructure-changes` contains:
-- `apps/web/src/app/(auth)/choose-tier/page.tsx`
-- `apps/web/src/lib/api.ts`
-- `infrastructure/cdk/src/stacks/api-stack.ts` - CDK API config
-- `infrastructure/cdk/src/stacks/auth-stack.ts` - CDK Cognito/OAuth config
-- `packages/api/package.json`
-
-**Cognito OAuth Configuration**:
+#### Cognito OAuth Configuration
 | Setting | Value |
 |---------|-------|
 | Cognito Domain | `auth.grademychild.com.au` |
 | Client ID | `6sehatih95apslqtikic4sf39o` |
 | Callback URL | `{origin}/callback` |
+| Logout URL | `{origin}/oauth-redirect` |
 | Identity Provider | Google |
+| Google Client ID | `496794315636-lcosupe2cedmdcic63efi12kfsnke5fn.apps.googleusercontent.com` |
 
-**Key Files**:
+#### OAuth Flow Architecture
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        GOOGLE OAUTH FLOW                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  1. LOGIN/SIGNUP PAGE                                                        │
+│     User clicks "Continue with Google" button                                │
+│     └─ Redirect to: auth.grademychild.com.au/oauth2/authorize               │
+│                                                                              │
+│  2. COGNITO HOSTED UI                                                        │
+│     Cognito redirects to Google                                              │
+│     └─ User authenticates with Google account                               │
+│                                                                              │
+│  3. PRESIGNUP LAMBDA TRIGGER (new users or account linking)                  │
+│     ├─ Check if email exists in Cognito (ListUsers API)                     │
+│     ├─ If existing email/password user:                                     │
+│     │   └─ Link OAuth identity (AdminLinkProviderForUser)                   │
+│     │   └─ Throw USER_LINKED_TO_EXISTING_ACCOUNT error                      │
+│     │   └─ Update DynamoDB: auth_method='both', linked_accounts=[...]       │
+│     └─ If new user: Auto-confirm and auto-verify                            │
+│                                                                              │
+│  4. CALLBACK PAGE (/callback)                                                │
+│     ├─ If USER_LINKED_TO_EXISTING_ACCOUNT error:                            │
+│     │   └─ Set sessionStorage flag 'accountLinked'                          │
+│     │   └─ Immediately retry OAuth (now succeeds with linked account)       │
+│     ├─ Exchange authorization code for tokens                               │
+│     ├─ Check user status via /payments/status API                           │
+│     │   └─ Returning user (has tier) → /dashboard                           │
+│     │   └─ New user → /choose-tier                                          │
+│     └─ Store tokens in localStorage                                          │
+│                                                                              │
+│  5. DASHBOARD (for linked accounts)                                          │
+│     └─ Check sessionStorage for 'accountLinked' flag                        │
+│     └─ Show toast notification: "Google account linked"                     │
+│     └─ Clear flag immediately (one-time display)                            │
+│                                                                              │
+│  6. POSTAUTHENTICATION LAMBDA TRIGGER (returning users)                      │
+│     └─ Update lastLoginDate in DynamoDB                                      │
+│     └─ Sync tier from DynamoDB to Cognito custom:tier                       │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Key Files
 | File | Purpose |
 |------|---------|
-| `apps/web/src/app/(auth)/callback/page.tsx` | OAuth callback handler with flicker prevention |
+| `apps/web/src/app/(auth)/callback/page.tsx` | OAuth callback handler, token exchange, account linking retry |
 | `apps/web/src/app/(auth)/login/page.tsx` | Login with Google OAuth button |
 | `apps/web/src/app/(auth)/get-started/page.tsx` | Signup with Google OAuth button |
-| `apps/web/src/lib/auth.ts` | `clearAllAuthState()` function for OAuth |
-| `packages/api/src/handlers/cognito-trigger.ts` | PostAuthentication trigger for OAuth users |
+| `apps/web/src/app/(auth)/oauth-redirect/page.tsx` | Logout redirect handler |
+| `apps/web/src/app/(parent)/dashboard/page.tsx` | Account linked toast notification |
+| `apps/web/src/lib/auth.ts` | `signOut()` with Cognito logout, `clearAllAuthState()` |
+| `packages/api/src/handlers/cognito-trigger.ts` | PreSignUp, PostConfirmation, PostAuthentication triggers |
+| `packages/api/src/handlers/auth-check.ts` | Check user auth method by email |
+| `packages/api/src/handlers/user.ts` | PUT /users/tier endpoint |
+| `infrastructure/cdk/src/stacks/auth-stack.ts` | Cognito User Pool, Google IdP, Lambda triggers |
 
-**Account Unification**:
-- Users are unified by email address
-- OAuth user with same email as existing email/password user → accounts linked
-- DynamoDB fields: `auth_method`, `oauth_provider`, `oauth_sub`, `linked_accounts`
+#### Account Linking (PreSignUp Trigger)
+When an email/password user clicks "Sign in with Google":
+1. **PreSignUp_ExternalProvider** trigger fires
+2. Lambda queries Cognito: `ListUsers` with email filter
+3. If native user exists: `AdminLinkProviderForUser` links OAuth identity
+4. Lambda throws `USER_LINKED_TO_EXISTING_ACCOUNT` error
+5. Callback page catches error, sets sessionStorage flag, retries OAuth
+6. Second OAuth attempt succeeds (identity now linked)
+7. Dashboard shows toast: "Google account linked - You can now sign in with Google or your password"
 
-**Lambda Functions**:
-| Function | Purpose |
-|----------|---------|
-| `agentsform-post-confirmation` | Cognito PostConfirmation & PostAuthentication trigger |
-| `agentsform-adminhandler` | Admin API with OAuth user support |
+#### DynamoDB User Fields for OAuth
+| Field | Type | Description |
+|-------|------|-------------|
+| `auth_method` | String | `'email'`, `'oauth'`, or `'both'` |
+| `oauth_provider` | String | `'google'`, `'facebook'`, `'apple'`, or `null` |
+| `oauth_sub` | String | Cognito sub for OAuth users |
+| `linked_accounts` | List | `['cognito:email', 'oauth:google']` |
+| `signupMethod` | String | Original signup method: `'email'` or `'google'` |
+| `identityProvider` | String | OAuth provider name or `null` |
+| `firstLoginDate` | ISO String | For OAuth users (login immediately) |
+| `lastLoginDate` | ISO String | Updated on each authentication |
+
+#### Lambda Functions
+| Function | Trigger | Purpose |
+|----------|---------|---------|
+| `agentsform-post-confirmation` | PreSignUp | Link OAuth to existing email accounts |
+| `agentsform-post-confirmation` | PostConfirmation | Create profile for email signups |
+| `agentsform-post-confirmation` | PostAuthentication | Update lastLoginDate, sync tier |
+| `agentsform-authcheckhandler` | API Gateway | Check auth method by email |
+| `agentsform-userhandler` | API Gateway | Update user tier (OAuth users) |
+
+#### IAM Permissions for OAuth
+The `agentsform-post-confirmation` Lambda requires:
+```
+cognito-idp:AdminUpdateUserAttributes  - Sync tier to Cognito
+cognito-idp:AdminLinkProviderForUser   - Link OAuth to existing user
+cognito-idp:ListUsers                   - Find existing user by email
+```
+
+#### Testing OAuth Account Linking
+```bash
+# Reset test user for re-testing (removes Google identity from Cognito)
+aws cognito-idp admin-disable-provider-for-user \
+  --user-pool-id ap-southeast-2_KQjSkcKvP \
+  --user ProviderName=Google,ProviderAttributeName=Cognito_Subject,ProviderAttributeValue=<google-user-id> \
+  --region ap-southeast-2
+
+# Update DynamoDB to remove OAuth fields
+aws dynamodb update-item \
+  --table-name agentsform-main \
+  --key '{"PK":{"S":"USER#<cognito-sub>"},"SK":{"S":"PROFILE"}}' \
+  --update-expression "REMOVE oauth_provider, oauth_sub SET auth_method = :auth, linked_accounts = :accounts" \
+  --expression-attribute-values '{":auth":{"S":"email"},":accounts":{"L":[{"S":"cognito:email"}]}}' \
+  --region ap-southeast-2
+```
 
 ### API Auth Requirements
 | Endpoint | Auth Required |
@@ -273,6 +359,8 @@ Stash `oauth-infrastructure-changes` contains:
 | `POST /quiz/save` | No |
 | `GET /progress/{childId}` | Yes (parent) |
 | `POST /payments/webhook` | No (Stripe signature) |
+| `GET /auth/check-method` | No (pre-login check) |
+| `PUT /users/tier` | Yes (parent) |
 
 ---
 
