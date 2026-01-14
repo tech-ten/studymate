@@ -25,6 +25,22 @@ function CallbackHandler() {
       if (errorParam) {
         console.error('OAuth error:', errorParam, errorDescription)
 
+        // Special handling: USER_LINKED_TO_EXISTING_ACCOUNT means the Google identity
+        // was successfully linked to an existing email/password account.
+        // We should automatically retry the OAuth flow - it will succeed now.
+        if (errorDescription?.includes('USER_LINKED_TO_EXISTING_ACCOUNT')) {
+          console.log('Account linked successfully, retrying OAuth...')
+          // Set flag to show notification after successful login
+          sessionStorage.setItem('accountLinked', 'true')
+          // Redirect to OAuth flow again - this time it will work because the identity is linked
+          const cognitoDomain = 'https://auth.grademychild.com.au'
+          const clientId = '6sehatih95apslqtikic4sf39o'
+          const redirectUri = `${window.location.origin}/callback`
+          const oauthUrl = `${cognitoDomain}/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=email+openid+profile&identity_provider=Google&prompt=select_account`
+          window.location.href = oauthUrl
+          return
+        }
+
         // User-friendly messages for common errors
         if (errorParam === 'access_denied' || errorDescription?.includes('access_denied')) {
           setError('You cancelled the sign-in. No worries! Click below to try again.')
@@ -95,6 +111,10 @@ function CallbackHandler() {
         localStorage.setItem('idToken', tokens.id_token)
         localStorage.setItem('accessToken', tokens.access_token)
         localStorage.setItem('refreshToken', tokens.refresh_token)
+
+        // Check if this is a newly linked account (email user who just added Google)
+        // Keep the flag - dashboard will show toast notification and clear it
+        // Just redirect immediately for smooth UX
 
         // Check if returning user by fetching their subscription/profile status
         // If user has an existing profile in DB, they're returning → go to dashboard

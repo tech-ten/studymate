@@ -25,6 +25,7 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null)
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null)
   const [parentName, setParentName] = useState<string>('')
+  const [showAccountLinkedToast, setShowAccountLinkedToast] = useState(false)
 
   useEffect(() => {
     if (!isAuthenticatedSync()) {
@@ -36,6 +37,14 @@ export default function DashboardPage() {
     if (user?.name) {
       setParentName(user.name.split(' ')[0]) // First name only
     }
+
+    // Check if Google account was just linked (from OAuth callback)
+    const wasAccountLinked = sessionStorage.getItem('accountLinked')
+    if (wasAccountLinked) {
+      sessionStorage.removeItem('accountLinked')
+      setShowAccountLinkedToast(true)
+    }
+
     checkSubscriptionAndLoad()
   }, [router])
 
@@ -122,6 +131,33 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Account Linked Toast */}
+      {showAccountLinkedToast && (
+        <div className="fixed top-4 right-4 z-[60] max-w-sm animate-in slide-in-from-top-2 fade-in duration-300">
+          <div className="bg-white border border-green-200 rounded-xl shadow-lg p-4">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-green-800">Google account linked</p>
+                <p className="text-xs text-green-600 mt-0.5">You can now sign in with Google or your password</p>
+              </div>
+              <button
+                onClick={() => setShowAccountLinkedToast(false)}
+                className="flex-shrink-0 text-neutral-400 hover:text-neutral-600 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex justify-between items-center">

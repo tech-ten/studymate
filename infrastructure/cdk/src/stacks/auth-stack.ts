@@ -35,10 +35,14 @@ export class AuthStack extends cdk.Stack {
     // Grant DynamoDB read/write access to the trigger (needs read for OAuth returning users)
     table.grantReadWriteData(postConfirmationTrigger);
 
-    // Grant Cognito AdminUpdateUserAttributes permission for tier syncing
+    // Grant Cognito permissions for tier syncing and OAuth user linking
     postConfirmationTrigger.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
-      actions: ['cognito-idp:AdminUpdateUserAttributes'],
+      actions: [
+        'cognito-idp:AdminUpdateUserAttributes',
+        'cognito-idp:AdminLinkProviderForUser',
+        'cognito-idp:ListUsers',
+      ],
       resources: ['*'], // Will be scoped to user pool after creation
     }));
 
@@ -75,9 +79,10 @@ export class AuthStack extends cdk.Stack {
       },
       accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
-      // Add Lambda triggers for both email signup and OAuth login
+      // Add Lambda triggers for signup, verification, and login
       lambdaTriggers: {
-        postConfirmation: postConfirmationTrigger,  // Email signup after verification
+        preSignUp: postConfirmationTrigger,          // OAuth linking before user creation
+        postConfirmation: postConfirmationTrigger,   // Email signup after verification
         postAuthentication: postConfirmationTrigger, // OAuth login (uses same handler)
       },
     });

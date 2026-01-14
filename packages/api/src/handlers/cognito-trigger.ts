@@ -1,6 +1,7 @@
 /**
- * Cognito Post Confirmation & Post Authentication Triggers
+ * Cognito Lambda Triggers
  *
+ * PreSignUp: Called BEFORE user is created - used to link OAuth to existing email users
  * PostConfirmation: Called after email signup when user confirms their email
  * PostAuthentication: Called after OAuth login (Google/Facebook/Apple) - user is auto-verified
  *
@@ -18,6 +19,11 @@
  * - firstLoginDate: ISO timestamp (for OAuth users)
  * - identityProvider: OAuth provider name (if OAuth)
  *
+ * OAuth User Linking (PreSignUp trigger):
+ * - When OAuth user tries to sign up with an email that already exists
+ * - AdminLinkProviderForUser links the OAuth identity to the existing Cognito user
+ * - Prevents duplicate Cognito users for the same email
+ *
  * OAuth User Unification:
  * - Users are unified by email address
  * - If OAuth user email matches existing email/password user, accounts are linked
@@ -33,13 +39,17 @@
  * - Conversion funnel analytics (track OAuth vs email signup conversions)
  */
 
-import { PostConfirmationTriggerEvent, PostConfirmationTriggerHandler, PostAuthenticationTriggerEvent } from 'aws-lambda';
+import { PostConfirmationTriggerEvent, PostAuthenticationTriggerEvent, PreSignUpTriggerEvent } from 'aws-lambda';
 import { PutCommand, UpdateCommand, GetCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
-import { CognitoIdentityProviderClient, AdminUpdateUserAttributesCommand } from '@aws-sdk/client-cognito-identity-provider';
+import {
+  CognitoIdentityProviderClient,
+  AdminUpdateUserAttributesCommand,
+  AdminLinkProviderForUserCommand,
+  ListUsersCommand,
+} from '@aws-sdk/client-cognito-identity-provider';
 import { db, TABLE_NAME, keys } from '../lib/db';
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: 'ap-southeast-2' });
-const USER_POOL_ID = process.env.USER_POOL_ID || '';
 
 // Detect signup method from Cognito identity provider
 function getSignupMethod(event: PostConfirmationTriggerEvent | PostAuthenticationTriggerEvent): 'email' | 'google' | 'facebook' | 'apple' {
@@ -65,10 +75,134 @@ function getSignupMethod(event: PostConfirmationTriggerEvent | PostAuthenticatio
   return 'email';
 }
 
-export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenticationTriggerEvent) => {
+/**
+ * Handle Pre Sign-up trigger for OAuth users
+ * Links OAuth identity to existing email/password user if one exists
+ */
+async function handlePreSignUp(event: PreSignUpTriggerEvent): Promise<PreSignUpTriggerEvent> {
+  const email = event.request.userAttributes.email;
+  const triggerSource = event.triggerSource;
+  const userPoolId = event.userPoolId;
+
+  // Only process external provider (OAuth) signups
+  if (triggerSource !== 'PreSignUp_ExternalProvider') {
+    console.log(`PreSignUp: Skipping non-OAuth signup for ${email}`);
+    return event;
+  }
+
+  console.log(`PreSignUp: Processing OAuth signup for ${email}`);
+
+  // Extract provider info from the event
+  // For OAuth, userName is like "Google_123456789"
+  const userName = event.userName;
+  const providerMatch = userName.match(/^(Google|Facebook|Apple)_(.+)$/i);
+
+  if (!providerMatch) {
+    console.log(`PreSignUp: Could not parse provider from userName: ${userName}`);
+    return event;
+  }
+
+  const providerName = providerMatch[1]; // "Google", "Facebook", or "Apple"
+  const providerUserId = providerMatch[2]; // The provider's user ID
+
+  try {
+    // Check if a user with this email already exists in Cognito
+    const listUsersResponse = await cognitoClient.send(new ListUsersCommand({
+      UserPoolId: userPoolId,
+      Filter: `email = "${email}"`,
+      Limit: 1,
+    }));
+
+    const existingUsers = listUsersResponse.Users || [];
+
+    if (existingUsers.length > 0) {
+      const existingUser = existingUsers[0];
+
+      // Check if existing user is a native Cognito user (not already an OAuth user)
+      const isNativeUser = !existingUser.Username?.startsWith('Google_') &&
+                          !existingUser.Username?.startsWith('Facebook_') &&
+                          !existingUser.Username?.startsWith('Apple_');
+
+      if (isNativeUser && existingUser.Username) {
+        console.log(`PreSignUp: Found existing native user ${existingUser.Username} for ${email}`);
+        console.log(`PreSignUp: Linking ${providerName} identity to existing user`);
+
+        // Link the OAuth provider to the existing user
+        await cognitoClient.send(new AdminLinkProviderForUserCommand({
+          UserPoolId: userPoolId,
+          DestinationUser: {
+            ProviderName: 'Cognito',
+            ProviderAttributeValue: existingUser.Username,
+          },
+          SourceUser: {
+            ProviderName: providerName,
+            ProviderAttributeName: 'Cognito_Subject',
+            ProviderAttributeValue: providerUserId,
+          },
+        }));
+
+        console.log(`PreSignUp: Successfully linked ${providerName} to user ${existingUser.Username}`);
+
+        // Update DynamoDB to reflect the linked account
+        const existingSub = existingUser.Attributes?.find(a => a.Name === 'sub')?.Value;
+        if (existingSub) {
+          const now = new Date().toISOString();
+          await db.send(new UpdateCommand({
+            TableName: TABLE_NAME,
+            Key: keys.user(existingSub),
+            UpdateExpression: 'SET oauth_provider = :provider, auth_method = :auth, linked_accounts = list_append(if_not_exists(linked_accounts, :empty_list), :new_account), updatedAt = :now',
+            ExpressionAttributeValues: {
+              ':provider': providerName.toLowerCase(),
+              ':auth': 'both',
+              ':new_account': [`oauth:${providerName.toLowerCase()}`],
+              ':empty_list': [],
+              ':now': now,
+            },
+          }));
+          console.log(`PreSignUp: Updated DynamoDB for user ${existingSub}`);
+        }
+
+        // Throw an error to prevent Cognito from creating a duplicate user
+        // The user will be signed in with the linked account instead
+        throw new Error('USER_LINKED_TO_EXISTING_ACCOUNT');
+      }
+    }
+
+    console.log(`PreSignUp: No existing user found for ${email}, allowing OAuth signup`);
+
+    // Auto-confirm and auto-verify OAuth users
+    event.response.autoConfirmUser = true;
+    event.response.autoVerifyEmail = true;
+
+    return event;
+  } catch (err: unknown) {
+    const error = err as Error;
+
+    // If we threw the linking error, re-throw it
+    if (error.message === 'USER_LINKED_TO_EXISTING_ACCOUNT') {
+      throw err;
+    }
+
+    // Log other errors but don't block signup
+    console.error('PreSignUp error:', err);
+
+    // Still auto-confirm OAuth users even if linking check failed
+    event.response.autoConfirmUser = true;
+    event.response.autoVerifyEmail = true;
+
+    return event;
+  }
+}
+
+export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenticationTriggerEvent | PreSignUpTriggerEvent) => {
   console.log('Cognito trigger:', JSON.stringify(event, null, 2));
 
   const triggerSource = event.triggerSource;
+
+  // Route Pre Sign-up events to the dedicated handler
+  if (triggerSource === 'PreSignUp_ExternalProvider' || triggerSource === 'PreSignUp_SignUp') {
+    return handlePreSignUp(event as PreSignUpTriggerEvent);
+  }
 
   // Process PostConfirmation (email signup) and PostAuthentication (OAuth)
   if (
@@ -85,6 +219,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
   const userId = event.request.userAttributes.sub;
   const cognitoUsername = event.userName; // Keep for reference/logging
   const email = event.request.userAttributes.email;
+  const userPoolId = event.userPoolId;
   const name = event.request.userAttributes.name || null;
   const cognitoTier = event.request.userAttributes['custom:tier'] || 'free';
   const now = new Date().toISOString();
@@ -145,7 +280,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
         // Sync tier from DynamoDB to Cognito custom:tier
         if (existingUser.tier !== cognitoTier) {
           await cognitoClient.send(new AdminUpdateUserAttributesCommand({
-            UserPoolId: USER_POOL_ID,
+            UserPoolId: userPoolId,
             Username: userId,
             UserAttributes: [
               {
@@ -175,7 +310,7 @@ export const handler = async (event: PostConfirmationTriggerEvent | PostAuthenti
         // Sync tier from DynamoDB if out of sync
         if (existingUser.tier !== cognitoTier) {
           await cognitoClient.send(new AdminUpdateUserAttributesCommand({
-            UserPoolId: USER_POOL_ID,
+            UserPoolId: userPoolId,
             Username: userId,
             UserAttributes: [
               {
