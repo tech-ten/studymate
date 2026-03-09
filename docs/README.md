@@ -12,6 +12,9 @@ StudyMate (branded as "Grade My Child") is an AI-powered learning platform for A
 - **[INVESTOR_DECK.md](./INVESTOR_DECK.md)** - Comprehensive business overview, market opportunity, financials, and growth projections
 - **[INVESTOR_PITCH.md](./INVESTOR_PITCH.md)** - YC/Silicon Valley style pitch deck (concise version)
 
+### Strategy
+- **[NEXT_STEPS.md](./NEXT_STEPS.md)** - Growth strategy, bootstrap vs funding decision, 4-week distribution sprint
+
 ### For Developers
 - **[DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)** - Technical architecture, API reference, deployment guide, and contributing guidelines
 - **[USER_MANAGEMENT.md](./USER_MANAGEMENT.md)** - User lifecycle, DynamoDB schema, and account management
